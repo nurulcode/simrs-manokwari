@@ -1,71 +1,110 @@
-@extends('layouts.app')
+@extends('layouts.auth')
+
+@section('title', 'Login')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+<login-card inline-template>
+    <div class="card-group">
+        <b-card class="p-4" title="{{ __('Login') }}" title-tag="h1">
+            <p class="text-muted">Sign In to your account</p>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+            <form novalidate v-on:keyup.enter="submit" v-on:submit.prevent="submit">
+                <b-form-group v-bind="form.feedback('username')">
+                    <b-input-group>
+                        <input class="form-control"
+                            name="username"
+                            placeholder="{{ __('Username') }}"
+                            tabindex=1
+                            v-model="form.username">
+                        </input>
+                        <b-input-group-append>
+                            <button class="btn btn-secondary">
+                                <i class="icon-user"></i>
+                            </button>
+                        </b-input-group-append>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                    </b-input-group>
+                </b-form-group>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                <b-form-group v-bind="form.feedback('password')">
+                    <b-input-group>
+                        <input class="form-control"
+                            :type="show_password ? `text`: `password`"
+                            name="password"
+                            placeholder="{{ __('Password') }}"
+                            tabindex=2
+                            v-model="form.password">
+                        </input>
+                        <b-input-group-append>
+                            <button class="btn btn-secondary" v-on:click.prevent="show_password = !show_password">
+                                <i :class="show_password ? `icon-lock` : `icon-eye`"></i>
+                            </button>
+                        </b-input-group-append>
+                    </b-input-group>
+                </b-form-group>
+            </form>
 
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+            <button class="px-4 btn btn-primary" v-on:click.prevent="submit">
+                {{ __('Login') }}
+            </button>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <loading-overlay v-show="submiting"></loading-overlay>
+        </b-card>
+        <b-card class="text-white bg-primary py-5 d-md-down-none">
+            <div class="text-center">
+                <p>
+                    <img src="{{ url('/images/logo-image.png') }}"
+                        height="100px"
+                        alt="Logo PT Sinta Prima Feedmill"
+                        title="Logo PT Sinta Prima Feedmill"
+                    />
+                </p>
+                <h4>Sistem Pengajuan <br> Surat Perintah Lembur (SPL)</h4>
+                <p>PT Sinta Prima Feedmill</p>
             </div>
-        </div>
+        </b-card>
     </div>
-</div>
+</login-card>
 @endsection
+
+@push('javascripts')
+<script>
+window.inlines['login-card'] = {
+    data() {
+        return {
+            alert        : {
+                dismissible: true,
+                message    : null,
+                show       : false,
+                variant    : null
+            },
+            show_password: false,
+            submiting    : false,
+            form: new Form({
+                username: '',
+                password: ''
+            })
+        }
+    },
+    methods: {
+        submit() {
+            this.submiting = true;
+
+            this.form.post(this.$route('login'))
+                .then(this.redirect)
+                .catch(this.onError);
+        },
+        redirect(response) {
+            window.location.replace(response.request.responseURL);
+        },
+        onError(error) {
+            this.submiting = false;
+
+            if (error.response.status == 419) {
+                return stickAlert('419 Authentication Timeout: Refresh Page');
+            }
+        },
+    }
+}
+</script>
+@endpush

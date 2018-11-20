@@ -1,14 +1,78 @@
-
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 @import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "~@coreui/coreui/scss/coreui";
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+@import "loading-overlay";
+@import "toastr";
+
+body > noscript {
+    height    : 100%;
+    padding   : 5% 0 0 0;
+    position  : fixed;
+    width     : 100%;
+    z-index   : 99999;
+    text-align: center;
+}
+
+.invalid-feedback {
+    font-size: 1em;
+}
+
+.form-group {
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #adadad;
+        font-weight: normal;
+        opacity: 1; /* Firefox */
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: #adadad;
+        font-weight: normal;
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        color: #adadad;
+        font-weight: normal;
+    }
+
+    .form-control,
+    .input-group-text,
+    .input-group .btn {
+        -webkit-transition: none !important;
+        -moz-transition:    none !important;
+        -o-transition:      none !important;
+        transition:         none !important;
+    }
+
+    .input-group-prepend .btn, .input-group-append .btn {
+        z-index: 2;
+    }
+
+    &.is-valid {
+        .form-control,
+        .input-group-text,
+        .input-group .btn {
+            border-color: $form-feedback-valid-color;
+        }
+    }
+    &.is-invalid {
+        .form-control,
+        .input-group-text,
+        .input-group .btn {
+            border-color: $form-feedback-invalid-color;
+        }
+    }
+}
+
+
+.DataTable__limit {
+    display: flex;
+
+    label {
+        line-height: 35px;
+        margin     : 0 1em 0 0;
+        width      : 9em;
+    }
 }
