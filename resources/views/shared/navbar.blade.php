@@ -18,8 +18,8 @@
                 src="{{ asset('images/avatar.png') }}"
                 alt="{{ auth()->user()->username }}">
             <p class="mr-3 mb-0 text-left">
-                <span> {{ auth()->user()->pegawai->nama }} </span><br>
-                <span class="text-muted">{{ auth()->user()->role->description }}</span>
+                <span> {{ auth()->user()->name }} </span><br>
+                {{-- <span class="text-muted">{{ auth()->user()->role->description }}</span> --}}
             </p>
         </a>
         <div class="dropdown-menu dropdown-menu-right">

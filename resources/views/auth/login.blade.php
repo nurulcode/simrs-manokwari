@@ -8,10 +8,11 @@
         <b-card class="p-4" title="{{ __('Login') }}" title-tag="h1">
             <p class="text-muted">Sign In to your account</p>
 
-            <form novalidate v-on:keyup.enter="submit" v-on:submit.prevent="submit">
+            <form v-on:keyup.enter="submit" v-on:submit.prevent="submit">
                 <b-form-group v-bind="form.feedback('username')">
                     <b-input-group>
-                        <input class="form-control"
+                        <input
+                            class="form-control"
                             name="username"
                             placeholder="{{ __('Username') }}"
                             tabindex=1
@@ -28,8 +29,9 @@
 
                 <b-form-group v-bind="form.feedback('password')">
                     <b-input-group>
-                        <input class="form-control"
+                        <input
                             :type="show_password ? `text`: `password`"
+                            class="form-control"
                             name="password"
                             placeholder="{{ __('Password') }}"
                             tabindex=2
@@ -53,14 +55,9 @@
         <b-card class="text-white bg-primary py-5 d-md-down-none">
             <div class="text-center">
                 <p>
-                    <img src="{{ url('/images/logo-image.png') }}"
-                        height="100px"
-                        alt="Logo PT Sinta Prima Feedmill"
-                        title="Logo PT Sinta Prima Feedmill"
-                    />
+                    <img src="{{ url('/images/logo.svg') }}" height="100px" alt="Logo" title="Logo"/>
                 </p>
-                <h4>Sistem Pengajuan <br> Surat Perintah Lembur (SPL)</h4>
-                <p>PT Sinta Prima Feedmill</p>
+                <h4> Sistem Informasi</h4>
             </div>
         </b-card>
     </div>
@@ -90,7 +87,7 @@ window.inlines['login-card'] = {
         submit() {
             this.submiting = true;
 
-            this.form.post(this.$route('login'))
+            this.form.post(`{{ route('login') }}`)
                 .then(this.redirect)
                 .catch(this.onError);
         },
