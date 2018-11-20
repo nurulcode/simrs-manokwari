@@ -1,0 +1,28 @@
+-
+  title : Dashboard
+  link  : /
+  icon  : icon-speedometer
+-
+  title : Menu 01
+  icon  : icon-docs
+-
+  title      : Header
+  type       : header
+-
+  title      : Menu 02
+  icon       : icon-briefcase
+-
+  title      : Menu 03
+  icon       : icon-briefcase
+-
+  title      : Menu 04
+  icon       : icon-people
+-
+
+  title : Nested Menu
+  icon  : icon-chart
+  childs:
+    -
+      title: Child Menu 01
+    -
+      title: Child Menu 02
