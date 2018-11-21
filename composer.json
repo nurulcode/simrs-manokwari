@@ -39,6 +39,9 @@
             "App\\": "app/",
             "Sty\\": "helpers/"
         },
+        "files": [
+            "app/Helpers.php"
+        ],
         "classmap": [
             "database/seeds",
             "database/factories"
