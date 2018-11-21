@@ -4,3 +4,6 @@
 [submodule "resources/js/helpers/form"]
 	path = resources/js/helpers/form
 	url = https://github.com/nsetyo/laravel-ajax-validation-helper.git
+[submodule "helpers"]
+	path = helpers
+	url = https://github.com/nsetyo/project-helpers.git
