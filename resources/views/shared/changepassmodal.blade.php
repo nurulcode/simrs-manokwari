@@ -64,7 +64,7 @@ window.inlines['change-password'] = {
         open() {
             this.shown = true;
 
-            this.$refs.modal.put(route('user.password'))
+            this.$refs.modal.put(`{{ route('user.password') }}`)
                 .then(({data}) => {
                     window.flash(data.message, data.status);
                 })
