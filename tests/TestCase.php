@@ -4,9 +4,9 @@ namespace Tests;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Auth\Authenticatable;
 use Sty\Helpers\Tests\ExceptionToggler;
 use Illuminate\Database\SQLiteConnection;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
