@@ -1632,6 +1632,133 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/FormModal.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_form__ = __webpack_require__("./resources/js/helpers/form/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__LoadingOverlay__ = __webpack_require__("./resources/js/components/LoadingOverlay.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__LoadingOverlay___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__LoadingOverlay__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bootstrap_vue_es_components_modal_modal__ = __webpack_require__("./node_modules/bootstrap-vue/es/components/modal/modal.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_bootstrap_vue_es_components_form_form__ = __webpack_require__("./node_modules/bootstrap-vue/es/components/form/form.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    render: function render(createElement) {
+        return createElement(__WEBPACK_IMPORTED_MODULE_2_bootstrap_vue_es_components_modal_modal__["a" /* default */], {
+            on: {
+                hidden: this.hidden,
+                ok: this.submit
+            },
+            props: _extends({}, this.$attrs),
+            ref: 'modal'
+        }, [createElement(__WEBPACK_IMPORTED_MODULE_3_bootstrap_vue_es_components_form_form__["a" /* default */], {
+            on: {
+                keydown: this.keydown,
+                submit: this.submit
+            }
+        }, this.$slots.default), createElement(__WEBPACK_IMPORTED_MODULE_1__LoadingOverlay___default.a, {
+            style: {
+                display: this.isLoading ? 'flex' : 'none'
+            }
+        })]);
+    },
+    data: function data() {
+        return {
+            isLoading: false,
+            action: null,
+            promise: {
+                resolve: function resolve() {},
+                reject: function reject() {}
+            }
+        };
+    },
+
+    methods: {
+        show: function show() {
+            var _this = this;
+
+            this.$refs.modal.show();
+
+            return new Promise(function (resolve, reject) {
+                _this.promise.resolve = resolve;
+                _this.promise.reject = reject;
+            });
+        },
+        hide: function hide() {
+            this.$refs.modal.hide();
+        },
+        post: function post(url) {
+            this.method = 'post';
+            this.action = url;
+
+            return this.show();
+        },
+        put: function put(url) {
+            this.method = 'put';
+            this.action = url;
+
+            return this.show();
+        },
+        delete: function _delete(url) {
+            this.method = 'delete';
+            this.action = url;
+
+            return this.show();
+        },
+        submit: function submit(event) {
+            var _this2 = this;
+
+            event.preventDefault();
+
+            this.isLoading = true;
+
+            this.form.submit(this.method, this.action).then(function (response) {
+                _this2.isLoading = false;
+
+                _this2.hide();
+
+                _this2.promise.resolve(response);
+            }).catch(function (error) {
+                _this2.isLoading = false;
+
+                if (error.response.status != 422) {
+                    _this2.hide();
+
+                    _this2.promise.reject(error);
+                }
+            });
+        },
+        keydown: function keydown(event) {
+            this.form.errors.clear(event.target.name);
+
+            return event.keyCode == 13 ? this.submit(event) : event;
+        },
+        hidden: function hidden() {
+            this.action = null;
+
+            this.form.reset();
+
+            this.$emit('hidden');
+        }
+    },
+    props: {
+        form: {
+            type: __WEBPACK_IMPORTED_MODULE_0__helpers_form__["a" /* default */],
+            required: true
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/LoadingOverlay.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -19072,6 +19199,7 @@ if (false) {
 
 var map = {
 	"./components/BsAlert.vue": "./resources/js/components/BsAlert.vue",
+	"./components/FormModal.vue": "./resources/js/components/FormModal.vue",
 	"./components/LoadingOverlay.vue": "./resources/js/components/LoadingOverlay.vue"
 };
 function webpackContext(req) {
@@ -19293,6 +19421,54 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/js/components/FormModal.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/FormModal.vue")
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/FormModal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-544c9424", Component.options)
+  } else {
+    hotAPI.reload("data-v-544c9424", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/js/components/LoadingOverlay.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19495,7 +19671,7 @@ var Form = function () {
             var _this5 = this;
 
             return new Promise(function (resolve, reject) {
-                __WEBPACK_IMPORTED_MODULE_0_axios___default.a[method.toLowerCase()](url, _this5.data()).takeAtLeast(500).then(function (response) {
+                __WEBPACK_IMPORTED_MODULE_0_axios___default.a[method.toLowerCase()](url, _this5.data()).then(function (response) {
                     resolve(response);
 
                     _this5.onSuccess(response);
