@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |---------------------------------------------------------------------------------------
     | Baris Bahasa untuk Validasi
@@ -36,15 +35,15 @@ return [
     'different'            => 'Isian :attribute dan :other harus berbeda.',
     'digits'               => 'Isian :attribute harus berupa angka :digits.',
     'digits_between'       => 'Isian :attribute harus antara angka :min dan :max.',
-    'dimensions'           => 'Bidang :attribute tidak memiliki dimensi gambar yang valid.',
-    'distinct'             => 'Bidang isian :attribute memiliki nilai yang duplikat.',
+    'dimensions'           => 'Kolom :attribute tidak memiliki dimensi gambar yang valid.',
+    'distinct'             => 'Kolom isian :attribute memiliki nilai yang duplikat.',
     'email'                => 'Isian :attribute harus berupa alamat surel yang valid.',
     'exists'               => 'Isian :attribute yang dipilih tidak valid.',
-    'file'                 => 'Bidang :attribute harus berupa sebuah berkas.',
-    'filled'               => 'Bidang isian :attribute wajib diisi.',
+    'file'                 => 'Kolom :attribute harus berupa sebuah berkas.',
+    'filled'               => 'Kolom isian :attribute wajib diisi.',
     'image'                => 'Isian :attribute harus berupa gambar.',
     'in'                   => 'Isian :attribute yang dipilih tidak valid.',
-    'in_array'             => 'Bidang isian :attribute tidak terdapat dalam :other.',
+    'in_array'             => 'Kolom isian :attribute tidak terdapat dalam :other.',
     'integer'              => 'Isian :attribute harus merupakan bilangan bulat.',
     'ip'                   => 'Isian :attribute harus berupa alamat IP yang valid.',
     'json'                 => 'Isian :attribute harus berupa JSON string yang valid.',
@@ -64,15 +63,15 @@ return [
     ],
     'not_in'               => 'Isian :attribute yang dipilih tidak valid.',
     'numeric'              => 'Isian :attribute harus berupa angka.',
-    'present'              => 'Bidang isian :attribute wajib ada.',
+    'present'              => 'Kolom isian :attribute wajib ada.',
     'regex'                => 'Format isian :attribute tidak valid.',
-    'required'             => 'Bidang isian :attribute wajib diisi.',
-    'required_if'          => 'Bidang isian :attribute wajib diisi bila :other adalah :value.',
-    'required_unless'      => 'Bidang isian :attribute wajib diisi kecuali :other memiliki nilai :values.',
-    'required_with'        => 'Bidang isian :attribute wajib diisi bila terdapat :values.',
-    'required_with_all'    => 'Bidang isian :attribute wajib diisi bila terdapat :values.',
-    'required_without'     => 'Bidang isian :attribute wajib diisi bila tidak terdapat :values.',
-    'required_without_all' => 'Bidang isian :attribute wajib diisi bila tidak terdapat ada :values.',
+    'required'             => 'Kolom isian :attribute wajib diisi.',
+    'required_if'          => 'Kolom isian :attribute wajib diisi bila :other adalah :value.',
+    'required_unless'      => 'Kolom isian :attribute wajib diisi kecuali :other memiliki nilai :values.',
+    'required_with'        => 'Kolom isian :attribute wajib diisi bila terdapat :values.',
+    'required_with_all'    => 'Kolom isian :attribute wajib diisi bila terdapat :values.',
+    'required_without'     => 'Kolom isian :attribute wajib diisi bila tidak terdapat :values.',
+    'required_without_all' => 'Kolom isian :attribute wajib diisi bila tidak terdapat ada :values.',
     'same'                 => 'Isian :attribute dan :other harus sama.',
     'size'                 => [
         'numeric' => 'Isian :attribute harus berukuran :size.',
@@ -117,5 +116,4 @@ return [
     'attributes'           => [
         //
     ],
-
 ];
