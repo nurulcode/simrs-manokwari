@@ -32,6 +32,16 @@ class AuthenticationTest extends TestCase
                 ->once()
                 ->andReturn($ipaddr);
 
+        Auth::login($user);
+
+        $this->assertDatabaseMissing('users', [
+            'username'   => $user->username,
+            'ip_address' => null,
+            'last_login' => null
+        ]);
+
+        Auth::logout();
+
         $listener = new LogSuccessfulLogin($carbon, $request);
 
         $listener->handle(new Login('web', $user, false));
