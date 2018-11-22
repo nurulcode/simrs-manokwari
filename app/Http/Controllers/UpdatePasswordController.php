@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Sty\CrudResponse;
 use Illuminate\Http\Request;
-use Sty\Helpers\CrudResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;

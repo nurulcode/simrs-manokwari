@@ -1,6 +1,6 @@
 <?php
 
-use Sty\Helpers\CrudResponse;
+use Sty\CrudResponse;
 
 if (!function_exists('crud_response')) {
     function crud_response($data, $state = null)

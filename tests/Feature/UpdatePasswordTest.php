@@ -4,8 +4,8 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
+use Sty\Tests\APITestCase;
 use Illuminate\Support\Facades\DB;
-use Sty\Helpers\Tests\APITestCase;
 use Illuminate\Support\Facades\Hash;
 
 class UpdatePasswordTest extends TestCase

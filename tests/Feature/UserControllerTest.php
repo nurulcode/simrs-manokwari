@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Sty\Helpers\Tests\ResourceControllerTestCase;
+use Sty\Tests\ResourceControllerTestCase;
 
 class UserControllerTest extends TestCase
 {

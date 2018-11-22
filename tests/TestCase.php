@@ -3,8 +3,8 @@
 namespace Tests;
 
 use App\Models\User;
+use Sty\Tests\ExceptionToggler;
 use Illuminate\Support\Facades\DB;
-use Sty\Helpers\Tests\ExceptionToggler;
 use Illuminate\Database\SQLiteConnection;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Testing\RefreshDatabase;

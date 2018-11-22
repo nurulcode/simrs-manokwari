@@ -37,7 +37,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Sty\\Helpers\\": "helpers/"
+            "Sty\\": "shared/"
         },
         "files": [
             "app/Helpers.php"
