@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Sty\Helpers\HasPath;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens;
+    use Notifiable, HasApiTokens, HasPath;
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'email_verified_at'
     ];
 
     public function findForPassport($username)

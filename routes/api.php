@@ -14,4 +14,18 @@
 
 Route::middleware(['auth:api'])->group(function () {
     Route::put('user/password', 'UpdatePasswordController')->name('user.password');
+
+    Route::apiResources([
+        'user' => 'UserController',
+    ]);
+});
+
+//TODO: Hapus saat production
+Route::get('client', function () {
+    return response()->json(
+        DB::table('oauth_clients')
+            ->select('*')
+            ->where('password_client', 1)
+            ->first()
+    );
 });
