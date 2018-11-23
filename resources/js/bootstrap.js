@@ -44,5 +44,6 @@ if (token) {
 }
 
 require('@coreui/coreui');
-require('./__alert');
+require('./shared/__alert');
+require('./shared/__promise_throttle');
 

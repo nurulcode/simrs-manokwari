@@ -1792,9 +1792,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DataTableFilter_js__ = __webpack_require__("./resources/js/shared/components/DataTable/DataTableFilter.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DataTablePagination_js__ = __webpack_require__("./resources/js/shared/components/DataTable/DataTablePagination.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__DataTableRowLimitter_js__ = __webpack_require__("./resources/js/shared/components/DataTable/DataTableRowLimitter.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__form__ = __webpack_require__("./resources/js/shared/form/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_debounce__ = __webpack_require__("./node_modules/lodash.debounce/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_lodash_debounce__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Directives__ = __webpack_require__("./resources/js/shared/components/DataTable/Directives.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__form__ = __webpack_require__("./resources/js/shared/form/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_debounce__ = __webpack_require__("./node_modules/lodash.debounce/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_lodash_debounce__);
 //
 //
 //
@@ -1880,6 +1881,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -1896,6 +1898,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         DataTablePagination: __WEBPACK_IMPORTED_MODULE_2__DataTablePagination_js__["a" /* default */],
         DataTableRowLimitter: __WEBPACK_IMPORTED_MODULE_3__DataTableRowLimitter_js__["a" /* default */]
     },
+    directives: __WEBPACK_IMPORTED_MODULE_4__Directives__["a" /* default */],
     computed: {
         tableOption: function tableOption() {
             return Object.assign({
@@ -1983,7 +1986,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs.table.refresh();
         },
 
-        doSearch: __WEBPACK_IMPORTED_MODULE_5_lodash_debounce___default()(function (search) {
+        doSearch: __WEBPACK_IMPORTED_MODULE_6_lodash_debounce___default()(function (search) {
             this.$emit('update:filter', search);
 
             this.search = search;
@@ -2118,9 +2121,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: false
         },
         form: {
-            type: __WEBPACK_IMPORTED_MODULE_4__form__["a" /* default */],
+            type: __WEBPACK_IMPORTED_MODULE_5__form__["a" /* default */],
             default: function _default() {
-                return new __WEBPACK_IMPORTED_MODULE_4__form__["a" /* default */]({});
+                return new __WEBPACK_IMPORTED_MODULE_5__form__["a" /* default */]({});
             },
             required: false
         },
@@ -23183,47 +23186,6 @@ webpackContext.id = "./resources/js recursive \\.vue$/";
 
 /***/ }),
 
-/***/ "./resources/js/__alert.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr__ = __webpack_require__("./node_modules/toastr/toastr.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_toastr__);
-
-
-window.flash = function (message, type) {
-    var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 5000;
-
-    __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": true,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": duration,
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    };
-
-    var title = type.charAt(0).toUpperCase() + type.slice(1);
-
-    __WEBPACK_IMPORTED_MODULE_0_toastr___default.a[type](message, title);
-};
-
-window.stickAlert = function (message, type) {
-    window.events.$emit('bs-alert', message, type || 'danger');
-};
-
-/***/ }),
-
 /***/ "./resources/js/app.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -23331,8 +23293,92 @@ if (token) {
 }
 
 __webpack_require__("./node_modules/@coreui/coreui/dist/js/coreui.js");
-__webpack_require__("./resources/js/__alert.js");
+__webpack_require__("./resources/js/shared/__alert.js");
+__webpack_require__("./resources/js/shared/__promise_throttle.js");
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./resources/js/shared/__alert.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr__ = __webpack_require__("./node_modules/toastr/toastr.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_toastr__);
+
+
+window.flash = function (message, type) {
+    var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 5000;
+
+    __WEBPACK_IMPORTED_MODULE_0_toastr___default.a.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": duration,
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
+    var title = type.charAt(0).toUpperCase() + type.slice(1);
+
+    __WEBPACK_IMPORTED_MODULE_0_toastr___default.a[type](message, title);
+};
+
+window.stickAlert = function (message, type) {
+    window.events.$emit('bs-alert', message, type || 'danger');
+};
+
+/***/ }),
+
+/***/ "./resources/js/shared/__promise_throttle.js":
+/***/ (function(module, exports) {
+
+
+window.Promise = Promise;
+
+// Creates a new promise that automatically resolves after some timeout:
+window.Promise.delay = function (time) {
+    return new Promise(function (resolve) {
+        setTimeout(resolve, time);
+    });
+};
+
+// Throttle this promise to resolve no faster than the specified time:
+window.Promise.prototype.takeAtLeast = function (time) {
+    var _this = this;
+
+    return new Promise(function (resolve, reject) {
+
+        // Catch error so the promise doesnt end prematurely
+        var cPromise = _this.catch(function (e) {
+            return e;
+        });
+
+        var shoulBeRejected = function shoulBeRejected(response, resolve, reject) {
+            if (response instanceof Error) {
+                reject(response);
+            } else {
+                resolve(response);
+            }
+        };
+
+        Promise.all([cPromise, Promise.delay(time)]).then(function (result) {
+            shoulBeRejected(result.shift(), resolve, reject);
+        }, function (error) {
+            reject(error);
+        });
+    });
+};
 
 /***/ }),
 
@@ -23667,6 +23713,41 @@ module.exports = Component.exports
         value: {
             type: [Number, String],
             default: 5
+        }
+    }
+});
+
+/***/ }),
+
+/***/ "./resources/js/shared/components/DataTable/Directives.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var HANDLER = '_outside_click_handler';
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    clickOutside: {
+        bind: function bind(el, binding, vnode) {
+            var callback = binding.value;
+
+            if (typeof callback !== 'function') {
+                Vue.util.warn('v-' + binding.name + '="' + binding.expression + '" expects a function value, ' + 'got ' + callback);
+                return;
+            }
+
+            el[HANDLER] = function (event) {
+                // here I check that click was outside the el and his childrens
+                if (!(el == event.target || el.contains(event.target))) {
+                    // and if it did, call method provided in attribute value
+                    // vnode.context[binding.expression](event);
+                    return callback.call(event);
+                }
+            };
+
+            document.body.addEventListener('click', el[HANDLER]);
+        },
+        unbind: function unbind(el) {
+            document.body.removeEventListener('click', el[HANDLER]);
         }
     }
 });
@@ -24049,6 +24130,7 @@ var Form = function () {
             _this.setDefault(field, data[field]);
         });
 
+        this.is_loading = false;
         this.errors = new __WEBPACK_IMPORTED_MODULE_1__Errors__["a" /* default */]();
     }
 
@@ -24101,6 +24183,8 @@ var Form = function () {
         value: function submit(method, url) {
             var _this5 = this;
 
+            this.is_loading = true;
+
             return new Promise(function (resolve, reject) {
                 __WEBPACK_IMPORTED_MODULE_0_axios___default.a[method.toLowerCase()](url, _this5.data()).then(function (response) {
                     resolve(response);
@@ -24134,11 +24218,15 @@ var Form = function () {
     }, {
         key: 'onSuccess',
         value: function onSuccess(resolver, response) {
+            this.is_loading = false;
+
             this.reset();
         }
     }, {
         key: 'onFail',
         value: function onFail(response) {
+            this.is_loading = false;
+
             if (response.status == 422) {
                 this.errors.record(response.data.errors);
             }
