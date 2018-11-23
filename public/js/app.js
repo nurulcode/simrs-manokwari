@@ -24102,7 +24102,7 @@ var Form = function () {
             var _this5 = this;
 
             return new Promise(function (resolve, reject) {
-                __WEBPACK_IMPORTED_MODULE_0_axios___default.a[method.toLowerCase()](url, _this5.data()).takeAtLeast(500).then(function (response) {
+                __WEBPACK_IMPORTED_MODULE_0_axios___default.a[method.toLowerCase()](url, _this5.data()).then(function (response) {
                     resolve(response);
 
                     _this5.onSuccess(response);

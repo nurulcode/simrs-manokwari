@@ -11,7 +11,10 @@ const webpack = require('webpack');
  | file for the application as well as bundling up all the JS files.
  |
  */
-mix.browserSync('laravel.test');
+mix.browserSync({
+    open : false,
+    proxy: 'laravel.test'
+});
 
 if (process.env.NODE_ENV == 'development') {
     mix.webpackConfig({devtool: 'source-map'});

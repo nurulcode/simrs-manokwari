@@ -8,7 +8,7 @@
         <b-card class="p-4" title="{{ __('Login') }}" title-tag="h1">
             <p class="text-muted">Sign In to your account</p>
 
-            <form v-on:keyup.enter="submit" v-on:submit.prevent="submit">
+            <form v-on:submit.prevent="submit">
                 <b-form-group v-bind="form.feedback('username')">
                     <b-input-group>
                         <input
