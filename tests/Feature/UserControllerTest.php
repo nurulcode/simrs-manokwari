@@ -26,4 +26,24 @@ class UserControllerTest extends TestCase
     {
         return $resource->only(['name', 'username', 'email']);
     }
+
+    /** @test */
+    public function password_not_stored_in_plain_text()
+    {
+        $resource = factory($this->resource())->make();
+
+        $this->withExceptionHandling()
+             ->signIn();
+
+        $this->postJson($resource->path('store'), $this->beforePost($resource))
+             ->assertJson(['status' => 'success'])
+             ->assertStatus(201);
+
+        $this->assertDatabaseMissing($this->resourceTable($resource), [
+            'username' => $resource->username,
+            'name'     => $resource->name,
+            'email'    => $resource->email,
+            'password' => 'secret'
+        ]);
+    }
 }

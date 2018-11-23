@@ -2,10 +2,23 @@
 
 namespace App\Http\Requests;
 
+use Sty\DropKey;
+use Sty\RequestTransform;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
 {
+    use RequestTransform;
+
+    /**
+     * The attributes value to map.
+     *
+     * @var array
+     *
+     */
+
+    protected $map_values = ['password' => ['setPassword']];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,5 +42,10 @@ class UserRequest extends FormRequest
             'email'    => ['required', 'email'],
             'password' => ['required', 'confirmed'],
         ];
+    }
+
+    public function setPassword($value)
+    {
+        return ($this->route('user') && empty($value)) ? new DropKey : bcrypt($value);
     }
 }
