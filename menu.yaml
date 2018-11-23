@@ -6,17 +6,17 @@
   title : Menu 01
   icon  : icon-docs
 -
-  title      : Header
-  type       : header
+  title : Header
+  type  : header
 -
-  title      : Menu 02
-  icon       : icon-briefcase
+  title : Menu 02
+  icon  : icon-briefcase
 -
-  title      : Menu 03
-  icon       : icon-briefcase
+  title : Menu 03
+  icon  : icon-briefcase
 -
-  title      : Menu 04
-  icon       : icon-people
+  title : Menu 04
+  icon  : icon-people
 -
 
   title : Nested Menu
@@ -26,3 +26,10 @@
       title: Child Menu 01
     -
       title: Child Menu 02
+-
+  title : System
+  type  : header
+-
+  title : Users
+  link  : user
+  icon  : icon-people
