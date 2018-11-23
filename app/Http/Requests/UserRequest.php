@@ -17,7 +17,7 @@ class UserRequest extends FormRequest
      *
      */
 
-    protected $map_values = ['password' => ['setPassword']];
+    protected $map_values = ['password' => 'setPassword'];
 
     /**
      * Determine if the user is authorized to make this request.
