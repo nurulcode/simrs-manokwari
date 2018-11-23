@@ -7,7 +7,7 @@
 import PopperJs from 'popper.js';
 import Vue from 'vue';
 
-import Form from './helpers/form';
+import Form from './shared/form';
 
 try {
     window.Popper = PopperJs;
