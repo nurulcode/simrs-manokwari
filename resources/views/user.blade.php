@@ -119,7 +119,8 @@ window.pagemix.push({
                 dataMap(item) {
                     return {
                         ...item,
-                        __no_delete: item.is_super_admin
+                        __no_delete: item.is_super_admin,
+                        __no_edit  : item.is_super_admin
                     };
                 },
                 fields: [

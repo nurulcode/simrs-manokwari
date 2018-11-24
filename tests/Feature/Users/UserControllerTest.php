@@ -144,4 +144,22 @@ class UserControllerTest extends TestCase
              ->deleteJson($resource->path)
              ->assertStatus(403);
     }
+
+    /** @test **/
+    public function can_not_edit_super_admin()
+    {
+        $this->artisan('db:seed', ['--class' => 'PermissionsTableSeeder']);
+        $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
+
+        $resource = factory($this->resource())->create();
+        $new_data = factory($this->resource())->make();
+
+        $resource->giveRoleAs('superadmin');
+
+        $user     = factory($this->resource())->create();
+
+        $this->signIn($user)
+             ->putJson($resource->path, $this->beforePost($new_data))
+             ->assertStatus(403);
+    }
 }

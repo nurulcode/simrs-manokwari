@@ -29,6 +29,8 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $this->authorize('create', User::class);
+
         return crud_response(new UserResource(
             UserRegistration::create($request->validated())
         ));
@@ -42,6 +44,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('view', $user);
+
         return new UserResource($user);
     }
 
@@ -54,6 +58,8 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
+        $this->authorize('update', $user);
+
         return crud_response(new UserResource(
             UserRegistration::update($user, $request->validated())
         ));

@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        //
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +41,11 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        //
+        if ($model->isSuperAdmin()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -84,6 +88,8 @@ class UserPolicy
         if ($model->isSuperAdmin()) {
             return false;
         }
+
+        return true;
     }
 
     public function toggleActivation(User $user, User $model)

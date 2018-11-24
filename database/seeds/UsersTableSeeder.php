@@ -13,6 +13,8 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         factory(User::class)->create([
+            'name'     => 'Super Administrator',
+            'email'    => 'superadmin@mail.com',
             'username' => 'superadmin',
             'active'   => 1
         ])->giveRoleAs('superadmin');
