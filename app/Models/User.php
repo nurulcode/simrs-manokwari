@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Sty\HasPath;
+use Sty\FilterScope;
 use Sty\ResourceModel;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements ResourceModel
 {
-    use Notifiable, HasApiTokens, HasPath;
+    use Notifiable, HasApiTokens, HasPath, FilterScope;
 
     /**
      * The attributes that are mass assignable.

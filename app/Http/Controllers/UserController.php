@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Sty\HttpQuery;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
@@ -14,9 +15,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(HttpQuery $query)
     {
-        return UserResource::collection(User::all());
+        return UserResource::collection(User::filter($query));
     }
 
     /**
