@@ -20,6 +20,7 @@ class UserResource extends JsonResource
             'name'           => $this->name,
             'email'          => $this->email,
             'active'         => $this->active,
+            'last_login'     => $this->last_login,
             'path'           => $this->path,
             'is_super_admin' => $this->isSuperAdmin(),
             'roles'          => RoleResource::collection($this->whenLoaded('roles')),
