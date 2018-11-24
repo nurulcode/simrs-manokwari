@@ -2062,7 +2062,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var response = error.response;
             var data = error.response.data;
 
-            window.flash(data.message || 'Something went wrong!', 'error', 10000);
+            switch (true) {
+                case data.message:
+                    window.flash(data.message, 'error', 10000);
+                    break;
+                case response.status < 500:
+                    window.flash(response.statusText, 'error', 10000);
+                    break;
+                default:
+                    window.flash('Something went wrong!', 'error', 10000);
+                    break;
+            }
         },
         clearSelected: function clearSelected() {
             var rows = this.$refs.table.$el.querySelectorAll('tbody tr');
