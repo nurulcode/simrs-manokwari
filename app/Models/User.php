@@ -31,6 +31,13 @@ class User extends Authenticatable implements ResourceModel
         'password', 'remember_token', 'email_verified_at'
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = ['active' => 'boolean'];
+
     public function findForPassport($username)
     {
         return $this->where('username', $username)->first();
