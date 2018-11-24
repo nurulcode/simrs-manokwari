@@ -97,7 +97,7 @@ window.pagemix.push({
     data() {
         return {
             user: {
-                url    : `{{ route('user.index') }}`,
+                url    : `{{ action('UserController@index') }}`,
                 options: {
                     sortBy: 'username'
                 },

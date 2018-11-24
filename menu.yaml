@@ -33,3 +33,7 @@
   title : Users
   link  : user
   icon  : icon-people
+-
+  title : Roles
+  link  : role
+  icon  : icon-shield
