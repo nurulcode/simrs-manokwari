@@ -49,4 +49,16 @@ class RoleControllerTest extends TestCase
             $this->matchDatabase($new_data)
         );
     }
+
+    /** @test **/
+    public function can_not_delete_superadmin_role()
+    {
+        $resource = factory($this->resource())->create([
+            'name' => 'superadmin'
+        ]);
+
+        $this->signIn()
+             ->deleteJson($resource->path)
+             ->assertStatus(403);
+    }
 }
