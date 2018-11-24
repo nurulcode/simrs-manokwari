@@ -72,6 +72,7 @@
             <b-form-group label="Roles:" v-bind="user.form.feedback('roles')">
                 <ajax-select
                     :multiple="true"
+                    :params="{onlyAvailable:tru}"
                     url="{{ action('RoleController@index') }}"
                     label="description"
                     placeholder="Pilih Roles"

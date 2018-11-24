@@ -42,11 +42,12 @@ class UserRequest extends FormRequest
         );
 
         return [
-            'username'   => ['required', $unique],
-            'name'       => ['required'],
-            'email'      => ['required', 'email'],
-            'password'   => ['nullable', 'confirmed', 'min:6'],
-            'roles.*.id' => ['nullable', 'exists:roles,id']
+            'username'     => ['required', $unique],
+            'name'         => ['required'],
+            'email'        => ['required', 'email'],
+            'password'     => ['nullable', 'confirmed', 'min:6'],
+            'roles.*.id'   => ['nullable', 'exists:roles,id'],
+            'roles.*.name' => ['nullable'],
         ];
     }
 

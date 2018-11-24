@@ -1598,13 +1598,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     computed: {
-        params: function params() {
-            return {
-                limit: this.optionsLimit,
-                search: this.search,
-                sortBy: this.label
-            };
-        },
         scopedSlots: function scopedSlots() {
             return Object.keys(this.$scopedSlots);
         }
@@ -1629,7 +1622,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.loaded = false;
 
             axios.get(this.url, {
-                params: this.params
+                params: Object.assign({
+                    limit: this.optionsLimit,
+                    search: this.search,
+                    sortBy: this.label
+                }, this.params)
             }).then(function (response) {
                 _this.data = response.data.data || [], _this.loaded = true;
             }).catch(function (error) {
@@ -1669,6 +1666,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         optionsLimit: {
             type: Number,
             default: 100
+        },
+        params: {
+            type: Object,
+            default: function _default() {
+                return {};
+            },
+            required: false
         }
     }
 });

@@ -16,7 +16,6 @@ class CreatePermissionRolePivotTable extends Migration
         Schema::create('permission_role', function (Blueprint $table) {
             $table->integer('role_id')->unsigned();
             $table->integer('permission_id')->unsigned();
-            $table->timestamps();
 
             $table->primary(['role_id', 'permission_id']);
 

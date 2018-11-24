@@ -69,23 +69,40 @@ class UserRoleControllerTest extends TestCase
     }
 
     /** @test */
-    public function user_has_roles_in_resource_collection()
+    public function user_cannot_assign_superadmin_to_new_user()
     {
-        $resource = factory(User::class)->create();
-        $roles    = factory(Role::class, 10)->create();
+        $resource   = factory(User::class)->make();
+        $superadmin = factory(Role::class)->create(['name' => 'superadmin']);
+        $noadmin    = factory(Role::class)->create(['name' => 'noadmin']);
 
-        $resource->roles()->sync(
-            $roles->map(function ($value) {
-                return $value->id;
-            })->toArray()
-        );
-
+        $password = str_random(99);
         $this->signIn()
-             ->getJson($resource->path('index'))
-             ->assertJson(['data' => []])
-             ->assertJsonStructure([
-                'data'  => ['*' => ['path', 'roles']]
-              ])
-             ->assertStatus(200);
+             ->postJson($resource->path('store'), array_merge(
+                $resource->toArray(), [
+                    'password'              => $password,
+                    'password_confirmation' => $password,
+                    'roles'                 => [$superadmin, $noadmin],
+                ]
+             ))
+             ->assertJson(['status' => 'success'])
+             ->assertStatus(201);
+
+        $this->assertDatabaseHas($resource->getTable(), [
+            'username' => $resource->username,
+            'name'     => $resource->name,
+            'email'    => $resource->email,
+        ]);
+
+        $user = User::where('username', $resource->username)->firstOrFail();
+
+        $this->assertDatabaseHas('role_user', [
+            'user_id' => $user->id,
+            'role_id' => $noadmin->id
+        ]);
+
+        $this->assertDatabaseMissing('role_user', [
+            'user_id' => $user->id,
+            'role_id' => $superadmin->id
+        ]);
     }
 }

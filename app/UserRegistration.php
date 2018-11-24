@@ -16,7 +16,9 @@ class UserRegistration
     protected static function assignRoles(User $user, $roles)
     {
         $user->roles()->sync(
-            collect($roles)->map(function ($role) {
+            collect($roles)->reject(function ($role, $key) {
+                return $role['name'] == 'superadmin';
+            })->map(function ($role) {
                 return $role['id'];
             })->values()
         );
