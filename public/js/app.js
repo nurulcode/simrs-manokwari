@@ -2150,6 +2150,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: Boolean,
             default: false
         },
+        noEdit: {
+            type: Boolean,
+            default: false
+        },
+        noDelete: {
+            type: Boolean,
+            default: false
+        },
         options: {
             type: Object,
             default: function _default() {
@@ -22543,45 +22551,49 @@ var render = function() {
                     ? [
                         _vm._t("dt-left-action", null, null, data),
                         _vm._v(" "),
-                        _vm._t(
-                          "dt-edit-button",
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success",
-                                on: {
-                                  click: function($event) {
-                                    _vm.edit(data.item)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-pencil" })]
+                        !_vm.noEdit
+                          ? _vm._t(
+                              "dt-edit-button",
+                              [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.edit(data.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-pencil" })]
+                                )
+                              ],
+                              null,
+                              data
                             )
-                          ],
-                          null,
-                          data
-                        ),
+                          : _vm._e(),
                         _vm._v(" "),
-                        _vm._t(
-                          "dt-delete-button",
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                on: {
-                                  click: function($event) {
-                                    _vm.destroy(data.item)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-trash" })]
+                        !_vm.noDelete
+                          ? _vm._t(
+                              "dt-delete-button",
+                              [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.destroy(data.item)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-trash" })]
+                                )
+                              ],
+                              null,
+                              data
                             )
-                          ],
-                          null,
-                          data
-                        ),
+                          : _vm._e(),
                         _vm._v(" "),
                         _vm._t("dt-right-action", null, null, data)
                       ]
