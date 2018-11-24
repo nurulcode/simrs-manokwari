@@ -23,6 +23,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->registerResourcePolicies();
+
         $this->registerPolicies();
 
         $this->registerPassportRoute();
@@ -31,5 +33,16 @@ class AuthServiceProvider extends ServiceProvider
     public function registerPassportRoute()
     {
         Passport::routes();
+    }
+
+    public function registerResourcePolicies()
+    {
+        foreach (config('resources') as $resource) {
+            $policy = with(new $resource)->policy();
+
+            if (class_exists($policy)) {
+                $this->policies[$resource] = $policy;
+            }
+        }
     }
 }

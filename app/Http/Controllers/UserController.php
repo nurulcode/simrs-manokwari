@@ -67,6 +67,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('delete', $user);
+
         return crud_response(tap($user)->delete());
     }
 

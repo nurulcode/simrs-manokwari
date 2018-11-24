@@ -16,6 +16,7 @@ class User extends Authenticatable implements ResourceModel
         HasApiTokens,
         HasPath,
         HasPolicy,
+        HasRoles,
         Notifiable;
 
     /**
@@ -53,10 +54,5 @@ class User extends Authenticatable implements ResourceModel
     public function findForPassport($username)
     {
         return $this->where('username', $username)->first();
-    }
-
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
     }
 }

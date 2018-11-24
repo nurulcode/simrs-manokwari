@@ -7,9 +7,14 @@
         <template slot="name" slot-scope="{item, value}">
             <p> @{{ value }} </p>
 
-            <span class="badge badge-primary mr-1" v-for="role in item.roles">
-                @{{ role.description }}
-            </span>
+            <template v-for="role in item.roles">
+                <span class="badge badge-danger mr-1" v-if="role.name == 'superadmin'">
+                    @{{ role.description }}
+                </span>
+                <span class="badge badge-primary mr-1" v-else>
+                    @{{ role.description }}
+                </span>
+            </template>
 
         </template>
         <template slot='active' slot-scope="{item}">

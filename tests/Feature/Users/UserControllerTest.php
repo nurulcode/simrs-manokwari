@@ -127,4 +127,21 @@ class UserControllerTest extends TestCase
              ->assertJsonValidationErrors(['password'])
              ->assertStatus(422);
     }
+
+    /** @test **/
+    public function can_not_delete_super_admin()
+    {
+        $this->artisan('db:seed', ['--class' => 'PermissionsTableSeeder']);
+        $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
+
+        $resource = factory($this->resource())->create();
+
+        $resource->giveRoleAs('superadmin');
+
+        $user     = factory($this->resource())->create();
+
+        $this->signIn($user)
+             ->deleteJson($resource->path)
+             ->assertStatus(403);
+    }
 }
