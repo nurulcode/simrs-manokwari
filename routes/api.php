@@ -17,8 +17,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('user/{user}/toggle', 'UserActivationToggleController')->name('user.toggle');
 
     Route::apiResources([
-        'user' => 'UserController',
-        'role' => 'RoleController'
+        'user'       => 'UserController',
+        'role'       => 'RoleController',
+        'permission' => 'PermissionController'
     ]);
 });
 

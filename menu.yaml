@@ -37,3 +37,7 @@
   title : Roles
   link  : role
   icon  : icon-shield
+-
+  title : Permissions
+  link  : permission
+  icon  : icon-lock-open
