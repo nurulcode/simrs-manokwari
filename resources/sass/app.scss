@@ -4,8 +4,9 @@
 // Bootstrap
 @import "~@coreui/coreui/scss/coreui";
 
-@import "loading-overlay";
-@import "toastr";
+@import "../js/shared/sass/loading-overlay";
+@import "../js/shared/sass/multiselect";
+@import "../js/shared/sass/toastr";
 
 body > noscript {
     height    : 100%;

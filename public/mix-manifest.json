@@ -1,11 +1,11 @@
 {
-    "/js/app.js": "/js/app.js?id=ed9664471dd5c268387b",
+    "/js/app.js": "/js/app.js?id=b76ce4eb15fc533dc3cf",
     "/css/icon-fonts/coreui-icons.css": "/css/icon-fonts/coreui-icons.css?id=6737fa1eb09bd1a5ef51",
     "/css/icon-fonts/font-awesome.css": "/css/icon-fonts/font-awesome.css?id=127e49cfc73769980e9e",
     "/css/icon-fonts/simple-line-icons.css": "/css/icon-fonts/simple-line-icons.css?id=b41eee973b78571b91ba",
     "/css/preloader.css": "/css/preloader.css?id=5296651a2105d13ed40e",
-    "/css/app.css": "/css/app.css?id=93104144e89131709c69",
-    "/js/app.js.map": "/js/app.js.map?id=342f98938cf232363aa2",
+    "/css/app.css": "/css/app.css?id=d1fc9330d8cd446e5a25",
+    "/js/app.js.map": "/js/app.js.map?id=d1f1132b1cb0916d2391",
     "/css/icon-fonts/coreui-icons.css.map": "/css/icon-fonts/coreui-icons.css.map?id=493cef3128dfffd82cf0",
     "/css/icon-fonts/font-awesome.css.map": "/css/icon-fonts/font-awesome.css.map?id=251f4c9938f75fe2f1ad",
     "/css/icon-fonts/simple-line-icons.css.map": "/css/icon-fonts/simple-line-icons.css.map?id=76e3296b6918c19ba7e7",
@@ -14,5 +14,5 @@
     "/js/vendor.js": "/js/vendor.js?id=2b353ddb037b5f5c358f",
     "/js/vendor.js.map": "/js/vendor.js.map?id=7f7b76da4cf2693e1fc2",
     "/js/manifest.js": "/js/manifest.js?id=bb58468fac8d92ddbd39",
-    "/js/manifest.js.map": "/js/manifest.js.map?id=a4a2ac35f34d503d43be"
+    "/js/manifest.js.map": "/js/manifest.js.map?id=74362989d6c8daa850b0"
 }
