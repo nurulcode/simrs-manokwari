@@ -133,14 +133,12 @@ window.pagemix.push({
     },
     methods: {
         toggle(item) {
-            this.user.form.assign(Object.assign(item, {
-                active: !item.active
-            })).put(item.path)
-            .then(response => {
-                this.$refs.table.refresh();
-            }).catch(error => {
-                this.$refs.table.refresh();
-            });
+            axios.put(`${item.path}/toggle`)
+                .then(response => {
+                    this.$refs.table.refresh();
+                }).catch(error => {
+                    this.$refs.table.refresh();
+                });
         }
     }
 });
