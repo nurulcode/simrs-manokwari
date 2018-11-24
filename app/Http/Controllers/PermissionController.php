@@ -28,9 +28,7 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request)
     {
-        return crud_response(new PermissionResource(
-            Permission::create($request->validated())
-        ));
+        return abort(403);
     }
 
     /**
@@ -66,7 +64,7 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission)
     {
-        return crud_response(tap($permission)->delete());
+        return abort(403);
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace Tests\Feature\Authorization;
 
 use Tests\TestCase;
-use App\Models\Role;
 use Sty\Tests\ResourceControllerTestCase;
 
 class RoleControllerTest extends TestCase
@@ -12,7 +11,7 @@ class RoleControllerTest extends TestCase
 
     public function resource()
     {
-        return Role::class;
+        return \App\Models\Role::class;
     }
 
     /** @test **/
