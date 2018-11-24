@@ -43,6 +43,13 @@ class User extends Authenticatable implements ResourceModel
      */
     protected $casts = ['active' => 'boolean'];
 
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['roles'];
+
     public function findForPassport($username)
     {
         return $this->where('username', $username)->first();

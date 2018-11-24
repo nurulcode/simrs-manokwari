@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Sty\HttpQuery;
 use App\Models\User;
+use App\UserRegistration;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
@@ -29,7 +30,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         return crud_response(new UserResource(
-            User::create($request->validated())
+            UserRegistration::create($request->validated())
         ));
     }
 
@@ -54,7 +55,7 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         return crud_response(new UserResource(
-            tap($user)->update($request->validated())
+            UserRegistration::update($user, $request->validated())
         ));
     }
 

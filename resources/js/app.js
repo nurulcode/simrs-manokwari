@@ -8,7 +8,8 @@
 require('./bootstrap');
 
 import Vue from 'vue';
-import BootstrapVue from 'bootstrap-vue'
+import BootstrapVue from 'bootstrap-vue';
+import Multiselect  from 'vue-multiselect';
 
 /**
  * The following block of code may be used to automatically register your
@@ -23,6 +24,9 @@ const components = require.context('./', true, /\.vue$/i);
 components.keys().map(
     key => Vue.component(key.split('/').pop().split('.')[0], components(key))
 );
+
+Vue.component('multiselect', Multiselect);
+
 
 for (let inline in window.inlines) {
     Vue.component(inline, window.inlines[inline]);

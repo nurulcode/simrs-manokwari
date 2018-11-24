@@ -4,6 +4,14 @@
 
 @section('card')
     <data-table v-bind.sync="user" ref="table">
+        <template slot="name" slot-scope="{item, value}">
+            <p> @{{ value }} </p>
+
+            <span class="badge badge-primary mr-1" v-for="role in item.roles">
+                @{{ role.description }}
+            </span>
+
+        </template>
         <template slot='active' slot-scope="{item}">
             <button
                 title="Active"
@@ -54,16 +62,16 @@
                     >
                 </input>
             </b-form-group>
-            {{-- <b-form-group label="Roles:" v-bind="user.form.feedback('roles')">
+            <b-form-group label="Roles:" v-bind="user.form.feedback('roles')">
                 <ajax-select
-                    :url="`${route('authorization.role.index')}`"
                     :multiple="true"
+                    url="{{ action('RoleController@index') }}"
                     label="description"
                     placeholder="Pilih Roles"
                     v-model="user.form.roles"
                     >
                 </ajax-select>
-            </b-form-group> --}}
+            </b-form-group>
             <hr>
             <b-form-group label="Password:" v-bind="user.form.feedback('password')">
                 <input

@@ -2,6 +2,7 @@
 
 use App\Models\Permission;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class PermissionsTableSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+
         Permission::truncate();
 
         Permission::create([
@@ -30,7 +33,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         foreach (config('resources') as $resource) {
-            $slug = with(new $resource)->permissionSlug();
+            $slug = with(new $resource)->permissionKeyName();
 
             Permission::create([
                 'name'        => $slug . '_view_page',
@@ -52,5 +55,7 @@ class PermissionsTableSeeder extends Seeder
                 'description' => 'Menghapus data ' . str_replace('_', ' ', $slug)
             ]);
         }
+
+        Schema::enableForeignKeyConstraints();
     }
 }
