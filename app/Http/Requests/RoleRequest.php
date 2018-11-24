@@ -29,8 +29,9 @@ class RoleRequest extends FormRequest
         );
 
         return [
-            'name'        => ['required', $unique],
-            'description' => ['required']
+            'name'             => ['required', $unique],
+            'description'      => ['required'],
+            'permissions.*.id' => ['nullable', 'exists:permissions']
         ];
     }
 }

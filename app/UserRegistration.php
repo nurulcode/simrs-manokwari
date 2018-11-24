@@ -21,7 +21,7 @@ class UserRegistration
             })->values()
         );
 
-        return $user;
+        return $user->load('roles');
     }
 
     public static function update(User $user, $request_data)

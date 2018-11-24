@@ -18,7 +18,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::truncate();
 
         Permission::create([
-            'name'        => 'permission_ring',
+            'name'        => 'do_anything',
             'description' => 'One Permission to Rule Them All'
         ]);
 

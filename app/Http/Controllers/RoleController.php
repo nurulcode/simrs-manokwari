@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Sty\HttpQuery;
 use App\Models\Role;
+use App\RoleRegistration;
 use Illuminate\Http\Request;
 use App\Http\Requests\RoleRequest;
 use App\Http\Resources\RoleResource;
@@ -29,7 +30,7 @@ class RoleController extends Controller
     public function store(RoleRequest $request)
     {
         return crud_response(new RoleResource(
-            Role::create($request->validated())
+            RoleRegistration::create($request->validated())
         ));
     }
 
@@ -54,7 +55,7 @@ class RoleController extends Controller
     public function update(RoleRequest $request, Role $role)
     {
         return crud_response(new RoleResource(
-            tap($role)->update($request->validated())
+            RoleRegistration::update($role, $request->validated())
         ));
     }
 

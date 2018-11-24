@@ -4,6 +4,16 @@
 
 @section('card')
     <data-table v-bind.sync="role" ref="table">
+        <template slot="permissions" slot-scope="{item, value}">
+            <template v-for="permission in value">
+                <span class="badge badge-danger mr-1" v-if="permission.name == 'do_anything'">
+                    @{{ permission.description }}
+                </span>
+                <span class="badge badge-primary mr-1" v-else>
+                    @{{ permission.description }}
+                </span>
+            </template>
+        </template>
         <div slot="form">
             <b-form-group label="Name:" v-bind="role.form.feedback('name')">
                 <input
@@ -24,6 +34,16 @@
                     v-model="role.form.description"
                     >
                 </input>
+            </b-form-group>
+            <b-form-group label="Permissions:" v-bind="role.form.feedback('permissions')">
+                <ajax-select
+                    :multiple="true"
+                    url="{{ action('PermissionController@index') }}"
+                    label="description"
+                    placeholder="Pilih Permissions"
+                    v-model="role.form.permissions"
+                    >
+                </ajax-select>
             </b-form-group>
         </div>
     </data-table>
@@ -47,10 +67,14 @@ window.pagemix.push({
                     {
                         key     : 'description',
                     },
+                    {
+                        key     : 'permissions',
+                    }
                 ],
                 form: new Form({
                     name       : null,
                     description: null,
+                    permissions: []
                 })
             }
         }
