@@ -13,7 +13,8 @@
 */
 
 Route::middleware(['auth:api'])->group(function () {
-    Route::put('user/password', 'UpdatePasswordController')->name('user.password');
+    Route::put('user/password',      'UserPasswordUpdateController')->name('user.password');
+    Route::put('user/{user}/toggle', 'UserActivationToggleController')->name('user.toggle');
 
     Route::apiResources([
         'user' => 'UserController',

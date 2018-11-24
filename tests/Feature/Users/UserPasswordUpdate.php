@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Users;
 
 use Tests\TestCase;
 use App\Models\User;
@@ -8,7 +8,7 @@ use Sty\Tests\APITestCase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class UpdatePasswordTest extends TestCase
+class UserPasswordUpdateTest extends TestCase
 {
     use APITestCase;
 
@@ -23,7 +23,7 @@ class UpdatePasswordTest extends TestCase
 
         $this->withExceptionHandling()
              ->signIn($user)
-             ->putJson(route('user.password'), [
+             ->putJson(action('UserPasswordUpdateController'), [
                 'current_password'      => $password_lama,
                 'password'              => $password_baru,
                 'password_confirmation' => $password_baru])
@@ -55,7 +55,7 @@ class UpdatePasswordTest extends TestCase
 
         $this->withExceptionHandling()
              ->signIn($user)
-             ->putJson(route('user.password'), [
+             ->putJson(action('UserPasswordUpdateController'), [
                 'current_password'      => $password_lama,
                 'password'              => $password_lama,
                 'password_confirmation' => $password_lama])
@@ -75,7 +75,7 @@ class UpdatePasswordTest extends TestCase
         $this->withExceptionHandling();
 
         $this->signIn($user)
-             ->putJson(route('user.password'), [
+             ->putJson(action('UserPasswordUpdateController'), [
                 'password'              => $password_lama,
                 'password_confirmation' => $password_lama])
              ->assertJsonValidationErrors(['current_password'])

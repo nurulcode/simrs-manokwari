@@ -45,7 +45,7 @@ class UserRequest extends FormRequest
             'username' => ['required', $unique],
             'name'     => ['required'],
             'email'    => ['required', 'email'],
-            'password' => ['confirmed'],
+            'password' => ['nullable', 'confirmed', 'min:6'],
         ];
     }
 

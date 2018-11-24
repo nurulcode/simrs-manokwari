@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Users;
 
 use Tests\TestCase;
 use Sty\Tests\ResourceControllerTestCase;
@@ -95,5 +95,36 @@ class UserControllerTest extends TestCase
         $this->assertDatabaseHas($this->resourceTable($resource), array_merge(
             $this->matchDatabase($new_data), ['password' => $resource->password]
         ));
+    }
+
+    /** @test **/
+    public function can_not_create_user_with_empty_password()
+    {
+        $resource = factory($this->resource())->make();
+
+        $this->signIn()
+             ->postJson($resource->path, array_merge($resource->toArray(), [
+                'password'              => '',
+                'password_confirmation' => ''
+             ]))
+             ->assertJson(['errors' => []])
+             ->assertJsonValidationErrors(['password'])
+             ->assertStatus(422);
+    }
+
+    /** @test **/
+    public function user_can_not_post_invalid_data()
+    {
+        $resource = factory($this->resource())->make();
+        $password = str_random(5);
+
+        $this->signIn()
+             ->postJson($resource->path, array_merge($resource->toArray(), [
+                'password'              => $password,
+                'password_confirmation' => $password
+             ]))
+             ->assertJson(['errors' => []])
+             ->assertJsonValidationErrors(['password'])
+             ->assertStatus(422);
     }
 }
