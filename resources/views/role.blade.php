@@ -4,25 +4,6 @@
 
 @section('card')
     <data-table v-bind.sync="role" ref="table">
-        <template slot='active' slot-scope="{item}">
-            <button
-                title="Active"
-                type="button"
-                class="btn btn-primary"
-                v-if="item.active"
-                v-on:click.prevent="toggle(item)"
-                >
-                <i class="fa fa-check"></i>
-            </button>
-            <button
-                class="btn btn-danger"
-                title="Inactive"
-                v-else
-                v-on:click="toggle(item)"
-                >
-                <i class="fa fa-times"></i>
-            </button>
-        </template>
         <div slot="form">
             <b-form-group label="Name:" v-bind="role.form.feedback('name')">
                 <input
@@ -74,16 +55,6 @@ window.pagemix.push({
             }
         }
     },
-    methods: {
-        toggle(item) {
-            axios.put(`${item.path}/toggle`)
-                .then(response => {
-                    this.$refs.table.refresh();
-                }).catch(error => {
-                    this.$refs.table.refresh();
-                });
-        }
-    }
 });
 </script>
 @endpush
