@@ -24,6 +24,16 @@
             </button>
         </template>
         <div slot="form">
+            <b-form-group label="Name:" v-bind="user.form.feedback('name')">
+                <input
+                    class="form-control"
+                    name="name"
+                    placeholder="Name"
+                    type="text"
+                    v-model="user.form.name"
+                    >
+                </input>
+            </b-form-group>
             <b-form-group label="Username:" v-bind="user.form.feedback('username')">
                 <input
                     class="form-control"
@@ -31,6 +41,16 @@
                     placeholder="Username"
                     type="text"
                     v-model="user.form.username"
+                    >
+                </input>
+            </b-form-group>
+            <b-form-group label="Email:" v-bind="user.form.feedback('email')">
+                <input
+                    class="form-control"
+                    name="email"
+                    placeholder="Email"
+                    type="text"
+                    v-model="user.form.email"
                     >
                 </input>
             </b-form-group>
@@ -101,7 +121,9 @@ window.pagemix.push({
                 ],
                 form: new Form({
                     active  : true,
+                    name    : null,
                     username: null,
+                    email   : null,
                     password: null,
                     password_confirmation: null,
                     roles   : [],

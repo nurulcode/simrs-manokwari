@@ -46,4 +46,54 @@ class UserControllerTest extends TestCase
             'password' => 'secret'
         ]);
     }
+
+    /** @test **/
+    public function user_can_update_with_same_username()
+    {
+        $resource = factory($this->resource())->create();
+        $new_data = factory($this->resource())->make([
+            'username'   => $resource->username
+        ]);
+
+        $this->withExceptionHandling()
+             ->signIn()
+             ->putJson($resource->path, $this->beforePost($new_data))
+             ->assertJson(['status' => 'success'])
+             ->assertStatus(200);
+
+        $this->assertDatabaseMissing(
+            $this->resourceTable($resource),
+            $this->matchDatabase($resource)
+        );
+
+        $this->assertDatabaseHas(
+            $this->resourceTable($resource),
+            $this->matchDatabase($new_data)
+        );
+    }
+
+    /** @test **/
+    public function user_can_update_a_resource_without_change_password()
+    {
+        $resource = factory($this->resource())->create();
+        $new_data = factory($this->resource())->make();
+
+        $this->withExceptionHandling()
+             ->signIn()
+             ->putJson($resource->path, array_merge($this->beforePost($new_data), [
+                'password'              => '',
+                'password_confirmation' => ''
+             ]))
+             ->assertJson(['status' => 'success'])
+             ->assertStatus(200);
+
+        $this->assertDatabaseMissing(
+            $this->resourceTable($resource),
+            $this->matchDatabase($resource)
+        );
+
+        $this->assertDatabaseHas($this->resourceTable($resource), array_merge(
+            $this->matchDatabase($new_data), ['password' => $resource->password]
+        ));
+    }
 }
