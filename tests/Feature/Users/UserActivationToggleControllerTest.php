@@ -27,4 +27,21 @@ class UserActivationToggleControllerTest extends TestCase
             'active'   => true
         ]);
     }
+
+    /** @test **/
+    public function can_not_deactivate_super_admin()
+    {
+        $this->artisan('db:seed', ['--class' => 'PermissionsTableSeeder']);
+        $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
+
+        $resource = factory(User::class)->create();
+
+        $resource->giveRoleAs('superadmin');
+
+        $user     = factory(User::class)->create();
+
+        $this->signIn($user)
+             ->putJson(action('UserActivationToggleController', ['id' => $resource->id]))
+             ->assertStatus(403);
+    }
 }

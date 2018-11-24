@@ -19,6 +19,7 @@
         </template>
         <template slot='active' slot-scope="{item}">
             <button
+                :disabled="item.is_super_admin"
                 title="Active"
                 type="button"
                 class="btn btn-primary"
@@ -28,6 +29,7 @@
                 <i class="fa fa-check"></i>
             </button>
             <button
+                :disabled="item.is_super_admin"
                 class="btn btn-danger"
                 title="Inactive"
                 v-else
@@ -114,6 +116,12 @@ window.pagemix.push({
                 options: {
                     sortBy: 'username'
                 },
+                dataMap(item) {
+                    return {
+                        ...item,
+                        __no_delete: item.is_super_admin
+                    };
+                },
                 fields: [
                     {
                         key     : 'name',
@@ -148,8 +156,32 @@ window.pagemix.push({
         toggle(item) {
             axios.put(`${item.path}/toggle`)
                 .then(response => {
+                    let data = response.data;
+
+                    if (data.message && data.status) {
+                        window.flash(data.message, data.status);
+                    }
+
                     this.$refs.table.refresh();
                 }).catch(error => {
+
+                    let response = error.response;
+
+
+                    let data     = error.response.data;
+
+                    switch(true) {
+                        case data.message:
+                            window.flash(data.message, 'error', 10000);
+                            break;
+                        case response.status < 500:
+                            window.flash(response.statusText, 'error', 10000);
+                            break;
+                        default:
+                            window.flash('Something went wrong!', 'error', 10000);
+                            break;
+                    }
+
                     this.$refs.table.refresh();
                 });
         }

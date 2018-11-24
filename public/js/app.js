@@ -1881,6 +1881,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -22559,6 +22565,7 @@ var render = function() {
                                   "button",
                                   {
                                     staticClass: "btn btn-success",
+                                    attrs: { disabled: data.item.__no_edit },
                                     on: {
                                       click: function($event) {
                                         _vm.edit(data.item)
@@ -22581,6 +22588,7 @@ var render = function() {
                                   "button",
                                   {
                                     staticClass: "btn btn-danger",
+                                    attrs: { disabled: data.item.__no_delete },
                                     on: {
                                       click: function($event) {
                                         _vm.destroy(data.item)

@@ -10,6 +10,8 @@ class UserActivationToggleController extends Controller
 {
     public function __invoke(Request $request, User $user)
     {
+        $this->authorize('toggleActivation', $user);
+
         return crud_response(new UserResource(
             tap($user, function ($user) use ($request) {
                 $currentState = $user->active;

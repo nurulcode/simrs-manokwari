@@ -53,7 +53,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        if ($model->hasRole('superadmin')) {
+        if ($model->isSuperAdmin()) {
             return false;
         }
 
@@ -81,8 +81,17 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        if ($model->hasRole('superadmin')) {
+        if ($model->isSuperAdmin()) {
             return false;
         }
+    }
+
+    public function toggleActivation(User $user, User $model)
+    {
+        if ($model->isSuperAdmin()) {
+            return false;
+        }
+
+        return true;
     }
 }

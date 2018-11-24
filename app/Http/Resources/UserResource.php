@@ -15,13 +15,14 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'       => $this->id,
-            'username' => $this->username,
-            'name'     => $this->name,
-            'email'    => $this->email,
-            'active'   => $this->active,
-            'path'     => $this->path,
-            'roles'    => RoleResource::collection($this->whenLoaded('roles')),
+            'id'             => $this->id,
+            'username'       => $this->username,
+            'name'           => $this->name,
+            'email'          => $this->email,
+            'active'         => $this->active,
+            'path'           => $this->path,
+            'is_super_admin' => $this->isSuperAdmin(),
+            'roles'          => RoleResource::collection($this->whenLoaded('roles')),
         ];
     }
 }

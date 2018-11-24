@@ -35,4 +35,9 @@ trait HasRoles
 
         return $role->intersect($this->roles)->isNotEmpty();
     }
+
+    public function isSuperAdmin()
+    {
+        return $this->hasRole('superadmin');
+    }
 }
