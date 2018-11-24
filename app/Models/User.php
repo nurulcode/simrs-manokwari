@@ -3,16 +3,20 @@
 namespace App\Models;
 
 use Sty\HasPath;
+use Sty\HasPolicy;
 use Sty\FilterScope;
 use Sty\ResourceModel;
-use Sty\HasPermissions;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements ResourceModel
 {
-    use Notifiable, HasApiTokens, HasPath, FilterScope, HasPermissions;
+    use FilterScope,
+        HasApiTokens,
+        HasPath,
+        HasPolicy,
+        Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -42,5 +46,10 @@ class User extends Authenticatable implements ResourceModel
     public function findForPassport($username)
     {
         return $this->where('username', $username)->first();
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
 }

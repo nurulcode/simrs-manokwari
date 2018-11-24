@@ -3,15 +3,16 @@
 @section('title', 'Permission Management')
 
 @section('card')
-    <data-table v-bind.sync="permission" ref="table">
+    <data-table v-bind.sync="permission" ref="table" no-delete no-add-button-text>
         <div slot="form">
             <b-form-group label="Name:" v-bind="permission.form.feedback('name')">
                 <input
                     class="form-control"
+                    disabled
                     name="name"
                     placeholder="Name"
                     type="text"
-                    v-model="permission.form.name"
+                    :value="permission.form.name"
                     >
                 </input>
             </b-form-group>
