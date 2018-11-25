@@ -1575,6 +1575,8 @@ module.exports = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_debounce__ = __webpack_require__("./node_modules/lodash.debounce/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash_debounce__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -1600,6 +1602,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         scopedSlots: function scopedSlots() {
             return Object.keys(this.$scopedSlots);
+        },
+        sortBy: function sortBy() {
+            return this.label;
         }
     },
     data: function data() {
@@ -1622,13 +1627,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.loaded = false;
 
             axios.get(this.url, {
-                params: Object.assign({
+                params: _extends({
                     limit: this.optionsLimit,
                     search: this.search,
-                    sortBy: this.label
+                    sortBy: this.sortBy
+
                 }, this.params)
             }).then(function (response) {
-                _this.data = response.data.data || [], _this.loaded = true;
+                _this.data = response.data.data.map(_this.dataMap).filter(_this.filter) || [], _this.loaded = true;
             }).catch(function (error) {
                 _this.loaded = true;
             });
@@ -1673,6 +1679,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return {};
             },
             required: false
+        },
+        dataMap: {
+            type: Function,
+            required: false,
+            default: function _default(item) {
+                return item;
+            }
+        },
+        filter: {
+            type: Function,
+            required: false,
+            default: function _default(item) {
+                return true;
+            }
         }
     }
 });

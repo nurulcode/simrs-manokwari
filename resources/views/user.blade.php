@@ -72,7 +72,7 @@
             <b-form-group label="Roles:" v-bind="user.form.feedback('roles')">
                 <ajax-select
                     :multiple="true"
-                    :params="{onlyAvailable:tru}"
+                    :filter="hideSuperUser"
                     url="{{ action('RoleController@index') }}"
                     label="description"
                     placeholder="Pilih Roles"
@@ -158,34 +158,30 @@ window.pagemix.push({
         toggle(item) {
             axios.put(`${item.path}/toggle`)
                 .then(response => {
-                    let data = response.data;
-
-                    if (data.message && data.status) {
-                        window.flash(data.message, data.status);
-                    }
+                    window.flash(response.data.message, response.data.status);
 
                     this.$refs.table.refresh();
                 }).catch(error => {
-
-                    let response = error.response;
-
-
-                    let data     = error.response.data;
-
-                    switch(true) {
-                        case data.message:
-                            window.flash(data.message, 'error', 10000);
-                            break;
-                        case response.status < 500:
-                            window.flash(response.statusText, 'error', 10000);
-                            break;
-                        default:
-                            window.flash('Something went wrong!', 'error', 10000);
-                            break;
-                    }
+                    this.flashError(error.response);
 
                     this.$refs.table.refresh();
                 });
+        },
+        flashError(response) {
+            switch(true) {
+                case response.data.message:
+                    window.flash(response.data.message, 'error', 10000);
+                    break;
+                case response.status < 500:
+                    window.flash(response.statusText, 'error', 10000);
+                    break;
+                default:
+                    window.flash('Something went wrong!', 'error', 10000);
+                    break;
+            }
+        },
+        hideSuperUser(role) {
+            return role.name !== 'superadmin';
         }
     }
 });

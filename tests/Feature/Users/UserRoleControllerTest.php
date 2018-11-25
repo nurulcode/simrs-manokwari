@@ -76,6 +76,7 @@ class UserRoleControllerTest extends TestCase
         $noadmin    = factory(Role::class)->create(['name' => 'noadmin']);
 
         $password = str_random(99);
+
         $this->signIn()
              ->postJson($resource->path('store'), array_merge(
                 $resource->toArray(), [
@@ -104,5 +105,40 @@ class UserRoleControllerTest extends TestCase
             'user_id' => $user->id,
             'role_id' => $superadmin->id
         ]);
+    }
+
+    /** @test **/
+    public function can_not_delete_super_admin()
+    {
+        $this->artisan('db:seed', ['--class' => 'PermissionsTableSeeder']);
+        $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
+
+        $resource = factory(User::class)->create();
+
+        $resource->giveRoleAs('superadmin');
+
+        $this->signIn()
+             ->deleteJson($resource->path)
+             ->assertStatus(403);
+    }
+
+    /** @test **/
+    public function can_not_edit_super_admin()
+    {
+        $this->artisan('db:seed', ['--class' => 'PermissionsTableSeeder']);
+        $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
+
+        $resource = factory(User::class)->create();
+        $new_data = factory(User::class)->make();
+
+        $resource->giveRoleAs('superadmin');
+
+        $this->signIn()
+             ->putJson($resource->path, [
+                'username' => $new_data->username,
+                'name'     => $new_data->name,
+                'email'    => $new_data->email,
+             ])
+             ->assertStatus(403);
     }
 }

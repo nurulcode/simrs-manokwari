@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -12,21 +13,25 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $superadmin = Role::withoutGlobalScope('nosuper')
+            ->where('name', 'superadmin')
+            ->firstOrFail();
+
         factory(User::class)->create([
             'name'     => 'Super Administrator',
             'email'    => 'superadmin@mail.com',
             'username' => 'superadmin',
-            'active'   => 1
-        ])->giveRoleAs('superadmin');
+            'active'   => true
+        ])->giveRoleAs($superadmin);
 
         factory(User::class)->create([
             'username' => 'admin',
-            'active'   => 1
-        ])->giveRoleAs('admin');
+            'active'   => true
+        ]);
 
         factory(User::class)->create([
             'username' => 'user',
-            'active'   => 1
-        ])->giveRoleAs('user');
+            'active'   => true
+        ]);
     }
 }

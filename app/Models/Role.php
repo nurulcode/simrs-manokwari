@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class Role extends Model
 {
     /**
@@ -10,6 +12,17 @@ class Role extends Model
      * @var array
      */
     protected $with = ['permissions'];
+
+    /**
+     * Scope a query to exclude superadmin.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeNoSuper(Builder $builder)
+    {
+        return $builder->where('name', '<>', 'superadmin');
+    }
 
     public function permissions()
     {

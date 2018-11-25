@@ -80,10 +80,13 @@ class UserControllerTest extends TestCase
 
         $this->withExceptionHandling()
              ->signIn()
-             ->putJson($resource->path, array_merge($this->beforePost($new_data), [
+             ->putJson($resource->path, [
+                'username'              => $new_data->username,
+                'name'                  => $new_data->name,
+                'email'                 => $new_data->email,
                 'password'              => '',
                 'password_confirmation' => ''
-             ]))
+             ])
              ->assertJson(['status' => 'success'])
              ->assertStatus(200);
 
@@ -92,9 +95,12 @@ class UserControllerTest extends TestCase
             $this->matchDatabase($resource)
         );
 
-        $this->assertDatabaseHas($this->resourceTable($resource), array_merge(
-            $this->matchDatabase($new_data), ['password' => $resource->password]
-        ));
+        $this->assertDatabaseHas($this->resourceTable($resource), [
+            'username' => $new_data->username,
+            'name'     => $new_data->name,
+            'email'    => $new_data->email,
+            'password' => $resource->password
+        ]);
     }
 
     /** @test **/
@@ -119,47 +125,12 @@ class UserControllerTest extends TestCase
         $password = str_random(5);
 
         $this->signIn()
-             ->postJson($resource->path, array_merge($resource->toArray(), [
+             ->postJson($resource->path, [
                 'password'              => $password,
                 'password_confirmation' => $password
-             ]))
+             ])
              ->assertJson(['errors' => []])
              ->assertJsonValidationErrors(['password'])
              ->assertStatus(422);
-    }
-
-    /** @test **/
-    public function can_not_delete_super_admin()
-    {
-        $this->artisan('db:seed', ['--class' => 'PermissionsTableSeeder']);
-        $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
-
-        $resource = factory($this->resource())->create();
-
-        $resource->giveRoleAs('superadmin');
-
-        $user     = factory($this->resource())->create();
-
-        $this->signIn($user)
-             ->deleteJson($resource->path)
-             ->assertStatus(403);
-    }
-
-    /** @test **/
-    public function can_not_edit_super_admin()
-    {
-        $this->artisan('db:seed', ['--class' => 'PermissionsTableSeeder']);
-        $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
-
-        $resource = factory($this->resource())->create();
-        $new_data = factory($this->resource())->make();
-
-        $resource->giveRoleAs('superadmin');
-
-        $user     = factory($this->resource())->create();
-
-        $this->signIn($user)
-             ->putJson($resource->path, $this->beforePost($new_data))
-             ->assertStatus(403);
     }
 }

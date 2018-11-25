@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Sty\HttpQuery;
 use App\Models\Role;
 use App\RoleRegistration;
 use Illuminate\Http\Request;
-use App\Http\Queries\RoleQuery;
 use App\Http\Requests\RoleRequest;
 use App\Http\Resources\RoleResource;
 
@@ -16,7 +16,7 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(RoleQuery $query)
+    public function index(HttpQuery $query)
     {
         return RoleResource::collection(Role::filter($query));
     }
