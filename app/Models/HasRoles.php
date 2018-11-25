@@ -11,7 +11,11 @@ trait HasRoles
 
     public function getRoleAttribute()
     {
-        return $this->roles->isNotEmpty() ? $this->roles->first() : Role::none();
+        if ($this->roles->isNotEmpty()) {
+            return $this->roles->first();
+        }
+
+        return new Role(['name' => 'norole', 'description' => 'Have no role']);
     }
 
     public function giveRoleAs($role)
