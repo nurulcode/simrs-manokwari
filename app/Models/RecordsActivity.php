@@ -48,7 +48,7 @@ trait RecordsActivity
         }
 
         if ($event == 'deleted') {
-            return $this->toJson();
+            return json_encode($this->getAttributes());
         }
 
         return json_encode(

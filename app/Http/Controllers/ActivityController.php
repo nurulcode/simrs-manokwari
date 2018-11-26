@@ -18,7 +18,7 @@ class ActivityController extends Controller
     public function index(HttpQuery $query)
     {
         return ActivityResource::collection(
-            Activity::with('user')->filter($query)
+            Activity::with(['user', 'subject'])->filter($query)
         );
     }
 

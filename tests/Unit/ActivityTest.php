@@ -63,7 +63,7 @@ class ActivityTest extends TestCase
 
         $resource = factory(Role::class)->create();
 
-        $before   = $resource->toJson();
+        $before   = json_encode($resource->getAttributes());
 
         $resource->delete();
 
