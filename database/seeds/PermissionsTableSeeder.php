@@ -23,12 +23,12 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
-            'name'        => 'permission_view_page',
+            'name'        => 'view_permission_page',
             'description' => 'Akses halaman kelola permission'
         ]);
 
         Permission::create([
-            'name'        => 'permission_update',
+            'name'        => 'update_permission',
             'description' => 'Mengubah data permission'
         ]);
 

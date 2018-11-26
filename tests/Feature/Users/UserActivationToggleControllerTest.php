@@ -13,11 +13,12 @@ class UserActivationToggleControllerTest extends TestCase
     /** @test **/
     public function admin_can_toggle_user_activation()
     {
+        $this->withExceptionHandling()
+             ->signIn();
+
         $resource = factory(User::class)->create(['active' => false]);
 
-        $this->withExceptionHandling()
-             ->signIn()
-             ->putJson(action('UserActivationToggleController', ['id' => $resource->id]))
+        $this->putJson(action('UserActivationToggleController', ['id' => $resource->id]))
              ->assertJson(['status' => 'success'])
              ->assertStatus(200);
 

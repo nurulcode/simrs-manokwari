@@ -75,6 +75,10 @@ class RoleController extends Controller
     {
         $this->authorize('delete', $role);
 
+        if ($role->name == 'superadmin') {
+            abort(403);
+        }
+
         return crud_response(tap($role)->delete());
     }
 

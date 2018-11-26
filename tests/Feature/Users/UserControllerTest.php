@@ -50,14 +50,15 @@ class UserControllerTest extends TestCase
     /** @test **/
     public function user_can_update_with_same_username()
     {
+        $this->withExceptionHandling()
+             ->signIn();
+
         $resource = factory($this->resource())->create();
         $new_data = factory($this->resource())->make([
             'username'   => $resource->username
         ]);
 
-        $this->withExceptionHandling()
-             ->signIn()
-             ->putJson($resource->path, $this->beforePost($new_data))
+        $this->putJson($resource->path, $this->beforePost($new_data))
              ->assertJson(['status' => 'success'])
              ->assertStatus(200);
 
@@ -75,12 +76,13 @@ class UserControllerTest extends TestCase
     /** @test **/
     public function user_can_update_a_resource_without_change_password()
     {
+        $this->withExceptionHandling()
+             ->signIn();
+
         $resource = factory($this->resource())->create();
         $new_data = factory($this->resource())->make();
 
-        $this->withExceptionHandling()
-             ->signIn()
-             ->putJson($resource->path, [
+        $this->putJson($resource->path, [
                 'username'              => $new_data->username,
                 'name'                  => $new_data->name,
                 'email'                 => $new_data->email,

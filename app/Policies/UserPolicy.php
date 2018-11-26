@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->can('create_user');
     }
 
     /**
@@ -45,7 +45,7 @@ class UserPolicy
             return false;
         }
 
-        return true;
+        return $user->can('update_user');
     }
 
     /**
@@ -89,7 +89,7 @@ class UserPolicy
             return false;
         }
 
-        return true;
+        return $user->can('delete_user');
     }
 
     public function toggleActivation(User $user, User $model)
@@ -98,13 +98,6 @@ class UserPolicy
             return false;
         }
 
-        return true;
-    }
-
-    public function before($user, $ability)
-    {
-        if ($user->isSuperAdmin()) {
-            return true;
-        }
+        return $user->can('update_user');
     }
 }

@@ -46,12 +46,13 @@ class UserRoleControllerTest extends TestCase
     /** @test */
     public function user_can_assign_role_to_existing_user()
     {
-        $roles    = factory(Role::class, 5)->create();
-        $resource = factory(User::class)->create();
+        $administrator = factory(User::class)->create();
+        $roles         = factory(Role::class, 5)->create();
+        $resource      = factory(User::class)->create();
 
         $password = str_random(99);
 
-        $this->signIn()
+        $this->signIn($administrator)
              ->putJson($resource->path, array_merge(
                 $resource->toArray(), [
                     'password'              => $password,

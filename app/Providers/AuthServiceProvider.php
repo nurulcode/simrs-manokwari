@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\PermissionRegistrar;
 use Laravel\Passport\Passport;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -28,6 +29,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         $this->registerPassportRoute();
+
+        $this->registerPermissions();
     }
 
     public function registerPassportRoute()
@@ -44,5 +47,10 @@ class AuthServiceProvider extends ServiceProvider
                 $this->policies[$resource] = $policy;
             }
         }
+    }
+
+    public function registerPermissions()
+    {
+        with(new PermissionRegistrar())->registerPermissions();
     }
 }
