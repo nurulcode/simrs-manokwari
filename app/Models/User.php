@@ -55,4 +55,9 @@ class User extends Authenticatable implements ResourceModel
     {
         return $this->where('username', $username)->first();
     }
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
 }

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Role extends Model
 {
+    use RecordsActivity;
+
     /**
      * The relations to eager load on every query.
      *
