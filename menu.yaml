@@ -41,3 +41,7 @@
   title : Permissions
   link  : permission
   icon  : icon-lock-open
+-
+  title : Activities
+  link  : activities
+  icon  : fa fa-history

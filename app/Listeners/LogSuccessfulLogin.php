@@ -30,6 +30,8 @@ class LogSuccessfulLogin
     {
         $user = $event->user;
 
+        $user->unsetEventDispatcher();
+
         session(['user_last_login' => $user->last_login]);
         session(['user_last_ip'    => $user->ip_address]);
 

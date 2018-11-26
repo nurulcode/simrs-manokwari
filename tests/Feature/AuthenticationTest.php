@@ -68,8 +68,6 @@ class AuthenticationTest extends TestCase
              ->assertJson(['errors' => []])
              ->assertJsonValidationErrors(['username']);
 
-        Auth::logout();
-
         $user = factory(User::class)->create([
             'active'   => true,
             'username' => 'activeuser'

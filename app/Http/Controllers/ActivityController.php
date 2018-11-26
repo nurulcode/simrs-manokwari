@@ -2,29 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Activity;
+use Sty\HttpQuery;
+use App\Models\Activity;
 use Illuminate\Http\Request;
+use App\Http\Resources\ActivityResource;
 
 class ActivityController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  \Sty\HttpQuery  $query
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(HttpQuery $query)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return ActivityResource::collection(
+            Activity::with('user')->filter($query)
+        );
     }
 
     /**
@@ -50,17 +45,6 @@ class ActivityController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Activity  $activity
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Activity $activity)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -81,5 +65,16 @@ class ActivityController extends Controller
     public function destroy(Activity $activity)
     {
         //
+    }
+
+    /**
+     * Display the resource page.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function view(Request $request)
+    {
+        return view('activities');
     }
 }

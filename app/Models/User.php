@@ -17,7 +17,8 @@ class User extends Authenticatable implements ResourceModel
         HasPath,
         HasPolicy,
         HasRoles,
-        Notifiable;
+        Notifiable,
+        RecordsActivity;
 
     /**
      * The attributes that are mass assignable.

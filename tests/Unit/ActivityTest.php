@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
 
 class ActivityTest extends TestCase
@@ -89,5 +90,34 @@ class ActivityTest extends TestCase
             'subject_type' => User::class,
             'type'         => 'logged_in',
         ]);
+    }
+
+    /** @test */
+    public function it_can_record_a_logging_out_user()
+    {
+        $user = factory(User::class)->create();
+
+        Auth::login($user);
+
+        Auth::logout();
+
+        $this->assertDatabaseHas('activities', [
+            'user_id'      => $user->id,
+            'subject_id'   => $user->id,
+            'subject_type' => User::class,
+            'type'         => 'logged_out',
+        ]);
+    }
+
+    /** @test */
+    public function an_activity_belongs_to_a_user()
+    {
+        $user     = factory(User::class)->create();
+
+        Auth::login($user);
+
+        $activity = Activity::first();
+
+        $this->assertInstanceOf(User::class, $activity->user);
     }
 }
