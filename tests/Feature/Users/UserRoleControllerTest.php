@@ -114,10 +114,12 @@ class UserRoleControllerTest extends TestCase
         $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
 
         $resource = factory(User::class)->create();
+        $user     = factory(User::class)->create();
 
         $resource->giveRoleAs('superadmin');
 
-        $this->signIn()
+        $this
+             ->signIn($user)
              ->deleteJson($resource->path)
              ->assertStatus(403);
     }
@@ -129,15 +131,15 @@ class UserRoleControllerTest extends TestCase
         $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
 
         $resource = factory(User::class)->create();
-        $new_data = factory(User::class)->make();
+        $user     = factory(User::class)->create();
 
         $resource->giveRoleAs('superadmin');
 
-        $this->signIn()
+        $this->signIn($user)
              ->putJson($resource->path, [
-                'username' => $new_data->username,
-                'name'     => $new_data->name,
-                'email'    => $new_data->email,
+                'username' => 'username_baru',
+                'name'     => 'nama baru',
+                'email'    => 'emailbaru@me.com',
              ])
              ->assertStatus(403);
     }

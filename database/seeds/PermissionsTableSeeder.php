@@ -34,25 +34,26 @@ class PermissionsTableSeeder extends Seeder
 
         foreach (config('resources') as $resource) {
             $slug = with(new $resource)->permissionKeyName();
+            $name = str_replace('_', ' ', $slug);
 
             Permission::create([
-                'name'        => $slug . '_view_page',
-                'description' => 'Akses halaman kelola ' . str_replace('_', ' ', $slug)
+                'name'        => "view_{$slug}_page",
+                'description' => "Akses halaman kelola {$name}"
             ]);
 
             Permission::create([
-                'name'        => $slug . '_create',
-                'description' => 'Membuat ' . str_replace('_', ' ', $slug) . ' baru'
+                'name'        => "create_{$slug}",
+                'description' => "Membuat {$name} baru"
             ]);
 
             Permission::create([
-                'name'        => $slug . '_update',
-                'description' => 'Mengubah data ' . str_replace('_', ' ', $slug)
+                'name'        => "update_{$slug}",
+                'description' => "Mengubah data {$name}"
             ]);
 
             Permission::create([
-                'name'        => $slug . '_delete',
-                'description' => 'Menghapus data ' . str_replace('_', ' ', $slug)
+                'name'        => "delete_{$slug}",
+                'description' => "Menghapus data {$name}"
             ]);
         }
 

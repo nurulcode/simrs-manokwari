@@ -61,7 +61,7 @@ class UserPolicy
             return false;
         }
 
-        return true;
+        return $user->can('delete_user');
     }
 
     /**
@@ -99,5 +99,12 @@ class UserPolicy
         }
 
         return true;
+    }
+
+    public function before($user, $ability)
+    {
+        if ($user->isSuperAdmin()) {
+            return true;
+        }
     }
 }
