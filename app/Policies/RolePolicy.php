@@ -11,6 +11,28 @@ class RolePolicy
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user can view the model collection.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
+     */
+    public function index(User $user)
+    {
+        return $user->can('view_role_index') || $user->can('view_role_page');
+    }
+
+    /**
+     * Determine whether the user can view the model web page.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
+     */
+    public function view_page(User $user)
+    {
+        return $user->can('view_role_page');
+    }
+
+    /**
      * Determine whether the user can view the role.
      *
      * @param  \App\Models\User  $user
@@ -81,11 +103,13 @@ class RolePolicy
         return $user->can('delete_role');
     }
 
-    public function view_page(User $user)
-    {
-        return $user->can('view_role_page');
-    }
-
+    /**
+     * Filter policy.
+     *
+     * @param  \App\Models\User  $user
+     * @param  mixed  $ability
+     * @return mixed
+     */
     public function before(User $user, $ability)
     {
         if ($user->can('manage_role')) {

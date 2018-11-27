@@ -21,6 +21,17 @@ class UserPolicy
     }
 
     /**
+    * Determine whether the user can view the model web page.
+    *
+    * @param  \App\Models\User  $user
+    * @return mixed
+    */
+    public function view_page(User $user)
+    {
+        return $user->can('view_user_page');
+    }
+
+    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
@@ -96,11 +107,13 @@ class UserPolicy
         return $user->can('update_user');
     }
 
-    public function view_page(User $user)
-    {
-        return $user->can('view_user_page');
-    }
-
+    /**
+     * Filter policy.
+     *
+     * @param  \App\Models\User  $user
+     * @param  mixed  $ability
+     * @return mixed
+     */
     public function before(User $user, $ability)
     {
         if ($user->can('manage_user')) {
