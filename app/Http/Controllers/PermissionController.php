@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Sty\HttpQuery;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PermissionRequest;
 use App\Http\Resources\PermissionResource;
 
@@ -17,7 +18,12 @@ class PermissionController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        return PermissionResource::collection(Permission::filter($query));
+        if (Auth::user()->can('view_permission_page')
+            || Auth::user()->can('view_permission_index')) {
+            return PermissionResource::collection(Permission::filter($query));
+        }
+
+        return abort(403);
     }
 
     /**

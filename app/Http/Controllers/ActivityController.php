@@ -17,6 +17,8 @@ class ActivityController extends Controller
      */
     public function index(HttpQuery $query)
     {
+        $this->authorize('view_activities_page');
+
         return ActivityResource::collection(
             Activity::with(['user', 'subject'])->filter($query)
         );
@@ -75,6 +77,8 @@ class ActivityController extends Controller
      */
     public function view(Request $request)
     {
+        $this->authorize('view_activities_page');
+
         return view('activities');
     }
 }
