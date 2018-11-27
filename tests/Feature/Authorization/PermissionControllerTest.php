@@ -20,6 +20,12 @@ class PermissionControllerTest extends TestCase
         return false;
     }
 
+    /** @skip **/
+    public function user_can_not_post_empty_data()
+    {
+        return false;
+    }
+
     /** @test **/
     public function user_cannot_create_a_resource()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Permission;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PermissionRequest extends FormRequest
@@ -13,7 +14,11 @@ class PermissionRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if ($this->route('permission')) {
+            return $this->user()->can('update', $this->route('permission'));
+        }
+
+        return false;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Role;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,7 +15,11 @@ class RoleRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if ($this->route('role')) {
+            return $this->user()->can('update', $this->route('role'));
+        }
+
+        return $this->user()->can('create', Role::class);
     }
 
     /**
