@@ -90,6 +90,8 @@ class RoleController extends Controller
      */
     public function view(Request $request)
     {
+        $this->authorize('view_page', Role::class);
+
         return view('role');
     }
 }

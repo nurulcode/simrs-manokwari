@@ -39,6 +39,8 @@ class PermissionController extends Controller
      */
     public function show(Permission $permission)
     {
+        $this->authorize('view_permission_page');
+
         return new PermissionResource($permission);
     }
 
@@ -51,6 +53,8 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, Permission $permission)
     {
+        $this->authorize('update_permission');
+
         return crud_response(new PermissionResource(
             tap($permission)->update($request->validated())
         ));
@@ -75,6 +79,8 @@ class PermissionController extends Controller
      */
     public function view(Request $request)
     {
+        $this->authorize('view_permission_page');
+
         return view('permission');
     }
 }

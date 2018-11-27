@@ -19,7 +19,7 @@ class RolePolicy
      */
     public function view(User $user, Role $role)
     {
-        return true;
+        return $user->can('view_role_page');
     }
 
     /**
@@ -42,10 +42,6 @@ class RolePolicy
      */
     public function update(User $user, Role $role)
     {
-        if ($role->name === 'superadmin') {
-            return false;
-        }
-
         return $user->can('update_role');
     }
 
@@ -58,10 +54,6 @@ class RolePolicy
      */
     public function delete(User $user, Role $role)
     {
-        if ($role->name === 'superadmin') {
-            return false;
-        }
-
         return $user->can('delete_role');
     }
 
@@ -74,7 +66,7 @@ class RolePolicy
      */
     public function restore(User $user, Role $role)
     {
-        //
+        return $user->can('delete_role');
     }
 
     /**
@@ -86,10 +78,18 @@ class RolePolicy
      */
     public function forceDelete(User $user, Role $role)
     {
-        if ($role->name === 'superadmin') {
-            return false;
-        }
-
         return $user->can('delete_role');
+    }
+
+    public function view_page(User $user)
+    {
+        return $user->can('view_role_page');
+    }
+
+    public function before(User $user, $ability)
+    {
+        if ($user->can('manage_role')) {
+            return true;
+        }
     }
 }
