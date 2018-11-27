@@ -32,7 +32,7 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return abort(403);
     }
 
     /**
@@ -43,7 +43,7 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
-        //
+        return abort(403);
     }
 
     /**
@@ -55,7 +55,7 @@ class ActivityController extends Controller
      */
     public function update(Request $request, Activity $activity)
     {
-        //
+        return abort(403);
     }
 
     /**
@@ -66,7 +66,7 @@ class ActivityController extends Controller
      */
     public function destroy(Activity $activity)
     {
-        //
+        return abort(403);
     }
 
     /**
