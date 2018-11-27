@@ -23,6 +23,11 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
+            'name'        => 'view_activities_page',
+            'description' => 'Akses halaman daftar aktifitas pengguna'
+        ]);
+
+        Permission::create([
             'name'        => 'view_permission_page',
             'description' => 'Akses halaman kelola permission'
         ]);
