@@ -33,15 +33,20 @@ abstract class TestCase extends BaseTestCase
 
     protected function signIn(Authenticatable $user = null, $driver = null)
     {
-        return $this->actingAs($user ?: $this->createUser(), $driver);
+        return $this->actingAs($user ?: $this->getUser(), $driver);
     }
 
-    public function createUser()
+    public function getUser()
     {
         if (User::count() > 0) {
             return User::first();
         }
 
+        return $this->createUser();
+    }
+
+    public function createUser()
+    {
         return factory(User::class)->create();
     }
 }

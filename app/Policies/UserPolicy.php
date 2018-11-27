@@ -10,6 +10,17 @@ class UserPolicy
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user can view the model collection.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
+     */
+    public function index(User $user)
+    {
+        return $user->can('view_user_index') || $user->can('view_user_page');
+    }
+
+    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user

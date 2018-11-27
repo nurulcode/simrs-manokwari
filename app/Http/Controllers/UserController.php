@@ -18,6 +18,8 @@ class UserController extends Controller
      */
     public function index(HttpQuery $query)
     {
+        $this->authorize('index', User::class);
+
         return UserResource::collection(User::filter($query));
     }
 
