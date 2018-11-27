@@ -55,6 +55,11 @@ class PermissionsTableSeeder extends Seeder
                 'name'        => "delete_{$slug}",
                 'description' => "Menghapus data {$name}"
             ]);
+
+            Permission::create([
+                'name'        => "manage_{$slug}",
+                'description' => "Melihat, membuat, mengubah, dan menghapus data {$name}"
+            ]);
         }
 
         Schema::enableForeignKeyConstraints();

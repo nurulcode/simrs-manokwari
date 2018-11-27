@@ -60,6 +60,10 @@ class UserController extends Controller
     {
         $this->authorize('update', $user);
 
+        if ($user->isSuperAdmin()) {
+            return abort(403);
+        }
+
         return crud_response(new UserResource(
             UserRegistration::update($user, $request->validated())
         ));
@@ -75,6 +79,10 @@ class UserController extends Controller
     {
         $this->authorize('delete', $user);
 
+        if ($user->isSuperAdmin()) {
+            return abort(403);
+        }
+
         return crud_response(tap($user)->delete());
     }
 
@@ -86,6 +94,8 @@ class UserController extends Controller
      */
     public function view(Request $request)
     {
+        $this->authorize('view_page', User::class);
+
         return view('user');
     }
 }

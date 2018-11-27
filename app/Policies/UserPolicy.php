@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return true;
+        return $user->can('view_user_page');
     }
 
     /**
@@ -41,10 +41,6 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        if ($model->isSuperAdmin()) {
-            return false;
-        }
-
         return $user->can('update_user');
     }
 
@@ -57,10 +53,6 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        if ($model->isSuperAdmin()) {
-            return false;
-        }
-
         return $user->can('delete_user');
     }
 
@@ -73,7 +65,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model)
     {
-        //
+        return $user->can('delete_user');
     }
 
     /**
@@ -85,19 +77,23 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        if ($model->isSuperAdmin()) {
-            return false;
-        }
-
         return $user->can('delete_user');
     }
 
-    public function toggleActivation(User $user, User $model)
+    public function activate(User $user, User $model)
     {
-        if ($model->isSuperAdmin()) {
-            return false;
-        }
-
         return $user->can('update_user');
+    }
+
+    public function view_page(User $user)
+    {
+        return $user->can('view_user_page');
+    }
+
+    public function before(User $user, $ability)
+    {
+        if ($user->can('manage_user')) {
+            return true;
+        }
     }
 }
