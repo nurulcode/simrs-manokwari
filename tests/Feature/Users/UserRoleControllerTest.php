@@ -70,6 +70,31 @@ class UserRoleControllerTest extends TestCase
     }
 
     /** @test */
+    public function user_cannot_assign_invalid_role_to_user()
+    {
+        $resource = factory(User::class)->make();
+        $role     = factory(Role::class)->create();
+
+        $password = str_random(99);
+
+        $this->signIn()
+             ->postJson($resource->path('store'), array_merge(
+                $resource->toArray(), [
+                    'password'              => $password,
+                    'password_confirmation' => $password,
+                    'roles'                 => [
+                        ['id'=> str_random(10), 'name' => str_random(10)],
+                        ['id'=> str_random(10), 'name' => str_random(10)],
+                        ['id'=> $role->id,      'name' => $role->name],
+                    ],
+                ]
+             ))
+             ->assertJson(['errors' => []])
+             ->assertJsonValidationErrors(['roles'])
+             ->assertStatus(422);
+    }
+
+    /** @test */
     public function user_cannot_assign_superadmin_to_new_user()
     {
         $resource   = factory(User::class)->make();
@@ -83,29 +108,12 @@ class UserRoleControllerTest extends TestCase
                 $resource->toArray(), [
                     'password'              => $password,
                     'password_confirmation' => $password,
-                    'roles'                 => [$superadmin, $noadmin],
+                    'roles'                 => [$noadmin, $superadmin, $noadmin],
                 ]
              ))
-             ->assertJson(['status' => 'success'])
-             ->assertStatus(201);
-
-        $this->assertDatabaseHas($resource->getTable(), [
-            'username' => $resource->username,
-            'name'     => $resource->name,
-            'email'    => $resource->email,
-        ]);
-
-        $user = User::where('username', $resource->username)->firstOrFail();
-
-        $this->assertDatabaseHas('role_user', [
-            'user_id' => $user->id,
-            'role_id' => $noadmin->id
-        ]);
-
-        $this->assertDatabaseMissing('role_user', [
-            'user_id' => $user->id,
-            'role_id' => $superadmin->id
-        ]);
+             ->assertJson(['errors' => []])
+             ->assertJsonValidationErrors(['roles'])
+             ->assertStatus(422);
     }
 
     /** @test **/

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Collection;
+
 trait HasRoles
 {
     public function roles()
@@ -25,6 +27,15 @@ trait HasRoles
         }
 
         $this->roles()->attach($role->id);
+    }
+
+    public function assignRoles($roles)
+    {
+        $this->roles()->sync(
+            Collection::wrap($roles)->map(function ($role) {
+                return $role['id'];
+            })->values()
+        );
     }
 
     public function hasRole($role)

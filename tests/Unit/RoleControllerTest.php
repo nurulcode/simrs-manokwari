@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Unit\Authorization;
+namespace Tests\Unit;
 
 use Tests\TestCase;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Support\Collection;
 
-class RoleControllerTest extends TestCase
+class RoleTest extends TestCase
 {
     /** @test */
     public function a_role_has_many_permission()

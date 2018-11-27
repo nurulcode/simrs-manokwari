@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Sty\DropKey;
 use Sty\RequestTransform;
+use App\Rules\ArrayExists;
+use App\Rules\NoNewSuperAdmin;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -37,17 +39,16 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        $unique = Rule::unique('users')->ignore(
-            optional($this->route('user'))->id
-        );
+        $unique = Rule::unique('users')->ignore(optional($this->route('user'))->id);
 
         return [
-            'username'     => ['required', $unique],
-            'name'         => ['required'],
-            'email'        => ['required', 'email'],
-            'password'     => ['nullable', 'confirmed', 'min:6'],
-            'roles.*.id'   => ['nullable', 'exists:roles,id'],
-            'roles.*.name' => ['nullable'],
+            'username' => ['required', $unique],
+            'name'     => ['required'],
+            'email'    => ['required', 'email'],
+            'password' => ['nullable', 'confirmed', 'min:6'],
+            'roles'    => [
+                'nullable', new ArrayExists('roles', 'id'), new NoNewSuperAdmin
+            ],
         ];
     }
 
