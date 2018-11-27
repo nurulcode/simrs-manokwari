@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Sty\DropKey;
+use App\Models\User;
 use Sty\RequestTransform;
 use App\Rules\ArrayExists;
 use App\Rules\NoNewSuperAdmin;
@@ -29,7 +30,11 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if ($this->route('user')) {
+            return $this->user()->can('update', $this->route('user'));
+        }
+
+        return $this->user()->can('create', User::class);
     }
 
     /**
