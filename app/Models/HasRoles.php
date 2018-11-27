@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\RoleAssigned;
 use Illuminate\Support\Collection;
 
 trait HasRoles
@@ -36,6 +37,8 @@ trait HasRoles
                 return $role['id'];
             })->values()
         );
+
+        event(new RoleAssigned($this));
     }
 
     public function hasRole($role)

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\RoleAssigned;
 use Illuminate\Auth\Events\Login;
+use App\Listeners\LogAssignedRole;
 use Illuminate\Auth\Events\Logout;
 use App\Listeners\LogSuccessfulLogin;
 use Illuminate\Support\Facades\Event;
@@ -28,6 +30,9 @@ class EventServiceProvider extends ServiceProvider
         Logout::class => [
             LogSuccessfulLogout::class,
         ],
+        RoleAssigned::class => [
+            LogAssignedRole::class
+        ]
     ];
 
     /**

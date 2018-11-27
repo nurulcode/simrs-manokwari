@@ -120,4 +120,25 @@ class ActivityTest extends TestCase
 
         $this->assertInstanceOf(User::class, $activity->user);
     }
+
+    /** @test */
+    public function it_can_record_when_roles_assigned_to_user()
+    {
+        $admin  = factory(User::class)->create();
+        $roles  = factory(Role::class, 3)->create();
+        $user   = factory(User::class)->create();
+
+        $this->signIn($admin);
+
+        $user->assignRoles($roles);
+
+        $this->assertDatabaseHas('activities', [
+            'user_id'      => $admin->id,
+            'subject_id'   => $user->id,
+            'subject_type' => User::class,
+            'type'         => 'assign_roles',
+            'before'       => $user->roles->toJson(),
+            'after'        => $user->fresh()->roles->toJson(),
+        ]);
+    }
 }
