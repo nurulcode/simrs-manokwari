@@ -29,8 +29,6 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        $this->authorize('create', Role::class);
-
         return crud_response(new RoleResource(
             RoleRegistration::create($request->validated())
         ));
@@ -58,8 +56,6 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, Role $role)
     {
-        $this->authorize('update', $role);
-
         return crud_response(new RoleResource(
             RoleRegistration::update($role, $request->validated())
         ));

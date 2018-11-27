@@ -2,20 +2,19 @@
 
 namespace App\Models;
 
-use Sty\HasPath;
-use Sty\HasPolicy;
-use Sty\FilterScope;
-use Sty\ResourceModel;
+use Sty;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements ResourceModel
+class User extends Authenticatable implements Sty\ResourceModel
 {
-    use FilterScope,
+    use
+        Sty\FilterScope,
+        Sty\HasPath,
+        Sty\HasPolicy,
+        Sty\Searchable,
         HasApiTokens,
-        HasPath,
-        HasPolicy,
         HasRoles,
         Notifiable,
         RecordsActivity;

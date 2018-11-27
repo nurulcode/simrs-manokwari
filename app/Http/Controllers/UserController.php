@@ -31,8 +31,6 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $this->authorize('create', User::class);
-
         return crud_response(new UserResource(
             UserRegistration::create($request->validated())
         ));
@@ -60,8 +58,6 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $this->authorize('update', $user);
-
         if ($user->isSuperAdmin()) {
             return abort(403);
         }
