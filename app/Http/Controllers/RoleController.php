@@ -18,6 +18,8 @@ class RoleController extends Controller
      */
     public function index(HttpQuery $query)
     {
+        $this->authorize('index', Role::class);
+
         return RoleResource::collection(Role::filter($query));
     }
 
