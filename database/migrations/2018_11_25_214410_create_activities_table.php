@@ -23,9 +23,9 @@ class CreateActivitiesTable extends Migration
                   ->nullable();
             $table->string('subject_type')
                   ->nullable();
-            $table->textmediumText('before')
+            $table->mediumText('before')
                   ->nullable();
-            $table->textmediumText('after')
+            $table->mediumText('after')
                   ->nullable();
             $table->timestamps();
 
