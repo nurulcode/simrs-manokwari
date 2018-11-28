@@ -2,8 +2,21 @@
 
 namespace App\Models;
 
+use Sty\Searchable;
+use Sty\FilterScope;
+use Illuminate\Database\Eloquent\Model;
+
 class Activity extends Model
 {
+    use FilterScope, Searchable;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
     public function subject()
     {
         return $this->morphTo();

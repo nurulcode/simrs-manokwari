@@ -52,7 +52,7 @@ trait RecordsActivity
         }
 
         return json_encode(
-            array_intersect_key($this->fresh()->toArray(), $this->getDirty())
+            array_intersect_key($this->fresh()->getAttributes(), $this->getDirty())
         );
     }
 
@@ -66,7 +66,11 @@ trait RecordsActivity
             return null;
         }
 
-        return $this->toJson();
+        if ($event == 'created') {
+            return json_encode($this->getAttributes());
+        }
+
+        return;
     }
 
     public function changes()
