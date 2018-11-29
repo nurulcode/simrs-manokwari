@@ -16,7 +16,7 @@ class UserActivationToggleController extends Controller
             return abort(403);
         }
 
-        return crud_response(new UserResource(
+        return response()->crud(new UserResource(
             tap($user, function ($user) use ($request) {
                 $currentState = $user->active;
                 $user->active = $request->input('active', !$currentState);

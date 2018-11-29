@@ -31,7 +31,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        return crud_response(new UserResource(
+        return response()->crud(new UserResource(
             UserRegistration::create($request->validated())
         ));
     }
@@ -62,7 +62,7 @@ class UserController extends Controller
             return abort(403);
         }
 
-        return crud_response(new UserResource(
+        return response()->crud(new UserResource(
             UserRegistration::update($user, $request->validated())
         ));
     }
@@ -81,7 +81,7 @@ class UserController extends Controller
             return abort(403);
         }
 
-        return crud_response(tap($user)->delete());
+        return response()->crud(tap($user)->delete());
     }
 
     /**

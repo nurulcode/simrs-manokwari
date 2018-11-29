@@ -59,7 +59,7 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, Permission $permission)
     {
-        return crud_response(new PermissionResource(
+        return response()->crud(new PermissionResource(
             tap($permission)->update($request->validated())
         ));
     }

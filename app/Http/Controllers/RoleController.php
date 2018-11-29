@@ -31,7 +31,7 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        return crud_response(new RoleResource(
+        return response()->crud(new RoleResource(
             RoleRegistration::create($request->validated())
         ));
     }
@@ -58,7 +58,7 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, Role $role)
     {
-        return crud_response(new RoleResource(
+        return response()->crud(new RoleResource(
             RoleRegistration::update($role, $request->validated())
         ));
     }
@@ -77,7 +77,7 @@ class RoleController extends Controller
             abort(403);
         }
 
-        return crud_response(tap($role)->delete());
+        return response()->crud(tap($role)->delete());
     }
 
     /**
