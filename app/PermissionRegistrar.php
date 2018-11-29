@@ -3,6 +3,8 @@
 namespace App;
 
 use PDOException;
+use App\Models\Role;
+use App\Models\User;
 use App\Models\Permission;
 use Illuminate\Support\Facades\Gate;
 
@@ -18,7 +20,13 @@ class PermissionRegistrar
             });
         }
 
-        Gate::before(function ($user, $ability) use ($do_anything) {
+        Gate::before(function ($user, $ability, $args) use ($do_anything) {
+            if (array_first($args, function ($arg) {
+                return $arg instanceof User || $arg instanceof Role;
+            })) {
+                return;
+            }
+
             if ($user->isSuperAdmin() || $user->hasRole($do_anything->roles)) {
                 return true;
             }

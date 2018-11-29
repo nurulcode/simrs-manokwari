@@ -51,6 +51,19 @@ class RoleControllerTest extends TestCase
     }
 
     /** @test **/
+    public function can_not_update_superadmin_role()
+    {
+        $resource = factory($this->resource())->create(['name' => 'superadmin']);
+
+        $new_data = factory($this->resource())->make();
+
+        $this->withExceptionHandling()
+             ->signIn()
+             ->putJson($resource->path, $this->beforePost($new_data))
+             ->assertStatus(403);
+    }
+
+    /** @test **/
     public function can_not_delete_superadmin_role()
     {
         $resource = factory($this->resource())->create([

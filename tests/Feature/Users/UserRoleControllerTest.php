@@ -122,14 +122,11 @@ class UserRoleControllerTest extends TestCase
         $this->artisan('db:seed', ['--class' => 'PermissionsTableSeeder']);
         $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
 
-        $resource = factory(User::class)->create();
         $user     = factory(User::class)->create();
-
-        $resource->giveRoleAs('superadmin');
 
         $this
              ->signIn($user)
-             ->deleteJson($resource->path)
+             ->deleteJson($user->path)
              ->assertStatus(403);
     }
 

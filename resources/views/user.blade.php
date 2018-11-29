@@ -19,7 +19,7 @@
         </template>
         <template slot='active' slot-scope="{item}">
             <button
-                :disabled="item.is_super_admin"
+                :disabled="item.__editable == false"
                 title="Active"
                 type="button"
                 class="btn btn-primary"
@@ -29,7 +29,7 @@
                 <i class="fa fa-check"></i>
             </button>
             <button
-                :disabled="item.is_super_admin"
+                :disabled="item.__editable == false"
                 class="btn btn-danger"
                 title="Inactive"
                 v-else
@@ -116,13 +116,6 @@ window.pagemix.push({
                 url    : `{{ action('UserController@index') }}`,
                 options: {
                     sortBy: 'username'
-                },
-                dataMap(item) {
-                    return {
-                        ...item,
-                        __no_delete: item.is_super_admin,
-                        __no_edit  : item.is_super_admin
-                    };
                 },
                 fields: [
                     {

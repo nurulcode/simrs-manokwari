@@ -114,8 +114,12 @@ class UserPolicy
      * @param  mixed  $ability
      * @return mixed
      */
-    public function before(User $user, $ability)
+    public function before(User $user, $ability, $model)
     {
+        if ($model instanceof User && $model->isSuperAdmin()) {
+            return false;
+        }
+
         if ($user->can('manage_user')) {
             return true;
         }

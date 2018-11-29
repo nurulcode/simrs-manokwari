@@ -59,13 +59,6 @@ window.pagemix.push({
                 options: {
                     sortBy: 'name'
                 },
-                dataMap(item) {
-                    return {
-                        ...item,
-                        __no_delete: item.name == 'superadmin',
-                        __no_edit  : item.name == 'superadmin'
-                    }
-                },
                 fields: [
                     {
                         key     : 'name',

@@ -22589,7 +22589,9 @@ var render = function() {
                                   "button",
                                   {
                                     staticClass: "btn btn-success",
-                                    attrs: { disabled: data.item.__no_edit },
+                                    attrs: {
+                                      disabled: data.item.__editable == false
+                                    },
                                     on: {
                                       click: function($event) {
                                         _vm.edit(data.item)
@@ -22612,7 +22614,9 @@ var render = function() {
                                   "button",
                                   {
                                     staticClass: "btn btn-danger",
-                                    attrs: { disabled: data.item.__no_delete },
+                                    attrs: {
+                                      disabled: data.item.__deletable == false
+                                    },
                                     on: {
                                       click: function($event) {
                                         _vm.destroy(data.item)

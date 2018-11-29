@@ -110,8 +110,12 @@ class RolePolicy
      * @param  mixed  $ability
      * @return mixed
      */
-    public function before(User $user, $ability)
+    public function before(User $user, $ability, $role)
     {
+        if ($role instanceof Role && $role->name == 'superadmin') {
+            return false;
+        }
+
         if ($user->can('manage_role')) {
             return true;
         }

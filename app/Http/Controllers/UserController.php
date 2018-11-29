@@ -58,10 +58,6 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        if ($user->isSuperAdmin()) {
-            return abort(403);
-        }
-
         return response()->crud(new UserResource(
             UserRegistration::update($user, $request->validated())
         ));
@@ -76,10 +72,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
-
-        if ($user->isSuperAdmin()) {
-            return abort(403);
-        }
 
         return response()->crud(tap($user)->delete());
     }

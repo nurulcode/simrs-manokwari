@@ -18,8 +18,10 @@ class RoleResource extends JsonResource
             'id'          => $this->id,
             'name'        => $this->name,
             'description' => $this->description,
-            'path'        => $this->path,
             'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
+            'path'        => $this->path,
+            '__editable'  => $request->user()->can('update', $this->resource),
+            '__deletable' => $request->user()->can('delete', $this->resource),
         ];
     }
 }
