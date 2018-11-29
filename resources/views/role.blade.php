@@ -3,7 +3,11 @@
 @section('title', 'Role Management')
 
 @section('card')
-    <data-table v-bind.sync="role" ref="table">
+    <data-table v-bind.sync="role" ref="table"
+        @cannot('create', App\Models\Role::class)
+            no-add-button-text
+        @endcannot
+        >
         <template slot="permissions" slot-scope="{item, value}">
             <template v-for="permission in value">
                 <span class="badge badge-danger mr-1" v-if="permission.name == 'do_anything'">

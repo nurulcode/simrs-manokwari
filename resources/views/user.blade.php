@@ -3,7 +3,11 @@
 @section('title', 'User Management')
 
 @section('card')
-    <data-table v-bind.sync="user" ref="table">
+    <data-table v-bind.sync="user" ref="table"
+        @cannot('create', App\Models\User::class)
+            no-add-button-text
+        @endcannot
+        >
         <template slot="name" slot-scope="{item, value}">
             <p> @{{ value }} </p>
 
