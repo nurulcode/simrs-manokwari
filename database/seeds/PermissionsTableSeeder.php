@@ -48,7 +48,7 @@ class PermissionsTableSeeder extends Seeder
 
             Permission::create([
                 'name'        => "view_{$slug}_index",
-                'description' => "Akses halaman kelola {$name}"
+                'description' => "Akses daftar index {$name}"
             ]);
 
             Permission::create([
