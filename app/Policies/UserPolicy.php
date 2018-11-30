@@ -38,7 +38,7 @@ class UserPolicy
      * @param  \App\App\Models\User  $model
      * @return mixed
      */
-    public function view(User $user, User $model)
+    public function view(User $user, User $model = null)
     {
         return $user->can('view_user_page');
     }

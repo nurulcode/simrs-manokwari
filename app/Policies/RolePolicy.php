@@ -39,7 +39,7 @@ class RolePolicy
      * @param  \App\Models\Role  $role
      * @return mixed
      */
-    public function view(User $user, Role $role)
+    public function view(User $user, Role $role = null)
     {
         return $user->can('view_role_page');
     }
