@@ -54,6 +54,17 @@ trait HasRoles
         return $role->intersect($this->roles)->isNotEmpty();
     }
 
+    public function hasPermission($permission)
+    {
+        if (!$permission instanceof Permission) {
+            $permission = Permission::where('name', $permission)->first();
+        }
+
+        if ($permission) {
+            return $this->hasRole($permission->roles);
+        }
+    }
+
     public function isSuperAdmin()
     {
         return $this->is(static::first());

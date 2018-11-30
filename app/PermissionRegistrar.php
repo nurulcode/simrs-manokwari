@@ -14,12 +14,6 @@ class PermissionRegistrar
     {
         $do_anything = $this->doAnythingPermission();
 
-        foreach ($this->permissions() as $permission) {
-            Gate::define($permission->name, function ($user) use ($permission) {
-                return $user->hasRole($permission->roles);
-            });
-        }
-
         Gate::before(function ($user, $ability, $args) use ($do_anything) {
             if (array_first($args, function ($arg) {
                 return $arg instanceof User || $arg instanceof Role;
@@ -30,18 +24,13 @@ class PermissionRegistrar
             if ($user->isSuperAdmin() || $user->hasRole($do_anything->roles)) {
                 return true;
             }
+
+            $permission = Permission::where('name', $ability)->first();
+
+            if (!Gate::has($ability) && !!$permission) {
+                return $user->hasPermission($permission);
+            }
         });
-    }
-
-    protected function permissions()
-    {
-        try {
-            return Permission::with('roles')->get();
-        } catch (PDOException $e) {
-            //
-        }
-
-        return [];
     }
 
     public function doAnythingPermission()
