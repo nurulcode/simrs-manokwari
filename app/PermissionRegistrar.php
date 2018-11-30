@@ -25,11 +25,13 @@ class PermissionRegistrar
                 return true;
             }
 
+            if (Gate::has($ability)) {
+                return;
+            }
+
             $permission = Permission::where('name', $ability)->first();
 
-            if (!Gate::has($ability) && !!$permission) {
-                return $user->hasPermission($permission);
-            }
+            return $user->hasPermission($permission);
         });
     }
 

@@ -67,6 +67,6 @@ trait HasRoles
 
     public function isSuperAdmin()
     {
-        return $this->is(static::first());
+        return $this->id == 1;
     }
 }
