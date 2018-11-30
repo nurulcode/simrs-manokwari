@@ -84,7 +84,7 @@ class UserController extends Controller
      */
     public function view(Request $request)
     {
-        $this->authorize('view_page', User::class);
+        $this->authorize('view', User::class);
 
         return view('user');
     }
