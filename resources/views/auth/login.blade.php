@@ -8,8 +8,11 @@
         <p class="text-muted">Sign In to your account</p>
 
         <form v-on:submit.prevent="submit">
+
             <b-form-group v-bind="form.feedback('username')">
+
                 @component('components.input-group')
+
                     <input
                         class="form-control"
                         name="username"
@@ -17,45 +20,50 @@
                         tabindex=1
                         v-model="form.username">
                     </input>
+
                     @slot('append')
-                        <button class="btn btn-secondary">
-                            <i class="icon-user"></i>
-                        </button>
+                        <button class="btn btn-secondary"> <i class="icon-user"></i></button>
                     @endslot
+
                 @endcomponent
+
             </b-form-group>
 
             <b-form-group v-bind="form.feedback('password')">
+
                 @component('components.input-group')
+
                     <input
-                        :type="show_password ? `text`: `password`"
                         class="form-control"
                         name="password"
                         placeholder="{{ __('Password') }}"
                         tabindex=2
+                        v-bind:type="show_password ? `text`: `password`"
                         v-model="form.password">
                     </input>
+
                     @slot('append')
                         <button class="btn btn-secondary" v-on:click.prevent="show_password = !show_password">
                             <i :class="show_password ? `icon-lock` : `icon-eye`"></i>
                         </button>
                     @endslot
+
                 @endcomponent
+
             </b-form-group>
+
         </form>
 
-        <button class="px-4 btn btn-primary" v-on:click.prevent="submit">
-            {{ __('Login') }}
-        </button>
+        <button class="px-4 btn btn-primary" v-on:click.prevent="submit"> {{ __('Login') }} </button>
 
         <loading-overlay v-show="submiting"></loading-overlay>
+
     @endcomponent
+
     @component('components.card', ['class' => 'text-white bg-primary py-5 d-md-down-none text-center'])
-        <p>
-            <img src="{{ url('/images/logo.svg') }}" height="100px" alt="Logo" title="Logo"/>
-        </p>
-        <h4> Sistem Informasi</h4>
+        @include('auth.authlogo')
     @endcomponent
+
 </div>
 @endsection
 
