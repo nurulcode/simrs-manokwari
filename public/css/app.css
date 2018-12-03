@@ -16276,11 +16276,12 @@ body {
 
 .multiselect .multiselect__select {
   height: 33px;
-  top: 0px;
+  top: 1px;
+  right: 2px;
 }
 
 .multiselect .multiselect__select::before {
-  top: 70%;
+  top: 75%;
 }
 
 .multiselect .multiselect__input,
@@ -16291,16 +16292,32 @@ body {
 .multiselect .multiselect__single,
 .multiselect .multiselect__placeholder {
   margin-bottom: 0;
-  padding: 0 5px;
+  padding: 0;
 }
 
 .multiselect .multiselect__option {
-  padding: 12px 16px;
+  padding: 12px 0.75rem;
 }
 
 .multiselect--active .multiselect__input {
   margin-bottom: 0;
-  padding: 0 0 0 5px;
+  padding: 0;
+  width: 90% !important;
+}
+
+.multiselect--disabled {
+  background: transparent;
+  opacity: 1;
+}
+
+.multiselect--disabled .multiselect__tags,
+.multiselect--disabled .multiselect__select {
+  background: #e4e7ea;
+}
+
+.multiselect--disabled .multiselect__single {
+  background: transparent;
+  color: #5c6873;
 }
 
 .form-group.is-invalid .multiselect__tags {

@@ -1595,6 +1595,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -1653,33 +1654,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }
     },
     props: {
-        url: {
-            type: String,
-            required: true
-        },
-        trackBy: {
-            type: String,
-            default: 'id'
-        },
-        label: {
-            type: String,
-            default: 'name'
-        },
-        value: {
-            type: [Object, Array, String],
-            required: false
-        },
-        optionsLimit: {
-            type: Number,
-            default: 100
-        },
-        params: {
-            type: Object,
-            default: function _default() {
-                return {};
-            },
-            required: false
-        },
         dataMap: {
             type: Function,
             required: false,
@@ -1693,6 +1667,37 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             default: function _default(item) {
                 return true;
             }
+        },
+        internalSearch: {
+            type: Boolean,
+            default: false
+        },
+        label: {
+            type: String,
+            default: 'name'
+        },
+        optionsLimit: {
+            type: Number,
+            default: 50
+        },
+        params: {
+            type: Object,
+            default: function _default() {
+                return {};
+            },
+            required: false
+        },
+        trackBy: {
+            type: String,
+            default: 'id'
+        },
+        url: {
+            type: String,
+            required: true
+        },
+        value: {
+            type: [Object, Array, String],
+            required: false
         }
     }
 });
@@ -1770,37 +1775,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        disabled: Boolean,
-        classes: String,
-        checked: Boolean,
-        name: String
-    },
     data: function data() {
         return {
-            value: null
+            state: null
         };
     },
+
+    methods: {
+        toggle: function toggle(e) {
+            this.$emit('change', e.target.checked);
+        }
+    },
     beforeMount: function beforeMount() {
-        this.value = this.checked;
-    },
-    mounted: function mounted() {
-        this.$emit('input', this.value);
+        this.state = !!this.checked;
     },
 
+    props: {
+        checked: Boolean,
+        disabled: {
+            type: Boolean,
+            default: false
+        }
+    },
     watch: {
-        value: function value(val, before) {
-            if (before == null) {
-                return;
-            }
-
-            this.$emit('input', val);
-
-            this.$emit('change', val, before);
-        },
-        checked: function checked(val) {
-            this.value = val;
+        checked: function checked(state) {
+            this.state = state;
         }
     }
 });
@@ -1816,10 +1817,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DataTableFilter_js__ = __webpack_require__("./resources/js/shared/components/DataTable/DataTableFilter.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DataTablePagination_js__ = __webpack_require__("./resources/js/shared/components/DataTable/DataTablePagination.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__DataTableRowLimitter_js__ = __webpack_require__("./resources/js/shared/components/DataTable/DataTableRowLimitter.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Directives__ = __webpack_require__("./resources/js/shared/components/DataTable/Directives.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__form__ = __webpack_require__("./resources/js/shared/form/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_debounce__ = __webpack_require__("./node_modules/lodash.debounce/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_lodash_debounce__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives__ = __webpack_require__("./resources/js/shared/components/DataTable/directives.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__props__ = __webpack_require__("./resources/js/shared/components/DataTable/props.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__form__ = __webpack_require__("./resources/js/shared/form/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_debounce__ = __webpack_require__("./node_modules/lodash.debounce/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_lodash_debounce__);
 //
 //
 //
@@ -1911,6 +1913,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -1928,7 +1932,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         DataTablePagination: __WEBPACK_IMPORTED_MODULE_2__DataTablePagination_js__["a" /* default */],
         DataTableRowLimitter: __WEBPACK_IMPORTED_MODULE_3__DataTableRowLimitter_js__["a" /* default */]
     },
-    directives: __WEBPACK_IMPORTED_MODULE_4__Directives__["a" /* default */],
     computed: {
         tableOption: function tableOption() {
             return Object.assign({
@@ -2016,7 +2019,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs.table.refresh();
         },
 
-        doSearch: __WEBPACK_IMPORTED_MODULE_6_lodash_debounce___default()(function (search) {
+        doSearch: __WEBPACK_IMPORTED_MODULE_7_lodash_debounce___default()(function (search) {
             this.$emit('update:filter', search);
 
             this.search = search;
@@ -2134,83 +2137,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             deep: true
         }
     },
-    props: {
-        addButtonText: {
-            type: String,
-            required: false,
-            default: 'Tambah Data'
-        },
-        noAddButtonText: {
-            type: Boolean,
-            default: false,
-            required: false
-        },
-        dataMap: {
-            type: Function,
-            required: false,
-            default: function _default(item) {
-                return item;
-            }
-        },
-        fields: {
-            type: [Array, Object],
-            required: false
-        },
-        filter: {
-            type: String,
-            required: false
-        },
-        form: {
-            type: __WEBPACK_IMPORTED_MODULE_5__form__["a" /* default */],
-            default: function _default() {
-                return new __WEBPACK_IMPORTED_MODULE_5__form__["a" /* default */]({});
-            },
-            required: false
-        },
-        modalSize: {
-            type: String,
-            required: false,
-            default: 'md'
-        },
-        noIndex: {
-            type: Boolean,
-            default: false
-        },
-        noAction: {
-            type: Boolean,
-            default: false
-        },
-        noEdit: {
-            type: Boolean,
-            default: false
-        },
-        noDelete: {
-            type: Boolean,
-            default: false
-        },
-        options: {
-            type: Object,
-            default: function _default() {
-                return {};
-            },
-            required: false
-        },
-        title: {
-            type: String,
-            required: false
-        },
-        url: {
-            type: String,
-            required: true
-        },
-        params: {
-            type: Object,
-            default: function _default() {
-                return {};
-            },
-            required: false
-        }
-    }
+    directives: __WEBPACK_IMPORTED_MODULE_4__directives__["a" /* default */],
+    props: __WEBPACK_IMPORTED_MODULE_5__props__["a" /* default */]
 });
 
 /***/ }),
@@ -2220,73 +2148,124 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_functional_data_merge__ = __webpack_require__("./node_modules/vue-functional-data-merge/dist/lib.esm.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Flatpickr__ = __webpack_require__("./resources/js/shared/components/Flatpickr.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_flatpickr__ = __webpack_require__("./node_modules/flatpickr/dist/flatpickr.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_flatpickr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_flatpickr__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_flatpickr__ = __webpack_require__("./node_modules/flatpickr/dist/flatpickr.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_flatpickr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_flatpickr__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    functional: true,
-    render: function render(createElement, context) {
-        var data = context.data,
-            props = context.props,
-            children = context.children;
+    computed: {
+        valueIsDate: function valueIsDate() {
+            return this.value instanceof Date && Object.prototype.toString.call(this.value) === '[object Date]';
+        }
+    },
+    data: function data() {
+        return {
+            fp: null
+        };
+    },
 
+    methods: {
+        reFormat: function reFormat(date, format) {
+            return __WEBPACK_IMPORTED_MODULE_0_flatpickr___default.a.formatDate(date, format || this.dateFormat);
+        }
+    },
+    mounted: function mounted() {
+        var _this = this;
 
-        var value = __WEBPACK_IMPORTED_MODULE_2_flatpickr___default.a.parseDate(data.props.value, props.dateFormat);
-        var hours = 0;
+        var options = this.options;
+        var value = __WEBPACK_IMPORTED_MODULE_0_flatpickr___default.a.parseDate(this.value, this.dateFormat);
         var minute = 0;
 
         if (value) {
-            hours = __WEBPACK_IMPORTED_MODULE_2_flatpickr___default.a.formatDate(value, 'H');
-            minute = __WEBPACK_IMPORTED_MODULE_2_flatpickr___default.a.formatDate(value, 'i');
+            hours = __WEBPACK_IMPORTED_MODULE_0_flatpickr___default.a.formatDate(value, 'H');
+            minute = __WEBPACK_IMPORTED_MODULE_0_flatpickr___default.a.formatDate(value, 'i');
         }
 
-        return createElement(__WEBPACK_IMPORTED_MODULE_1__Flatpickr__["a" /* default */], Object(__WEBPACK_IMPORTED_MODULE_0_vue_functional_data_merge__["a" /* mergeData */])({
-            props: {
-                options: _extends({}, props, {
-                    defaultDate: value,
-                    defaultHour: hours,
-                    defaultMinute: minute,
-                    minuteIncrement: props.step
-                })
+        this.fp = __WEBPACK_IMPORTED_MODULE_0_flatpickr___default()(this.$refs.input, _extends({}, this.$props, {
+            defaultDate: value,
+            defaultMinute: minute,
+            time_24hr: true,
+            static: true,
+            onChange: function onChange(selectedDates, dateStr, instance) {
+                _this.$emit('input', dateStr);
             }
-        }, data), context.children);
+        }, options));
+
+        if (this.valueIsDate) {
+            this.$emit('input', this.reFormat(this.value));
+        }
+    },
+
+    watch: {
+        value: function value(_value) {
+            this.fp.setDate(_value);
+        }
     },
     props: {
-        step: {
-            type: Number,
-            default: 1
+        altFormat: {
+            type: String,
+            default: 'd F Y'
+        },
+        altInput: {
+            type: Boolean,
+            default: true
         },
         dateFormat: {
             type: String,
             default: "Y-m-d H:i:S"
         },
-        altFormat: {
-            type: String,
-            default: 'd F Y'
+        defaultHour: {
+            type: Number,
+            default: 16
         },
         enableTime: {
             type: Boolean,
             default: false
         },
-        mode: {
+        icon: {
             type: String,
-            default: 'single'
+            default: 'icon-calendar'
         },
-        value: {
+        maxDate: {
             type: [String, Date]
         },
         minDate: {
             type: [String, Date]
         },
-        maxDate: {
+        minuteIncrement: {
+            type: Number,
+            default: 1
+        },
+        mode: {
+            type: String,
+            default: 'single'
+        },
+        options: {
+            type: Object,
+            default: function _default() {
+                return {};
+            }
+        },
+        placeholder: {
+            type: String,
+            default: 'DD MM YYYY'
+        },
+        value: {
             type: [String, Date]
         }
     }
@@ -17626,7 +17605,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.DataTable {\n  position: relative;\n}\n.DataTable tbody .active {\n  background-color: #f0f3f5 !important;\n}\n", "", {"version":3,"sources":["/var/www/resources/js/shared/components/DataTable/DataTable.vue"],"names":[],"mappings":";AAAA;EACE,mBAAmB;CAAE;AAEvB;EACE,qCAAqC;CAAE","file":"DataTable.vue","sourcesContent":[".DataTable {\n  position: relative; }\n\n.DataTable tbody .active {\n  background-color: #f0f3f5 !important; }\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.DataTable {\n  position: relative;\n}\n.DataTable tbody .active {\n  background-color: #f0f3f5 !important;\n}\n.DataTable__limit {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.DataTable__limit label {\n    line-height: 35px;\n    margin: 0 1em 0 0;\n    width: 9em;\n}\n", "", {"version":3,"sources":["/var/www/resources/js/shared/components/DataTable/DataTable.vue"],"names":[],"mappings":";AAAA;EACE,mBAAmB;CAAE;AAEvB;EACE,qCAAqC;CAAE;AAEzC;EACE,qBAAc;EAAd,qBAAc;EAAd,cAAc;CAAE;AAChB;IACE,kBAAkB;IAClB,kBAAkB;IAClB,WAAW;CAAE","file":"DataTable.vue","sourcesContent":[".DataTable {\n  position: relative; }\n\n.DataTable tbody .active {\n  background-color: #f0f3f5 !important; }\n\n.DataTable__limit {\n  display: flex; }\n  .DataTable__limit label {\n    line-height: 35px;\n    margin: 0 1em 0 0;\n    width: 9em; }\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -17641,7 +17620,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\nlabel.switch input[type=\"checkbox\"] {\n  display: none;\n}\nlabel.switch input[type=\"checkbox\"]:checked + span:before {\n    background-color: rgba(0, 127, 235, 0.5);\n}\nlabel.switch input[type=\"checkbox\"]:checked + span:after {\n    background-color: #007FEB;\n    -webkit-transform: translate(80%, -50%);\n            transform: translate(80%, -50%);\n}\nlabel.switch input[type=\"checkbox\"] + span {\n    position: relative;\n    display: inline-block;\n    cursor: pointer;\n    font-weight: 500;\n    text-align: left;\n    margin: 0px;\n    padding: 0px 44px;\n}\nlabel.switch input[type=\"checkbox\"] + span:before, label.switch input[type=\"checkbox\"] + span:after {\n      content: '';\n      cursor: pointer;\n      position: absolute;\n      margin: 0;\n      outline: 0;\n      top: 50%;\n      -webkit-transform: translate(0, -50%);\n              transform: translate(0, -50%);\n      -webkit-transition: all 200ms ease-out;\n      transition: all 200ms ease-out;\n}\nlabel.switch input[type=\"checkbox\"] + span:before {\n      left: 1px;\n      width: 34px;\n      height: 14px;\n      background-color: rgba(0, 0, 0, 0.2);\n      border-radius: 8px;\n}\nlabel.switch input[type=\"checkbox\"] + span:after {\n      left: 0;\n      width: 20px;\n      height: 20px;\n      background-color: rgba(0, 0, 0, 0.5);\n      border-radius: 50%;\n      -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084);\n              box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084);\n}\nlabel.switch input[type=\"checkbox\"]:checked + span label.switch input[type=\"checkbox\"]:after {\n    -webkit-transform: translate(80%, -50%);\n            transform: translate(80%, -50%);\n}\n", "", {"version":3,"sources":["/var/www/resources/js/shared/components/Check.vue"],"names":[],"mappings":";AAAA;EACE,cAAc;CAAE;AAChB;IACE,yCAAyC;CAAE;AAC7C;IACE,0BAA0B;IAC1B,wCAAgC;YAAhC,gCAAgC;CAAE;AACpC;IACE,mBAAmB;IACnB,sBAAsB;IACtB,gBAAgB;IAChB,iBAAiB;IACjB,iBAAiB;IACjB,YAAY;IACZ,kBAAkB;CAAE;AACpB;MACE,YAAY;MACZ,gBAAgB;MAChB,mBAAmB;MACnB,UAAU;MACV,WAAW;MACX,SAAS;MACT,sCAA8B;cAA9B,8BAA8B;MAC9B,uCAA+B;MAA/B,+BAA+B;CAAE;AACnC;MACE,UAAU;MACV,YAAY;MACZ,aAAa;MACb,qCAAqC;MACrC,mBAAmB;CAAE;AACvB;MACE,QAAQ;MACR,YAAY;MACZ,aAAa;MACb,qCAAqC;MACrC,mBAAmB;MACnB,2HAAmH;cAAnH,mHAAmH;CAAE;AACzH;IACE,wCAAgC;YAAhC,gCAAgC;CAAE","file":"Check.vue","sourcesContent":["label.switch input[type=\"checkbox\"] {\n  display: none; }\n  label.switch input[type=\"checkbox\"]:checked + span:before {\n    background-color: rgba(0, 127, 235, 0.5); }\n  label.switch input[type=\"checkbox\"]:checked + span:after {\n    background-color: #007FEB;\n    transform: translate(80%, -50%); }\n  label.switch input[type=\"checkbox\"] + span {\n    position: relative;\n    display: inline-block;\n    cursor: pointer;\n    font-weight: 500;\n    text-align: left;\n    margin: 0px;\n    padding: 0px 44px; }\n    label.switch input[type=\"checkbox\"] + span:before, label.switch input[type=\"checkbox\"] + span:after {\n      content: '';\n      cursor: pointer;\n      position: absolute;\n      margin: 0;\n      outline: 0;\n      top: 50%;\n      transform: translate(0, -50%);\n      transition: all 200ms ease-out; }\n    label.switch input[type=\"checkbox\"] + span:before {\n      left: 1px;\n      width: 34px;\n      height: 14px;\n      background-color: rgba(0, 0, 0, 0.2);\n      border-radius: 8px; }\n    label.switch input[type=\"checkbox\"] + span:after {\n      left: 0;\n      width: 20px;\n      height: 20px;\n      background-color: rgba(0, 0, 0, 0.5);\n      border-radius: 50%;\n      box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084); }\n  label.switch input[type=\"checkbox\"]:checked + span label.switch input[type=\"checkbox\"]:after {\n    transform: translate(80%, -50%); }\n"],"sourceRoot":""}]);
+exports.push([module.i, "\nlabel.switch.disabled, label.switch input[type=\"checkbox\"][disabled=\"disabled\"] {\n  cursor: not-allowed;\n}\nlabel.switch.disabled + span:before,\n  label.switch.disabled + span:after, label.switch input[type=\"checkbox\"][disabled=\"disabled\"] + span:before,\n  label.switch input[type=\"checkbox\"][disabled=\"disabled\"] + span:after {\n    cursor: not-allowed;\n}\nlabel.switch input[type=\"checkbox\"] {\n  display: none;\n}\nlabel.switch input[type=\"checkbox\"]:checked + span:before {\n    background-color: rgba(0, 127, 235, 0.5);\n}\nlabel.switch input[type=\"checkbox\"]:checked + span:after {\n    background-color: #007FEB;\n    -webkit-transform: translate(80%, -50%);\n            transform: translate(80%, -50%);\n}\nlabel.switch input[type=\"checkbox\"] + span {\n    position: relative;\n    display: inline-block;\n    cursor: pointer;\n    font-weight: 500;\n    text-align: left;\n    margin: 0px;\n    padding: 0px 44px;\n}\nlabel.switch input[type=\"checkbox\"] + span:before, label.switch input[type=\"checkbox\"] + span:after {\n      content: '';\n      cursor: pointer;\n      position: absolute;\n      margin: 0;\n      outline: 0;\n      top: 50%;\n      -webkit-transform: translate(0, -50%);\n              transform: translate(0, -50%);\n      -webkit-transition: all 200ms ease-out;\n      transition: all 200ms ease-out;\n}\nlabel.switch input[type=\"checkbox\"] + span:before {\n      left: 1px;\n      width: 34px;\n      height: 14px;\n      background-color: rgba(0, 0, 0, 0.2);\n      border-radius: 8px;\n}\nlabel.switch input[type=\"checkbox\"] + span:after {\n      left: 0;\n      width: 20px;\n      height: 20px;\n      background-color: rgba(0, 0, 0, 0.5);\n      border-radius: 50%;\n      -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084);\n              box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084);\n}\nlabel.switch input[type=\"checkbox\"]:checked + span label.switch input[type=\"checkbox\"]:after {\n    -webkit-transform: translate(80%, -50%);\n            transform: translate(80%, -50%);\n}\n", "", {"version":3,"sources":["/var/www/resources/js/shared/components/Check.vue"],"names":[],"mappings":";AAAA;EACE,oBAAoB;CAAE;AACtB;;;IAGE,oBAAoB;CAAE;AAE1B;EACE,cAAc;CAAE;AAChB;IACE,yCAAyC;CAAE;AAC7C;IACE,0BAA0B;IAC1B,wCAAgC;YAAhC,gCAAgC;CAAE;AACpC;IACE,mBAAmB;IACnB,sBAAsB;IACtB,gBAAgB;IAChB,iBAAiB;IACjB,iBAAiB;IACjB,YAAY;IACZ,kBAAkB;CAAE;AACpB;MACE,YAAY;MACZ,gBAAgB;MAChB,mBAAmB;MACnB,UAAU;MACV,WAAW;MACX,SAAS;MACT,sCAA8B;cAA9B,8BAA8B;MAC9B,uCAA+B;MAA/B,+BAA+B;CAAE;AACnC;MACE,UAAU;MACV,YAAY;MACZ,aAAa;MACb,qCAAqC;MACrC,mBAAmB;CAAE;AACvB;MACE,QAAQ;MACR,YAAY;MACZ,aAAa;MACb,qCAAqC;MACrC,mBAAmB;MACnB,2HAAmH;cAAnH,mHAAmH;CAAE;AACzH;IACE,wCAAgC;YAAhC,gCAAgC;CAAE","file":"Check.vue","sourcesContent":["label.switch.disabled, label.switch input[type=\"checkbox\"][disabled=\"disabled\"] {\n  cursor: not-allowed; }\n  label.switch.disabled + span:before,\n  label.switch.disabled + span:after, label.switch input[type=\"checkbox\"][disabled=\"disabled\"] + span:before,\n  label.switch input[type=\"checkbox\"][disabled=\"disabled\"] + span:after {\n    cursor: not-allowed; }\n\nlabel.switch input[type=\"checkbox\"] {\n  display: none; }\n  label.switch input[type=\"checkbox\"]:checked + span:before {\n    background-color: rgba(0, 127, 235, 0.5); }\n  label.switch input[type=\"checkbox\"]:checked + span:after {\n    background-color: #007FEB;\n    transform: translate(80%, -50%); }\n  label.switch input[type=\"checkbox\"] + span {\n    position: relative;\n    display: inline-block;\n    cursor: pointer;\n    font-weight: 500;\n    text-align: left;\n    margin: 0px;\n    padding: 0px 44px; }\n    label.switch input[type=\"checkbox\"] + span:before, label.switch input[type=\"checkbox\"] + span:after {\n      content: '';\n      cursor: pointer;\n      position: absolute;\n      margin: 0;\n      outline: 0;\n      top: 50%;\n      transform: translate(0, -50%);\n      transition: all 200ms ease-out; }\n    label.switch input[type=\"checkbox\"] + span:before {\n      left: 1px;\n      width: 34px;\n      height: 14px;\n      background-color: rgba(0, 0, 0, 0.2);\n      border-radius: 8px; }\n    label.switch input[type=\"checkbox\"] + span:after {\n      left: 0;\n      width: 20px;\n      height: 20px;\n      background-color: rgba(0, 0, 0, 0.5);\n      border-radius: 50%;\n      box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084); }\n  label.switch input[type=\"checkbox\"]:checked + span label.switch input[type=\"checkbox\"]:after {\n    transform: translate(80%, -50%); }\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -22430,6 +22409,52 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-2e456e69\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/shared/components/DatePicker.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "input-group" }, [
+    _c("div", { staticClass: "flatpickr-wrapper" }, [
+      _c("input", {
+        ref: "input",
+        staticClass: "form-control",
+        attrs: { type: "text", placeholder: _vm.placeholder }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "input-group-append" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              _vm.fp.open()
+            }
+          }
+        },
+        [_c("i", { class: _vm.icon })]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2e456e69", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-30050ddc\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/shared/components/DataTable/DataTable.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22476,11 +22501,13 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "mb-3 col" },
+          { staticClass: "mb-3 col d-flex" },
           [
+            _vm._t("before-top-button"),
+            _vm._v(" "),
             _vm._t("top-button", [
               !_vm.noAddButtonText
-                ? _c("div", { staticClass: "float-right" }, [
+                ? _c("div", [
                     _c(
                       "button",
                       {
@@ -22764,6 +22791,7 @@ var render = function() {
           loading: !_vm.loaded,
           options: _vm.data,
           "options-limit": _vm.optionsLimit,
+          "internal-search": _vm.internalSearch,
           trackBy: _vm.trackBy,
           value: _vm.value
         },
@@ -22811,44 +22839,20 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("label", { staticClass: "switch" }, [
-    _c("input", {
-      directives: [
+  return _c("label", { class: ["switch", { disabled: _vm.disabled }] }, [
+    _c(
+      "input",
+      _vm._b(
         {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.value,
-          expression: "value"
-        }
-      ],
-      class: _vm.classes,
-      attrs: { type: "checkbox", name: _vm.name, disabled: _vm.disabled },
-      domProps: {
-        checked: _vm.checked,
-        checked: Array.isArray(_vm.value)
-          ? _vm._i(_vm.value, null) > -1
-          : _vm.value
-      },
-      on: {
-        change: function($event) {
-          var $$a = _vm.value,
-            $$el = $event.target,
-            $$c = $$el.checked ? true : false
-          if (Array.isArray($$a)) {
-            var $$v = null,
-              $$i = _vm._i($$a, $$v)
-            if ($$el.checked) {
-              $$i < 0 && (_vm.value = $$a.concat([$$v]))
-            } else {
-              $$i > -1 &&
-                (_vm.value = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-            }
-          } else {
-            _vm.value = $$c
-          }
-        }
-      }
-    }),
+          attrs: { type: "checkbox", disabled: _vm.disabled },
+          domProps: { checked: _vm.state },
+          on: { change: _vm.toggle }
+        },
+        "input",
+        _vm.$attrs,
+        false
+      )
+    ),
     _vm._v(" "),
     _c("span", [_vm._t("default")], 2)
   ])
@@ -23789,7 +23793,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ "./resources/js/shared/components/DataTable/Directives.js":
+/***/ "./resources/js/shared/components/DataTable/directives.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23824,6 +23828,90 @@ var HANDLER = '_outside_click_handler';
 
 /***/ }),
 
+/***/ "./resources/js/shared/components/DataTable/props.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    addButtonText: {
+        type: String,
+        required: false,
+        default: 'Tambah Data'
+    },
+    dataMap: {
+        type: Function,
+        required: false,
+        default: function _default(item) {
+            return item;
+        }
+    },
+    fields: {
+        type: [Array, Object],
+        required: false
+    },
+    filter: {
+        type: String,
+        required: false
+    },
+    form: {
+        type: Form,
+        default: function _default() {
+            return new Form({});
+        },
+        required: false
+    },
+    modalSize: {
+        type: String,
+        required: false,
+        default: 'md'
+    },
+    noAction: {
+        type: Boolean,
+        default: false
+    },
+    noAddButtonText: {
+        type: Boolean,
+        default: false,
+        required: false
+    },
+    noDelete: {
+        type: Boolean,
+        default: false
+    },
+    noEdit: {
+        type: Boolean,
+        default: false
+    },
+    noIndex: {
+        type: Boolean,
+        default: false
+    },
+    options: {
+        type: Object,
+        default: function _default() {
+            return {};
+        },
+        required: false
+    },
+    params: {
+        type: Object,
+        default: function _default() {
+            return {};
+        },
+        required: false
+    },
+    title: {
+        type: String,
+        required: false
+    },
+    url: {
+        type: String,
+        required: true
+    }
+});
+
+/***/ }),
+
 /***/ "./resources/js/shared/components/DatePicker.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23832,7 +23920,7 @@ var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/comp
 /* script */
 var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/shared/components/DatePicker.vue")
 /* template */
-var __vue_template__ = null
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-2e456e69\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/shared/components/DatePicker.vue")
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -23869,148 +23957,6 @@ if (false) {(function () {
 
 module.exports = Component.exports
 
-
-/***/ }),
-
-/***/ "./resources/js/shared/components/Flatpickr.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_flatpickr__ = __webpack_require__("./node_modules/flatpickr/dist/flatpickr.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_flatpickr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_flatpickr__);
-var _this2 = this;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    render: function render(createElement) {
-        var _this = this;
-
-        var inputnode = createElement('input', {
-            class: 'form-control',
-            attrs: _extends({}, this.$attrs, {
-                placeholder: this.placeholder
-            }),
-            on: {
-                input: function input(event) {
-                    return _this.$emit('input', event.target.value);
-                }
-            }
-        });
-
-        this.inputnode = inputnode;
-
-        var wrapped = createElement('div', { class: 'flatpickr-wrapper' }, [inputnode]);
-
-        if (this.noIcon) {
-            return wrapped;
-        }
-
-        var groupped = createElement('div', {
-            class: 'input-group'
-        }, [wrapped, createElement('div', {
-            class: 'input-group-append'
-        }, [createElement('button', {
-            class: 'btn btn-secondary',
-            attrs: {
-                type: 'button'
-            },
-            on: {
-                click: function click() {
-                    _this.fp.open();
-                }
-            }
-        }, [createElement('i', { class: this.icon })])])]);
-
-        return groupped;
-    },
-
-    computed: {
-        dateFormat: function dateFormat() {
-            return this.options.dateFormat || 'Y-m-d';
-        },
-        configOptions: function configOptions() {
-            return _extends({
-                static: true,
-                altInput: true,
-                time_24hr: true
-            }, this.$props, this.options);
-        },
-        valueIsDate: function valueIsDate() {
-            return this.value instanceof Date && Object.prototype.toString.call(this.value) === '[object Date]';
-        }
-    },
-
-    data: function data() {
-        return {
-            fp: null,
-            inputnode: null
-        };
-    },
-
-    methods: {
-        reFormat: function reFormat(date, format) {
-            return __WEBPACK_IMPORTED_MODULE_0_flatpickr___default.a.formatDate(date, format || this.dateFormat);
-        }
-    },
-    mounted: function mounted() {
-        var context = this;
-
-        this.fp = __WEBPACK_IMPORTED_MODULE_0_flatpickr___default()(this.inputnode.elm, _extends({}, this.configOptions, {
-            onChange: function onChange(selectedDates, dateStr, instance) {
-                context.$emit('input', dateStr);
-            }
-        }));
-
-        if (this.valueIsDate) {
-            this.$emit('input', this.reFormat(this.value));
-        }
-    },
-
-
-    watch: {
-        value: function value(_value) {
-            this.fp.setDate(_value);
-        },
-
-        options: {
-            handler: function handler(options) {
-                for (var option in options) {
-                    this.fp.set(option, options[option]);
-                }
-            },
-            deep: true
-        }
-    },
-
-    props: {
-        placeholder: {
-            type: String,
-            default: function _default() {
-                return _this2.enableTime ? 'DD MM YYYY, H:i' : 'DD MM YYYY';
-            }
-        },
-        value: {
-            type: [String, Date]
-        },
-        options: {
-            type: Object,
-            default: function _default() {
-                return {};
-            }
-        },
-        icon: {
-            type: String,
-            default: 'icon-calendar'
-        },
-        noIcon: {
-            type: Boolean,
-            default: false
-        }
-    }
-});
 
 /***/ }),
 

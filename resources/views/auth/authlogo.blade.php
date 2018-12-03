@@ -1,4 +1,9 @@
 <p>
-    <img src="{{ url('/images/logo.svg') }}" height="100px" alt="Logo" title="Logo"/>
+    <img src="{{ url('/images/logomanokwari.png') }}"
+        height="150px"
+        alt="Logo Pemerintah Kota Manokwari"
+        title="Logo Pemerintah Kota Manokwari"
+    />
 </p>
-<h4> Sistem Informasi</h4>
+<h6>Sistem Informasi Manajemen Rumah Sakit</h6>
+<h3>SIMRS RSUD Manokwari</h3>
