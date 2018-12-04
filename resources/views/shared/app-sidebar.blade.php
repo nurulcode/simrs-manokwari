@@ -14,7 +14,7 @@
             @endcomponent
 
         </form>
-        <nav class="sidebar-nav">
+        <nav class="sidebar-nav" ref="nav">
             <ul class="nav">
                 <template v-for="(item, index) in filtered">
                     <li v-if="item.is_header" class="nav-title" :key="index" v-html="item.title"></li>
@@ -35,11 +35,14 @@ window.inlines['app-sidebar'] = {
         return {
             menunavs  : @json(Sty\Menu::yaml('menu.yaml')),
             filtered  : [],
-            filter    : ''
+            filter    : '',
+            scrollbar : null
         }
     },
     mounted() {
-        this.filtered = this.menunavs;
+        this.scrollbar = new PerfectScrollbar(this.$refs.nav);
+
+        this.filtered  = this.menunavs;
 
         this.debounceFilter = debounce(this.filterMenu, 500);
     },

@@ -6,16 +6,18 @@
 
 import PopperJs from 'popper.js';
 import Vue from 'vue';
+import PerfectScrollbar from 'perfect-scrollbar';
 
 import Form from './shared/form';
 
 try {
-    window.events       = new Vue();
-    window.Popper       = PopperJs;
-    window.Form         = Form;
-    window.escapeRegExp = require('lodash.escaperegexp');
-    window.filter       = require('lodash.filter');
-    window.debounce     = require('lodash.debounce');
+    window.events           = new Vue();
+    window.Popper           = PopperJs;
+    window.Form             = Form;
+    window.escapeRegExp     = require('lodash.escaperegexp');
+    window.filter           = require('lodash.filter');
+    window.debounce         = require('lodash.debounce');
+    window.PerfectScrollbar = PerfectScrollbar;
 
     window.$ = window.jQuery = require('jquery');
 
