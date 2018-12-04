@@ -2,33 +2,66 @@
   title : Main Navigation
   type  : header
 -
-  title : Dashboard
+  title : Beranda
   link  : /
   icon  : icon-speedometer
 -
-  title : Menu 01
-  icon  : icon-docs
--
-  title : Header
-  type  : header
--
-  title : Menu 02
-  icon  : icon-briefcase
--
-  title : Menu 03
-  icon  : icon-briefcase
--
-  title : Menu 04
-  icon  : icon-people
--
-
-  title : Nested Menu
-  icon  : icon-chart
+  title : Registrasi/Kunjungan
+  icon  : fa fa-medkit
   childs:
     -
-      title: Child Menu 01
+      title: Daftar Kunjungan
     -
-      title: Child Menu 02
+      title: Registrasi Rawat Jalan
+    -
+      title: Registrasi Rawat Inap
+    -
+      title: Registrasi Rawat Darurat
+-
+  title : Info Rawat Inap
+  icon  : icon-info
+-
+  title : Farmasi dan Logistik
+  icon  : icon-social-dropbox
+-
+  title : Admin Area
+  type  : header
+-
+  title : Daftar Pasien
+  icon  : icon-people
+-
+  title : Daftar Pegawai
+  icon  : fa fa-stethoscope
+-
+  title : Master Data
+  icon  : icon-grid
+  childs:
+    -
+      title: Daftar Kegiatan
+    -
+      title: Daftar Tindakan
+    -
+      title: Daftar Kasus
+    -
+      title: Daftar Penyakit
+    -
+      title: Daftar Jaminan Kesehatan
+    -
+      title: Daftar Tarif
+    -
+      title: Daftar Wilayah
+    -
+      title: Jenis Registrasi
+    -
+      title: Jenis Logistik
+    -
+      title: Jenis Rumah Sakit
+-
+  title : Data Rumah Sakit
+  icon  : fa fa-hospital-o
+-
+  title : Fasilitas Rumah Sakit
+  icon  : fa fa-hospital-o
 -
   title : System
   type  : header
