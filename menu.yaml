@@ -1,4 +1,7 @@
 -
+  title : Main Navigation
+  type  : header
+-
   title : Dashboard
   link  : /
   icon  : icon-speedometer
