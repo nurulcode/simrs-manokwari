@@ -6,13 +6,18 @@
 
 import PopperJs from 'popper.js';
 import Vue from 'vue';
+import PerfectScrollbar from 'perfect-scrollbar';
 
 import Form from './shared/form';
 
 try {
-    window.Popper = PopperJs;
-    window.Form   = Form;
-    window.events = new Vue();
+    window.events           = new Vue();
+    window.Popper           = PopperJs;
+    window.Form             = Form;
+    window.escapeRegExp     = require('lodash.escaperegexp');
+    window.filter           = require('lodash.filter');
+    window.debounce         = require('lodash.debounce');
+    window.PerfectScrollbar = PerfectScrollbar;
 
     window.$ = window.jQuery = require('jquery');
 
@@ -43,6 +48,6 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-require('@coreui/coreui');
+require('./__global');
 require('./shared/__alert');
 require('./shared/__promise_throttle');

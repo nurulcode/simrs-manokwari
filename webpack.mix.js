@@ -41,7 +41,9 @@ mix.js('resources/js/app.js', 'public/js')
 
 if (process.env.NODE_ENV != 'testing') {
     mix.extract([
-        '@coreui/coreui', 'bootstrap', 'jquery', 'toastr', 'vue'
+        'bootstrap', 'jquery', 'toastr', 'vue', 'popper.js',
+        'lodash.escaperegexp', 'lodash.filter', 'lodash.debounce',
+        'perfect-scrollbar'
     ]);
 
     mix.version();
