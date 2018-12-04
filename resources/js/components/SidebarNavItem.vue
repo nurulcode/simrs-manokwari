@@ -30,7 +30,10 @@ export default {
         },
         linkClass() {
             return [
-                'nav-link', this.menu.class
+                'nav-link', this.menu.class,
+                {
+                    'active': this.menu.is_current
+                }
             ];
         },
         iconClass() {
