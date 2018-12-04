@@ -17,11 +17,9 @@ Auth::routes([
 ]);
 
 Route::middleware(['auth'])->group(function () {
-    Route::view('/',      'welcome');
-
+    Route::get('/',             'HomeController@index');
     Route::get('/user',         'UserController@view');
     Route::get('/role',         'RoleController@view');
     Route::get('/permission',   'PermissionController@view');
     Route::get('/activities',   'ActivityController@view');
-    Route::get('/home',         'HomeController@index');
 });
