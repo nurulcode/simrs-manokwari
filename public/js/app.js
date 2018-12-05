@@ -2024,9 +2024,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         bordered: true,
         hover: true,
         sortDesc: false,
-        striped: false
+        striped: false,
+        sortBy: this.sortBy
       }, this.options, {
-        sortBy: this.sortBy,
         currentPage: Number.parseInt(this.meta.current_page),
         perPage: Number.parseInt(this.meta.per_page)
       });
