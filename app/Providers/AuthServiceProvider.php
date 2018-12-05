@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\PermissionRegistrar;
 use Laravel\Passport\Passport;
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -22,7 +23,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Gate $gate)
     {
         $this->registerResourcePolicies();
 
@@ -30,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->registerPassportRoute();
 
-        $this->registerPermissions();
+        $this->registerPermissions($gate);
     }
 
     public function registerPassportRoute()
@@ -49,8 +50,8 @@ class AuthServiceProvider extends ServiceProvider
         }
     }
 
-    public function registerPermissions()
+    public function registerPermissions(Gate $gate)
     {
-        with(new PermissionRegistrar())->registerPermissions();
+        with(new PermissionRegistrar())->registerPermissions($gate);
     }
 }

@@ -7,15 +7,15 @@ use App\Models\Role;
 use App\Models\User;
 use Sty\ResourceModel;
 use App\Models\Permission;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Contracts\Auth\Access\Gate;
 
 class PermissionRegistrar
 {
-    public function registerPermissions()
+    public function registerPermissions(Gate $gate)
     {
         $do_anything = $this->doAnythingPermission();
 
-        Gate::before(function ($user, $ability, $args) use ($do_anything) {
+        $gate->before(function ($user, $ability, $args) use ($do_anything, $gate) {
             if (array_first($args, function ($arg) {
                 return $arg instanceof User || $arg instanceof Role;
             })) {
@@ -26,11 +26,11 @@ class PermissionRegistrar
                 return true;
             }
 
-            if (Gate::has($ability)) {
+            if ($gate->has($ability)) {
                 return;
             }
 
-            if (isset($args[0]) && !is_null($policy = Gate::getPolicyFor($args[0]))) {
+            if (isset($args[0]) && !is_null($policy = $gate->getPolicyFor($args[0]))) {
                 return;
             }
 
@@ -44,7 +44,7 @@ class PermissionRegistrar
         $operations = [
             'index'  => 'view_%s_index||view_%s_page',
             'view'   => 'view_%s_page',
-            'show'   => 'view_%s',
+            'show'   => 'view_%s||view_%s_page',
             'create' => 'create_%s',
             'update' => 'update_%s',
             'delete' => 'delete_%s',
@@ -53,7 +53,7 @@ class PermissionRegistrar
         foreach ($operations as $key => $permission) {
             $permissions = explode('||', $permission);
 
-            Gate::define($key, function ($user, $resource) use ($permissions) {
+            $gate->define($key, function ($user, $resource) use ($permissions) {
                 if (is_string($resource) && class_exists($resource)) {
                     $resource = new $resource;
                 }
