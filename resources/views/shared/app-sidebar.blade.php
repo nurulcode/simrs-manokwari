@@ -58,9 +58,9 @@ window.inlines['app-sidebar'] = {
 
                 if (menu.childs && menu.childs.length > 0) {
 
-                    let childs = this.recurseFilter(menu.childs, filter);
+                    menu.childs = this.recurseFilter(menu.childs, filter);
 
-                    return childs && childs.length > 0;
+                    return menu.childs && menu.childs.length > 0;
                 }
 
                 return menu.title.search(new RegExp(filter, 'i')) > -1;
