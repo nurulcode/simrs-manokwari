@@ -18054,6 +18054,12 @@ body > noscript {
   text-align: center;
 }
 
+a,
+button:focus,
+button:active {
+  outline: 0;
+}
+
 .container-fluid > .tabs,
 .container > .tabs {
   margin-bottom: 1.5rem;
