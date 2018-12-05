@@ -44,6 +44,7 @@ class PermissionRegistrar
         $operations = [
             'index'  => 'view_%s_index||view_%s_page',
             'view'   => 'view_%s_page',
+            'show'   => 'view_%s',
             'create' => 'create_%s',
             'update' => 'update_%s',
             'delete' => 'delete_%s',
