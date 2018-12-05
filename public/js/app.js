@@ -1735,6 +1735,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).catch(function (error) {
         _this.loaded = true;
       });
+    },
+    onSelect: function onSelect(value) {
+      this.$emit('select', value);
+      this.$emit('input', value);
+
+      if (value instanceof Object) {
+        this.$emit('update:keyValue', value[this.trackBy]);
+      }
     }
   },
   mounted: function mounted() {
@@ -1791,7 +1799,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: true
     },
     value: {
-      type: [Object, Array, String],
+      type: [Object, String, Number],
+      required: false
+    },
+    keyValue: {
+      type: [String, Number],
       required: false
     }
   }
@@ -22535,12 +22547,7 @@ var render = function() {
           trackBy: _vm.trackBy,
           value: _vm.value
         },
-        on: {
-          "search-change": _vm.doSearch,
-          input: function(val) {
-            return _vm.$emit("input", val)
-          }
-        },
+        on: { "search-change": _vm.doSearch, input: _vm.onSelect },
         scopedSlots: _vm._u([
           _vm._l(_vm.scopedSlots, function(sslot) {
             return {
@@ -23944,12 +23951,19 @@ function () {
   function Form(data) {
     var _this = this;
 
+    var optional = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
     _classCallCheck(this, Form);
 
     this.__original = {};
     this.__fields = Object.keys(data);
+    this.__optional = Object.keys(optional);
 
     this.__fields.forEach(function (field) {
+      _this.setDefault(field, data[field]);
+    });
+
+    this.__optional.forEach(function (field) {
       _this.setDefault(field, data[field]);
     });
 
@@ -23987,6 +24001,12 @@ function () {
         }
       });
 
+      this.__optional.forEach(function (field) {
+        if (data.hasOwnProperty(field)) {
+          _this3[field] = JSON.parse(JSON.stringify(data[field]));
+        }
+      });
+
       return this;
     }
   }, {
@@ -23995,6 +24015,10 @@ function () {
       var _this4 = this;
 
       this.__fields.forEach(function (field) {
+        _this4[field] = _this4.__original[field];
+      });
+
+      this.__optional.forEach(function (field) {
         _this4[field] = _this4.__original[field];
       });
 
