@@ -18054,6 +18054,11 @@ body > noscript {
   text-align: center;
 }
 
+.container-fluid > .tabs,
+.container > .tabs {
+  margin-bottom: 1.5rem;
+}
+
 .invalid-feedback {
   font-size: 1em;
 }
