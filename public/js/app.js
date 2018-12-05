@@ -1799,7 +1799,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: true
     },
     value: {
-      type: [Object, String, Number],
+      type: [Object, String, Number, Array],
       required: false
     },
     keyValue: {
@@ -1914,46 +1914,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bootstrap_vue_es_components_table_table__ = __webpack_require__("./node_modules/bootstrap-vue/es/components/table/table.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DataTableFilter_js__ = __webpack_require__("./resources/js/shared/components/DataTable/DataTableFilter.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DataTablePagination_js__ = __webpack_require__("./resources/js/shared/components/DataTable/DataTablePagination.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bootstrap_vue_es_components_pagination_pagination__ = __webpack_require__("./node_modules/bootstrap-vue/es/components/pagination/pagination.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_bootstrap_vue_es_components_table_table__ = __webpack_require__("./node_modules/bootstrap-vue/es/components/table/table.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DataTableFilter_js__ = __webpack_require__("./resources/js/shared/components/DataTable/DataTableFilter.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__DataTableRowLimitter_js__ = __webpack_require__("./resources/js/shared/components/DataTable/DataTableRowLimitter.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directives__ = __webpack_require__("./resources/js/shared/components/DataTable/directives.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__props__ = __webpack_require__("./resources/js/shared/components/DataTable/props.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__form__ = __webpack_require__("./resources/js/shared/form/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_debounce__ = __webpack_require__("./node_modules/lodash.debounce/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_lodash_debounce__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2025,19 +1994,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    bTable: __WEBPACK_IMPORTED_MODULE_0_bootstrap_vue_es_components_table_table__["a" /* default */],
-    DataTableFilter: __WEBPACK_IMPORTED_MODULE_1__DataTableFilter_js__["a" /* default */],
-    DataTablePagination: __WEBPACK_IMPORTED_MODULE_2__DataTablePagination_js__["a" /* default */],
+    bPagination: __WEBPACK_IMPORTED_MODULE_0_bootstrap_vue_es_components_pagination_pagination__["a" /* default */],
+    bTable: __WEBPACK_IMPORTED_MODULE_1_bootstrap_vue_es_components_table_table__["a" /* default */],
+    DataTableFilter: __WEBPACK_IMPORTED_MODULE_2__DataTableFilter_js__["a" /* default */],
     DataTableRowLimitter: __WEBPACK_IMPORTED_MODULE_3__DataTableRowLimitter_js__["a" /* default */]
   },
+  directives: __WEBPACK_IMPORTED_MODULE_4__directives__["a" /* default */],
+  props: __WEBPACK_IMPORTED_MODULE_5__props__["a" /* default */],
   computed: {
     tableOption: function tableOption() {
       return Object.assign({
         bordered: true,
+        fields: this.tableFields,
+        filter: this.search,
         hover: true,
+        sortBy: this.sortBy,
         sortDesc: false,
-        striped: false,
-        sortBy: this.sortBy
+        striped: false
       }, this.options, {
         currentPage: Number.parseInt(this.meta.current_page),
         perPage: Number.parseInt(this.meta.per_page)
@@ -2094,14 +2067,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       return axios.get(this.url, {
         params: Object.assign({
-          sortBy: [ctx.sortBy, ctx.sortDesc ? 'desc' : 'asc'],
-          page: ctx.currentPage,
           limit: ctx.perPage,
-          search: ctx.filter
+          page: ctx.currentPage,
+          search: ctx.filter,
+          sortBy: [ctx.sortBy, ctx.sortDesc ? 'desc' : 'asc']
         }, this.params)
       }).takeAtLeast(500).then(function (response) {
         if (response.data.meta) {
-          _this.meta = response.data.meta;
+          _this.meta.current_page = Number.parseInt(response.data.meta.current_page);
+          _this.meta.from = Number.parseInt(response.data.meta.from);
+          _this.meta.to = Number.parseInt(response.data.meta.to);
+          _this.meta.per_page = Number.parseInt(response.data.meta.per_page);
+          _this.meta.total = Number.parseInt(response.data.meta.total);
         }
 
         return response.data.data.map(_this.dataMap) || [];
@@ -2120,6 +2097,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$emit('update:filter', search);
       this.search = search;
     }, 300),
+    onDoubleClick: function onDoubleClick(item, row) {
+      this.$emit('dt:row-double-click', item, index, event);
+      this.toggleSelected(item);
+      this.onDoubleClicked(item, index, event);
+    },
     toggleSelected: function toggleSelected(item, row) {
       var rows = this.$refs.table.$el.querySelectorAll('tbody tr');
       rows.forEach(function (child, index) {
@@ -2199,11 +2181,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
     clearSelected: function clearSelected() {
+      this.selected = null;
       var rows = this.$refs.table.$el.querySelectorAll('tbody tr');
       rows.forEach(function (child, index) {
         child.classList.remove('active');
       });
-      this.selected = null;
     }
   },
   created: function created() {
@@ -2218,14 +2200,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.search = value;
     },
     params: {
+      deep: true,
       handler: function handler(options) {
         this.refresh();
-      },
-      deep: true
+      }
     }
-  },
-  directives: __WEBPACK_IMPORTED_MODULE_4__directives__["a" /* default */],
-  props: __WEBPACK_IMPORTED_MODULE_5__props__["a" /* default */]
+  }
 });
 
 /***/ }),
@@ -17686,7 +17666,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.DataTable {\n  position: relative;\n}\n.DataTable tbody .active {\n  background-color: #f0f3f5 !important;\n}\n.DataTable__limit {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.DataTable__limit label {\n    line-height: 35px;\n    margin: 0 1em 0 0;\n    width: 9em;\n}\n", "", {"version":3,"sources":["/var/www/resources/js/shared/components/DataTable/DataTable.vue"],"names":[],"mappings":";AAAA;EACE,mBAAmB;CAAE;AAEvB;EACE,qCAAqC;CAAE;AAEzC;EACE,qBAAc;EAAd,qBAAc;EAAd,cAAc;CAAE;AAChB;IACE,kBAAkB;IAClB,kBAAkB;IAClB,WAAW;CAAE","file":"DataTable.vue","sourcesContent":[".DataTable {\n  position: relative; }\n\n.DataTable tbody .active {\n  background-color: #f0f3f5 !important; }\n\n.DataTable__limit {\n  display: flex; }\n  .DataTable__limit label {\n    line-height: 35px;\n    margin: 0 1em 0 0;\n    width: 9em; }\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.DataTable {\n  position: relative;\n}\n.DataTable tbody .active {\n    background-color: #f0f3f5 !important;\n}\n.DataTable .DataTable__limit {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.DataTable .DataTable__limit label {\n      line-height: 35px;\n      margin: 0 1em 0 0;\n      width: 9em;\n}\n", "", {"version":3,"sources":["/var/www/resources/js/shared/components/DataTable/DataTable.vue"],"names":[],"mappings":";AAAA;EACE,mBAAmB;CAAE;AACrB;IACE,qCAAqC;CAAE;AACzC;IACE,qBAAc;IAAd,qBAAc;IAAd,cAAc;CAAE;AAChB;MACE,kBAAkB;MAClB,kBAAkB;MAClB,WAAW;CAAE","file":"DataTable.vue","sourcesContent":[".DataTable {\n  position: relative; }\n  .DataTable tbody .active {\n    background-color: #f0f3f5 !important; }\n  .DataTable .DataTable__limit {\n    display: flex; }\n    .DataTable .DataTable__limit label {\n      line-height: 35px;\n      margin: 0 1em 0 0;\n      width: 9em; }\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -22257,31 +22237,23 @@ var render = function() {
           [
             _vm._t("before-top-button"),
             _vm._v(" "),
-            _vm._t("top-button", [
-              !_vm.noAddButtonText
-                ? _c("div", { staticClass: "ml-auto" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.create($event)
-                          }
+            !_vm.noAddButtonText
+              ? _c("div", { staticClass: "ml-auto" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.create($event)
                         }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.addButtonText) +
-                            "\n                    "
-                        )
-                      ]
-                    )
-                  ])
-                : _vm._e()
-            ])
+                      }
+                    },
+                    [_vm._v(" " + _vm._s(_vm.addButtonText) + " ")]
+                  )
+                ])
+              : _vm._e()
           ],
           2
         )
@@ -22300,16 +22272,12 @@ var render = function() {
               }
             ],
             ref: "table",
-            attrs: {
-              busy: _vm.is_busy,
-              fields: _vm.tableFields,
-              items: _vm.provider,
-              filter: _vm.filter || _vm.search
-            },
+            attrs: { busy: _vm.is_busy, items: _vm.provider },
             on: {
               "update:busy": function($event) {
                 _vm.is_busy = $event
               },
+              "row-dblclicked": _vm.onDoubleClick,
               "row-clicked": _vm.toggleSelected
             },
             scopedSlots: _vm._u([
@@ -22356,63 +22324,39 @@ var render = function() {
               {
                 key: "dt-action",
                 fn: function(data) {
-                  return !_vm.noAction
-                    ? [
-                        _vm._t("dt-left-action", null, null, data),
-                        _vm._v(" "),
-                        !_vm.noEdit
-                          ? _vm._t(
-                              "dt-edit-button",
-                              [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-success",
-                                    attrs: {
-                                      disabled: data.item.__editable == false
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.edit(data.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "fa fa-pencil" })]
-                                )
-                              ],
-                              null,
-                              data
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.noDelete
-                          ? _vm._t(
-                              "dt-delete-button",
-                              [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger",
-                                    attrs: {
-                                      disabled: data.item.__deletable == false
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.destroy(data.item)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "fa fa-trash" })]
-                                )
-                              ],
-                              null,
-                              data
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm._t("dt-right-action", null, null, data)
-                      ]
-                    : undefined
+                  return [
+                    !_vm.noEdit
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            attrs: { disabled: data.item.__editable == false },
+                            on: {
+                              click: function($event) {
+                                _vm.edit(data.item)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-pencil" })]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    !_vm.noDelete
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger",
+                            attrs: { disabled: data.item.__deletable == false },
+                            on: {
+                              click: function($event) {
+                                _vm.destroy(data.item)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-trash" })]
+                        )
+                      : _vm._e()
+                  ]
                 }
               }
             ]),
@@ -22431,34 +22375,27 @@ var render = function() {
         [
           _c("template", { slot: "table-caption" }, [
             _vm._v(
-              "\n            Menampilkan " +
+              " Menampilkan " +
                 _vm._s(_vm.meta.to - _vm.meta.from + 1) +
                 " dari " +
                 _vm._s(_vm.meta.total) +
-                " data\n        "
+                " data "
             )
           ])
         ],
         2
       ),
       _vm._v(" "),
-      _c(
-        "data-table-pagination",
-        _vm._b(
-          {
-            model: {
-              value: _vm.meta.current_page,
-              callback: function($$v) {
-                _vm.$set(_vm.meta, "current_page", $$v)
-              },
-              expression: "meta.current_page"
-            }
+      _c("b-pagination", {
+        attrs: { "per-page": _vm.meta.per_page, "total-rows": _vm.meta.total },
+        model: {
+          value: _vm.meta.current_page,
+          callback: function($$v) {
+            _vm.$set(_vm.meta, "current_page", $$v)
           },
-          "data-table-pagination",
-          _vm.meta,
-          false
-        )
-      ),
+          expression: "meta.current_page"
+        }
+      }),
       _vm._v(" "),
       _c("loading-overlay", {
         directives: [
@@ -22501,11 +22438,6 @@ var render = function() {
             form: _vm.form,
             size: _vm.modalSize,
             title: _vm.title
-          },
-          on: {
-            hidden: function($event) {
-              _vm.$emit("dt:item-done")
-            }
           }
         },
         [_vm._t("form")],
@@ -23509,42 +23441,6 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ "./resources/js/shared/components/DataTable/DataTablePagination.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bootstrap_vue_es_components_pagination_pagination__ = __webpack_require__("./node_modules/bootstrap-vue/es/components/pagination/pagination.js");
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  functional: true,
-  render: function render(createELement, context) {
-    return createELement(__WEBPACK_IMPORTED_MODULE_0_bootstrap_vue_es_components_pagination_pagination__["a" /* default */], {
-      props: {
-        perPage: Number.parseInt(context.props.per_page),
-        totalRows: Number.parseInt(context.props.total),
-        value: Number.parseInt(context.props.value)
-      },
-      on: context.data.on
-    });
-  },
-  props: {
-    total: {
-      type: [Number, String],
-      required: true
-    },
-    per_page: {
-      type: [Number, String],
-      required: true
-    },
-    value: {
-      type: [Number, String],
-      required: false
-    }
-  }
-});
-
-/***/ }),
-
 /***/ "./resources/js/shared/components/DataTable/DataTableRowLimitter.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -23688,6 +23584,13 @@ var HANDLER = '_outside_click_handler';
   noIndex: {
     type: Boolean,
     default: false
+  },
+  onDoubleClicked: {
+    type: Function,
+    required: false,
+    default: function _default(item) {
+      return item;
+    }
   },
   options: {
     type: Object,
