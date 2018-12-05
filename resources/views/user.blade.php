@@ -117,10 +117,8 @@ window.pagemix.push({
     data() {
         return {
             user: {
-                url    : `{{ action('UserController@index') }}`,
-                options: {
-                    sortBy: 'username'
-                },
+                url   : `{{ action('UserController@index') }}`,
+                sortBy: 'username',
                 fields: [
                     {
                         key     : 'name',

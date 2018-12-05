@@ -59,10 +59,8 @@ window.pagemix.push({
     data() {
         return {
             role: {
-                url    : `{{ action('RoleController@index') }}`,
-                options: {
-                    sortBy: 'name'
-                },
+                url   : `{{ action('RoleController@index') }}`,
+                sortBy: 'name',
                 fields: [
                     {
                         key     : 'name',

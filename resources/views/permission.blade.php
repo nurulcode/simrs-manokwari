@@ -36,10 +36,8 @@ window.pagemix.push({
     data() {
         return {
             permission: {
-                url    : `{{ action('PermissionController@index') }}`,
-                options: {
-                    sortBy: 'name'
-                },
+                url   : `{{ action('PermissionController@index') }}`,
+                sortBy: 'name',
                 fields: [
                     {
                         key     : 'name',
