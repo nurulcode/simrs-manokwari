@@ -22,6 +22,14 @@ Route::middleware(['auth:api'])->group(function () {
         'permission' => 'PermissionController',
         'activity'   => 'ActivityController'
     ]);
+
+    Route::namespace('Master')->prefix('master')->name('master.')->group(function () {
+        Route::namespace('Wilayah')->prefix('wilayah')->name('wilayah.')->group(function () {
+            Route::apiResources([
+                'provinsi'  => 'ProvinsiController',
+            ]);
+        });
+    });
 });
 
 //TODO: Hapus saat production

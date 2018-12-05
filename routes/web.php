@@ -22,4 +22,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/role',         'RoleController@view');
     Route::get('/permission',   'PermissionController@view');
     Route::get('/activities',   'ActivityController@view');
+
+    Route::namespace('Master')->prefix('master')->group(function () {
+        Route::get('/wilayah', 'Wilayah\\WilayahController@view');
+    });
 });
