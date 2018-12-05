@@ -2026,6 +2026,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         sortDesc: false,
         striped: false
       }, this.options, {
+        sortBy: this.sortBy,
         currentPage: Number.parseInt(this.meta.current_page),
         perPage: Number.parseInt(this.meta.per_page)
       });
@@ -23693,6 +23694,10 @@ var HANDLER = '_outside_click_handler';
     default: function _default() {
       return {};
     },
+    required: false
+  },
+  sortBy: {
+    type: String,
     required: false
   },
   title: {
