@@ -1640,6 +1640,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       required: false
     }
   },
+  mounted: function mounted() {
+    this.is_open = !!this.highlight;
+  },
   methods: {
     hideMobile: function hideMobile() {
       if (document.body.classList.contains('sidebar-show')) {
@@ -1650,6 +1653,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.isDropdown) {
         this.is_open = !this.is_open;
         e.preventDefault();
+      }
+    }
+  },
+  watch: {
+    highlight: function highlight(value) {
+      if (!!value) {
+        this.is_open = true;
       }
     }
   }
