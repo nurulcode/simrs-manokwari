@@ -22114,7 +22114,10 @@ var render = function() {
           [
             _vm._l(_vm.childs, function(item, index) {
               return [
-                _c("sidebar-nav-item", { key: index, attrs: { menu: item } })
+                _c("sidebar-nav-item", {
+                  key: index,
+                  attrs: { menu: item, highlight: _vm.highlight }
+                })
               ]
             })
           ],

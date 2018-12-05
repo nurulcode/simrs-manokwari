@@ -50,6 +50,22 @@ window.inlines['app-sidebar'] = {
         clearfilter() {
             this.filter = '';
         },
+        recurseFilter(menus, filter) {
+            return window.filter(menus, (menu) => {
+                if (menu.is_header) {
+                    return;
+                }
+
+                if (menu.childs && menu.childs.length > 0) {
+
+                    let childs = this.recurseFilter(menu.childs, filter);
+
+                    return childs && childs.length > 0;
+                }
+
+                return menu.title.search(new RegExp(filter, 'i')) > -1;
+            });
+        },
         filterMenu: function (menus, filter) {
             menus  = JSON.parse(JSON.stringify(menus));
 
@@ -57,20 +73,7 @@ window.inlines['app-sidebar'] = {
                 return this.filtered = menus;
             }
 
-            this.filtered = window.filter(menus, (menu) => {
-                if (menu.is_header) {
-                    return;
-                }
-
-                if (menu.childs && menu.childs.length > 0) {
-
-                    menu.childs = this.filterMenu(menu.childs, filter);
-
-                    return menu.childs && menu.childs.length > 0;
-                }
-
-                return menu.title.search(new RegExp(filter, 'i')) > -1;
-            });
+            this.filtered = this.recurseFilter(menus, filter)
         },
         minimize() {
             document.body.classList.toggle('sidebar-minimized');
