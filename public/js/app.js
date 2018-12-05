@@ -2097,10 +2097,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$emit('update:filter', search);
       this.search = search;
     }, 300),
-    onDoubleClick: function onDoubleClick(item, row) {
-      this.$emit('dt:row-double-click', item, index, event);
+    onDoubleClick: function onDoubleClick(item, row, event) {
+      this.$emit('dt:row-double-click', item, row, event);
       this.toggleSelected(item);
-      this.onDoubleClicked(item, index, event);
+      this.onDoubleClicked(item, row, event);
     },
     toggleSelected: function toggleSelected(item, row) {
       var rows = this.$refs.table.$el.querySelectorAll('tbody tr');
