@@ -73,6 +73,9 @@ export default {
             required: false,
         }
     },
+    mounted() {
+        this.is_open = !!this.highlight;
+    },
     methods: {
         hideMobile () {
             if (document.body.classList.contains('sidebar-show')) {
@@ -84,6 +87,13 @@ export default {
                 this.is_open = !this.is_open;
 
                 e.preventDefault();
+            }
+        }
+    },
+    watch: {
+        highlight(value) {
+            if (!!value) {
+                this.is_open = true;
             }
         }
     }
