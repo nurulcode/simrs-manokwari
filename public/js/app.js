@@ -22246,7 +22246,7 @@ var render = function() {
             _vm._v(" "),
             _vm._t("top-button", [
               !_vm.noAddButtonText
-                ? _c("div", [
+                ? _c("div", { staticClass: "ml-auto" }, [
                     _c(
                       "button",
                       {
