@@ -18,8 +18,7 @@ class PermissionController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        if (Auth::user()->can('view_permission_page')
-            || Auth::user()->can('view_permission_index')) {
+        if (Auth::user()->can('view_permission_page')) {
             return PermissionResource::collection(Permission::filter($query));
         }
 
