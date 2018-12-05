@@ -5,7 +5,7 @@
         </a>
         <ul v-if="isDropdown" class="nav-dropdown-items">
             <template v-for="(item, index) in childs">
-                <sidebar-nav-item :menu="item" :key="index"></sidebar-nav-item>
+                <sidebar-nav-item :menu="item" :key="index" :highlight="highlight"></sidebar-nav-item>
             </template>
         </ul>
     </li>
