@@ -1739,10 +1739,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     onSelect: function onSelect(value) {
       this.$emit('select', value);
       this.$emit('input', value);
-
-      if (value instanceof Object) {
-        this.$emit('update:keyValue', value[this.trackBy]);
-      }
     }
   },
   mounted: function mounted() {
@@ -1754,6 +1750,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     search: function search(value, before) {
       this.loadData();
+    },
+    params: {
+      handler: function handler(options, before) {
+        if (JSON.stringify(options) != JSON.stringify(before)) {
+          this.loadData();
+        }
+      }
+    },
+    value: function value(_value) {
+      if (_value instanceof Object) {
+        this.$emit('update:keyValue', _value[this.trackBy]);
+      } else {
+        this.$emit('update:keyValue', _value);
+      }
     }
   },
   props: {
@@ -2200,7 +2210,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.search = value;
     },
     params: {
-      deep: true,
       handler: function handler(options) {
         this.refresh();
       }
