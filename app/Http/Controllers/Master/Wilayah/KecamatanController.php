@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Master\Wilayah;
 
+use Sty\HttpQuery;
 use App\Http\Controllers\Controller;
 use App\Models\Master\Wilayah\Kecamatan;
-use App\Http\Queries\Master\Wilayah\KecamatanQuery;
 use App\Http\Requests\Master\Wilayah\KecamatanRequest;
 use App\Http\Resources\Master\Wilayah\KecamatanResource;
 
@@ -15,7 +15,7 @@ class KecamatanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(KecamatanQuery $query)
+    public function index(HttpQuery $query)
     {
         $this->authorize('index', Kecamatan::class);
 

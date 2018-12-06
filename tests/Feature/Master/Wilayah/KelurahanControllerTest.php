@@ -39,35 +39,6 @@ class KelurahanControllerTest extends TestCase
              ->assertStatus(422);
     }
 
-    /** @test */
-    public function resource_collection_can_be_filtered_by_kecamatan()
-    {
-        $kecamatan   = factory(Kecamatan::class)->create();
-
-        factory($this->resource(), 5)->create(['kecamatan_id' => $kecamatan->id]);
-        factory($this->resource(), 10)->create();
-
-        $filter     = '?limit=10&kecamatan=' . $kecamatan->id;
-
-        $this->signIn()
-             ->getJson(action('Master\Wilayah\KelurahanController@index') . $filter)
-             ->assertJson([
-                'data'  => [],
-                'links' => [],
-                'meta'  => [],
-             ])
-             ->assertJsonStructure([
-                'data'  => ['*' => ['path']],
-                'links' => [],
-                'meta'  => []
-              ])
-             ->assertJsonCount(5, 'data')
-             ->assertStatus(200);
-
-        return $this;
-    }
-
-    /** @test */
     public function resource_has_kecamatan_in_collection_structure()
     {
         factory($this->resource(), 5)->create();

@@ -4,7 +4,6 @@ namespace Tests\Feature\Master\Wilayah;
 
 use Tests\TestCase;
 use Sty\Tests\ResourceControllerTestCase;
-use App\Models\Master\Wilayah\KotaKabupaten;
 
 class KecamatanControllerTest extends TestCase
 {
@@ -35,34 +34,6 @@ class KecamatanControllerTest extends TestCase
              ->assertJson(['errors' => []])
              ->assertJsonValidationErrors(['kota_kabupaten_id', 'provinsi_id'])
              ->assertStatus(422);
-    }
-
-    /** @test */
-    public function resource_collection_can_be_filtered_by_kota_kabupaten()
-    {
-        $kota_kabupaten   = factory(KotaKabupaten::class)->create();
-
-        factory($this->resource(), 5)->create(['kota_kabupaten_id' => $kota_kabupaten->id]);
-        factory($this->resource(), 10)->create();
-
-        $filter     = '?limit=10&kota_kabupaten=' . $kota_kabupaten->id;
-
-        $this->signIn()
-             ->getJson(action('Master\Wilayah\KecamatanController@index') . $filter)
-             ->assertJson([
-                'data'  => [],
-                'links' => [],
-                'meta'  => [],
-             ])
-             ->assertJsonStructure([
-                'data'  => ['*' => ['path']],
-                'links' => [],
-                'meta'  => []
-              ])
-             ->assertJsonCount(5, 'data')
-             ->assertStatus(200);
-
-        return $this;
     }
 
     /** @test */

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Master\Wilayah;
 
+use Sty\HttpQuery;
 use App\Http\Controllers\Controller;
 use App\Models\Master\Wilayah\Kelurahan;
-use App\Http\Queries\Master\Wilayah\KelurahanQuery;
 use App\Http\Requests\Master\Wilayah\KelurahanRequest;
 use App\Http\Resources\Master\Wilayah\KelurahanResource;
 
@@ -15,7 +15,7 @@ class KelurahanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(KelurahanQuery $query)
+    public function index(HttpQuery $query)
     {
         $this->authorize('index', Kelurahan::class);
 
