@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Master;
 
 use Sty\HttpQuery;
+use App\KegiatanKategori;
 use App\Models\Master\Kegiatan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Master\KegiatanRequest;
@@ -31,7 +32,7 @@ class KegiatanController extends Controller
     public function store(KegiatanRequest $request)
     {
         return response()->crud(new KegiatanResource(
-            Kegiatan::create($request->validated())
+            KegiatanKategori::create($request->validated())
         ));
     }
 
@@ -58,7 +59,7 @@ class KegiatanController extends Controller
     public function update(KegiatanRequest $request, Kegiatan $kegiatan)
     {
         return response()->crud(new KegiatanResource(
-            tap($kegiatan)->update($request->validated())
+            KegiatanKategori::update($kegiatan, $request->validated())
         ));
     }
 

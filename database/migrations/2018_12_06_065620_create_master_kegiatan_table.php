@@ -33,6 +33,26 @@ class CreateMasterKegiatanTable extends Migration
                   ->onUpdate('cascade')
                   ->onDelete('set null');
         });
+
+        Schema::connection('master')->create('kategori_kegiatan_kegiatan', function (Blueprint $table) {
+            $table->integer('kategori_kegiatan_id')->unsigned();
+            $table->integer('kegiatan_id')->unsigned();
+            $table->string('kode');
+
+            $table->primary(['kategori_kegiatan_id', 'kegiatan_id']);
+
+            $table->foreign('kategori_kegiatan_id')
+                ->references('id')
+                ->on('kategori_kegiatans')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('kegiatan_id')
+                ->references('id')
+                ->on('kegiatans')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+        });
     }
 
     /**
@@ -42,6 +62,8 @@ class CreateMasterKegiatanTable extends Migration
      */
     public function down()
     {
+        Schema::connection('master')->dropIfExists('kategori_kegiatan_kegiatan');
+
         Schema::connection('master')->dropIfExists('kegiatans');
 
         Schema::connection('master')->dropIfExists('kategori_kegiatans');
