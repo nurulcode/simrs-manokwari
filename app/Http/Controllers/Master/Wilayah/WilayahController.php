@@ -9,6 +9,6 @@ class WilayahController extends Controller
 {
     public function view(Request $request)
     {
-        return view('master.wilayah');
+        return view('master.wilayah.index');
     }
 }

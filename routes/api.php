@@ -25,8 +25,23 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::namespace('Master')->prefix('master')->name('master.')->group(function () {
         Route::namespace('Wilayah')->prefix('wilayah')->name('wilayah.')->group(function () {
+            Route::get('provinsi/{provinsi}/kota-kabupaten', 'ProvinsiKotaKabupatenController');
+
+            Route::post('provinsi/{provinsi}/kota-kabupaten', 'KotaKabupatenController@store');
+
+            Route::get('kota-kabupaten/{kota_kabupaten}/kecamatan', 'KotaKabupatenKecamatanController');
+
+            Route::post('kota-kabupaten/{kota_kabupaten}/kecamatan', 'KecamatanController@store');
+
+            Route::get('kecamatan/{kecamatan}/kelurahan', 'KecamatanKelurahanController');
+
+            Route::post('kecamatan/{kecamatan}/kelurahan', 'KelurahanController@store');
+
             Route::apiResources([
-                'provinsi'  => 'ProvinsiController',
+                'provinsi'       => 'ProvinsiController',
+                'kota-kabupaten' => 'KotaKabupatenController',
+                'kecamatan'      => 'KecamatanController',
+                'kelurahan'      => 'KelurahanController',
             ]);
         });
     });

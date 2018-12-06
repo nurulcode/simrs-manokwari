@@ -2,14 +2,12 @@
 
 namespace App\Models\Master\Wilayah;
 
-use App\Models\Model;
+use App\Models\Master\Master;
 
-class Provinsi extends Model
+class Provinsi extends Master
 {
-    /**
-     * The connection name for the model.
-     *
-     * @var string
-     */
-    protected $connection = 'master';
+    public function kota_kabupaten()
+    {
+        return $this->hasMany(KotaKabupaten::class);
+    }
 }

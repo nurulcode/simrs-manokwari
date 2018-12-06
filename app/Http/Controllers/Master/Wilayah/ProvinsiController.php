@@ -43,7 +43,7 @@ class ProvinsiController extends Controller
      */
     public function show(Provinsi $provinsi)
     {
-        $this->authorize('view', $provinsi);
+        $this->authorize('show', $provinsi);
 
         return new ProvinsiResource($provinsi);
     }

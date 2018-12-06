@@ -15,9 +15,11 @@ class ProvinsiResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'         => $this->id,
-            'name'       => $this->name,
-            'path'       => $this->path
+            'id'          => $this->id,
+            'name'        => $this->name,
+            'path'        => $this->path,
+            '__editable'  => $request->user()->can('update', $this->resource),
+            '__deletable' => $request->user()->can('delete', $this->resource),
         ];
     }
 }

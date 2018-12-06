@@ -1586,6 +1586,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'sidebar-nav-item',
   computed: {
@@ -1606,7 +1613,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     linkClass: function linkClass() {
       return ['nav-link', this.menu.class, {
-        'active': this.menu.is_current
+        'active': this.menu.is_current || this.is_open
       }];
     },
     iconClass: function iconClass() {
@@ -1641,7 +1648,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   mounted: function mounted() {
-    this.is_open = !!this.highlight;
+    if (this.highlight) {
+      this.is_open = true;
+    }
+
+    if (this.menu.is_current) {
+      this.$emit('active', true);
+    }
   },
   methods: {
     hideMobile: function hideMobile() {
@@ -1739,10 +1752,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     onSelect: function onSelect(value) {
       this.$emit('select', value);
       this.$emit('input', value);
-
-      if (value instanceof Object) {
-        this.$emit('update:keyValue', value[this.trackBy]);
-      }
     }
   },
   mounted: function mounted() {
@@ -1754,6 +1763,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     search: function search(value, before) {
       this.loadData();
+    },
+    params: {
+      handler: function handler(options, before) {
+        if (JSON.stringify(options) != JSON.stringify(before)) {
+          this.loadData();
+        }
+      }
+    },
+    value: function value(_value) {
+      if (_value instanceof Object) {
+        this.$emit('update:keyValue', _value[this.trackBy]);
+      } else {
+        this.$emit('update:keyValue', _value);
+      }
     }
   },
   props: {
@@ -2200,7 +2223,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.search = value;
     },
     params: {
-      deep: true,
       handler: function handler(options) {
         this.refresh();
       }
@@ -22119,7 +22141,12 @@ var render = function() {
               return [
                 _c("sidebar-nav-item", {
                   key: index,
-                  attrs: { menu: item, highlight: _vm.highlight }
+                  attrs: { menu: item, highlight: _vm.highlight },
+                  on: {
+                    active: function($event) {
+                      _vm.is_open = true
+                    }
+                  }
                 })
               ]
             })

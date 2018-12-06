@@ -5,7 +5,14 @@
         </a>
         <ul v-if="isDropdown" class="nav-dropdown-items">
             <template v-for="(item, index) in childs">
-                <sidebar-nav-item :menu="item" :key="index" :highlight="highlight"></sidebar-nav-item>
+                <sidebar-nav-item
+                    :menu="item"
+                    :key="index"
+                    :highlight="highlight"
+                    v-on:active="is_open = true"
+                    >
+
+                </sidebar-nav-item>
             </template>
         </ul>
     </li>
@@ -23,8 +30,8 @@ export default {
         },
         itemClass() {
             return [
-                {'nav-item'     : true },
-                {'open'         : this.is_open },
+                {'nav-item'     : true},
+                {'open'         : this.is_open},
                 {'nav-dropdown' : this.isDropdown}
             ]
         },
@@ -32,7 +39,7 @@ export default {
             return [
                 'nav-link', this.menu.class,
                 {
-                    'active': this.menu.is_current
+                    'active': this.menu.is_current || this.is_open
                 }
             ];
         },
@@ -60,7 +67,7 @@ export default {
     },
     data() {
         return {
-            is_open : false
+            is_open : false,
         }
     },
     props: {
@@ -71,10 +78,16 @@ export default {
         highlight: {
             type    : String,
             required: false,
-        }
+        },
     },
     mounted() {
-        this.is_open = !!this.highlight;
+        if (this.highlight) {
+            this.is_open = true;
+        }
+
+        if (this.menu.is_current) {
+            this.$emit('active', true);
+        }
     },
     methods: {
         hideMobile () {
