@@ -38,6 +38,7 @@
   childs:
     -
       title: Daftar Kegiatan
+      link : master/kegiatan
     -
       title: Daftar Tindakan
     -

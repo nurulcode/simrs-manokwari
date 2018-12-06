@@ -24,6 +24,10 @@ Route::middleware(['auth:api'])->group(function () {
     ]);
 
     Route::namespace('Master')->prefix('master')->name('master.')->group(function () {
+        Route::apiResources([
+            'kategori-kegiatan' => 'KategoriKegiatanController'
+        ]);
+
         Route::namespace('Wilayah')->prefix('wilayah')->name('wilayah.')->group(function () {
             Route::get('provinsi/{provinsi}/kota-kabupaten', 'ProvinsiKotaKabupatenController');
 
