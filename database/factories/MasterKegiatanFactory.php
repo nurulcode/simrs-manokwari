@@ -7,3 +7,9 @@ $factory->define(App\Models\Master\KategoriKegiatan::class, function (Faker $fak
         'uraian' => $faker->sentence
     ];
 });
+
+$factory->define(App\Models\Master\Kegiatan::class, function (Faker $faker) {
+    return [
+        'uraian' => $faker->sentence
+    ];
+});

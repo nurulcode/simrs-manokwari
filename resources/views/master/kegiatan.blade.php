@@ -20,6 +20,22 @@
         </div>
     </data-table>
 </b-tab>
+<b-tab title="Kegiatan">
+    <data-table v-bind.sync="kegiatan" ref="table">
+        <div slot="form">
+            <b-form-group label="Uraian:" v-bind="kegiatan.form.feedback('uraian')">
+                <input
+                    class="form-control"
+                    name="uraian"
+                    placeholder="Uraian"
+                    type="text"
+                    v-model="kegiatan.form.uraian"
+                    >
+                </input>
+            </b-form-group>
+        </div>
+    </data-table>
+</b-tab>
 
 @endsection
 
@@ -34,6 +50,29 @@ window.pagemix.push({
             kategori: {
                 sortBy: 'uraian',
                 url   : `{{ action('Master\KategoriKegiatanController@index') }}`,
+                fields: [
+                    {
+                        key     : 'uraian',
+                        sortable: true,
+                    },
+                ],
+                onDoubleClicked: (item, index, event) => {
+                    this.selected.kategori = item;
+
+                    // this.kota_kabupaten.url    = `${item.path}/kota-kabupaten`;
+                    // this.kota_kabupaten.sortBy = `name`;
+
+                    // this.kota_kabupaten.form.setDefault('provinsi', item);
+
+                    // this.kota_kabupaten.form.setDefault('provinsi_id', item.id);
+
+                    // this.selected_tab = 1;
+                },
+                form: new Form({ uraian: null }),
+            },
+            kegiatan: {
+                sortBy: 'uraian',
+                url   : `{{ action('Master\KegiatanController@index') }}`,
                 fields: [
                     {
                         key     : 'uraian',

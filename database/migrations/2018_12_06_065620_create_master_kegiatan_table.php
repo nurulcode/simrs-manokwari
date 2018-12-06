@@ -18,6 +18,21 @@ class CreateMasterKegiatanTable extends Migration
             $table->string('uraian');
             $table->timestamps();
         });
+
+        Schema::connection('master')->create('kegiatans', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('parent_id')
+                  ->unsigned()
+                  ->nullable();
+            $table->string('uraian');
+            $table->timestamps();
+
+            $table->foreign('parent_id')
+                  ->references('id')
+                  ->on('kegiatans')
+                  ->onUpdate('cascade')
+                  ->onDelete('set null');
+        });
     }
 
     /**
@@ -27,6 +42,8 @@ class CreateMasterKegiatanTable extends Migration
      */
     public function down()
     {
+        Schema::connection('master')->dropIfExists('kegiatans');
+
         Schema::connection('master')->dropIfExists('kategori_kegiatans');
     }
 }

@@ -25,7 +25,8 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::namespace('Master')->prefix('master')->name('master.')->group(function () {
         Route::apiResources([
-            'kategori-kegiatan' => 'KategoriKegiatanController'
+            'kategori-kegiatan' => 'KategoriKegiatanController',
+            'kegiatan'          => 'KegiatanController'
         ]);
 
         Route::namespace('Wilayah')->prefix('wilayah')->name('wilayah.')->group(function () {
