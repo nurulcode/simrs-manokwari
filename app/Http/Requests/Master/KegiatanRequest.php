@@ -35,4 +35,16 @@ class KegiatanRequest extends FormRequest
             'kategori.*.kode' => ['required'],
         ];
     }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'kategori.*.kode' => 'kode kategori',
+        ];
+    }
 }

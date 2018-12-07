@@ -25,4 +25,16 @@ class KegiatanTest extends TestCase
 
         $this->assertInstanceOf(Kategori::class, $kegiatan->kategori->random());
     }
+
+    /** @test */
+    public function a_kegiatan_belongs_to_itself()
+    {
+        $kegiatan = factory(Kegiatan::class)->create([
+            'parent_id' => function () {
+                return factory(Kegiatan::class)->create()->id;
+            }
+        ]);
+
+        $this->assertInstanceof(Kegiatan::class, $kegiatan->parent);
+    }
 }
