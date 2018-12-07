@@ -22385,7 +22385,7 @@ var render = function() {
           _c("template", { slot: "table-caption" }, [
             _vm._v(
               " Menampilkan " +
-                _vm._s(_vm.meta.to - _vm.meta.from + 1) +
+                _vm._s(_vm.items.length) +
                 " dari " +
                 _vm._s(_vm.meta.total) +
                 " data "
