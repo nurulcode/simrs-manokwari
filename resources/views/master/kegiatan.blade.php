@@ -21,6 +21,23 @@
     </data-table>
 </b-tab>
 <b-tab title="Kegiatan">
+    <template v-if="selected.kategori">
+        @component('components.card', ['class' => 'bg-light'])
+            @slot('header')
+                Kategori Terpilih:
+                <div class="card-header-actions">
+                    <a v-on:click.prevent="clearKategori"
+                        class="card-header-action btn-close"
+                        title="close"
+                        style="cursor: pointer;"
+                        >
+                        <i class="icon-close"></i>
+                    </a>
+                </div>
+            @endslot
+            <h5>@{{ selected.kategori.uraian }}</h5>
+        @endcomponent
+    </template>
     <data-table v-bind.sync="kegiatan" ref="table">
         <div slot="form">
             <b-form-group label="Uraian:" v-bind="kegiatan.form.feedback('uraian')">
@@ -95,7 +112,8 @@ window.pagemix.push({
     data() {
         return {
             selected: {
-                kategori      : null,
+                kategori: null,
+                kegiatan: null
             },
             kategori: {
                 sortBy: 'uraian',
@@ -109,14 +127,15 @@ window.pagemix.push({
                 onDoubleClicked: (item, index, event) => {
                     this.selected.kategori = item;
 
-                    // this.kota_kabupaten.url    = `${item.path}/kota-kabupaten`;
-                    // this.kota_kabupaten.sortBy = `name`;
+                    this.kegiatan.url      = `${item.path}/kegiatan`;
 
-                    // this.kota_kabupaten.form.setDefault('provinsi', item);
+                    let kategori = this.kegiatan.form.kategori || [];
 
-                    // this.kota_kabupaten.form.setDefault('provinsi_id', item.id);
+                    kategori.push(item);
 
-                    // this.selected_tab = 1;
+                    this.kegiatan.form.setDefault('kategori', kategori);
+
+                    this.selected_tab = 1;
                 },
                 form: new Form({ uraian: null }),
             },
@@ -154,6 +173,15 @@ window.pagemix.push({
             }
         }
     },
+    methods: {
+        clearKategori() {
+            this.selected.kategori = null;
+
+            this.kegiatan.url = `{{ action('Master\KegiatanController@index') }}`;
+
+            this.kegiatan.form.setDefault('kategori', null);
+        }
+    }
 });
 </script>
 @endpush

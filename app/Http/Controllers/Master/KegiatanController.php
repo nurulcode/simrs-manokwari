@@ -75,4 +75,17 @@ class KegiatanController extends Controller
 
         return response()->crud(tap($kegiatan)->delete());
     }
+
+    /**
+     * Display the resource page.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function view(Request $request)
+    {
+        $this->authorize('view', Kegiatan::class);
+
+        return view('master.kegiatan');
+    }
 }
