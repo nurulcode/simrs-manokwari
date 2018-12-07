@@ -148,18 +148,6 @@ window.pagemix.push({
                         sortable: true,
                     },
                 ],
-                onDoubleClicked: (item, index, event) => {
-                    this.selected.kategori = item;
-
-                    // this.kota_kabupaten.url    = `${item.path}/kota-kabupaten`;
-                    // this.kota_kabupaten.sortBy = `name`;
-
-                    // this.kota_kabupaten.form.setDefault('provinsi', item);
-
-                    // this.kota_kabupaten.form.setDefault('provinsi_id', item.id);
-
-                    // this.selected_tab = 1;
-                },
                 form: new Form(
                     {
                         uraian   : null,
