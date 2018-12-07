@@ -18,8 +18,16 @@ class KategoriKegiatanResource extends JsonResource
             'id'          => $this->id,
             'uraian'      => $this->uraian,
             'path'        => $this->path,
+            'kode'        => $this->getPivotKode(),
             '__editable'  => $request->user()->can('update', $this->resource),
             '__deletable' => $request->user()->can('delete', $this->resource),
         ];
+    }
+
+    protected function getPivotKode()
+    {
+        return $this->whenPivotLoaded('kategori_kegiatan_kegiatan', function () {
+            return $this->pivot->kode;
+        });
     }
 }

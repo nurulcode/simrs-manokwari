@@ -39,7 +39,10 @@ class CreateMasterKegiatanTable extends Migration
             $table->integer('kegiatan_id')->unsigned();
             $table->string('kode');
 
-            $table->primary(['kategori_kegiatan_id', 'kegiatan_id']);
+            $table->primary([
+                'kategori_kegiatan_id', 'kegiatan_id'],
+                'kegiatan_id_kategori_kegiatan_id_primary'
+            );
 
             $table->foreign('kategori_kegiatan_id')
                 ->references('id')

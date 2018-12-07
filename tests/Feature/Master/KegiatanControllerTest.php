@@ -41,4 +41,31 @@ class KegiatanControllerTest extends TestCase
 
         return $this;
     }
+
+    /** @test **/
+    public function user_can_create_a_resource_with_parent()
+    {
+        $parent   = factory($this->resource())->create();
+        $resource = factory($this->resource())->make([
+            'parent_id' => $parent->id
+        ]);
+
+        $this->signIn()
+             ->postJson($resource->path('store'), $this->beforePost($resource))
+             ->assertJson(['status' => 'success'])
+             ->assertHeader('Location')
+             ->assertStatus(201);
+
+        $this->assertDatabaseHas(
+            $this->resourceTable($resource),
+            $this->matchDatabase($resource),
+            $this->getDatabaseConnection($resource)
+        );
+
+        $this->assertDatabaseHas(
+            $this->resourceTable($parent),
+            $this->matchDatabase($parent),
+            $this->getDatabaseConnection($parent)
+        );
+    }
 }

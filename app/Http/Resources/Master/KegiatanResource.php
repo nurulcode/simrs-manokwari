@@ -16,6 +16,8 @@ class KegiatanResource extends JsonResource
     {
         return [
             'id'          => $this->id,
+            'parent'      => self::make($this->whenLoaded('parent')),
+            'kategori'    => KategoriKegiatanResource::collection($this->whenLoaded('kategori')),
             'uraian'      => $this->uraian,
             'path'        => $this->path,
             '__editable'  => $request->user()->can('update', $this->resource),
