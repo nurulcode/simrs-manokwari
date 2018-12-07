@@ -16,6 +16,8 @@ mix.browserSync({
     proxy: 'laravel.test'
 });
 
+mix.setResourceRoot('../');
+
 if (process.env.NODE_ENV == 'development') {
     mix.webpackConfig({devtool: 'source-map'});
 }
@@ -33,9 +35,9 @@ mix.webpackConfig({
 
 mix.js('resources/js/app.js', 'public/js')
     .copyDirectory('resources/images', 'public/images')
-    .sass('resources/sass/icon-fonts/coreui-icons.scss', 'public/css/icon-fonts')
-    .sass('resources/sass/icon-fonts/font-awesome.scss', 'public/css/icon-fonts')
-    .sass('resources/sass/icon-fonts/simple-line-icons.scss', 'public/css/icon-fonts')
+    .sass('resources/sass/icon-fonts/coreui-icons.scss', 'public/css')
+    .sass('resources/sass/icon-fonts/font-awesome.scss', 'public/css')
+    .sass('resources/sass/icon-fonts/simple-line-icons.scss', 'public/css')
     .sass('resources/sass/preloader.scss', 'public/css')
     .sass('resources/sass/app.scss', 'public/css');
 

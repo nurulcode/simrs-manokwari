@@ -3,8 +3,8 @@
 @section('body-class', 'header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show')
 
 @push('plugins-css')
-    <link rel="stylesheet" href="{{ asset(mix('css/icon-fonts/simple-line-icons.css')) }}">
-    <link rel="stylesheet" href="{{ asset(mix('css/icon-fonts/font-awesome.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('css/simple-line-icons.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('css/font-awesome.css')) }}">
 @endpush
 
 @section('app')
