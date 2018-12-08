@@ -8,6 +8,7 @@ use App\Models\Master\Wilayah\Provinsi;
 use App\Models\Master\Wilayah\Kecamatan;
 use App\Models\Master\Wilayah\Kelurahan;
 use App\Models\Master\Wilayah\KotaKabupaten;
+use App\Models\Master\Penyakit\KlasifikasiPenyakit;
 
 class MasterDataSeeder extends Seeder
 {
@@ -19,16 +20,18 @@ class MasterDataSeeder extends Seeder
     public function run()
     {
         $this->seeds([
-            Provinsi::class         => ['master/wilayah/provinsi.csv', 34],
-            KotaKabupaten::class    => ['master/wilayah/kotakab.csv', 514],
-            Kecamatan::class        => ['master/wilayah/kecamatan.csv', 7215],
-            Kelurahan::class        => ['master/wilayah/kelurahan.csv', 80534],
+            Provinsi::class             => ['master/wilayah/provinsi.csv', 34],
+            KotaKabupaten::class        => ['master/wilayah/kotakab.csv', 514],
+            Kecamatan::class            => ['master/wilayah/kecamatan.csv', 7215],
+            Kelurahan::class            => ['master/wilayah/kelurahan.csv', 80534],
 
-            KategoriKegiatan::class => ['master/kegiatan/kategori.csv', 13],
-            Kegiatan::class         => ['master/kegiatan/kegiatan.csv', 373],
+            KategoriKegiatan::class     => ['master/kegiatan/kategori.csv', 13],
+            Kegiatan::class             => ['master/kegiatan/kegiatan.csv', 373],
+            KlasifikasiPenyakit::class  => ['master/penyakit/klasifikasi_penyakit.csv', 22],
         ]);
 
         $this->command->getOutput()->newLine(1);
+
         $this->command->info('-> Kategori Kegiatan Pivot');
 
         with(new CsvSeeder(

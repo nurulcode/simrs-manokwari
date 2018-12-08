@@ -24,6 +24,12 @@ Route::middleware(['auth:api'])->group(function () {
     ]);
 
     Route::namespace('Master')->prefix('master')->name('master.')->group(function () {
+        /* */
+
+        Route::get('kategori-kegiatan/{kategori}/kegiatan', 'KegiatanKategoriKegiatanController');
+
+        Route::post('kategori-kegiatan/{kategori}/kegiatan', 'KegiatanController@store');
+
         Route::apiResources([
             'kategori-kegiatan' => 'KategoriKegiatanController',
             'kegiatan'          => 'KegiatanController'
@@ -47,6 +53,12 @@ Route::middleware(['auth:api'])->group(function () {
                 'kota-kabupaten' => 'KotaKabupatenController',
                 'kecamatan'      => 'KecamatanController',
                 'kelurahan'      => 'KelurahanController',
+            ]);
+        });
+
+        Route::namespace('Penyakit')->prefix('penyakit')->name('penyakit.')->group(function () {
+            Route::apiResources([
+                'klasifikasi'    => 'KlasifikasiPenyakitController',
             ]);
         });
     });

@@ -45,13 +45,14 @@
       title: Daftar Kasus
     -
       title: Daftar Penyakit
+      link : master/penyakit
     -
       title: Daftar Jaminan Kesehatan
     -
       title: Daftar Tarif
     -
       title: Daftar Wilayah
-      link : /master/wilayah
+      link : master/wilayah
     -
       title: Jenis Registrasi
     -
