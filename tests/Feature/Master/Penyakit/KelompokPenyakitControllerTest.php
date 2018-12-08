@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Master\Penyait;
+namespace Tests\Feature\Master\Penyakit;
 
 use Tests\TestCase;
 use Sty\Tests\ResourceControllerTestCase;

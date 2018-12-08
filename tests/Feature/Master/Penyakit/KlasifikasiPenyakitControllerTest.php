@@ -1,32 +1,17 @@
 <?php
 
-namespace Tests\Feature\Master\Penyait;
+namespace Tests\Feature\Master\Penyakit;
 
 use Tests\TestCase;
 use Sty\Tests\ResourceControllerTestCase;
 
-class PenyakitControllerTest extends TestCase
+class KlasifikasiPenyakitControllerTest extends TestCase
 {
     use ResourceControllerTestCase;
 
     public function resource()
     {
-        return \App\Models\Master\Penyakit\Penyakit::class;
-    }
-
-    /** @test **/
-    public function user_cannot_create_with_invalid_data()
-    {
-        $this->signIn();
-
-        $resource = factory($this->resource())->make([
-            'kelompok_id' => str_random(99),
-        ]);
-
-        $this->postJson($resource->path('store'), $this->beforePost($resource))
-             ->assertJson(['errors' => []])
-             ->assertJsonValidationErrors(['kelompok_id'])
-             ->assertStatus(422);
+        return \App\Models\Master\Penyakit\KlasifikasiPenyakit::class;
     }
 
     /** @test **/
@@ -35,14 +20,13 @@ class PenyakitControllerTest extends TestCase
         $this->signIn();
 
         $existing = factory($this->resource())->create();
-
         $resource = factory($this->resource())->make([
-            'icd'  => $existing->icd,
+            'kode' => $existing->kode
         ]);
 
         $this->postJson($resource->path('store'), $this->beforePost($resource))
              ->assertJson(['errors' => []])
-             ->assertJsonValidationErrors(['icd'])
+             ->assertJsonValidationErrors(['kode'])
              ->assertStatus(422);
     }
 
@@ -52,9 +36,8 @@ class PenyakitControllerTest extends TestCase
         $this->signIn();
 
         $existing = factory($this->resource())->create();
-
         $resource = factory($this->resource())->make([
-            'icd'  => $existing->icd,
+            'kode' => $existing->kode
         ]);
 
         $this->putJson($existing->path, $this->beforePost($resource))
