@@ -31,8 +31,9 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('kategori-kegiatan/{kategori}/kegiatan', 'KegiatanController@store');
 
         Route::apiResources([
-            'kategori-kegiatan' => 'KategoriKegiatanController',
-            'kegiatan'          => 'KegiatanController'
+            'kategori-kegiatan'    => 'KategoriKegiatanController',
+            'kegiatan'             => 'KegiatanController',
+            'tindakan-pemeriksaan' => 'TindakanPemeriksaanController'
         ]);
 
         Route::namespace('Wilayah')->prefix('wilayah')->name('wilayah.')->group(function () {
