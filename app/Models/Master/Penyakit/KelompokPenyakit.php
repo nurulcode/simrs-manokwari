@@ -17,4 +17,9 @@ class KelompokPenyakit extends Master
     {
         return $this->belongsTo(KlasifikasiPenyakit::class);
     }
+
+    public function penyakit()
+    {
+        return $this->hasMany(Penyakit::class, 'kelompok_id');
+    }
 }

@@ -61,9 +61,14 @@ Route::middleware(['auth:api'])->group(function () {
 
             Route::post('klasifikasi/{klasifikasi}/kelompok', 'KelompokPenyakitController@store');
 
+            Route::get('kelompok/{kelompok}/penyakit', 'KelompokPenyakitPenyakitController');
+
+            Route::post('kelompok/{kelompok}/penyakit', 'PenyakitController@store');
+
             Route::apiResources([
                 'klasifikasi'    => 'KlasifikasiPenyakitController',
-                'kelompok'       => 'KelompokPenyakitController'
+                'kelompok'       => 'KelompokPenyakitController',
+                'penyakit'       => 'PenyakitController'
             ]);
         });
     });
@@ -72,9 +77,6 @@ Route::middleware(['auth:api'])->group(function () {
 //TODO: Hapus saat production
 Route::get('client', function () {
     return response()->json(
-        DB::table('oauth_clients')
-            ->select('*')
-            ->where('password_client', 1)
-            ->first()
+        DB::table('oauth_clients')->select('*')->where('password_client', 1)->first()
     );
 });

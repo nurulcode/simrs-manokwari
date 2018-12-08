@@ -29,6 +29,28 @@ class CreateMasterPenyakitTable extends Migration
             $table->string('icd')->unique();
             $table->string('uraian');
             $table->timestamps();
+
+            $table->foreign('klasifikasi_id')
+                ->references('id')
+                ->on('klasifikasi_penyakits')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+        });
+
+        Schema::connection('master')->create('penyakits', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('kelompok_id')
+                  ->unsigned()
+                  ->nullable();
+            $table->string('icd')->unique();
+            $table->string('uraian');
+            $table->timestamps();
+
+            $table->foreign('kelompok_id')
+                ->references('id')
+                ->on('kelompok_penyakits')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
         });
     }
 
@@ -39,6 +61,8 @@ class CreateMasterPenyakitTable extends Migration
      */
     public function down()
     {
+        Schema::connection('master')->dropIfExists('penyakits');
+
         Schema::connection('master')->dropIfExists('kelompok_penyakits');
 
         Schema::connection('master')->dropIfExists('klasifikasi_penyakits');

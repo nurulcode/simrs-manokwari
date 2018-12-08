@@ -5,6 +5,7 @@ use Sty\CsvSeeder;
 use App\Models\Master\Kegiatan;
 use App\Models\Master\KategoriKegiatan;
 use App\Models\Master\Wilayah\Provinsi;
+use App\Models\Master\Penyakit\Penyakit;
 use App\Models\Master\Wilayah\Kecamatan;
 use App\Models\Master\Wilayah\Kelurahan;
 use App\Models\Master\Wilayah\KotaKabupaten;
@@ -30,6 +31,7 @@ class MasterDataSeeder extends Seeder
             Kegiatan::class             => ['master/kegiatan/kegiatan.csv', 373],
             KlasifikasiPenyakit::class  => ['master/penyakit/klasifikasi_penyakit.csv', 22],
             KelompokPenyakit::class     => ['master/penyakit/kelompok_penyakit.csv', 537],
+            Penyakit::class             => ['master/penyakit/penyakit.csv', 13309],
         ]);
 
         $this->command->getOutput()->newLine(1);

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Master\Penyakit;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Master\Penyakit\KelompokPenyakit;
 
 class KelompokPenyakitRequest extends FormRequest
 {
@@ -18,7 +19,7 @@ class KelompokPenyakitRequest extends FormRequest
             return $this->user()->can('update', $this->route('kelompok'));
         }
 
-        return $this->user()->can('create', KlasifikasiPenyakit::class);
+        return $this->user()->can('create', KelompokPenyakit::class);
     }
 
     /**
@@ -33,11 +34,23 @@ class KelompokPenyakitRequest extends FormRequest
         );
 
         return [
-            'klasifikasi_id' => ['nullable'],
+            'klasifikasi_id' => ['nullable', 'exists:master.klasifikasi_penyakits,id'],
             'icd'            => ['required', 'string', $unique],
             'kode'           => ['required', $unique],
             'uraian'         => ['required'],
             'uraian'         => ['required'],
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'klasifikasi_id' => 'klasifikasi',
         ];
     }
 }

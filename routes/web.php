@@ -26,6 +26,6 @@ Route::middleware(['auth'])->group(function () {
     Route::namespace('Master')->prefix('master')->group(function () {
         Route::get('wilayah',  'Wilayah\\WilayahController@view');
         Route::get('kegiatan', 'KategoriKegiatanController@view');
-        Route::get('penyakit', 'Penyakit\\KlasifikasiPenyakitController@view');
+        Route::get('penyakit', 'Penyakit\\PenyakitController@view');
     });
 });

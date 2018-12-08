@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Master\Penyakit;
 
 use Sty\HttpQuery;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Master\Penyakit\KlasifikasiPenyakit;
 use App\Http\Requests\Master\Penyakit\KlasifikasiPenyakitRequest;
@@ -76,18 +75,5 @@ class KlasifikasiPenyakitController extends Controller
         $this->authorize('delete', $klasifikasi);
 
         return response()->crud(tap($klasifikasi)->delete());
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        $this->authorize('view', KlasifikasiPenyakit::class);
-
-        return view('master.penyakit');
     }
 }

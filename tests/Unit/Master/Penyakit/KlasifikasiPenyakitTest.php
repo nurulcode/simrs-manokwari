@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Master\Penyait;
+namespace Tests\Unit\Master\Penyakit;
 
 use Tests\TestCase;
 use Illuminate\Support\Collection;
