@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Sty\CrudResponse;
+use BenSampo\Enum\Enum;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Response;
