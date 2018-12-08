@@ -19,6 +19,17 @@ class CreateMasterPenyakitTable extends Migration
             $table->string('uraian');
             $table->timestamps();
         });
+
+        Schema::connection('master')->create('kelompok_penyakits', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('klasifikasi_id')
+                  ->unsigned()
+                  ->nullable();
+            $table->string('kode')->uniquie();
+            $table->string('icd')->uniquie();
+            $table->string('uraian');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -28,6 +39,8 @@ class CreateMasterPenyakitTable extends Migration
      */
     public function down()
     {
+        Schema::connection('master')->dropIfExists('kelompok_penyakits');
+
         Schema::connection('master')->dropIfExists('klasifikasi_penyakits');
     }
 }

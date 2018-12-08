@@ -30,54 +30,56 @@
         </div>
     </data-table>
 </b-tab>
-<b-tab title="Kegiatan">
-    <data-table v-bind.sync="kegiatan" ref="table">
+<b-tab title="Kelompok Penyakit">
+    <template v-if="selected.klasifikasi">
+        @component('components.card', ['class' => 'bg-light'])
+            @slot('header')
+                Klasifikasi Terpilih:
+                <div class="card-header-actions">
+                    <a v-on:click.prevent="clearKlasifikasi"
+                        class="card-header-action btn-close"
+                        title="close"
+                        style="cursor: pointer;"
+                        >
+                        <i class="icon-close"></i>
+                    </a>
+                </div>
+            @endslot
+            <h5>@{{ selected.klasifikasi.kode }} - @{{ selected.klasifikasi.uraian }}</h5>
+        @endcomponent
+    </template>
+    <data-table v-bind.sync="kelompok" ref="table">
         <div slot="form">
-            <b-form-group label="Uraian:" v-bind="kegiatan.form.feedback('uraian')">
+            <b-form-group label="Klasifikasi Penyakit:" v-bind="kelompok.form.feedback('klasifikasi_id')">
+                <ajax-select
+                    :url="klasifikasi.url"
+                    label="uraian"
+                    placeholder="Pilih Klasifikasi Penyakit"
+                    v-model="kelompok.form.klasifikasi"
+                    v-bind:key-value.sync="kelompok.form.parent_id"
+                    v-on:change="kelompok.form.errors.clear('parent_id')"
+                    >
+                </ajax-select>
+            </b-form-group>
+            <b-form-group label="Kode:" v-bind="kelompok.form.feedback('kode')">
+                <input
+                    class="form-control"
+                    name="kode"
+                    placeholder="Kode"
+                    type="text"
+                    v-model="kelompok.form.kode"
+                    >
+                </input>
+            </b-form-group>
+            <b-form-group label="Uraian:" v-bind="kelompok.form.feedback('uraian')">
                 <input
                     class="form-control"
                     name="uraian"
                     placeholder="Uraian"
                     type="text"
-                    v-model="kegiatan.form.uraian"
+                    v-model="kelompok.form.uraian"
                     >
                 </input>
-            </b-form-group>
-            <b-form-group label="Kelompok Kegiatan:" v-bind="kegiatan.form.feedback('parent_id')">
-                <ajax-select
-                    :url="kegiatan.url"
-                    label="uraian"
-                    placeholder="Pilih Kelompok Kegiatan"
-                    v-model="kegiatan.form.parent"
-                    v-bind:key-value.sync="kegiatan.form.parent_id"
-                    v-on:change="kegiatan.form.errors.clear('parent_id')"
-                    >
-                </ajax-select>
-            </b-form-group>
-            <b-form-group label="Roles:" v-bind="kegiatan.form.feedback('kategori')">
-                <ajax-select
-                    :multiple="true"
-                    url="{{ action('Master\KategoriKegiatanController@index') }}"
-                    label="uraian"
-                    placeholder="Pilih Kategori"
-                    v-model="kegiatan.form.kategori"
-                    >
-                </ajax-select>
-            </b-form-group>
-            <b-form-group
-                horizontal
-                :label="`Kode ${kat.uraian}:`"
-                :key="key"
-                :label-cols="6"
-                v-bind="kegiatan.form.feedback(`kategori.${key}.kode`)"
-                v-for="(kat, key) in kegiatan.form.kategori"
-                >
-                <b-form-input
-                    :name="`kategori.${key}.kode`"
-                    :placeholder="`Kode ${kat.uraian}:`"
-                    v-model="kegiatan.form.kategori[key].kode"
-                    >
-                </b-form-input>
             </b-form-group>
         </div>
         <template slot="uraian" slot-scope="{item}">
@@ -102,6 +104,17 @@
 @push('javascripts')
 <script>
 window.pagemix.push({
+    methods: {
+        clearKlasifikasi() {
+            this.selected.klasifikasi = null;
+
+            this.kelompok.url = `{{ action('Master\Penyakit\KelompokPenyakitController@index') }}`;
+
+            this.kelompok.form.setDefault('klasifikasi', null);
+
+            this.kelompok.form.setDefault('klasifikasi_id', null);
+        }
+    },
     data() {
         return {
             selected: {
@@ -123,24 +136,33 @@ window.pagemix.push({
                 onDoubleClicked: (item, index, event) => {
                     this.selected.klasifikasi = item;
 
-                    // this.kota_kabupaten.url    = `${item.path}/kota-kabupaten`;
-                    // this.kota_kabupaten.sortBy = `name`;
+                    this.kelompok.url = `${item.path}/kelompok`;
 
-                    // this.kota_kabupaten.form.setDefault('provinsi', item);
+                    this.kelompok.form.setDefault('klasifikasi', item);
 
-                    // this.kota_kabupaten.form.setDefault('provinsi_id', item.id);
+                    this.kelompok.form.setDefault('klasifikasi_id', item.id);
 
-                    // this.selected_tab = 1;
+                    this.selected_tab = 1;
                 },
                 form: new Form({
                     kode  : null,
                     uraian: null
                 }),
             },
-            kegiatan: {
-                sortBy: 'uraian',
-                url   : `{{ action('Master\KegiatanController@index') }}`,
+            kelompok: {
+                sortBy: 'kode',
+                url   : `{{ action('Master\Penyakit\KelompokPenyakitController@index') }}`,
                 fields: [
+                    {
+                        key     : 'kode',
+                        label   : 'Kode DTD',
+                        sortable: true,
+                    },
+                    {
+                        key     : 'icd',
+                        label   : 'ICD',
+                        sortable: true,
+                    },
                     {
                         key     : 'uraian',
                         sortable: true,
@@ -160,12 +182,13 @@ window.pagemix.push({
                 },
                 form: new Form(
                     {
-                        uraian   : null,
-                        kategori : null,
-                        parent_id: null
+                        uraian        : null,
+                        kode          : null,
+                        icd           : null,
+                        klasifikasi_id: null
                     },
                     {
-                        parent   : null
+                        klasifikasi   : null
                     }
                 ),
             }

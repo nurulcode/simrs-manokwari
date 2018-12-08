@@ -3,9 +3,8 @@
 namespace App\Http\Requests\Master\Penyakit;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Master\Penyakit\KlasifikasiPenyakit;
 
-class KlasifikasiPenyakitRequest extends FormRequest
+class KelompokPenyakitRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,8 +13,8 @@ class KlasifikasiPenyakitRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('klasifikasi')) {
-            return $this->user()->can('update', $this->route('klasifikasi'));
+        if ($this->route('kelompok')) {
+            return $this->user()->can('update', $this->route('kelompok'));
         }
 
         return $this->user()->can('create', KlasifikasiPenyakit::class);
@@ -29,8 +28,11 @@ class KlasifikasiPenyakitRequest extends FormRequest
     public function rules()
     {
         return [
-            'kode'   => ['required'],
-            'uraian' => ['required']
+            'klasifikasi_id' => ['nullable'],
+            'icd'            => ['required', 'string'],
+            'kode'           => ['required'],
+            'uraian'         => ['required'],
+            'uraian'         => ['required'],
         ];
     }
 }

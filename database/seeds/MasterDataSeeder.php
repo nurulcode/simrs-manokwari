@@ -8,6 +8,7 @@ use App\Models\Master\Wilayah\Provinsi;
 use App\Models\Master\Wilayah\Kecamatan;
 use App\Models\Master\Wilayah\Kelurahan;
 use App\Models\Master\Wilayah\KotaKabupaten;
+use App\Models\Master\Penyakit\KelompokPenyakit;
 use App\Models\Master\Penyakit\KlasifikasiPenyakit;
 
 class MasterDataSeeder extends Seeder
@@ -28,6 +29,7 @@ class MasterDataSeeder extends Seeder
             KategoriKegiatan::class     => ['master/kegiatan/kategori.csv', 13],
             Kegiatan::class             => ['master/kegiatan/kegiatan.csv', 373],
             KlasifikasiPenyakit::class  => ['master/penyakit/klasifikasi_penyakit.csv', 22],
+            KelompokPenyakit::class     => ['master/penyakit/kelompok_penyakit.csv', 537],
         ]);
 
         $this->command->getOutput()->newLine(1);

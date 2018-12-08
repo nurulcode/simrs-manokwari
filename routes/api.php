@@ -57,8 +57,13 @@ Route::middleware(['auth:api'])->group(function () {
         });
 
         Route::namespace('Penyakit')->prefix('penyakit')->name('penyakit.')->group(function () {
+            Route::get('klasifikasi/{klasifikasi}/kelompok', 'KlasifikasiKelompokPenyakitController');
+
+            Route::post('klasifikasi/{klasifikasi}/kelompok', 'KelompokPenyakitController@store');
+
             Route::apiResources([
                 'klasifikasi'    => 'KlasifikasiPenyakitController',
+                'kelompok'       => 'KelompokPenyakitController'
             ]);
         });
     });

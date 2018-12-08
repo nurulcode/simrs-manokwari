@@ -61,7 +61,7 @@
                     >
                 </ajax-select>
             </b-form-group>
-            <b-form-group label="Roles:" v-bind="kegiatan.form.feedback('kategori')">
+            <b-form-group label="Kategori:" v-bind="kegiatan.form.feedback('kategori')">
                 <ajax-select
                     :multiple="true"
                     url="{{ action('Master\KategoriKegiatanController@index') }}"
