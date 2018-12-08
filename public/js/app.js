@@ -22242,7 +22242,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "mb-3 col d-flex" },
+          { staticClass: "mb-3 col d-flex col-md-auto col-lg-auto" },
           [
             _vm._t("before-top-button"),
             _vm._v(" "),
