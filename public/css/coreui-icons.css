@@ -10,8 +10,8 @@
 
 @font-face {
   font-family: 'CoreUI-Icons-Linear-Free';
-  src: url(/fonts/vendor/@coreui/icons/CoreUI-Icons-Linear-Free.eot?089ab3c11c572362d088083c561cfa55);
-  src: url(/fonts/vendor/@coreui/icons/CoreUI-Icons-Linear-Free.eot?089ab3c11c572362d088083c561cfa55) format("embedded-opentype"), url(/fonts/vendor/@coreui/icons/CoreUI-Icons-Linear-Free.ttf?1bc3764815bb391a16771c42c6e460ec) format("truetype"), url(/fonts/vendor/@coreui/icons/CoreUI-Icons-Linear-Free.woff?0087dce419a7376eb06c837f740d31eb) format("woff"), url(/fonts/vendor/@coreui/icons/CoreUI-Icons-Linear-Free.svg?4b57c6a5567c9ef09913983f82904faa) format("svg");
+  src: url(../fonts/vendor/@coreui/icons/CoreUI-Icons-Linear-Free.eot?089ab3c11c572362d088083c561cfa55);
+  src: url(../fonts/vendor/@coreui/icons/CoreUI-Icons-Linear-Free.eot?089ab3c11c572362d088083c561cfa55) format("embedded-opentype"), url(../fonts/vendor/@coreui/icons/CoreUI-Icons-Linear-Free.ttf?1bc3764815bb391a16771c42c6e460ec) format("truetype"), url(../fonts/vendor/@coreui/icons/CoreUI-Icons-Linear-Free.woff?0087dce419a7376eb06c837f740d31eb) format("woff"), url(../fonts/vendor/@coreui/icons/CoreUI-Icons-Linear-Free.svg?4b57c6a5567c9ef09913983f82904faa) format("svg");
   font-weight: normal;
   font-style: normal;
 }

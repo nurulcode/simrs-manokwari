@@ -118,12 +118,10 @@ window.pagemix.push({
             kategori: {
                 sortBy: 'uraian',
                 url   : `{{ action('Master\KategoriKegiatanController@index') }}`,
-                fields: [
-                    {
-                        key     : 'uraian',
-                        sortable: true,
-                    },
-                ],
+                fields: [{
+                    key     : 'uraian',
+                    sortable: true,
+                },],
                 onDoubleClicked: (item, index, event) => {
                     this.selected.kategori = item;
 
@@ -142,37 +140,17 @@ window.pagemix.push({
             kegiatan: {
                 sortBy: 'uraian',
                 url   : `{{ action('Master\KegiatanController@index') }}`,
-                fields: [
-                    {
-                        key     : 'uraian',
-                        sortable: true,
-                    },
-                ],
-<<<<<<< HEAD
-=======
-                onDoubleClicked: (item, index, event) => {
-                    this.selected.kategori = item;
-
-                    // this.kota_kabupaten.url    = `${item.path}/kota-kabupaten`;
-                    // this.kota_kabupaten.sortBy = `name`;
-
-                    // this.kota_kabupaten.form.setDefault('provinsi', item);
-
-                    // this.kota_kabupaten.form.setDefault('provinsi_id', item.id);
-
-                    // this.selected_tab = 1;
-                },
->>>>>>> da93e89b9b649f2707422f6fe6a5bf4c13b28cbe
-                form: new Form(
-                    {
-                        uraian   : null,
-                        kategori : null,
-                        parent_id: null
-                    },
-                    {
-                        parent   : null
-                    }
-                ),
+                fields: [{
+                    key     : 'uraian',
+                    sortable: true,
+                }],
+                form: new Form({
+                    uraian   : null,
+                    kategori : null,
+                    parent_id: null
+                },{
+                    parent   : null
+                }),
             }
         }
     },

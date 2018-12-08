@@ -17,5 +17,5 @@
 @endsection
 
 @push('plugins-css')
-    <link rel="stylesheet" href="{{ asset(mix('css/icon-fonts/simple-line-icons.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('css/simple-line-icons.css')) }}">
 @endpush
