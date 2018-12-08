@@ -84,17 +84,7 @@
         </div>
         <template slot="uraian" slot-scope="{item}">
             @{{ item.uraian }}
-            <span class="text-muted" v-if="item.parent">&nbsp;- @{{ item.parent.uraian }}</span>
-            <p>
-                <b-badge
-                    v-for="kat in item.kategori"
-                    class="mr-1"
-                    variant="success"
-                    v-bind:key="kat.pivot_id"
-                    v-text="`${kat.kode} : ${kat.uraian}`"
-                    >
-                </b-badge>
-            </p>
+            <p class="text-muted">@{{ item.klasifikasi.uraian }}</p>
         </template>
     </data-table>
 </b-tab>
@@ -123,16 +113,13 @@ window.pagemix.push({
             klasifikasi: {
                 sortBy: 'kode',
                 url   : `{{ action('Master\Penyakit\KlasifikasiPenyakitController@index') }}`,
-                fields: [
-                    {
-                        key     : 'kode',
-                        sortable: true,
-                    },
-                    {
-                        key     : 'uraian',
-                        sortable: true,
-                    },
-                ],
+                fields: [{
+                    key     : 'kode',
+                    sortable: true,
+                }, {
+                    key     : 'uraian',
+                    sortable: true,
+                }],
                 onDoubleClicked: (item, index, event) => {
                     this.selected.klasifikasi = item;
 
@@ -152,22 +139,18 @@ window.pagemix.push({
             kelompok: {
                 sortBy: 'kode',
                 url   : `{{ action('Master\Penyakit\KelompokPenyakitController@index') }}`,
-                fields: [
-                    {
-                        key     : 'kode',
-                        label   : 'Kode DTD',
-                        sortable: true,
-                    },
-                    {
-                        key     : 'icd',
-                        label   : 'ICD',
-                        sortable: true,
-                    },
-                    {
-                        key     : 'uraian',
-                        sortable: true,
-                    },
-                ],
+                fields: [{
+                    key     : 'kode',
+                    label   : 'Kode DTD',
+                    sortable: true,
+                },{
+                    key     : 'icd',
+                    label   : 'ICD',
+                    sortable: true,
+                },{
+                    key     : 'uraian',
+                    sortable: true,
+                }],
                 onDoubleClicked: (item, index, event) => {
                     this.selected.kategori = item;
 
@@ -180,17 +163,14 @@ window.pagemix.push({
 
                     // this.selected_tab = 1;
                 },
-                form: new Form(
-                    {
-                        uraian        : null,
-                        kode          : null,
-                        icd           : null,
-                        klasifikasi_id: null
-                    },
-                    {
-                        klasifikasi   : null
-                    }
-                ),
+                form: new Form({
+                    uraian        : null,
+                    kode          : null,
+                    icd           : null,
+                    klasifikasi_id: null
+                },{
+                    klasifikasi   : null
+                }),
             }
         }
     },
