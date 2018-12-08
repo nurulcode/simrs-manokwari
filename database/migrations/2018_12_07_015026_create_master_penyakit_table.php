@@ -25,8 +25,8 @@ class CreateMasterPenyakitTable extends Migration
             $table->integer('klasifikasi_id')
                   ->unsigned()
                   ->nullable();
-            $table->string('kode')->uniquie();
-            $table->string('icd')->uniquie();
+            $table->string('kode')->unique();
+            $table->string('icd')->unique();
             $table->string('uraian');
             $table->timestamps();
         });

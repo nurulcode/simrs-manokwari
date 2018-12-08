@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Master\Penyakit;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class KelompokPenyakitRequest extends FormRequest
@@ -27,10 +28,14 @@ class KelompokPenyakitRequest extends FormRequest
      */
     public function rules()
     {
+        $unique = Rule::unique('master.kelompok_penyakits')->ignore(
+            optional($this->route('kelompok'))->id
+        );
+
         return [
             'klasifikasi_id' => ['nullable'],
-            'icd'            => ['required', 'string'],
-            'kode'           => ['required'],
+            'icd'            => ['required', 'string', $unique],
+            'kode'           => ['required', $unique],
             'uraian'         => ['required'],
             'uraian'         => ['required'],
         ];

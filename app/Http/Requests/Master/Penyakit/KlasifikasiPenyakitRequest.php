@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Master\Penyakit;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Master\Penyakit\KlasifikasiPenyakit;
 
@@ -28,8 +29,12 @@ class KlasifikasiPenyakitRequest extends FormRequest
      */
     public function rules()
     {
+        $unique = Rule::unique('master.klasifikasi_penyakits')->ignore(
+            optional($this->route('klasifikasi'))->id
+        );
+
         return [
-            'kode'   => ['required'],
+            'kode'   => ['required', $unique],
             'uraian' => ['required']
         ];
     }
