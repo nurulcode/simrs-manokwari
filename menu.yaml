@@ -66,6 +66,7 @@
 -
   title : Fasilitas Rumah Sakit
   icon  : fa fa-hospital-o
+  link  : fasilitas
 -
   title : System
   type  : header

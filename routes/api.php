@@ -23,7 +23,7 @@ Route::middleware(['auth:api'])->group(function () {
         'activity'   => 'ActivityController'
     ]);
 
-    Route::namespace('Master')->prefix('master')->name('master.')->group(function () {
+    Route::namespace('Master')->prefix('master')->group(function () {
         /* */
 
         Route::get('kategori-kegiatan/{kategori}/kegiatan', 'KegiatanKategoriKegiatanController');
@@ -72,6 +72,11 @@ Route::middleware(['auth:api'])->group(function () {
                 'penyakit'       => 'PenyakitController'
             ]);
         });
+    });
+    Route::namespace('Fasilitas')->prefix('fasilitas')->group(function () {
+        Route::apiResources([
+            'poliklinik' => 'PoliklinikController'
+        ]);
     });
 });
 

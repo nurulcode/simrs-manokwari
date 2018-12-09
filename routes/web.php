@@ -18,10 +18,11 @@ Auth::routes([
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/',             'HomeController@index');
-    Route::get('/user',         'UserController@view');
-    Route::get('/role',         'RoleController@view');
-    Route::get('/permission',   'PermissionController@view');
     Route::get('/activities',   'ActivityController@view');
+    Route::get('/fasilitas',    'Fasilitas\\FasilitasController@view');
+    Route::get('/permission',   'PermissionController@view');
+    Route::get('/role',         'RoleController@view');
+    Route::get('/user',         'UserController@view');
 
     Route::namespace('Master')->prefix('master')->group(function () {
         Route::get('wilayah',  'Wilayah\\WilayahController@view');
