@@ -1,4 +1,8 @@
-<data-table v-bind.sync="provinsi" ref="table">
+<data-table v-bind.sync="provinsi" ref="table" v-model="selected_provinsi"
+    @cannot('create', App\Models\Master\Wilayah\Provinsi::class)
+        no-add-button-text
+    @endcannot
+    >
     <div slot="form">
         <b-form-group label="Name:" v-bind="provinsi.form.feedback('name')">
             <input
@@ -19,26 +23,12 @@ window.pagemix.push({
     data() {
         return {
             provinsi: {
-                sortBy: 'name',
+                sortBy: `name`,
                 url   : `{{ action('Master\Wilayah\ProvinsiController@index') }}`,
-                fields: [
-                    {
-                        key     : 'name',
-                        sortable: true,
-                    },
-                ],
-                onDoubleClicked: (item, index, event) => {
-                    this.selected.provinsi = item;
-
-                    this.kota_kabupaten.url    = `${item.path}/kota-kabupaten`;
-                    this.kota_kabupaten.sortBy = `name`;
-
-                    this.kota_kabupaten.form.setDefault('provinsi', item);
-
-                    this.kota_kabupaten.form.setDefault('provinsi_id', item.id);
-
-                    this.selected_tab = 1;
-                },
+                fields: [{
+                    key     : 'name',
+                    sortable: true,
+                }],
                 form: new Form({ name: null }),
             }
         }

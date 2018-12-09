@@ -25,12 +25,12 @@ window.pagemix.push({
                         formatter: user => user.name
                     },
                     {
-                        key     : 'type',
+                        key      : 'type',
                     },
                     {
-                        key     : 'created_at',
-                        label   : 'Waktu',
-                        sortable: true
+                        label    : 'Waktu',
+                        key      : 'created_at',
+                        sortable : true
                     },
                 ],
             }

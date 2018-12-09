@@ -1,4 +1,8 @@
-<data-table v-bind.sync="poliklinik" ref="table">
+<data-table v-bind.sync="poliklinik" ref="table"
+    @cannot('create', App\Models\Fasilitas\Poliklinik::class)
+        no-add-button-text
+    @endcannot
+    >
     <div slot="form">
         <b-form-group label="Kode:" v-bind="poliklinik.form.feedback('kode')">
             <input
@@ -42,26 +46,15 @@ window.pagemix.push({
                 sortBy: 'kode',
                 url   : `{{ action('Fasilitas\PoliklinikController@index') }}`,
                 fields: [{
-                    key     : 'kode',
-                    sortable: true,
+                    key      : 'kode',
+                    sortable : true,
+                    formatter: item => item.toUpperCase()
                 },{
-                    key     : 'nama',
-                    sortable: true,
+                    key      : 'nama',
+                    sortable : true,
                 }, {
-                    key     : 'jenis',
+                    key      : 'jenis',
                 }],
-                onDoubleClicked: (item, index, event) => {
-                    this.selected.poliklinik = item;
-
-                    // this.kota_kabupaten.url    = `${item.path}/kota-kabupaten`;
-                    // this.kota_kabupaten.sortBy = `name`;
-
-                    // this.kota_kabupaten.form.setDefault('provinsi', item);
-
-                    // this.kota_kabupaten.form.setDefault('provinsi_id', item.id);
-
-                    this.selected_tab = 1;
-                },
                 form: new Form({
                     kode : null,
                     nama : null,

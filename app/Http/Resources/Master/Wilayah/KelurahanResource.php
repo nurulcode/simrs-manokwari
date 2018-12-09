@@ -20,7 +20,7 @@ class KelurahanResource extends JsonResource
             'kecamatan_id'        => $this->kecamatan_id,
             'kecamatan_name'      => $this->when($this->kecamatan_name, $this->kecamatan_name),
             'kota_kabupaten_name' => $this->when($this->kota_kabupaten_name, $this->kota_kabupaten_name),
-            'kecamatan'           => KotaKabupatenResource::make($this->whenLoaded('kecamatan')),
+            'kecamatan'           => KecamatanResource::make($this->whenLoaded('kecamatan')),
             'path'                => $this->path,
             '__editable'          => $request->user()->can('update', $this->resource),
             '__deletable'         => $request->user()->can('delete', $this->resource),

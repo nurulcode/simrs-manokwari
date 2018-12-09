@@ -1,21 +1,12 @@
-<template v-if="selected.klasifikasi">
-    @component('components.card', ['class' => 'bg-light'])
-        @slot('header')
-            Klasifikasi Terpilih:
-            <div class="card-header-actions">
-                <a v-on:click.prevent="clearKlasifikasi"
-                    class="card-header-action btn-close"
-                    title="close"
-                    style="cursor: pointer;"
-                    >
-                    <i class="icon-close"></i>
-                </a>
-            </div>
-        @endslot
-        <h5>@{{ selected.klasifikasi.kode }} - @{{ selected.klasifikasi.uraian }}</h5>
-    @endcomponent
-</template>
-<data-table v-bind.sync="kelompok" ref="table">
+<closable-card v-if="!!selected_klasifikasi" header="Klasifikasi Terpilih:" v-on:close="selected_klasifikasi = null">
+    <h5>@{{ selected_klasifikasi.kode }}, @{{ selected_klasifikasi.uraian }}</h5>
+</closable-card>
+
+<data-table v-bind.sync="kelompok" ref="table" v-model="selected_kelompok"
+    @cannot('create', App\Models\Master\Penyakit\KelompokPenyakit::class)
+        no-add-button-text
+    @endcannot
+    >
     <div slot="form">
         <b-form-group label="Klasifikasi Penyakit:" v-bind="kelompok.form.feedback('klasifikasi_id')">
             <ajax-select
@@ -38,6 +29,16 @@
                 >
             </input>
         </b-form-group>
+        <b-form-group label="ICD:" v-bind="kelompok.form.feedback('icd')">
+            <input
+                class="form-control"
+                name="icd"
+                placeholder="ICD"
+                type="text"
+                v-model="kelompok.form.icd"
+                >
+            </input>
+        </b-form-group>
         <b-form-group label="Uraian:" v-bind="kelompok.form.feedback('uraian')">
             <input
                 class="form-control"
@@ -57,17 +58,6 @@
 @push('javascripts')
 <script>
 window.pagemix.push({
-    methods: {
-        clearKlasifikasi() {
-            this.selected.klasifikasi = null;
-
-            this.kelompok.url = `{{ action('Master\Penyakit\KelompokPenyakitController@index') }}`;
-
-            this.kelompok.form.setDefault('klasifikasi', null);
-
-            this.kelompok.form.setDefault('klasifikasi_id', null);
-        }
-    },
     data() {
         return {
             kelompok: {
@@ -87,17 +77,6 @@ window.pagemix.push({
                     key     : 'uraian',
                     sortable: true,
                 }],
-                onDoubleClicked: (item, index, event) => {
-                    this.selected.kelompok = item;
-
-                    this.penyakit.url    = `${item.path}/penyakit`;
-
-                    this.penyakit.form.setDefault('kelompok', item);
-
-                    this.penyakit.form.setDefault('kelompok_id', item.id);
-
-                    this.selected_tab = 2;
-                },
                 form: new Form({
                     uraian        : null,
                     kode          : null,

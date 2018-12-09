@@ -5,7 +5,11 @@
 @section('tabs')
 
 <b-tab title="Kategori Kegiatan">
-    <data-table v-bind.sync="kategori" ref="table">
+    <data-table v-bind.sync="kategori" ref="table" v-model="selected_kategori"
+        @cannot('create', App\Models\Master\KategoriKegiatan::class)
+            no-add-button-text
+        @endcannot
+        >
         <div slot="form">
             <b-form-group label="Uraian:" v-bind="kategori.form.feedback('uraian')">
                 <input
@@ -21,24 +25,15 @@
     </data-table>
 </b-tab>
 <b-tab title="Kegiatan">
-    <template v-if="selected.kategori">
-        @component('components.card', ['class' => 'bg-light'])
-            @slot('header')
-                Kategori Terpilih:
-                <div class="card-header-actions">
-                    <a v-on:click.prevent="clearKategori"
-                        class="card-header-action btn-close"
-                        title="close"
-                        style="cursor: pointer;"
-                        >
-                        <i class="icon-close"></i>
-                    </a>
-                </div>
-            @endslot
-            <h5>@{{ selected.kategori.uraian }}</h5>
-        @endcomponent
-    </template>
-    <data-table v-bind.sync="kegiatan" ref="table">
+    <closable-card v-if="!!selected_kategori" header="Kategori Terpilih:" v-on:close="selected_kategori = null">
+        <h5>@{{ selected_kategori.uraian }}</h5>
+    </closable-card>
+
+    <data-table v-bind.sync="kegiatan" ref="table"
+        @cannot('create', App\Models\Master\Kegiatan::class)
+            no-add-button-text
+        @endcannot
+        >
         <div slot="form">
             <b-form-group label="Uraian:" v-bind="kegiatan.form.feedback('uraian')">
                 <input
@@ -111,56 +106,53 @@
 window.pagemix.push({
     data() {
         return {
-            selected: {
-                kategori: null,
-                kegiatan: null
-            },
             kategori: {
                 sortBy: 'uraian',
                 url   : `{{ action('Master\KategoriKegiatanController@index') }}`,
                 fields: [{
                     key     : 'uraian',
                     sortable: true,
-                },],
-                onDoubleClicked: (item, index, event) => {
-                    this.selected.kategori = item;
-
-                    this.kegiatan.url      = `${item.path}/kegiatan`;
-
-                    let kategori = this.kegiatan.form.kategori || [];
-
-                    kategori.push(item);
-
-                    this.kegiatan.form.setDefault('kategori', kategori);
-
-                    this.selected_tab = 1;
-                },
+                }],
                 form: new Form({ uraian: null }),
             },
             kegiatan: {
                 sortBy: 'uraian',
                 url   : `{{ action('Master\KegiatanController@index') }}`,
-                fields: [{
-                    key     : 'uraian',
-                    sortable: true,
-                }],
-                form: new Form({
-                    uraian   : null,
-                    kategori : null,
-                    parent_id: null
-                },{
-                    parent   : null
-                }),
-            }
+                fields: [
+                    {
+                        key     : 'uraian',
+                        sortable: true,
+                    }
+                ],
+                form: new Form(
+                    {
+                        uraian   : null,
+                        parent_id: null,
+                        kategori : [],
+                    },
+                    {
+                        parent   : null
+                    }
+                ),
+            },
+            selected_kategori: null
         }
     },
-    methods: {
-        clearKategori() {
-            this.selected.kategori = null;
+    watch: {
+        selected_kategori(value, before) {
+            if (value) {
+                this.kegiatan.form.kategori.push(value);
 
-            this.kegiatan.url = `{{ action('Master\KegiatanController@index') }}`;
+                this.kegiatan.url = `${value.path}/kegiatan`;
 
-            this.kegiatan.form.setDefault('kategori', null);
+                this.selected_tab = 1;
+            } else {
+                this.kegiatan.url = `{{ action('Master\KegiatanController@index') }}`;
+
+                this.kegiatan.form.kategori = [];
+
+                this.kegiatan.form.setDefault('kategori', []);
+            }
         }
     }
 });

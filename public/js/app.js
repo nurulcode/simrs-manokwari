@@ -1568,6 +1568,54 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"@babel/preset-env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"]},\"forceAllTransforms\":true}]],\"plugins\":[\"@babel/plugin-proposal-object-rest-spread\",[\"@babel/plugin-transform-runtime\",{\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/ClosableCard.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {//
+    };
+  },
+  methods: {
+    close: function close() {
+      this.$emit('close');
+    }
+  },
+  props: {
+    title: String,
+    header: String,
+    show: {
+      type: Boolean,
+      default: true
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"@babel/preset-env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"]},\"forceAllTransforms\":true}]],\"plugins\":[\"@babel/plugin-proposal-object-rest-spread\",[\"@babel/plugin-transform-runtime\",{\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/SidebarNavItem.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2007,6 +2055,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -2025,8 +2074,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   directives: __WEBPACK_IMPORTED_MODULE_4__directives__["a" /* default */],
   props: __WEBPACK_IMPORTED_MODULE_5__props__["a" /* default */],
   computed: {
-    tableOption: function tableOption() {
+    tableOptions: function tableOptions() {
       return Object.assign({
+        apiUrl: this.url,
         bordered: true,
         fields: this.tableFields,
         filter: this.search,
@@ -2088,7 +2138,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     provider: function provider(ctx) {
       var _this = this;
 
-      return axios.get(this.url, {
+      return axios.get(ctx.apiUrl, {
         params: Object.assign({
           limit: ctx.perPage,
           page: ctx.currentPage,
@@ -2122,6 +2172,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }, 300),
     onDoubleClick: function onDoubleClick(item, row, event) {
       this.$emit('dt:row-double-click', item, row, event);
+      this.$emit('input', item);
       this.toggleSelected(item);
       this.onDoubleClicked(item, row, event);
     },
@@ -2216,9 +2267,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.meta.per_page = this.options.perPage || 5;
   },
   watch: {
-    url: function url(value) {
-      this.refresh();
-    },
     filter: function filter(value) {
       this.search = value;
     },
@@ -22107,6 +22155,71 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-1dffdf02\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/ClosableCard.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.show
+    ? _c("div", { staticClass: "card bg-light" }, [
+        _c(
+          "div",
+          { staticClass: "card-header" },
+          [
+            _vm._t("header", [_vm._v(_vm._s(_vm.header))]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-header-actions" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "card-header-action btn-close btn",
+                  staticStyle: { cursor: "pointer" },
+                  attrs: { title: "close" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.close($event)
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "icon-close" })]
+              )
+            ])
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "card-body" },
+          [
+            _vm.title
+              ? _c("h4", { staticClass: "card-title" }, [
+                  _vm._v(_vm._s(_vm.title))
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm._t("default")
+          ],
+          2
+        )
+      ])
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1dffdf02", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-25beebf6\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/SidebarNavItem.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22260,7 +22373,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "mb-3 col d-flex" },
+          { staticClass: "mb-3 col d-flex col-md-auto col-lg-auto" },
           [
             _vm._t("before-top-button"),
             _vm._v(" "),
@@ -22315,13 +22428,13 @@ var render = function() {
                   return !_vm.noIndex
                     ? [
                         _vm._v(
-                          "\n            " +
+                          "\n                " +
                             _vm._s(
                               index +
                                 1 +
                                 (_vm.meta.current_page - 1) * _vm.meta.per_page
                             ) +
-                            "\n        "
+                            "\n            "
                         )
                       ]
                     : undefined
@@ -22336,9 +22449,9 @@ var render = function() {
                         sslot,
                         [
                           _vm._v(
-                            "\n                " +
+                            "\n                    " +
                               _vm._s(data.value) +
-                              "\n            "
+                              "\n                "
                           )
                         ],
                         { meta: _vm.meta },
@@ -22396,7 +22509,7 @@ var render = function() {
             }
           },
           "b-table",
-          _vm.tableOption,
+          _vm.tableOptions,
           false
         ),
         [
@@ -22449,7 +22562,7 @@ var render = function() {
         [
           [
             _vm._v(
-              "\n            Peringatan! Data yang dihapus tidak dapat dikembalikan kembali\n        "
+              "\n                Peringatan! Data yang dihapus tidak dapat dikembalikan kembali\n            "
             )
           ]
         ],
@@ -22592,7 +22705,7 @@ var render = function() {
         }
       }
     },
-    [_vm._v("\n    " + _vm._s(_vm.body) + "\n")]
+    [_vm._v("\n        " + _vm._s(_vm.body) + "\n    ")]
   )
 }
 var staticRenderFns = []
@@ -22935,6 +23048,7 @@ module.exports = function listToStyles (parentId, list) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./components/ClosableCard.vue": "./resources/js/components/ClosableCard.vue",
 	"./components/SidebarNavItem.vue": "./resources/js/components/SidebarNavItem.vue",
 	"./shared/components/AjaxSelect.vue": "./resources/js/shared/components/AjaxSelect.vue",
 	"./shared/components/BsAlert.vue": "./resources/js/shared/components/BsAlert.vue",
@@ -23083,6 +23197,54 @@ __webpack_require__("./resources/js/shared/__alert.js");
 
 __webpack_require__("./resources/js/shared/__promise_throttle.js");
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./resources/js/components/ClosableCard.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"@babel/preset-env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"]},\"forceAllTransforms\":true}]],\"plugins\":[\"@babel/plugin-proposal-object-rest-spread\",[\"@babel/plugin-transform-runtime\",{\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/ClosableCard.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-1dffdf02\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/ClosableCard.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/ClosableCard.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1dffdf02", Component.options)
+  } else {
+    hotAPI.reload("data-v-1dffdf02", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
 
 /***/ }),
 
@@ -23926,7 +24088,7 @@ function () {
       var _this3 = this;
 
       this.__fields.forEach(function (field) {
-        if (data.hasOwnProperty(field)) {
+        if (data.hasOwnProperty(field) && data[field]) {
           _this3[field] = JSON.parse(JSON.stringify(data[field]));
         }
       });

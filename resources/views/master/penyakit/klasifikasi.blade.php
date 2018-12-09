@@ -1,4 +1,8 @@
-<data-table v-bind.sync="klasifikasi" ref="table">
+<data-table v-bind.sync="klasifikasi" ref="table" v-model="selected_klasifikasi"
+    @cannot('create', App\Models\Master\Penyakit\KlasifikasiPenyakit::class)
+        no-add-button-text
+    @endcannot
+    >
     <div slot="form">
         <b-form-group label="Kode:" v-bind="klasifikasi.form.feedback('kode')">
             <input
@@ -29,26 +33,15 @@ window.pagemix.push({
     data() {
         return {
             klasifikasi: {
-                sortBy: 'kode',
+                sortBy: `kode`,
                 url   : `{{ action('Master\Penyakit\KlasifikasiPenyakitController@index') }}`,
                 fields: [{
                     key     : 'kode',
                     sortable: true,
-                }, {
+                },{
                     key     : 'uraian',
                     sortable: true,
                 }],
-                onDoubleClicked: (item, index, event) => {
-                    this.selected.klasifikasi = item;
-
-                    this.kelompok.url = `${item.path}/kelompok`;
-
-                    this.kelompok.form.setDefault('klasifikasi', item);
-
-                    this.kelompok.form.setDefault('klasifikasi_id', item.id);
-
-                    this.selected_tab = 1;
-                },
                 form: new Form({
                     kode  : null,
                     uraian: null
