@@ -20,12 +20,13 @@ class PenyakitControllerTest extends TestCase
         $this->signIn();
 
         $resource = factory($this->resource())->make([
-            'kelompok_id' => str_random(99),
+            'klasifikasi_id' => str_random(99),
+            'kelompok_id'    => str_random(99),
         ]);
 
         $this->postJson($resource->path('store'), $this->beforePost($resource))
              ->assertJson(['errors' => []])
-             ->assertJsonValidationErrors(['kelompok_id'])
+             ->assertJsonValidationErrors(['kelompok_id', 'klasifikasi_id'])
              ->assertStatus(422);
     }
 

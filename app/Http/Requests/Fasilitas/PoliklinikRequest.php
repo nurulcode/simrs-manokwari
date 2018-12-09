@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Fasilitas;
 
+use Illuminate\Validation\Rule;
 use App\Models\Fasilitas\Poliklinik;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -28,10 +29,14 @@ class PoliklinikRequest extends FormRequest
      */
     public function rules()
     {
+        $unique = Rule::unique('polikliniks')->ignore(
+            optional($this->route('poliklinik'))->id
+        );
+
         return [
-            'kode'     => ['required'],
+            'kode'     => ['required', $unique],
             'nama'     => ['required'],
-            'jenis_id' => ['required']
+            'jenis_id' => ['required', 'exists:master.jenis_polikliniks,id']
         ];
     }
 }

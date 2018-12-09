@@ -34,9 +34,10 @@ class PenyakitRequest extends FormRequest
         );
 
         return [
-            'kelompok_id' => ['nullable', 'exists:master.kelompok_penyakits,id'],
-            'icd'         => ['required', 'string', $unique],
-            'uraian'      => ['required', 'string']
+            'klasifikasi_id' => ['nullable', 'exists:master.klasifikasi_penyakits,id'],
+            'kelompok_id'    => ['nullable', 'exists:master.kelompok_penyakits,id'],
+            'icd'            => ['required', 'string', $unique],
+            'uraian'         => ['required', 'string']
         ];
     }
 
