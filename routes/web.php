@@ -25,9 +25,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user',         'UserController@view');
 
     Route::namespace('Master')->prefix('master')->group(function () {
-        Route::get('wilayah',  'Wilayah\\WilayahController@view');
-        Route::get('kegiatan', 'KategoriKegiatanController@view');
-        Route::get('penyakit', 'Penyakit\\PenyakitController@view');
-        Route::get('tindakan', 'TindakanPemeriksaanController@view');
+        Route::get('jenis-poliklinik',  'JenisPoliklinikController@view');
+        Route::get('kegiatan',          'KategoriKegiatanController@view');
+        Route::get('penyakit',          'Penyakit\\PenyakitController@view');
+        Route::get('tindakan',          'TindakanPemeriksaanController@view');
+        Route::get('wilayah',           'Wilayah\\WilayahController@view');
     });
 });

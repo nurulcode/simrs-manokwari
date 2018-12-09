@@ -55,6 +55,9 @@
       title: Daftar Wilayah
       link : master/wilayah
     -
+      title: Jenis Poliklinik
+      link : master/jenis-poliklinik
+    -
       title: Jenis Registrasi
     -
       title: Jenis Logistik

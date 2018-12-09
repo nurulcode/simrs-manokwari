@@ -3,6 +3,7 @@
 use App\Seeder;
 use Sty\CsvSeeder;
 use App\Models\Master\Kegiatan;
+use App\Models\Master\JenisPoliklinik;
 use App\Models\Master\KategoriKegiatan;
 use App\Models\Master\Wilayah\Provinsi;
 use App\Models\Master\Penyakit\Penyakit;
@@ -33,7 +34,8 @@ class MasterDataSeeder extends Seeder
             KlasifikasiPenyakit::class  => ['master/penyakit/klasifikasi_penyakit.csv', 22],
             KelompokPenyakit::class     => ['master/penyakit/kelompok_penyakit.csv', 537],
             Penyakit::class             => ['master/penyakit/penyakit.csv', 13309],
-            TindakanPemeriksaan::class  => ['master/tindakan_pemeriksaan.csv', 428]
+            TindakanPemeriksaan::class  => ['master/tindakan_pemeriksaan.csv', 428],
+            JenisPoliklinik::class      => ['master/jenis_poliklinik.csv', 12]
         ]);
 
         $this->seedPivotTable();

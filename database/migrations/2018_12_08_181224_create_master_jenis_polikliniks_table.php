@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFasilitasTables extends Migration
+class CreateMasterJenisPolikliniksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateFasilitasTables extends Migration
      */
     public function up()
     {
-        Schema::create('polikliniks', function (Blueprint $table) {
+        Schema::connection('master')->create('jenis_polikliniks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kode')
-                  ->unique();
-            $table->string('nama');
-            $table->integer('jenis_id')
-                  ->unsigned();
+            $table->string('uraian');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateFasilitasTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('polikliniks');
+        Schema::connection('master')->dropIfExists('jenis_polikliniks');
     }
 }

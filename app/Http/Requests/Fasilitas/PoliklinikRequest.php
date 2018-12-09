@@ -29,9 +29,9 @@ class PoliklinikRequest extends FormRequest
     public function rules()
     {
         return [
-            'kode'  => ['required'],
-            'nama'  => ['required'],
-            'jenis' => ['required']
+            'kode'     => ['required'],
+            'nama'     => ['required'],
+            'jenis_id' => ['required']
         ];
     }
 }
