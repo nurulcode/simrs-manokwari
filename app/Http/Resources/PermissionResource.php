@@ -18,7 +18,9 @@ class PermissionResource extends JsonResource
             'id'          => $this->id,
             'name'        => $this->name,
             'description' => $this->description,
-            'path'        => $this->path
+            'path'        => $this->path,
+            '__editable'  => $request->user()->can('update', $this->resource),
+            '__deletable' => $request->user()->can('delete', $this->resource),
         ];
     }
 }
