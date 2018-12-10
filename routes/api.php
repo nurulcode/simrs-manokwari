@@ -78,6 +78,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::apiResources([
             'poliklinik' => 'PoliklinikController',
             'ruangan'    => 'RuanganController',
+            'kamar'      => 'KamarController',
         ]);
     });
 });

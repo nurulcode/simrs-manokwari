@@ -12,6 +12,10 @@
     @include('fasilitas.ruangan')
 </b-tab>
 
+<b-tab title="Kamar">
+    @include('fasilitas.kamar')
+</b-tab>
+
 @endsection
 
 @push('javascripts')
