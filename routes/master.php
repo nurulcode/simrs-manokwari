@@ -9,6 +9,7 @@ Route::namespace('Master')->group(function () {
 
     Route::apiResources([
         'jenis-poliklinik'     => 'JenisPoliklinikController',
+        'jenis-identitas'      => 'JenisIdentitasController',
         'kategori-kegiatan'    => 'KategoriKegiatanController',
         'kegiatan'             => 'KegiatanController',
         'tindakan-pemeriksaan' => 'TindakanPemeriksaanController'

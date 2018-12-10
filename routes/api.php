@@ -17,10 +17,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('user/{user}/toggle', 'UserActivationToggleController')->name('user.toggle');
 
     Route::apiResources([
-        'user'       => 'UserController',
-        'role'       => 'RoleController',
+        'activity'   => 'ActivityController',
+        'pasien'     => 'PasienController',
         'permission' => 'PermissionController',
-        'activity'   => 'ActivityController'
+        'role'       => 'RoleController',
+        'user'       => 'UserController',
     ]);
 
     Route::prefix('master')->group(base_path('routes/master.php'));

@@ -82,4 +82,17 @@ class JenisIdentitasController extends Controller
 
         return response()->crud(tap($jenis_identita)->delete());
     }
+
+    /**
+     * Display the resource page.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function view(Request $request)
+    {
+        $this->authorize('view', JenisIdentitas::class);
+
+        return view('master.jenis-identitas');
+    }
 }
