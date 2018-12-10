@@ -1,4 +1,8 @@
-<data-table v-bind.sync="kamar" ref="table"
+<closable-card v-if="!!selected_ruangan" header="Ruangan Terpilih:" v-on:close="selected_ruangan = null">
+    <h5>@{{ selected_ruangan.poliklinik.nama }}, @{{ selected_ruangan.nama }}</h5>
+</closable-card>
+
+<data-table v-bind.sync="kamar" ref="table" v-model="selected_kamar"
     @cannot('create', App\Models\Fasilitas\Kamar::class)
         no-add-button-text
     @endcannot

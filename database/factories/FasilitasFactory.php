@@ -2,6 +2,7 @@
 
 use Faker\Generator as Faker;
 use App\Models\Fasilitas\Kamar;
+use App\Models\Fasilitas\Ranjang;
 use App\Models\Fasilitas\Ruangan;
 use App\Models\Fasilitas\Poliklinik;
 use App\Models\Master\JenisPoliklinik;
@@ -34,5 +35,14 @@ $factory->define(Kamar::class, function (Faker $faker) {
             return factory(Ruangan::class)->create()->id;
         },
         'nama'  => $faker->word,
+    ];
+});
+
+$factory->define(Ranjang::class, function (Faker $faker) {
+    return [
+        'kamar_id' => function () {
+            return factory(Kamar::class)->create()->id;
+        },
+        'kode'  => $faker->unique()->word,
     ];
 });

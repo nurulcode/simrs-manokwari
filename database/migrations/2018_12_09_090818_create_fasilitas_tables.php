@@ -49,6 +49,19 @@ class CreateFasilitasTables extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
+
+        Schema::create('ranjangs', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('kamar_id');
+            $table->string('kode');
+            $table->timestamps();
+
+            $table->foreign('kamar_id')
+                ->references('id')
+                ->on('kamars')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+        });
     }
 
     /**
@@ -58,6 +71,8 @@ class CreateFasilitasTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('ranjangs');
+
         Schema::dropIfExists('kamars');
 
         Schema::dropIfExists('ruangans');

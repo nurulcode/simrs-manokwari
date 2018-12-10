@@ -17,4 +17,9 @@ class Ruangan extends Model
     {
         return $this->belongsTo(Poliklinik::class);
     }
+
+    public function kamars()
+    {
+        return $this->hasMany(Kamar::class);
+    }
 }

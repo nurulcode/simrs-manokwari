@@ -1,4 +1,8 @@
-<data-table v-bind.sync="ruangan" ref="table"
+<closable-card v-if="!!selected_poliklinik" header="Poliklinik Terpilih:" v-on:close="selected_poliklinik = null">
+    <h5>@{{ selected_poliklinik.nama }}</h5>
+</closable-card>
+
+<data-table v-bind.sync="ruangan" ref="table" v-model="selected_ruangan"
     @cannot('create', App\Models\Fasilitas\Ruangan::class)
         no-add-button-text
     @endcannot

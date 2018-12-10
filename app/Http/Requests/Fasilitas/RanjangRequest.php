@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Fasilitas;
 
+use App\Models\Fasilitas\Ranjang;
 use Illuminate\Foundation\Http\FormRequest;
 
-class KamarRequest extends FormRequest
+class RanjangRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,11 +14,11 @@ class KamarRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('kamar')) {
-            return $this->user()->can('update', $this->route('kamar'));
+        if ($this->route('ranjang')) {
+            return $this->user()->can('update', $this->route('ranjang'));
         }
 
-        return $this->user()->can('create', Kamar::class);
+        return $this->user()->can('create', Ranjang::class);
     }
 
     /**
@@ -28,9 +29,8 @@ class KamarRequest extends FormRequest
     public function rules()
     {
         return [
-            'poliklinik_id' => ['required', 'exists:polikliniks,id'],
-            'ruangan_id'    => ['required', 'exists:ruangans,id'],
-            'nama'          => ['required'],
+            'kamar_id' => ['required'],
+            'kode'     => ['required'],
         ];
     }
 }

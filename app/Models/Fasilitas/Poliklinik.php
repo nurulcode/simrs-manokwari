@@ -18,4 +18,9 @@ class Poliklinik extends Model
     {
         return $this->belongsTo(JenisPoliklinik::class);
     }
+
+    public function ruangans()
+    {
+        return $this->hasMany(Ruangan::class);
+    }
 }

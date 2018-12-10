@@ -13,6 +13,20 @@ class Kamar extends Model
      */
     protected $with = ['ruangan'];
 
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['nama', 'ruangan_id'];
+
     public function ruangan()
     {
         return $this->belongsTo(Ruangan::class);
@@ -23,5 +37,10 @@ class Kamar extends Model
         return $builder
             ->join('ruangans', 'kamars.ruangan_id', '=', 'ruangans.id')
             ->select('kamars.*', 'ruangans.nama as nama_ruangan');
+    }
+
+    public function ranjangs()
+    {
+        return $this->hasMany(Ranjang::class);
     }
 }
