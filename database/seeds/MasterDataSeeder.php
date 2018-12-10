@@ -49,8 +49,7 @@ class MasterDataSeeder extends Seeder
 
         with(new CsvSeeder(
             'kategori_kegiatan_kegiatan',
-            database_path('seeds/data/master/kegiatan/kategori_kegiatan_pivot.csv'),
-            'master'
+            database_path('seeds/data/master/kegiatan/kategori_kegiatan_pivot.csv')
         ))->setProgressOutput($this->command->getOutput(), 404)
             ->select(1, 2, 3)
             ->setBatch(200)

@@ -11,5 +11,5 @@ class Master extends Model
      *
      * @var string
      */
-    protected $connection = 'master';
+    protected $connection;
 }

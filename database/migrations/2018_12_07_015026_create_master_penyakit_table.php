@@ -13,18 +13,16 @@ class CreateMasterPenyakitTable extends Migration
      */
     public function up()
     {
-        Schema::connection('master')->create('klasifikasi_penyakits', function (Blueprint $table) {
+        Schema::create('klasifikasi_penyakits', function (Blueprint $table) {
             $table->increments('id');
             $table->string('kode')->unique();
             $table->string('uraian');
             $table->timestamps();
         });
 
-        Schema::connection('master')->create('kelompok_penyakits', function (Blueprint $table) {
+        Schema::create('kelompok_penyakits', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('klasifikasi_id')
-                  ->unsigned()
-                  ->nullable();
+            $table->unsignedInteger('klasifikasi_id')->nullable();
             $table->string('kode')->unique();
             $table->string('icd')->unique();
             $table->string('uraian');
@@ -37,11 +35,9 @@ class CreateMasterPenyakitTable extends Migration
                 ->onDelete('restrict');
         });
 
-        Schema::connection('master')->create('penyakits', function (Blueprint $table) {
+        Schema::create('penyakits', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('kelompok_id')
-                  ->unsigned()
-                  ->nullable();
+            $table->unsignedInteger('kelompok_id')->nullable();
             $table->string('icd')->unique();
             $table->string('uraian');
             $table->timestamps();
@@ -61,10 +57,10 @@ class CreateMasterPenyakitTable extends Migration
      */
     public function down()
     {
-        Schema::connection('master')->dropIfExists('penyakits');
+        Schema::dropIfExists('penyakits');
 
-        Schema::connection('master')->dropIfExists('kelompok_penyakits');
+        Schema::dropIfExists('kelompok_penyakits');
 
-        Schema::connection('master')->dropIfExists('klasifikasi_penyakits');
+        Schema::dropIfExists('klasifikasi_penyakits');
     }
 }

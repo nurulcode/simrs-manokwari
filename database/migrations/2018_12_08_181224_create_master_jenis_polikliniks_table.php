@@ -13,7 +13,7 @@ class CreateMasterJenisPolikliniksTable extends Migration
      */
     public function up()
     {
-        Schema::connection('master')->create('jenis_polikliniks', function (Blueprint $table) {
+        Schema::create('jenis_polikliniks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('uraian');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateMasterJenisPolikliniksTable extends Migration
      */
     public function down()
     {
-        Schema::connection('master')->dropIfExists('jenis_polikliniks');
+        Schema::dropIfExists('jenis_polikliniks');
     }
 }

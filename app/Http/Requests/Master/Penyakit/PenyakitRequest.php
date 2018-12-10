@@ -29,13 +29,13 @@ class PenyakitRequest extends FormRequest
      */
     public function rules()
     {
-        $unique = Rule::unique('master.penyakits')->ignore(
+        $unique = Rule::unique('penyakits')->ignore(
             optional($this->route('penyakit'))->id
         );
 
         return [
-            'klasifikasi_id' => ['nullable', 'exists:master.klasifikasi_penyakits,id'],
-            'kelompok_id'    => ['nullable', 'exists:master.kelompok_penyakits,id'],
+            'klasifikasi_id' => ['nullable', 'exists:klasifikasi_penyakits,id'],
+            'kelompok_id'    => ['nullable', 'exists:kelompok_penyakits,id'],
             'icd'            => ['required', 'string', $unique],
             'uraian'         => ['required', 'string']
         ];

@@ -29,7 +29,7 @@ class KlasifikasiPenyakitRequest extends FormRequest
      */
     public function rules()
     {
-        $unique = Rule::unique('master.klasifikasi_penyakits')->ignore(
+        $unique = Rule::unique('klasifikasi_penyakits')->ignore(
             optional($this->route('klasifikasi'))->id
         );
 

@@ -13,17 +13,15 @@ class CreateMasterKegiatanTable extends Migration
      */
     public function up()
     {
-        Schema::connection('master')->create('kategori_kegiatans', function (Blueprint $table) {
+        Schema::create('kategori_kegiatans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('uraian');
             $table->timestamps();
         });
 
-        Schema::connection('master')->create('kegiatans', function (Blueprint $table) {
+        Schema::create('kegiatans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('parent_id')
-                  ->unsigned()
-                  ->nullable();
+            $table->unsignedInteger('parent_id')->nullable();
             $table->string('uraian');
             $table->timestamps();
 
@@ -34,9 +32,9 @@ class CreateMasterKegiatanTable extends Migration
                   ->onDelete('set null');
         });
 
-        Schema::connection('master')->create('kategori_kegiatan_kegiatan', function (Blueprint $table) {
-            $table->integer('kategori_kegiatan_id')->unsigned();
-            $table->integer('kegiatan_id')->unsigned();
+        Schema::create('kategori_kegiatan_kegiatan', function (Blueprint $table) {
+            $table->unsignedInteger('kategori_kegiatan_id');
+            $table->unsignedInteger('kegiatan_id');
             $table->string('kode');
 
             $table->primary([
@@ -65,10 +63,10 @@ class CreateMasterKegiatanTable extends Migration
      */
     public function down()
     {
-        Schema::connection('master')->dropIfExists('kategori_kegiatan_kegiatan');
+        Schema::dropIfExists('kategori_kegiatan_kegiatan');
 
-        Schema::connection('master')->dropIfExists('kegiatans');
+        Schema::dropIfExists('kegiatans');
 
-        Schema::connection('master')->dropIfExists('kategori_kegiatans');
+        Schema::dropIfExists('kategori_kegiatans');
     }
 }

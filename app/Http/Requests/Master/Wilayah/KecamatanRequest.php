@@ -30,8 +30,8 @@ class KecamatanRequest extends FormRequest
     {
         return [
             'name'              => ['required', 'string', 'max:64'],
-            'kota_kabupaten_id' => ['required', 'exists:master.kota_kabupatens,id'],
-            'provinsi_id'       => ['required', 'exists:master.provinsis,id']
+            'kota_kabupaten_id' => ['required', 'exists:kota_kabupatens,id'],
+            'provinsi_id'       => ['required', 'exists:provinsis,id']
         ];
     }
 

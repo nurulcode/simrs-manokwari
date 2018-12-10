@@ -42,13 +42,13 @@ class TindakanPemeriksaanRequest extends FormRequest
      */
     public function rules()
     {
-        $unique = Rule::unique('master.tindakan_pemeriksaans')->ignore(
+        $unique = Rule::unique('tindakan_pemeriksaans')->ignore(
             optional($this->route('tindakan_pemeriksaan'))->id
         );
 
         return [
             'kode'      => ['required', $unique],
-            'parent_id' => ['nullable', 'exists:master.tindakan_pemeriksaans,id'],
+            'parent_id' => ['nullable', 'exists:tindakan_pemeriksaans,id'],
             'uraian'    => ['required', 'max:128'],
             'jenis'     => ['required', new ValidEnum(JenisTindakanPemeriksaan::class)]
         ];

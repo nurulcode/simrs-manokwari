@@ -13,16 +13,12 @@ class CreateMasterTindakanPemeriksaansTable extends Migration
      */
     public function up()
     {
-        Schema::connection('master')->create('tindakan_pemeriksaans', function (Blueprint $table) {
+        Schema::create('tindakan_pemeriksaans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('parent_id')
-                  ->unsigned()
-                  ->nullable();
-            $table->string('kode')
-                  ->unique();
+            $table->unsignedInteger('parent_id')->nullable();
+            $table->string('kode')->unique();
             $table->string('uraian');
-            $table->tinyInteger('jenis')
-                  ->unsigned();
+            $table->unsignedTinyInteger('jenis');
             $table->timestamps();
 
             $table->foreign('parent_id')
@@ -40,6 +36,6 @@ class CreateMasterTindakanPemeriksaansTable extends Migration
      */
     public function down()
     {
-        Schema::connection('master')->dropIfExists('tindakan_pemeriksaans');
+        Schema::dropIfExists('tindakan_pemeriksaans');
     }
 }

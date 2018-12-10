@@ -15,18 +15,12 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')
-                  ->unsigned();
+            $table->unsignedInteger('user_id');
             $table->string('type');
-            $table->integer('subject_id')
-                  ->unsigned()
-                  ->nullable();
-            $table->string('subject_type')
-                  ->nullable();
-            $table->mediumText('before')
-                  ->nullable();
-            $table->mediumText('after')
-                  ->nullable();
+            $table->unsignedInteger('subject_id')->nullable();
+            $table->string('subject_type')->nullable();
+            $table->mediumText('before')->nullable();
+            $table->mediumText('after')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')

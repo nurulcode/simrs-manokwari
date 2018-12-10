@@ -30,7 +30,7 @@ class KotaKabupatenRequest extends FormRequest
     {
         return [
             'name'        => ['required', 'string', 'max:64'],
-            'provinsi_id' => ['required', 'exists:master.provinsis,id']
+            'provinsi_id' => ['required', 'exists:provinsis,id']
         ];
     }
 

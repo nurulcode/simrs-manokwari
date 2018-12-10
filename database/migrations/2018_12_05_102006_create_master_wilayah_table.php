@@ -13,13 +13,13 @@ class CreateMasterWilayahTable extends Migration
      */
     public function up()
     {
-        Schema::connection('master')->create('provinsis', function (Blueprint $table) {
+        Schema::create('provinsis', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
         });
 
-        Schema::connection('master')->create('kota_kabupatens', function (Blueprint $table) {
+        Schema::create('kota_kabupatens', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('provinsi_id')->unsigned();
             $table->string('name');
@@ -32,7 +32,7 @@ class CreateMasterWilayahTable extends Migration
                   ->onDelete('cascade');
         });
 
-        Schema::connection('master')->create('kecamatans', function (Blueprint $table) {
+        Schema::create('kecamatans', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('kota_kabupaten_id')->unsigned();
             $table->string('name');
@@ -45,7 +45,7 @@ class CreateMasterWilayahTable extends Migration
                   ->onDelete('cascade');
         });
 
-        Schema::connection('master')->create('kelurahans', function (Blueprint $table) {
+        Schema::create('kelurahans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('kecamatan_id')->unsigned();
             $table->string('name');
@@ -66,12 +66,12 @@ class CreateMasterWilayahTable extends Migration
      */
     public function down()
     {
-        Schema::connection('master')->dropIfExists('kelurahans');
+        Schema::dropIfExists('kelurahans');
 
-        Schema::connection('master')->dropIfExists('kecamatans');
+        Schema::dropIfExists('kecamatans');
 
-        Schema::connection('master')->dropIfExists('kota_kabupatens');
+        Schema::dropIfExists('kota_kabupatens');
 
-        Schema::connection('master')->dropIfExists('provinsis');
+        Schema::dropIfExists('provinsis');
     }
 }

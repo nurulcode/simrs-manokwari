@@ -29,9 +29,9 @@ class KelurahanRequest extends FormRequest
     {
         return [
             'name'              => ['required', 'string', 'max:64'],
-            'kecamatan_id'      => ['required', 'exists:master.kecamatans,id'],
-            'kota_kabupaten_id' => ['required', 'exists:master.kota_kabupatens,id'],
-            'provinsi_id'       => ['required', 'exists:master.provinsis,id']
+            'kecamatan_id'      => ['required', 'exists:kecamatans,id'],
+            'kota_kabupaten_id' => ['required', 'exists:kota_kabupatens,id'],
+            'provinsi_id'       => ['required', 'exists:provinsis,id']
         ];
     }
 

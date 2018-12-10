@@ -33,11 +33,11 @@ class KegiatanControllerTest extends TestCase
              ->assertJson(['status' => 'success'])
              ->assertStatus(201);
 
-        $this->assertDatabaseHas('kegiatans', $resource->only('uraian'), 'master');
+        $this->assertDatabaseHas('kegiatans', $resource->only('uraian'));
 
         $kode = array_only(array_random($resource->kategori), 'kode');
 
-        $this->assertDatabaseHas('kategori_kegiatan_kegiatan', $kode, 'master');
+        $this->assertDatabaseHas('kategori_kegiatan_kegiatan', $kode);
 
         return $this;
     }

@@ -29,7 +29,7 @@ class KegiatanRequest extends FormRequest
     public function rules()
     {
         return [
-            'parent_id'       => ['nullable', 'exists:master.kegiatans,id'],
+            'parent_id'       => ['nullable', 'exists:kegiatans,id'],
             'uraian'          => ['required', 'max:128'],
             'kategori'        => ['nullable'],
             'kategori.*.kode' => ['required'],
