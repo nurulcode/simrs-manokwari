@@ -48,6 +48,7 @@
                     select-label=""
                     track-by="value"
                     v-model="tindakan.form.jenis"
+                    v-on:select="tindakan.form.errors.clear('jenis')"
                     >
                 </multiselect>
             </b-form-group>
