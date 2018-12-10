@@ -76,7 +76,8 @@ Route::middleware(['auth:api'])->group(function () {
     });
     Route::namespace('Fasilitas')->prefix('fasilitas')->group(function () {
         Route::apiResources([
-            'poliklinik' => 'PoliklinikController'
+            'poliklinik' => 'PoliklinikController',
+            'ruangan'    => 'RuanganController',
         ]);
     });
 });

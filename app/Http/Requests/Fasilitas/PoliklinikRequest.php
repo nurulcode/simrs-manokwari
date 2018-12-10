@@ -36,7 +36,7 @@ class PoliklinikRequest extends FormRequest
         return [
             'kode'     => ['required', $unique],
             'nama'     => ['required'],
-            'jenis_id' => ['required', 'exists:master.jenis_polikliniks,id']
+            'jenis_id' => ['required', 'exists:jenis_polikliniks,id']
         ];
     }
 }

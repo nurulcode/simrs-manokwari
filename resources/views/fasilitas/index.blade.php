@@ -8,6 +8,10 @@
     @include('fasilitas.poliklinik')
 </b-tab>
 
+<b-tab title="Ruangan">
+    @include('fasilitas.ruangan')
+</b-tab>
+
 @endsection
 
 @push('javascripts')
@@ -17,6 +21,7 @@ window.pagemix.push({
         return {
             selected: {
                 poliklinik: null,
+                ruangan   : null
             }
         }
     },

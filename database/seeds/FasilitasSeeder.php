@@ -1,6 +1,7 @@
 <?php
 
 use App\Seeder;
+use App\Models\Fasilitas\Ruangan;
 use App\Models\Fasilitas\Poliklinik;
 
 class FasilitasSeeder extends Seeder
@@ -14,6 +15,7 @@ class FasilitasSeeder extends Seeder
     {
         $this->seeds([
             Poliklinik::class => ['fasilitas/polikliniks.csv', 35],
+            Ruangan::class    => ['fasilitas/ruangans.csv', 15],
         ]);
     }
 }

@@ -25,14 +25,17 @@
             </input>
         </b-form-group>
         <b-form-group label="Jenis:" v-bind="poliklinik.form.feedback('jenis')">
-            <input
-                class="form-control"
-                name="jenis"
-                placeholder="Jenis"
-                type="text"
+             <ajax-select
+                deselect-label=""
+                label="uraian"
+                placeholder="Pilih Jenis Poliklinik"
+                select-label=""
+                url="{{ action('Master\JenisPoliklinikController@index') }}"
                 v-model="poliklinik.form.jenis"
+                v-bind:key-value.sync="poliklinik.form.jenis_id"
+                v-on:select="poliklinik.form.errors.clear('jenis_id')"
                 >
-            </input>
+            </ajax-select>
         </b-form-group>
     </div>
 </data-table>
@@ -54,10 +57,13 @@ window.pagemix.push({
                     sortable : true,
                 }, {
                     key      : 'jenis',
+                    formatter: item => item.uraian
                 }],
                 form: new Form({
-                    kode : null,
-                    nama : null,
+                    kode    : null,
+                    nama    : null,
+                    jenis_id: null,
+                }, {
                     jenis: null,
                 }),
             }

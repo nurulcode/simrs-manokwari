@@ -15,12 +15,26 @@ class CreateFasilitasTables extends Migration
     {
         Schema::create('polikliniks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kode')
-                  ->unique();
+            $table->string('kode')->unique();
             $table->string('nama');
-            $table->integer('jenis_id')
-                  ->unsigned();
+            $table->unsignedInteger('jenis_id');
             $table->timestamps();
+        });
+
+        Schema::create('ruangans', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('poliklinik_id');
+            $table->string('kode')->unique();
+            $table->string('nama');
+            $table->unsignedTinyInteger('jenis');
+            $table->unsignedTinyInteger('kelas');
+            $table->timestamps();
+
+            $table->foreign('poliklinik_id')
+                ->references('id')
+                ->on('polikliniks')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
@@ -31,6 +45,8 @@ class CreateFasilitasTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('ruangans');
+
         Schema::dropIfExists('polikliniks');
     }
 }
