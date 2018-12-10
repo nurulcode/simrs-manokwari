@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources\Fasilitas;
 
+use App\Http\Resources\Master\Resource;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Master\JenisPoliklinikResource;
 
 class PoliklinikResource extends JsonResource
 {
@@ -20,7 +20,7 @@ class PoliklinikResource extends JsonResource
             'nama'        => $this->nama,
             'kode'        => $this->kode,
             'jenis_id'    => $this->jenis_id,
-            'jenis'       => JenisPoliklinikResource::make($this->whenLoaded('jenis')),
+            'jenis'       => Resource::make($this->whenLoaded('jenis')),
             'path'        => $this->path,
             '__editable'  => $request->user()->can('update', $this->resource),
             '__deletable' => $request->user()->can('delete', $this->resource),

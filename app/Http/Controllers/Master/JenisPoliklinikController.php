@@ -6,8 +6,7 @@ use Sty\HttpQuery;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Master\JenisPoliklinik;
-use App\Http\Requests\Master\JenisPoliklinikRequest;
-use App\Http\Resources\Master\JenisPoliklinikResource;
+use App\Http\Resources\Master\Resource;
 
 class JenisPoliklinikController extends Controller
 {
@@ -20,9 +19,7 @@ class JenisPoliklinikController extends Controller
     {
         $this->authorize('index', JenisPoliklinik::class);
 
-        return JenisPoliklinikResource::collection(
-            JenisPoliklinik::filter($query)
-        );
+        return Resource::collection(JenisPoliklinik::filter($query));
     }
 
     /**
@@ -31,10 +28,14 @@ class JenisPoliklinikController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(JenisPoliklinikRequest $request)
+    public function store(Request $request)
     {
-        return response()->crud(new JenisPoliklinikResource(
-            JenisPoliklinik::create($request->validated())
+        $this->authorize('create', JenisPoliklinik::class);
+
+        $request->validate(['uraian' => 'required|max:255']);
+
+        return response()->crud(new Resource(
+            JenisPoliklinik::create($request->only('uraian'))
         ));
     }
 
@@ -48,7 +49,7 @@ class JenisPoliklinikController extends Controller
     {
         $this->authorize('show', $jenis_poliklinik);
 
-        return new JenisPoliklinikResource($jenis_poliklinik);
+        return new Resource($jenis_poliklinik);
     }
 
     /**
@@ -58,10 +59,14 @@ class JenisPoliklinikController extends Controller
      * @param  \App\Models\Master\JenisPoliklinik  $jenis_poliklinik
      * @return \Illuminate\Http\Response
      */
-    public function update(JenisPoliklinikRequest $request, JenisPoliklinik $jenis_poliklinik)
+    public function update(Request $request, JenisPoliklinik $jenis_poliklinik)
     {
-        return response()->crud(new JenisPoliklinikResource(
-            tap($jenis_poliklinik)->update($request->validated())
+        $this->authorize('create', $jenis_poliklinik);
+
+        $request->validate(['uraian' => 'required|max:255']);
+
+        return response()->crud(new Resource(
+            tap($jenis_poliklinik)->update($request->only('uraian'))
         ));
     }
 

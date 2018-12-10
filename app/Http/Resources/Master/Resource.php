@@ -4,7 +4,7 @@ namespace App\Http\Resources\Master;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class JenisPoliklinikResource extends JsonResource
+class Resource extends JsonResource
 {
     /**
      * Transform the resource into an array.
