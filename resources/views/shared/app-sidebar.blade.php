@@ -73,7 +73,9 @@ window.inlines['app-sidebar'] = {
                 return this.filtered = menus;
             }
 
-            this.filtered = this.recurseFilter(menus, filter)
+            this.filtered = this.recurseFilter(menus, filter);
+
+            this.$refs.nav.scrollTop = 0;
         },
         minimize() {
             document.body.classList.toggle('sidebar-minimized');
