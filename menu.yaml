@@ -58,6 +58,9 @@
       title: Daftar Agama
       link : master/agama
     -
+      title: Daftar Suku
+      link : master/suku
+    -
       title: Jenis Poliklinik
       link : master/jenis-poliklinik
     -
