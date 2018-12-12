@@ -3,19 +3,19 @@
 @section('title', 'Master Jenis Poliklinik Management')
 
 @section('card')
-    <data-table v-bind.sync="jenis_poliklinik" ref="table"
+    <data-table v-bind.sync="resource" ref="table"
         @cannot('create', App\Models\Master\JenisPoliklinik::class)
             no-add-button-text
         @endcannot
         >
         <div slot="form">
-            <b-form-group label="Uraian:" v-bind="jenis_poliklinik.form.feedback('uraian')">
+            <b-form-group label="Uraian:" v-bind="resource.form.feedback('uraian')">
                 <input
                     class="form-control"
                     name="uraian"
                     placeholder="Uraian"
                     type="text"
-                    v-model="jenis_poliklinik.form.uraian"
+                    v-model="resource.form.uraian"
                     >
                 </input>
             </b-form-group>
@@ -28,7 +28,7 @@
 window.pagemix.push({
     data() {
         return {
-            jenis_poliklinik: {
+            resource: {
                 url   : `{{ action('Master\JenisPoliklinikController@index') }}`,
                 sortBy: 'uraian',
                 fields: [{

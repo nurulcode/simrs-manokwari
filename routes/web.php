@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user',         'UserController@view');
 
     Route::namespace('Master')->prefix('master')->group(function () {
+        Route::get('agama',             'AgamaController@view');
         Route::get('jenis-identitas',   'JenisIdentitasController@view');
         Route::get('jenis-poliklinik',  'JenisPoliklinikController@view');
         Route::get('kegiatan',          'KategoriKegiatanController@view');

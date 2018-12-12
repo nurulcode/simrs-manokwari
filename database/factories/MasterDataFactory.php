@@ -11,3 +11,5 @@ $generic_factory = function (Faker $faker) {
 $factory->define(App\Models\Master\JenisPoliklinik::class, $generic_factory);
 
 $factory->define(App\Models\Master\JenisIdentitas::class, $generic_factory);
+
+$factory->define(App\Models\Master\Agama::class, $generic_factory);

@@ -8,6 +8,7 @@ Route::namespace('Master')->group(function () {
     Route::post('kategori-kegiatan/{kategori}/kegiatan', 'KegiatanController@store');
 
     Route::apiResources([
+        'agama'                => 'AgamaController',
         'jenis-poliklinik'     => 'JenisPoliklinikController',
         'jenis-identitas'      => 'JenisIdentitasController',
         'kategori-kegiatan'    => 'KategoriKegiatanController',

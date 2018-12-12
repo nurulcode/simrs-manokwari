@@ -1,10 +1,10 @@
 @extends('layouts.single-card')
 
-@section('title', 'Master Jenis Identitas Management')
+@section('title', 'Master Daftar Agama Management')
 
 @section('card')
     <data-table v-bind.sync="resource" ref="table"
-        @cannot('create', App\Models\Master\JenisIdentitas::class)
+        @cannot('create', App\Models\Master\Agama::class)
             no-add-button-text
         @endcannot
         >
@@ -29,7 +29,7 @@ window.pagemix.push({
     data() {
         return {
             resource: {
-                url   : `{{ action('Master\JenisIdentitasController@index') }}`,
+                url   : `{{ action('Master\AgamaController@index') }}`,
                 sortBy: 'uraian',
                 fields: [{
                     key      : 'uraian',

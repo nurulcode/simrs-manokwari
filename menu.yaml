@@ -55,6 +55,9 @@
       title: Daftar Wilayah
       link : master/wilayah
     -
+      title: Daftar Agama
+      link : master/agama
+    -
       title: Jenis Poliklinik
       link : master/jenis-poliklinik
     -

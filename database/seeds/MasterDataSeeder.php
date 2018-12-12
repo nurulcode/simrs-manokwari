@@ -2,6 +2,7 @@
 
 use App\Seeder;
 use Sty\CsvSeeder;
+use App\Models\Master\Agama;
 use App\Models\Master\Kegiatan;
 use App\Models\Master\JenisIdentitas;
 use App\Models\Master\JenisPoliklinik;
@@ -32,12 +33,15 @@ class MasterDataSeeder extends Seeder
 
             KategoriKegiatan::class     => ['master/kegiatan/kategori.csv', 13],
             Kegiatan::class             => ['master/kegiatan/kegiatan.csv', 373],
+
             KlasifikasiPenyakit::class  => ['master/penyakit/klasifikasi_penyakit.csv', 22],
             KelompokPenyakit::class     => ['master/penyakit/kelompok_penyakit.csv', 537],
             Penyakit::class             => ['master/penyakit/penyakit.csv', 13309],
+
+            Agama::class                => ['master/agama.csv', 7],
             TindakanPemeriksaan::class  => ['master/tindakan_pemeriksaan.csv', 428],
             JenisPoliklinik::class      => ['master/jenis_poliklinik.csv', 12],
-            JenisIdentitas::class      => ['master/jenis_identitas.csv', 10],
+            JenisIdentitas::class       => ['master/jenis_identitas.csv', 10],
         ]);
 
         $this->seedPivotTable();
@@ -49,12 +53,10 @@ class MasterDataSeeder extends Seeder
 
         $this->command->info('-> Kategori Kegiatan Pivot');
 
-        with(new CsvSeeder(
-            'kategori_kegiatan_kegiatan',
+        with(new CsvSeeder('kategori_kegiatan_kegiatan',
             database_path('seeds/data/master/kegiatan/kategori_kegiatan_pivot.csv')
         ))->setProgressOutput($this->command->getOutput(), 404)
             ->select(1, 2, 3)
-            ->setBatch(200)
             ->withTimestamps(false)
             ->seed();
     }
