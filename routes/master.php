@@ -13,6 +13,7 @@ Route::namespace('Master')->group(function () {
         'jenis-identitas'      => 'JenisIdentitasController',
         'kategori-kegiatan'    => 'KategoriKegiatanController',
         'kegiatan'             => 'KegiatanController',
+        'pendidikan'           => 'PendidikanController',
         'suku'                 => 'SukuController',
         'tindakan-pemeriksaan' => 'TindakanPemeriksaanController'
     ]);

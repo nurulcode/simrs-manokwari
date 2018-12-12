@@ -61,6 +61,9 @@
       title: Daftar Suku
       link : master/suku
     -
+      title: Daftar Pendidikan
+      link : master/pendidikan
+    -
       title: Jenis Poliklinik
       link : master/jenis-poliklinik
     -

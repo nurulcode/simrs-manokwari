@@ -14,4 +14,6 @@ $factory->define(App\Models\Master\JenisPoliklinik::class, $generic_factory);
 
 $factory->define(App\Models\Master\JenisIdentitas::class, $generic_factory);
 
+$factory->define(App\Models\Master\Pendidikan::class, $generic_factory);
+
 $factory->define(App\Models\Master\Suku::class, $generic_factory);
