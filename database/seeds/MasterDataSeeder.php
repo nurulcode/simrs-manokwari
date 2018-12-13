@@ -1,22 +1,15 @@
 <?php
 
 use App\Seeder;
-use Sty\CsvSeeder;
 use App\Models\Master\Suku;
 use App\Models\Master\Agama;
 use App\Models\Master\Kegiatan;
+use App\Models\Master\Pekerjaan;
 use App\Models\Master\Pendidikan;
 use App\Models\Master\JenisIdentitas;
 use App\Models\Master\JenisPoliklinik;
 use App\Models\Master\KategoriKegiatan;
-use App\Models\Master\Wilayah\Provinsi;
-use App\Models\Master\Penyakit\Penyakit;
-use App\Models\Master\Wilayah\Kecamatan;
-use App\Models\Master\Wilayah\Kelurahan;
 use App\Models\Master\TindakanPemeriksaan;
-use App\Models\Master\Wilayah\KotaKabupaten;
-use App\Models\Master\Penyakit\KelompokPenyakit;
-use App\Models\Master\Penyakit\KlasifikasiPenyakit;
 
 class MasterDataSeeder extends Seeder
 {
@@ -27,41 +20,19 @@ class MasterDataSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(MasterDataWilayahSeeder::class);
+        $this->call(MasterDataPenyakitSeeder::class);
+
         $this->seeds([
-            Provinsi::class             => ['master/wilayah/provinsi.csv', 34],
-            KotaKabupaten::class        => ['master/wilayah/kotakab.csv', 514],
-            Kecamatan::class            => ['master/wilayah/kecamatan.csv', 7215],
-            Kelurahan::class            => ['master/wilayah/kelurahan.csv', 80534],
-
-            KategoriKegiatan::class     => ['master/kegiatan/kategori.csv', 13],
-            Kegiatan::class             => ['master/kegiatan/kegiatan.csv', 373],
-
-            KlasifikasiPenyakit::class  => ['master/penyakit/klasifikasi_penyakit.csv', 22],
-            KelompokPenyakit::class     => ['master/penyakit/kelompok_penyakit.csv', 537],
-            Penyakit::class             => ['master/penyakit/penyakit.csv', 13309],
-
             Agama::class                => ['master/agama.csv', 7],
-            JenisPoliklinik::class      => ['master/jenis_poliklinik.csv', 12],
-            JenisIdentitas::class       => ['master/jenis_identitas.csv', 10],
+            JenisPoliklinik::class      => ['master/jenis_poliklinik.csv',   12],
+            JenisIdentitas::class       => ['master/jenis_identitas.csv',    10],
+            KategoriKegiatan::class     => ['master/kegiatan/kategori.csv',  13],
+            Kegiatan::class             => ['master/kegiatan/kegiatan.csv', 373],
+            Pekerjaan::class            => ['master/pekerjaan.csv',  13],
             Pendidikan::class           => ['master/pendidikan.csv', 10],
             Suku::class                 => ['master/suku.csv', 15],
             TindakanPemeriksaan::class  => ['master/tindakan_pemeriksaan.csv', 428],
         ]);
-
-        $this->seedPivotTable();
-    }
-
-    public function seedPivotTable()
-    {
-        $this->command->getOutput()->newLine(1);
-
-        $this->command->info('-> Kategori Kegiatan Pivot');
-
-        with(new CsvSeeder('kategori_kegiatan_kegiatan',
-            database_path('seeds/data/master/kegiatan/kategori_kegiatan_pivot.csv')
-        ))->setProgressOutput($this->command->getOutput(), 404)
-            ->select(1, 2, 3)
-            ->withTimestamps(false)
-            ->seed();
     }
 }
