@@ -2,9 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Enums\JenisKelamin;
-use App\Enums\GolonganDarah;
-use App\Enums\StatusPernikahan;
 use App\Http\Resources\Master\Resource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Master\Wilayah\KelurahanResource;
@@ -27,12 +24,12 @@ class PasienResource extends JsonResource
             'jenis_identitas_id' => $this->jenis_identitas_id,
             'jenis_identitas'    => Resource::make($this->whenLoaded('jenis_identitas')),
             'nomor_identitas'    => $this->nomor_identitas,
-            'jenis_kelamin'      => JenisKelamin::toSelectValue($this->jenis_kelamin),
+            'jenis_kelamin'      => $this->jenis_kelamin,
             'agama_id'           => $this->agama_id,
             'agama'              => Resource::make($this->whenLoaded('agama')),
             'suku_id'            => $this->suku_id,
             'suku'               => Resource::make($this->whenLoaded('suku')),
-            'golongan_darah'     => GolonganDarah::toSelectValue($this->golongan_darah),
+            'golongan_darah'     => $this->golongan_darah,
             'tempat_lahir'       => $this->tempat_lahir,
             'tanggal_lahir'      => optional($this->tanggal_lahir)->toDateTimeString(),
             'pekerjaan_id'       => $this->pekerjaan_id,
@@ -47,7 +44,7 @@ class PasienResource extends JsonResource
 
             'nama_ayah'          => $this->nama_ayah,
             'nama_ibu'           => $this->nama_ibu,
-            'status_pernikahan'  => StatusPernikahan::toSelectValue($this->status_pernikahan),
+            'status_pernikahan'  => $this->status_pernikahan,
             'nama_pasangan'      => $this->nama_pasangan,
             'alamat_keluarga'    => $this->alamat_keluarga,
             'telepon_keluarga'   => $this->telepon_keluarga,

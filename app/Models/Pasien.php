@@ -53,18 +53,4 @@ class Pasien extends Model
     {
         return $this->belongsTo(Master\Wilayah\Kelurahan::class);
     }
-
-    public function setJenisKelaminAttribute($value)
-    {
-        $value = is_array($value) ? $value['value'] : $value;
-
-        $this->attributes['jenis_kelamin'] = $value;
-    }
-
-    public function setStatusPernikahanAttribute($value)
-    {
-        $value = is_array($value) ? $value['value'] : $value;
-
-        $this->attributes['status_pernikahan'] = $value;
-    }
 }

@@ -2,8 +2,6 @@
 
 namespace App\Http\Resources\Fasilitas;
 
-use App\Enums\JenisRuangan;
-use App\Enums\KelasRuangan;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RuanganResource extends JsonResource
@@ -22,8 +20,8 @@ class RuanganResource extends JsonResource
             'poliklinik'    => PoliklinikResource::make($this->whenLoaded('poliklinik')),
             'nama'          => $this->nama,
             'kode'          => $this->kode,
-            'kelas'         => KelasRuangan::toSelectValue($this->kelas),
-            'jenis'         => JenisRuangan::toSelectValue($this->jenis),
+            'kelas'         => $this->kelas,
+            'jenis'         => $this->jenis,
             'path'          => $this->path,
             '__editable'    => $request->user()->can('update', $this->resource),
             '__deletable'   => $request->user()->can('delete', $this->resource),

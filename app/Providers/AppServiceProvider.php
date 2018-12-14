@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
 
         Enum::macro('toSelectOptions', function () {
             return Collection::wrap(self::toSelectArray())->map(function ($item, $key) {
-                return ['value' => $key, 'label' => $item];
+                return ['value' => $key, 'text' => $item];
             })->values();
         });
 

@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests\Fasilitas;
 
-use App\Rules\ValidEnum;
-use App\Enums\JenisRuangan;
-use App\Enums\KelasRuangan;
+use App\Enums;
 use Illuminate\Validation\Rule;
 use App\Models\Fasilitas\Ruangan;
+use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RuanganRequest extends FormRequest
@@ -40,8 +39,8 @@ class RuanganRequest extends FormRequest
             'poliklinik_id' => ['required', 'exists:polikliniks,id'],
             'kode'          => ['required', $unique],
             'nama'          => ['required'],
-            'kelas'         => ['required', new ValidEnum(KelasRuangan::class)],
-            'jenis'         => ['required', new ValidEnum(JenisRuangan::class)],
+            'kelas'         => ['required', new EnumValue(Enums\KelasRuangan::class)],
+            'jenis'         => ['required', new EnumValue(Enums\JenisRuangan::class)],
         ];
     }
 }

@@ -10,4 +10,13 @@ final class GolonganDarah extends Enum
     const A  = 2;
     const B  = 3;
     const AB = 4;
+
+    public static function getDescription($value): string
+    {
+        if ($value === self::AB) {
+            return 'AB';
+        }
+
+        return parent::getDescription($value);
+    }
 }

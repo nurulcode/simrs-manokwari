@@ -1,4 +1,5 @@
-<closable-card v-if="!!selected_poliklinik" header="Poliklinik Terpilih:" v-on:close="selected_poliklinik = null">
+<closable-card v-if="!!selected_poliklinik" header="Poliklinik Terpilih:"
+    v-on:close="selected_poliklinik = null">
     <h5>@{{ selected_poliklinik.nama }}</h5>
 </closable-card>
 
@@ -7,6 +8,12 @@
         no-add-button-text
     @endcannot
     >
+    <template slot="jenis" slot-scope="{value}">
+        @{{ ruangan.jenis[value] }}
+    </template>
+    <template slot="kelas" slot-scope="{value}">
+        @{{ ruangan.kelas[value] }}
+    </template>
     <div slot="form">
         <b-form-group label="Poliklinik:" v-bind="ruangan.form.feedback('poliklinik_id')">
             <ajax-select
@@ -44,32 +51,26 @@
         <div class="row">
             <div class="col">
                 <b-form-group label="Jenis:" v-bind="ruangan.form.feedback('jenis')">
-                    <multiselect
+                    <b-form-select
                         :options="{{ json_encode(App\Enums\JenisRuangan::toSelectOptions()) }}"
-                        deselect-label=""
-                        label="label"
-                        placeholder="Pilih Jenis Ruangan"
-                        select-label=""
-                        track-by="value"
-                        v-model="ruangan.form.jenis"
-                        v-on:select="ruangan.form.errors.clear('jenis')"
-                        >
-                    </multiselect>
+                        v-on:change="ruangan.errors.clear('jenis')"
+                        v-model="ruangan.form.jenis">
+                        <template slot="first">
+                            <option :value="null" disabled>Pilih Jenis Ruangan</option>
+                        </template>
+                    </b-form-select>
                 </b-form-group>
             </div>
             <div class="col">
                 <b-form-group label="Kelas:" v-bind="ruangan.form.feedback('kelas')">
-                    <multiselect
+                    <b-form-select
                         :options="{{ json_encode(App\Enums\KelasRuangan::toSelectOptions()) }}"
-                        deselect-label=""
-                        label="label"
-                        placeholder="Pilih Kelas Ruangan"
-                        select-label=""
-                        track-by="value"
-                        v-model="ruangan.form.kelas"
-                        v-on:select="ruangan.form.errors.clear('kelas')"
-                        >
-                    </multiselect>
+                        v-on:change="ruangan.errors.clear('kelas')"
+                        v-model="ruangan.form.kelas">
+                        <template slot="first">
+                            <option :value="null" disabled>Pilih Kelas Ruangan</option>
+                        </template>
+                    </b-form-select>
                 </b-form-group>
             </div>
         </div>
@@ -82,6 +83,8 @@ window.pagemix.push({
     data() {
         return {
             ruangan: {
+                jenis : @json(App\Enums\JenisRuangan::toSelectArray()),
+                kelas : @json(App\Enums\KelasRuangan::toSelectArray()),
                 sortBy: `kode`,
                 url   : `{{ action('Fasilitas\RuanganController@index') }}`,
                 fields: [{
@@ -93,10 +96,8 @@ window.pagemix.push({
                     sortable : true,
                 }, {
                     key      : 'kelas',
-                    formatter: item => item.label
                 },{
-                    key      : 'jenis',
-                    formatter: item => item.label
+                    key      : 'jenis'
                 }],
                 form: new Form({
                     poliklinik_id: null,

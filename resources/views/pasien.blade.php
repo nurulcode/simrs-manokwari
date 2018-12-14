@@ -18,7 +18,10 @@ window.pagemix.push({
         return {
             pasien: {
                 url   : `{{ action('PasienController@index') }}`,
-                sortBy: 'no_rekam_medis',
+                options: {
+                    sortBy  : 'no_rekam_medis',
+                    sortDesc: true
+                },
                 fields: [{
                     key      : 'no_rekam_medis',
                     sortable : true,

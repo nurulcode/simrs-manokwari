@@ -71,32 +71,27 @@
             <div class="col-md-6">
                 <b-form-group v-bind="form_pasien.feedback('jenis_kelamin')">
                     <b slot="label">Jenis Kelamin:</b>
-                    <multiselect
+                    <b-form-select
                         :options="{{ json_encode(App\Enums\JenisKelamin::toSelectOptions()) }}"
-                        deselect-label=""
-                        label="label"
-                        placeholder="Pilih Jenis Kelamin"
-                        select-label=""
-                        track-by="value"
-                        v-model="form_pasien.jenis_kelamin"
-                        v-on:select="form_pasien.errors.clear('jenis_kelamin')"
-                        >
-                    </multiselect>
+                        v-on:change="form_pasien.errors.clear('jenis_kelamin')"
+                        v-model="form_pasien.jenis_kelamin">
+                        <template slot="first">
+                            <option :value="null" disabled>Pilih Jenis Kelamin</option>
+                        </template>
+                    </b-form-select>
                 </b-form-group>
             </div>
             <div class="col-md-6">
                 <b-form-group label="Golongan Darah:" v-bind="form_pasien.feedback('golongan_darah')">
-                    <multiselect
-                        deselect-label=""
+                    <b-form-select
                         :options="{{ json_encode(App\Enums\GolonganDarah::toSelectOptions()) }}"
-                        label="label"
-                        placeholder="Golongan Darah"
-                        select-label=""
-                        track-by="value"
+                        v-on:change="form_pasien.errors.clear('golongan_darah')"
                         v-model="form_pasien.golongan_darah"
-                        v-on:select="form_pasien.errors.clear('golongan_darah')"
                         >
-                    </multiselect>
+                        <template slot="first">
+                            <option :value="null" disabled>Pilih Golongan Darah</option>
+                        </template>
+                    </b-form-select>
                 </b-form-group>
             </div>
         </div>
@@ -265,17 +260,15 @@
             </input>
         </b-form-group>
         <b-form-group label="Status Pernikahan:" v-bind="form_pasien.feedback('status_pernikahan')">
-            <multiselect
-                deselect-label=""
+            <b-form-select
                 :options="{{ json_encode(App\Enums\StatusPernikahan::toSelectOptions()) }}"
-                label="label"
-                placeholder="Status Pernikahan"
-                select-label=""
-                track-by="value"
                 v-model="form_pasien.status_pernikahan"
-                v-on:select="form_pasien.errors.clear('status_pernikahan')"
+                v-on:change="form_pasien.errors.clear('status_pernikahan')"
                 >
-            </multiselect>
+                <template slot="first">
+                    <option :value="null" disabled>Pilih Status Pernikahan</option>
+                </template>
+            </b-form-select>
         </b-form-group>
         <b-form-group label="Nama Pasangan:" v-bind="form_pasien.feedback('nama_pasangan')">
             <input
