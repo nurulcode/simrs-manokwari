@@ -1,6 +1,6 @@
 <?php
-
 Route::namespace('Fasilitas')->group(function () {
+    /*  */
     Route::get('poliklinik/{poliklinik}/ruangan', 'PoliklinikRuanganController');
 
     Route::post('poliklinik/{poliklinik}/ruangan', 'RuanganController@store');

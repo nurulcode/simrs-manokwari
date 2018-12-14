@@ -1,8 +1,7 @@
 <?php
 
 Route::namespace('Master')->group(function () {
-    /* */
-
+    /*  */
     Route::get('kategori-kegiatan/{kategori}/kegiatan', 'KegiatanKategoriKegiatanController');
 
     Route::post('kategori-kegiatan/{kategori}/kegiatan', 'KegiatanController@store');
