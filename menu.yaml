@@ -33,6 +33,7 @@
 -
   title : Daftar Pegawai
   icon  : fa fa-stethoscope
+  link  : kepegawaian
 -
   title : Master Data
   icon  : icon-grid

@@ -27,6 +27,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::prefix('master')->group(base_path('routes/master.php'));
 
     Route::prefix('fasilitas')->group(base_path('routes/fasilitas.php'));
+
+    Route::prefix('kepegawaian')->group(base_path('routes/kepegawaian.php'));
 });
 
 //TODO: Hapus saat production
