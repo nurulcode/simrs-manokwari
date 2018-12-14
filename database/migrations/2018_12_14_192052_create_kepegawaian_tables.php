@@ -18,6 +18,12 @@ class CreateKepegawaianTables extends Migration
             $table->string('uraian');
             $table->timestamps();
         });
+
+        Schema::create('jabatans', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('uraian');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -27,6 +33,8 @@ class CreateKepegawaianTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('jabatans');
+
         Schema::dropIfExists('kategori_kualifikasis');
     }
 }

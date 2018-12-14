@@ -1,4 +1,9 @@
-1,Orientasi,Pegawai Baru dalam rangka orientasi,0
-2,Direktur,Direktur Rumah Sakit,1
-3,Kepala Ruang,Kepala Ruang atau Bangsal,5
-4,Pranata Komputer Pertama,Petugas Pengelola Sumber Daya TIK,1
+"1", "SUPER USER"
+"2", "ADMIN"
+"3", "BENDAHARA LAB"
+"4", "PERAWAT"
+"5", "KEPALA POLIKLINIK GIGI"
+"6", "KEPALA RUANG BERSALIN"
+"7", "PERAWAT PELAKSANA"
+"8", "STAFF"
+"9", "TENAGA ADMINISTRASI PERINATOLOGI"

@@ -4,6 +4,10 @@
 
 @section('tabs')
 
+<b-tab title="Jabatan">
+    @include('kepegawaian.jabatan')
+</b-tab>
+
 <b-tab title="Kategori Kualifikasi">
     @include('kepegawaian.kategori')
 </b-tab>
