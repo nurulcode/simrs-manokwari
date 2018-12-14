@@ -29,6 +29,7 @@
 -
   title : Daftar Pasien
   icon  : icon-people
+  link  : pasien
 -
   title : Daftar Pegawai
   icon  : fa fa-stethoscope
