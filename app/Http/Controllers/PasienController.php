@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Sty\HttpQuery;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
-use App\Http\Requests\PasienRequest;
 use App\Http\Resources\PasienResource;
+use App\Http\Requests\CreatePasienRequest;
+use App\Http\Requests\UpdatePasienRequest;
 
 class PasienController extends Controller
 {
@@ -28,7 +29,7 @@ class PasienController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PasienRequest $request)
+    public function store(CreatePasienRequest $request)
     {
         return response()->crud(new PasienResource(
             Pasien::create($request->validated())
@@ -55,7 +56,7 @@ class PasienController extends Controller
      * @param  \App\Models\Pasien  $pasien
      * @return \Illuminate\Http\Response
      */
-    public function update(PasienRequest $request, Pasien $pasien)
+    public function update(UpdatePasienRequest $request, Pasien $pasien)
     {
         return response()->crud(new PasienResource(
             tap($pasien)->update($request->validated())

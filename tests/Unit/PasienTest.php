@@ -9,6 +9,14 @@ use App\Models\Master;
 class PasienTest extends TestCase
 {
     /** @test */
+    public function model_can_auto_generate_no_rekam_medis()
+    {
+        $pasien = factory(Pasien::class)->create(['no_rekam_medis' => null]);
+
+        $this->assertEquals(str_pad($pasien->id, 8, 0, STR_PAD_LEFT), $pasien->no_rekam_medis);
+    }
+
+    /** @test */
     public function a_pasien_belongs_to_jenis_identitas()
     {
         $pasien = factory(Pasien::class)->create();

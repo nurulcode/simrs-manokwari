@@ -24,6 +24,19 @@ class Pasien extends Model
         'jenis_identitas', 'agama', 'suku', 'pendidikan', 'pekerjaan', 'kelurahan'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($model) {
+            if (empty($model->no_rekam_medis)) {
+                $model->no_rekam_medis = str_pad($model->id, 8, 0, STR_PAD_LEFT);
+            }
+
+            $model->save();
+        });
+    }
+
     public function jenis_identitas()
     {
         return $this->belongsTo(Master\JenisIdentitas::class);
