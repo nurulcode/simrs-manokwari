@@ -31,7 +31,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Enum::macro('toSelectValue', function ($value) {
-            return ['value' => $value, 'label' => self::getDescription($value)];
+            if (!is_null($value)) {
+                return ['value' => $value, 'label' => self::getDescription($value)];
+            }
         });
     }
 
