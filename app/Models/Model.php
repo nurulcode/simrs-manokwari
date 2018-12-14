@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
 
 abstract class Model extends BaseModel implements ResourceModel
 {
-    use HasPath, FilterScope, HasPolicy, Searchable;
+    use HasPath, FilterScope, HasPolicy, Searchable, RecordsActivity;
 
     /**
      * The attributes that aren't mass assignable.
