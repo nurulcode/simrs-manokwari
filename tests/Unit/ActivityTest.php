@@ -23,7 +23,7 @@ class ActivityTest extends TestCase
             'user_id'      => Auth::id(),
             'type'         => 'created_role',
             'before'       => null,
-            'after'        => $resource->toJson()
+            'after'        => json_encode($resource->getAttributes())
         ]);
     }
 
