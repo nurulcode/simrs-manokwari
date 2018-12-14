@@ -17949,9 +17949,14 @@ body {
   line-height: 1.7rem;
 }
 
-.multiselect .multiselect__tags .multiselect__single {
+.multiselect .multiselect__tags .multiselect__single,
+.multiselect .multiselect__tags .multiselect__placeholder {
   white-space: nowrap;
   overflow: hidden;
+}
+
+.multiselect .multiselect__tags .multiselect__placeholder {
+  display: inline;
 }
 
 .multiselect .multiselect__select {
