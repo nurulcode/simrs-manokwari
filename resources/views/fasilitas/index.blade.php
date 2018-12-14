@@ -1,6 +1,6 @@
 @extends('layouts.tabs')
 
-@section('title', 'Master Wilayah Management')
+@section('title', 'Fasilitas Management')
 
 @section('tabs')
 
