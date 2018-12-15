@@ -48,6 +48,31 @@ class CreatePasiensTable extends Migration
                 ->on('jenis_identitas')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
+            $table->foreign('agama_id')
+                ->references('id')
+                ->on('agamas')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+            $table->foreign('suku_id')
+                ->references('id')
+                ->on('sukus')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+            $table->foreign('pendidikan_id')
+                ->references('id')
+                ->on('pendidikans')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+            $table->foreign('pekerjaan_id')
+                ->references('id')
+                ->on('pekerjaans')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+            $table->foreign('kelurahan_id')
+                ->references('id')
+                ->on('kelurahans')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
     }
 

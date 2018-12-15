@@ -33,6 +33,7 @@ $factory->define(App\Models\Pasien::class, function (Faker $faker) {
         'kelurahan_id' => function () {
             return factory(Master\Wilayah\Kelurahan::class)->create()->id;
         },
+        'alamat'            => $faker->address,
         'telepon'           => $faker->phoneNumber,
         'nama_ayah'         => $faker->name('male'),
         'nama_ibu'          => $faker->name('female'),

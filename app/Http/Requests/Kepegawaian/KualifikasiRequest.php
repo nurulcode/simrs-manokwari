@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Kepegawaian;
 
-use Illuminate\Validation\Rule;
 use App\Models\Kepegawaian\Kualifikasi;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -29,13 +28,9 @@ class KualifikasiRequest extends FormRequest
      */
     public function rules()
     {
-        $unique = Rule::unique('kualifikasis')->ignore(
-            optional($this->route('kualifikasi'))->id
-        );
-
         return [
             'kategori_id' => ['required', 'exists:kategori_kualifikasis,id'],
-            'kode'        => ['required', $unique],
+            'kode'        => ['required'],
             'uraian'      => ['required', 'max:255'],
             'laki_laki'   => ['required', 'numeric', 'integer'],
             'perempuan'   => ['required', 'numeric', 'integer'],
