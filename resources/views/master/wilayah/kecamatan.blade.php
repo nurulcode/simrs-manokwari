@@ -1,4 +1,6 @@
-<closable-card v-if="!!selected_kota_kabupaten" header="Kota/Kabupaten Terpilih:" v-on:close="selected_kota_kabupaten = null">
+<closable-card v-if="!!selected_kota_kabupaten"
+    header="Kota/Kabupaten Terpilih:"
+    v-on:close="selected_kota_kabupaten = null">
     <h5>@{{ selected_kota_kabupaten.name }}, @{{ selected_kota_kabupaten.provinsi_name }}</h5>
 </closable-card>
 
@@ -8,7 +10,8 @@
     @endcannot
     >
     <div slot="form">
-        <b-form-group label="Provinsi:" v-bind="kecamatan.form.feedback('provinsi_id')">
+        <b-form-group v-bind="kecamatan.form.feedback('provinsi_id')">
+            <b slot="label">Provinsi:</b>
             <ajax-select
                 placeholder="Pilih Provinsi"
                 label="name"
@@ -20,10 +23,8 @@
                 >
             </ajax-select>
         </b-form-group>
-        <b-form-group label="Kota/Kabupaten:"
-            v-if="kecamatan.form.provinsi"
-            v-bind="kecamatan.form.feedback('kota_kabupaten_id')"
-            >
+        <b-form-group v-if="kecamatan.form.provinsi" v-bind="kecamatan.form.feedback('kota_kabupaten_id')">
+            <b slot="label">Kota/Kabupaten:</b>
             <ajax-select
                 :url="`${kecamatan.form.provinsi.path}/kota-kabupaten`"
                 label="name"
@@ -34,7 +35,8 @@
                 >
             </ajax-select>
         </b-form-group>
-        <b-form-group label="Name:" v-bind="kecamatan.form.feedback('name')">
+        <b-form-group v-bind="kecamatan.form.feedback('name')">
+            <b slot="label">Name:</b>
             <input
                 class="form-control"
                 name="name"

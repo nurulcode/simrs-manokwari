@@ -11,7 +11,8 @@
         @endcannot
         >
         <div slot="form">
-            <b-form-group label="Uraian:" v-bind="kategori.form.feedback('uraian')">
+            <b-form-group v-bind="kategori.form.feedback('uraian')">
+                <b slot="label">Uraian:</b>
                 <input
                     class="form-control"
                     name="uraian"
@@ -25,7 +26,8 @@
     </data-table>
 </b-tab>
 <b-tab title="Kegiatan">
-    <closable-card v-if="!!selected_kategori" header="Kategori Terpilih:" v-on:close="selected_kategori = null">
+    <closable-card v-if="!!selected_kategori" header="Kategori Terpilih:"
+        v-on:close="selected_kategori = null">
         <h5>@{{ selected_kategori.uraian }}</h5>
     </closable-card>
 

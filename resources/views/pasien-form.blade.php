@@ -1,7 +1,9 @@
 <div class="row">
     <div class="col">
-        <b-form-group label="Nomor Rekam Medis:" v-bind="form_pasien.feedback('no_rekam_medis')">
+        <b-form-group v-bind="form_pasien.feedback('no_rekam_medis')">
+            <b slot="label">Nomor Rekam Medis:</b>
             <input
+                :disabled="form_pasien.no_rekam_medis == null"
                 class="form-control"
                 name="no_rekam_medis"
                 placeholder="Nomor Rekam Medis Akan Dibuat Secara Otomatis"

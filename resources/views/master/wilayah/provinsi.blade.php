@@ -4,7 +4,8 @@
     @endcannot
     >
     <div slot="form">
-        <b-form-group label="Name:" v-bind="provinsi.form.feedback('name')">
+        <b-form-group v-bind="provinsi.form.feedback('name')">
+            <b slot="label">Name:</b>
             <input
                 class="form-control"
                 name="name"

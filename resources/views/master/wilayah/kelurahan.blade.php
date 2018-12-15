@@ -1,4 +1,6 @@
-<closable-card v-if="!!selected_kecamatan" header="Kecamatan Terpilih:" v-on:close="selected_kecamatan = null">
+<closable-card v-if="!!selected_kecamatan"
+    header="Kecamatan Terpilih:"
+    v-on:close="selected_kecamatan = null">
     <h5>@{{ selected_kecamatan.name }}, @{{ selected_kecamatan.kota_kabupaten_name }}</h5>
 </closable-card>
 
@@ -8,7 +10,8 @@
     @endcannot
     >
     <div slot="form">
-        <b-form-group label="Provinsi:" v-bind="kelurahan.form.feedback('provinsi_id')">
+        <b-form-group v-bind="kelurahan.form.feedback('provinsi_id')">
+            <b slot="label">Provinsi:</b>
             <ajax-select
                 placeholder="Pilih Provinsi"
                 label="name"
@@ -20,9 +23,8 @@
                 >
             </ajax-select>
         </b-form-group>
-        <b-form-group label="Kota/Kabupaten:"
-            v-if="kelurahan.form.provinsi"
-            v-bind="kelurahan.form.feedback('kota_kabupaten_id')">
+        <b-form-group v-if="kelurahan.form.provinsi" v-bind="kelurahan.form.feedback('kota_kabupaten_id')">
+            <b slot="label">Kota/Kabupaten:</b>
             <ajax-select
                 :url="`${kelurahan.form.provinsi.path}/kota-kabupaten`"
                 label="name"
@@ -34,9 +36,8 @@
                 >
             </ajax-select>
         </b-form-group>
-        <b-form-group label="Kecamatan:"
-            v-if="kelurahan.form.kota_kabupaten"
-            v-bind="kelurahan.form.feedback('kecamatan_id')">
+        <b-form-group v-if="kelurahan.form.kota_kabupaten" v-bind="kelurahan.form.feedback('kecamatan_id')">
+            <b slot="label">Kecamatan:</b>
             <ajax-select
                 :url="`${kelurahan.form.kota_kabupaten.path}/kecamatan`"
                 label="name"
@@ -47,7 +48,8 @@
                 >
             </ajax-select>
         </b-form-group>
-        <b-form-group label="Name:" v-bind="kelurahan.form.feedback('name')">
+        <b-form-group v-bind="kelurahan.form.feedback('name')">
+            <b slot="label">Name:</b>
             <input
                 class="form-control"
                 name="name"

@@ -8,7 +8,8 @@
     @endcannot
     >
     <div slot="form">
-        <b-form-group label="Provinsi:" v-bind="kota_kabupaten.form.feedback('provinsi_id')">
+        <b-form-group v-bind="kota_kabupaten.form.feedback('provinsi_id')">
+            <b slot="label">Provinsi:</b>
             <ajax-select
                 label="name"
                 placeholder="Pilih Provinsi"
@@ -19,7 +20,8 @@
                 >
             </ajax-select>
         </b-form-group>
-        <b-form-group label="Name:" v-bind="kota_kabupaten.form.feedback('name')">
+        <b-form-group v-bind="kota_kabupaten.form.feedback('name')">
+            <b slot="label">Name:</b>
             <input
                 class="form-control"
                 name="name"
