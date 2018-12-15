@@ -10,6 +10,7 @@ Route::namespace('Master')->group(function () {
         'agama'                => 'AgamaController',
         'jenis-poliklinik'     => 'JenisPoliklinikController',
         'jenis-identitas'      => 'JenisIdentitasController',
+        'kasus'                => 'KasusController',
         'kategori-kegiatan'    => 'KategoriKegiatanController',
         'kegiatan'             => 'KegiatanController',
         'pekerjaan'            => 'PekerjaanController',

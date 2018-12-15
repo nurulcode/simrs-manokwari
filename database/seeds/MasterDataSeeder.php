@@ -3,6 +3,7 @@
 use App\Seeder;
 use App\Models\Master\Suku;
 use App\Models\Master\Agama;
+use App\Models\Master\Kasus;
 use App\Models\Master\Kegiatan;
 use App\Models\Master\Pekerjaan;
 use App\Models\Master\Pendidikan;
@@ -27,6 +28,7 @@ class MasterDataSeeder extends Seeder
             Agama::class                => ['master/agama.csv', 7],
             JenisPoliklinik::class      => ['master/jenis_poliklinik.csv',   12],
             JenisIdentitas::class       => ['master/jenis_identitas.csv',    10],
+            Kasus::class                => ['master/kasus.csv',               9],
             KategoriKegiatan::class     => ['master/kegiatan/kategori.csv',  13],
             Kegiatan::class             => ['master/kegiatan/kegiatan.csv', 373],
             Pekerjaan::class            => ['master/pekerjaan.csv',  13],

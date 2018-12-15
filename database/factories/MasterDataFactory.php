@@ -19,3 +19,10 @@ $factory->define(App\Models\Master\Pekerjaan::class, $generic_factory);
 $factory->define(App\Models\Master\Pendidikan::class, $generic_factory);
 
 $factory->define(App\Models\Master\Suku::class, $generic_factory);
+
+$factory->define(App\Models\Master\Kasus::class, function (Faker $faker) {
+    return [
+        'kode'   => $faker->unique()->word,
+        'uraian' => $faker->sentence
+    ];
+});

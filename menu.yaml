@@ -46,6 +46,7 @@
       link : master/tindakan
     -
       title: Daftar Kasus
+      link : master/kasus
     -
       title: Daftar Penyakit
       link : master/penyakit

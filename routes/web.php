@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('agama',             'AgamaController@view');
         Route::get('jenis-identitas',   'JenisIdentitasController@view');
         Route::get('jenis-poliklinik',  'JenisPoliklinikController@view');
+        Route::get('kasus',             'KasusController@view');
         Route::get('kegiatan',          'KategoriKegiatanController@view');
         Route::get('pekerjaan',         'PekerjaanController@view');
         Route::get('pendidikan',        'PendidikanController@view');
@@ -38,4 +39,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('tindakan',          'TindakanPemeriksaanController@view');
         Route::get('wilayah',           'Wilayah\\WilayahController@view');
     });
+
+    Route::prefix('kunjungan')->group(base_path('routes/kunjungan.php'));
 });
