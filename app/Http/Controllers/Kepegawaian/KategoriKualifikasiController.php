@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Kepegawaian;
 
 use Sty\HttpQuery;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Master\Resource;
 use App\Models\Kepegawaian\KategoriKualifikasi;
+use App\Http\Requests\Kepegawaian\KategoriKualifikasiRequest;
+use App\Http\Resources\Kepegawaian\KategoriKualifikasiResource;
 
 class KategoriKualifikasiController extends Controller
 {
@@ -19,7 +20,7 @@ class KategoriKualifikasiController extends Controller
     {
         $this->authorize('index', KategoriKualifikasi::class);
 
-        return Resource::collection(KategoriKualifikasi::filter($query));
+        return KategoriKualifikasiResource::collection(KategoriKualifikasi::filter($query));
     }
 
     /**
@@ -28,14 +29,10 @@ class KategoriKualifikasiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(KategoriKualifikasiRequest $request)
     {
-        $this->authorize('create', KategoriKualifikasi::class);
-
-        $request->validate(['uraian' => 'required|max:255']);
-
-        return response()->crud(new Resource(
-            KategoriKualifikasi::create($request->only('uraian'))
+        return response()->crud(new KategoriKualifikasiResource(
+            KategoriKualifikasi::create($request->validated())
         ));
     }
 
@@ -49,7 +46,7 @@ class KategoriKualifikasiController extends Controller
     {
         $this->authorize('show', $kategori);
 
-        return new Resource($kategori);
+        return new KategoriKualifikasiResource($kategori);
     }
 
     /**
@@ -59,14 +56,10 @@ class KategoriKualifikasiController extends Controller
      * @param  \App\Models\Kepegawaian\KategoriKualifikasi  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KategoriKualifikasi $kategori)
+    public function update(KategoriKualifikasiRequest $request, KategoriKualifikasi $kategori)
     {
-        $this->authorize('update', $kategori);
-
-        $request->validate(['uraian' => 'required|max:255']);
-
-        return response()->crud(new Resource(
-            tap($kategori)->update($request->only('uraian'))
+        return response()->crud(new KategoriKualifikasiResource(
+            tap($kategori)->update($request->validated())
         ));
     }
 

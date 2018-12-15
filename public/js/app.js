@@ -1963,6 +1963,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     toggle: function toggle(e) {
       this.$emit('change', e.target.checked);
+      this.$emit('input', e.target.checked);
     }
   },
   beforeMount: function beforeMount() {

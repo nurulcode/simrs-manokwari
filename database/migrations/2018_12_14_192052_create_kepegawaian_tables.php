@@ -13,15 +13,22 @@ class CreateKepegawaianTables extends Migration
      */
     public function up()
     {
-        Schema::create('kategori_kualifikasis', function (Blueprint $table) {
+        Schema::create('jabatans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('uraian');
             $table->timestamps();
         });
 
-        Schema::create('jabatans', function (Blueprint $table) {
+        Schema::create('kategori_kualifikasis', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('kode')->unique();
             $table->string('uraian');
+            $table->boolean('tenaga_medis')->default(false);
+            $table->timestamps();
+        });
+
+        Schema::create('kualifikasis', function (Blueprint $table) {
+            $table->increments('id');
             $table->timestamps();
         });
     }
@@ -33,8 +40,10 @@ class CreateKepegawaianTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jabatans');
+        Schema::dropIfExists('kualifikasis');
 
         Schema::dropIfExists('kategori_kualifikasis');
+
+        Schema::dropIfExists('jabatans');
     }
 }
