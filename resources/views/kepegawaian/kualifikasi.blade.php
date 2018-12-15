@@ -4,7 +4,22 @@
     @endcannot
     >
     <div slot="form">
-        <b-form-group label="Kode:" v-bind="kualifikasi.form.feedback('kode')">
+        <b-form-group v-bind="kualifikasi.form.feedback('kategori_id')">
+            <b slot="label">Kualifikasi:</b>
+            <ajax-select
+                deselect-label=""
+                label="uraian"
+                placeholder="Pilih Kualifikasi"
+                select-label=""
+                url="{{ action('Kepegawaian\KategoriKualifikasiController@index') }}"
+                v-model="kualifikasi.form.kategori"
+                v-bind:key-value.sync="kualifikasi.form.kategori_id"
+                v-on:select="kualifikasi.form.errors.clear('kategori_id')"
+                >
+            </ajax-select>
+        </b-form-group>
+        <b-form-group v-bind="kualifikasi.form.feedback('kode')">
+            <b slot="label">Kode:</b>
             <input
                 class="form-control"
                 name="kode"
@@ -14,7 +29,8 @@
                 >
             </input>
         </b-form-group>
-        <b-form-group label="Uraian:" v-bind="kualifikasi.form.feedback('uraian')">
+        <b-form-group v-bind="kualifikasi.form.feedback('uraian')">
+            <b slot="label">Uraian:</b>
             <input
                 class="form-control"
                 name="uraian"
@@ -26,7 +42,8 @@
         </b-form-group>
         <div class="row">
             <div class="col">
-                <b-form-group label="Kebutuhan Laki-laki:" v-bind="kualifikasi.form.feedback('laki_laki')">
+                <b-form-group v-bind="kualifikasi.form.feedback('laki_laki')">
+                    <b slot="label">Kebutuhan Laki-laki:</b>
                     <input
                         class="form-control"
                         name="laki_laki"
@@ -38,7 +55,8 @@
                 </b-form-group>
             </div>
             <div class="col">
-                <b-form-group label="Kebutuhan Perempuan:" v-bind="kualifikasi.form.feedback('perempuan')">
+                <b-form-group v-bind="kualifikasi.form.feedback('perempuan')">
+                    <b slot="label">Kebutuhan Perempuan:</b>
                     <input
                         class="form-control"
                         name="perempuan"
@@ -51,6 +69,9 @@
             </div>
         </div>
     </div>
+    <template slot="kategori" slot-scope="{value}">
+        @{{ value.uraian.toUpperCase() }}
+    </template>
 </data-table>
 
 @push('javascripts')
@@ -62,11 +83,14 @@ window.pagemix.push({
                 url   : `{{ action('Kepegawaian\KualifikasiController@index') }}`,
                 sortBy: 'uraian',
                 fields: [{
+                    key      : 'kategori',
+                },{
                     key      : 'kode',
                     sortable : true,
                 },{
                     key      : 'uraian',
                     sortable : true,
+                    formatter: value => value.toUpperCase()
                 }],
                 form: new Form({
                     kategori_id : null,
@@ -74,6 +98,8 @@ window.pagemix.push({
                     uraian      : null,
                     laki_laki   : 0,
                     perempuan   : 0,
+                }, {
+                    kategori    : null
                 }),
             }
         }

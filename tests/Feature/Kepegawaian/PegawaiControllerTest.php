@@ -17,15 +17,17 @@ class PegawaiControllerTest extends TestCase
     /** @test */
     public function user_cant_post_invalid_data()
     {
-        $resource = factory($this->resource())->make([
-            'kualifikasi_id' => str_random(5),
-            'jabatan_id'     => str_random(5),
-            'jenis_kelamin'  => str_random(5),
-            'tanggal_lahir'  => str_random(5),
-        ]);
+        $resource = factory($this->resource())->make();
 
         $this->signIn()
-            ->postJson($resource->path, $this->beforePost($resource))
+            ->postJson($resource->path, array_merge($this->beforePost($resource),
+                [
+                    'kualifikasi_id' => str_random(5),
+                    'jabatan_id'     => str_random(5),
+                    'jenis_kelamin'  => str_random(5),
+                    'tanggal_lahir'  => str_random(5),
+                ]
+            ))
             ->assertJson(['errors' => []])
             ->assertJsonValidationErrors([
                 'kualifikasi_id',

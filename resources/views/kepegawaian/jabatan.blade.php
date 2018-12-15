@@ -4,7 +4,8 @@
     @endcannot
     >
     <div slot="form">
-        <b-form-group label="Uraian:" v-bind="jabatan.form.feedback('uraian')">
+        <b-form-group v-bind="jabatan.form.feedback('uraian')">
+            <b slot="label">Uraian:</b>
             <input
                 class="form-control"
                 name="uraian"

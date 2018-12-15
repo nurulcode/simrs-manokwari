@@ -4,6 +4,10 @@
 
 @section('tabs')
 
+<b-tab title="Daftar Pegawai">
+    @include('kepegawaian.pegawai')
+</b-tab>
+
 <b-tab title="Jabatan">
     @include('kepegawaian.jabatan')
 </b-tab>

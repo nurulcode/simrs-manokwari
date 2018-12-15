@@ -17,6 +17,7 @@ class KualifikasiResource extends JsonResource
         return [
             'id'          => $this->id,
             'kategori_id' => $this->kategori_id,
+            'kategori'    => KategoriKualifikasiResource::make($this->whenLoaded('kategori')),
             'kode'        => $this->kode,
             'uraian'      => $this->uraian,
             'laki_laki'   => $this->laki_laki,
