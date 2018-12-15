@@ -29,6 +29,11 @@ class CreateKepegawaianTables extends Migration
 
         Schema::create('kualifikasis', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('kategori_id');
+            $table->string('kode')->unique();
+            $table->string('uraian');
+            $table->unsignedInteger('laki_laki')->default(0);
+            $table->unsignedInteger('perempuan')->default(0);
             $table->timestamps();
         });
     }

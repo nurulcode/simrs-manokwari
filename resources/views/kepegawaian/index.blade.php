@@ -12,6 +12,10 @@
     @include('kepegawaian.kategori')
 </b-tab>
 
+<b-tab title="Kualifikasi">
+    @include('kepegawaian.kualifikasi')
+</b-tab>
+
 
 @endsection
 
