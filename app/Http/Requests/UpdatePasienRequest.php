@@ -3,15 +3,12 @@
 namespace App\Http\Requests;
 
 use App\Enums;
-use Sty\RequestTransform;
 use Illuminate\Validation\Rule;
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdatePasienRequest extends FormRequest
 {
-    use RequestTransform;
-
     /**
      * Determine if the user is authorized to make this request.
      *
