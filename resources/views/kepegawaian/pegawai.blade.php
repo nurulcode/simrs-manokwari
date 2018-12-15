@@ -1,4 +1,14 @@
-<data-table v-bind.sync="pegawai" ref="table"
+<closable-card v-if="!!selected_jabatan" header="Jabatan Terpilih:"
+    v-on:close="selected_jabatan = null">
+    <h5>@{{ selected_jabatan.uraian }}</h5>
+</closable-card>
+
+<closable-card v-if="!!selected_kualifikasi" header="Kualifikasi Terpilih:"
+    v-on:close="selected_kualifikasi = null">
+    <h5>@{{ selected_kualifikasi.uraian }}</h5>
+</closable-card>
+
+<data-table v-bind.sync="pegawai" ref="table_pegawai"
     @cannot('create', App\Models\Kepegawaian\Pegawai::class)
         no-add-button-text
     @endcannot

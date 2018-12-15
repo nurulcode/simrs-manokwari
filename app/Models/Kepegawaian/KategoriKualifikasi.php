@@ -14,4 +14,9 @@ class KategoriKualifikasi extends Model
     protected $casts = [
         'tenaga_medis' => 'boolean',
     ];
+
+    public function kualifikasis()
+    {
+        return $this->hasMany(Kualifikasi::class, 'kategori_id');
+    }
 }

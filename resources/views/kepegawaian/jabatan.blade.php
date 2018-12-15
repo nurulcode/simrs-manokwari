@@ -1,4 +1,4 @@
-<data-table v-bind.sync="jabatan" ref="table"
+<data-table v-bind.sync="jabatan" ref="table" v-model="selected_jabatan"
     @cannot('create', App\Models\Kepegawaian\Jabatan::class)
         no-add-button-text
     @endcannot

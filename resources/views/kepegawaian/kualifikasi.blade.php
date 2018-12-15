@@ -1,4 +1,9 @@
-<data-table v-bind.sync="kualifikasi" ref="table"
+<closable-card v-if="!!selected_kategori" header="Kategori Terpilih:"
+    v-on:close="selected_kategori = null">
+    <h5>@{{ selected_kategori.uraian }}</h5>
+</closable-card>
+
+<data-table v-bind.sync="kualifikasi" ref="table" v-model="selected_kualifikasi"
     @cannot('create', App\Models\Kepegawaian\Kualifikasi::class)
         no-add-button-text
     @endcannot
@@ -81,7 +86,7 @@ window.pagemix.push({
         return {
             kualifikasi: {
                 url   : `{{ action('Kepegawaian\KualifikasiController@index') }}`,
-                sortBy: 'uraian',
+                sortBy: 'kategori_id',
                 fields: [{
                     key      : 'kategori',
                 },{

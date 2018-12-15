@@ -17,4 +17,9 @@ class Kualifikasi extends Model
     {
         return $this->belongsTo(KategoriKualifikasi::class);
     }
+
+    public function pegawais()
+    {
+        return $this->hasMany(Pegawai::class);
+    }
 }
