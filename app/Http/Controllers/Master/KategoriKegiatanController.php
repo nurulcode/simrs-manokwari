@@ -6,7 +6,6 @@ use Sty\HttpQuery;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Master\KategoriKegiatan;
-use App\Http\Requests\Master\KategoriKegiatanRequest;
 use App\Http\Resources\Master\KategoriKegiatanResource;
 
 class KategoriKegiatanController extends Controller
@@ -29,10 +28,14 @@ class KategoriKegiatanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(KategoriKegiatanRequest $request)
+    public function store(Request $request)
     {
+        $this->authorize('create', KategoriKegiatan::class);
+
+        $request->validate(['uraian' => 'required|max:255']);
+
         return response()->crud(new KategoriKegiatanResource(
-            KategoriKegiatan::create($request->validated())
+            KategoriKegiatan::create($request->only('uraian'))
         ));
     }
 
@@ -56,10 +59,14 @@ class KategoriKegiatanController extends Controller
      * @param  \App\Models\Master\KategoriKegiatan  $kategori_kegiatan
      * @return \Illuminate\Http\Response
      */
-    public function update(KategoriKegiatanRequest $request, KategoriKegiatan $kategori_kegiatan)
+    public function update(Request $request, KategoriKegiatan $kategori_kegiatan)
     {
+        $this->authorize('update', $kategori_kegiatan);
+
+        $request->validate(['uraian' => 'required|max:255']);
+
         return response()->crud(new KategoriKegiatanResource(
-            tap($kategori_kegiatan)->update($request->validated())
+            tap($kategori_kegiatan)->update($request->only('uraian'))
         ));
     }
 
