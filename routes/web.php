@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('agama',             'AgamaController@view');
         Route::get('jenis-identitas',   'JenisIdentitasController@view');
         Route::get('jenis-poliklinik',  'JenisPoliklinikController@view');
+        Route::get('jenis-registrasi',  'JenisRegistrasiController@view');
         Route::get('kasus',             'KasusController@view');
         Route::get('kegiatan',          'KategoriKegiatanController@view');
         Route::get('pekerjaan',         'PekerjaanController@view');
