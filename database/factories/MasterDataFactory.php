@@ -4,9 +4,7 @@ use Faker\Generator as Faker;
 use App\Enums\KategoriRegistrasi;
 
 $generic_factory = function (Faker $faker) {
-    return [
-        'uraian' => $faker->sentence
-    ];
+    return ['uraian' => $faker->sentence];
 };
 
 $factory->define(Master\Agama::class, $generic_factory);
@@ -34,5 +32,12 @@ $factory->define(Master\JenisRegistrasi::class, function (Faker $faker) {
     return [
         'uraian'   => $faker->sentence,
         'kategori' => KategoriRegistrasi::getRandomValue()
+    ];
+});
+
+$factory->define(App\Models\Master\CaraPembayaran::class, function (Faker $faker) {
+    return [
+        'kode'   => $faker->unique()->word,
+        'uraian' => $faker->sentence
     ];
 });

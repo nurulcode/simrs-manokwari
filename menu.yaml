@@ -51,7 +51,8 @@
       title: Daftar Penyakit
       link : master/penyakit
     -
-      title: Daftar Jaminan Kesehatan
+      title: Daftar Cara Pembayaran
+      link : master/cara-pembayaran
     -
       title: Daftar Tarif
     -

@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::namespace('Master')->prefix('master')->group(function () {
         Route::get('agama',             'AgamaController@view');
+        Route::get('cara-pembayaran',   'CaraPembayaranController@view');
         Route::get('jenis-identitas',   'JenisIdentitasController@view');
         Route::get('jenis-poliklinik',  'JenisPoliklinikController@view');
         Route::get('jenis-registrasi',  'JenisRegistrasiController@view');
