@@ -25604,7 +25604,7 @@ function () {
     });
 
     this.__optional.forEach(function (field) {
-      _this.setDefault(field, data[field]);
+      _this.setDefault(field, optional[field]);
     });
 
     this.is_loading = false;
