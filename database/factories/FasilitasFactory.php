@@ -9,11 +9,11 @@ use App\Models\Master\JenisPoliklinik;
 
 $factory->define(Poliklinik::class, function (Faker $faker) {
     return [
-        'kode'     => strtoupper(substr($faker->unique()->word, 0, 12)),
-        'nama'     => $faker->sentence(2),
         'jenis_id' => function () {
             return factory(JenisPoliklinik::class)->create()->id;
-        }
+        },
+        'kode'     => strtoupper(substr($faker->unique()->word, 0, 12)),
+        'nama'     => $faker->sentence(2),
     ];
 });
 
