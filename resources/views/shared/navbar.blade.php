@@ -7,3 +7,5 @@
     </li>
     @includeWhen(Auth::check(), 'shared.userdropdown')
 </ul>
+
+@includeWhen(Auth::check(), 'shared.changepassmodal')

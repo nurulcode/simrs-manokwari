@@ -21,6 +21,4 @@
     </div>
 
     @include('shared.app-footer')
-
-    @includeWhen(Auth::check(), 'shared.changepassmodal')
 @endsection
