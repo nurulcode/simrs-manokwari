@@ -7,5 +7,7 @@
 
         @yield('card')
 
+        @slot('footer') @yield('footer') @endslot
+
     @endcomponent
 @endsection

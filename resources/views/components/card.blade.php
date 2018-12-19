@@ -13,4 +13,8 @@
         {{ $slot }}
 
     </div>
+
+    @if(!empty($footer->toHtml()))
+        <div class="card-footer">{{ $footer }}</div>
+    @endif
 </div>
