@@ -19,6 +19,12 @@ class CreateFasilitasTables extends Migration
             $table->string('nama');
             $table->unsignedInteger('jenis_id');
             $table->timestamps();
+
+            $table->foreign('jenis_id')
+                ->references('id')
+                ->on('jenis_polikliniks')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
         });
 
         Schema::create('ruangans', function (Blueprint $table) {

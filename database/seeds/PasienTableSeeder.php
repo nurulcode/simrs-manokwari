@@ -74,6 +74,20 @@ class PasienTableSeeder extends Seeder
             $data['nomor_identitas'] = '-';
         }
 
+        if (!empty($data['nama'])) {
+            $data['nama'] = trim($data['nama'], ' ');
+            $data['nama'] = ltrim($data['nama'], '.');
+            $data['nama'] = strtoupper($data['nama']);
+        }
+
+        if (!empty($data['nama_ayah'])) {
+            $data['nama_ayah'] = strtoupper($data['nama_ayah']);
+        }
+
+        if (!empty($data['nama_ibu'])) {
+            $data['nama_ibu'] = strtoupper($data['nama_ibu']);
+        }
+
         array_push($this->rekam_medis, $data['no_rekam_medis']);
 
         return $data;
