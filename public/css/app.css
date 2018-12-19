@@ -18073,6 +18073,10 @@ button:active {
   outline: 0;
 }
 
+.app-body .main .content {
+  height: calc(100vh - 197px);
+}
+
 .container-fluid > .tabs,
 .container > .tabs {
   margin-bottom: 1.5rem;

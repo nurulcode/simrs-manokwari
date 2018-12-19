@@ -16,7 +16,7 @@
         <main class="main">
             @include('shared.breadcrumb')
 
-            <div class="container-fluid"> @yield('content') </div>
+            <div class="content container-fluid"> @yield('content') </div>
         </main>
     </div>
 

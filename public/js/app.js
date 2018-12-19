@@ -2306,8 +2306,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
@@ -2338,7 +2336,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
 
     this.fp = __WEBPACK_IMPORTED_MODULE_0_flatpickr___default()(this.$refs.input, _objectSpread({}, this.$props, {
-      defaultDate: value,
+      defaultDate: this.defaultDate || value,
       defaultMinute: minute,
       time_24hr: true,
       static: true,
@@ -2372,6 +2370,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     defaultHour: {
       type: Number,
       default: 16
+    },
+    defaultDate: {
+      type: [String, Date]
     },
     enableTime: {
       type: Boolean,
@@ -23833,13 +23834,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "input-group" }, [
-    _c("div", { staticClass: "flatpickr-wrapper" }, [
-      _c("input", {
-        ref: "input",
-        staticClass: "form-control",
-        attrs: { type: "text", placeholder: _vm.placeholder }
-      })
-    ]),
+    _c("input", {
+      ref: "input",
+      staticClass: "form-control",
+      attrs: { type: "text", placeholder: _vm.placeholder }
+    }),
     _vm._v(" "),
     _c("div", { staticClass: "input-group-append" }, [
       _c(
