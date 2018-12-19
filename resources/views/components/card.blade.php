@@ -14,7 +14,7 @@
 
     </div>
 
-    @if(!empty($footer->toHtml()))
+    @if(isset($footer) && !empty($footer->toHtml()))
         <div class="card-footer">{{ $footer }}</div>
     @endif
 </div>
