@@ -1703,8 +1703,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     scopedSlots: function scopedSlots() {
       return Object.keys(this.$scopedSlots);
     },
-    sortBy: function sortBy() {
-      return this.label;
+    sort: function sort() {
+      return this.sortBy || this.label;
     }
   },
   data: function data() {
@@ -1728,7 +1728,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         params: _objectSpread({
           limit: this.optionsLimit,
           search: this.search,
-          sortBy: this.sortBy
+          sortBy: this.sort
         }, this.params)
       }).then(function (response) {
         _this.data = response.data.data.map(_this.dataMap).filter(_this.filter) || [], _this.loaded = true;
@@ -1815,6 +1815,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     keyValue: {
       type: [String, Number],
       required: false
+    },
+    sortBy: {
+      type: String,
+      required: false
     }
   }
 });
@@ -1898,6 +1902,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     toggle: function toggle(e) {
       this.$emit('change', e.target.checked);
+      this.$emit('input', e.target.checked);
     }
   },
   beforeMount: function beforeMount() {
@@ -1994,6 +1999,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -2012,8 +2018,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   directives: __WEBPACK_IMPORTED_MODULE_4__directives__["a" /* default */],
   props: __WEBPACK_IMPORTED_MODULE_5__props__["a" /* default */],
   computed: {
-    tableOption: function tableOption() {
+    tableOptions: function tableOptions() {
       return Object.assign({
+        apiUrl: this.url,
         bordered: true,
         fields: this.tableFields,
         filter: this.search,
@@ -2075,7 +2082,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     provider: function provider(ctx) {
       var _this = this;
 
-      return axios.get(this.url, {
+      return axios.get(ctx.apiUrl, {
         params: Object.assign({
           limit: ctx.perPage,
           page: ctx.currentPage,
@@ -2109,6 +2116,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }, 300),
     onDoubleClick: function onDoubleClick(item, row, event) {
       this.$emit('dt:row-double-click', item, row, event);
+      this.$emit('input', item);
       this.toggleSelected(item);
       this.onDoubleClicked(item, row, event);
     },
@@ -2203,9 +2211,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.meta.per_page = this.options.perPage || 5;
   },
   watch: {
-    url: function url(value) {
-      this.refresh();
-    },
     filter: function filter(value) {
       this.search = value;
     },
@@ -2230,8 +2235,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
 //
 //
 //
@@ -2272,7 +2275,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
 
     this.fp = __WEBPACK_IMPORTED_MODULE_0_flatpickr___default()(this.$refs.input, _objectSpread({}, this.$props, {
-      defaultDate: value,
+      defaultDate: this.defaultDate || value,
       defaultMinute: minute,
       time_24hr: true,
       static: true,
@@ -2306,6 +2309,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     defaultHour: {
       type: Number,
       default: 16
+    },
+    defaultDate: {
+      type: [String, Date]
     },
     enableTime: {
       type: Boolean,
@@ -22158,13 +22164,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "input-group" }, [
-    _c("div", { staticClass: "flatpickr-wrapper" }, [
-      _c("input", {
-        ref: "input",
-        staticClass: "form-control",
-        attrs: { type: "text", placeholder: _vm.placeholder }
-      })
-    ]),
+    _c("input", {
+      ref: "input",
+      staticClass: "form-control",
+      attrs: { type: "text", placeholder: _vm.placeholder }
+    }),
     _vm._v(" "),
     _c("div", { staticClass: "input-group-append" }, [
       _c(
@@ -22378,7 +22382,7 @@ var render = function() {
             }
           },
           "b-table",
-          _vm.tableOption,
+          _vm.tableOptions,
           false
         ),
         [
@@ -23876,7 +23880,7 @@ function () {
     });
 
     this.__optional.forEach(function (field) {
-      _this.setDefault(field, data[field]);
+      _this.setDefault(field, optional[field]);
     });
 
     this.is_loading = false;
@@ -23908,7 +23912,7 @@ function () {
       var _this3 = this;
 
       this.__fields.forEach(function (field) {
-        if (data.hasOwnProperty(field)) {
+        if (data.hasOwnProperty(field) && data[field]) {
           _this3[field] = JSON.parse(JSON.stringify(data[field]));
         }
       });
