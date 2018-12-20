@@ -31,7 +31,7 @@ class CaraPembayaranRequest extends FormRequest
         return [
             'parent_id' => ['nullable', 'exists:cara_pembayarans,id'],
             'kode'      => ['required'],
-            'uraian'    => ['required'],
+            'uraian'    => ['required', 'max:128'],
         ];
     }
 }

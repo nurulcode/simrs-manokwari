@@ -34,11 +34,10 @@ class KelompokPenyakitRequest extends FormRequest
         );
 
         return [
-            'klasifikasi_id' => ['nullable', 'exists:klasifikasi_penyakits,id'],
-            'icd'            => ['required', 'string', $unique],
             'kode'           => ['required', $unique],
-            'uraian'         => ['required'],
-            'uraian'         => ['required'],
+            'icd'            => ['required', $unique],
+            'klasifikasi_id' => ['nullable', 'exists:klasifikasi_penyakits,id'],
+            'uraian'         => ['required', 'max:128'],
         ];
     }
 

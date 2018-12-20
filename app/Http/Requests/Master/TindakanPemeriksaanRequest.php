@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Master;
 
-use Sty\RequestTransform;
 use Illuminate\Validation\Rule;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Enums\JenisTindakanPemeriksaan;
@@ -11,16 +10,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TindakanPemeriksaanRequest extends FormRequest
 {
-    use RequestTransform;
-
-    /**
-     * The attributes value to map.
-     *
-     * @var array
-     *
-     */
-    protected $map_values = ['jenis' => 'jenis.value'];
-
     /**
      * Determine if the user is authorized to make this request.
      *

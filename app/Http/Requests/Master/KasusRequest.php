@@ -33,7 +33,7 @@ class KasusRequest extends FormRequest
 
         return [
             'kode'   => ['required', $unique],
-            'uraian' => ['required']
+            'uraian' => ['required', 'max:128']
         ];
     }
 }
