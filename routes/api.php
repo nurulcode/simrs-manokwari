@@ -18,6 +18,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::apiResources([
         'activity'    => 'ActivityController',
+        'kunjungan'   => 'KunjunganController',
         'pasien'      => 'PasienController',
         'permission'  => 'PermissionController',
         'rawat-jalan' => 'RawatJalanController',

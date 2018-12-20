@@ -20,4 +20,9 @@ class CaraPembayaran extends Master
     {
         return $this->hasMany(self::class, 'parent_id');
     }
+
+    public function scopeOnlyFirstLevel($query)
+    {
+        return $query->whereNull('parent_id')->orderBy('uraian');
+    }
 }

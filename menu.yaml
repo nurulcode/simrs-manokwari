@@ -11,12 +11,14 @@
   childs:
     -
       title: Daftar Kunjungan
+      link : kunjungan
     -
-      title: Registrasi Rawat Jalan
+      title: Reg. Rawat Jalan
+      link : rawat-jalan/create
     -
-      title: Registrasi Rawat Inap
+      title: Reg. Rawat Inap
     -
-      title: Registrasi Rawat Darurat
+      title: Reg. Rawat Darurat
 -
   title : Info Rawat Inap
   icon  : icon-info

@@ -23,8 +23,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/kepegawaian',  'Kepegawaian\\KepegawaianController@view');
     Route::get('/pasien',       'PasienController@view');
     Route::get('/permission',   'PermissionController@view');
+    Route::get('/permission',   'PermissionController@view');
     Route::get('/role',         'RoleController@view');
     Route::get('/user',         'UserController@view');
+
+    Route::get('/kunjungan',           'KunjunganController@view');
+    Route::get('/rawat-jalan/create',  'RawatJalanController@create');
 
     Route::namespace('Master')->prefix('master')->group(function () {
         Route::get('agama',             'AgamaController@view');
