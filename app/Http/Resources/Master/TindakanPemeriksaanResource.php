@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Master;
 
-use App\Enums\JenisTindakanPemeriksaan;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TindakanPemeriksaanResource extends JsonResource
@@ -21,7 +20,7 @@ class TindakanPemeriksaanResource extends JsonResource
             'parent'      => self::make($this->whenLoaded('parent')),
             'kode'        => $this->kode,
             'uraian'      => $this->uraian,
-            'jenis'       => JenisTindakanPemeriksaan::toSelectValue($this->jenis),
+            'jenis'       => $this->jenis,
             'path'        => $this->path,
             '__editable'  => $request->user()->can('update', $this->resource),
             '__deletable' => $request->user()->can('delete', $this->resource),

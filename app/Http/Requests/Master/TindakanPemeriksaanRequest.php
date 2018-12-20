@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Master;
 
-use App\Rules\ValidEnum;
 use Sty\RequestTransform;
 use Illuminate\Validation\Rule;
+use BenSampo\Enum\Rules\EnumValue;
 use App\Enums\JenisTindakanPemeriksaan;
 use App\Models\Master\TindakanPemeriksaan;
 use Illuminate\Foundation\Http\FormRequest;
@@ -50,7 +50,7 @@ class TindakanPemeriksaanRequest extends FormRequest
             'kode'      => ['required', $unique],
             'parent_id' => ['nullable', 'exists:tindakan_pemeriksaans,id'],
             'uraian'    => ['required', 'max:128'],
-            'jenis'     => ['required', new ValidEnum(JenisTindakanPemeriksaan::class)]
+            'jenis'     => ['required', new EnumValue(JenisTindakanPemeriksaan::class)]
         ];
     }
 

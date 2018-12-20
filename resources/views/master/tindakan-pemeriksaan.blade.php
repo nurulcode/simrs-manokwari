@@ -6,8 +6,7 @@
     <data-table v-bind.sync="tindakan" ref="table"
         @cannot('create', App\Models\Master\TindakanPemeriksaan::class)
             no-add-button-text
-        @endcannot
-        >
+        @endcannot >
         <div slot="form">
             <b-form-group label="Kelompok Tindakan:" v-bind="tindakan.form.feedback('parent_id')">
                 <ajax-select
@@ -41,16 +40,13 @@
                 </input>
             </b-form-group>
             <b-form-group label="Jenis:" v-bind="tindakan.form.feedback('jenis')">
-                <multiselect
-                    :options="{{ json_encode(App\Enums\JenisTindakanPemeriksaan::toSelectOptions()) }}"
-                    deselect-label=""
-                    label="label"
-                    select-label=""
-                    track-by="value"
+                <b-form-select
+                    :options="{{ json_encode(App\Enums\JenisTindakanPemeriksaan::toSelectArray()) }}"
                     v-model="tindakan.form.jenis"
-                    v-on:select="tindakan.form.errors.clear('jenis')"
-                    >
-                </multiselect>
+                    v-on:change="tindakan.form.errors.clear('jenis')"
+                >
+                    <option slot="first" :value="null" disabled>Pilih Jenis Tindakan</option>
+                </b-form-select>
             </b-form-group>
         </div>
     </data-table>
@@ -70,9 +66,6 @@ window.pagemix.push({
                 },{
                     key      : 'uraian',
                     sortable : true,
-                },{
-                    key      : 'jenis',
-                    formatter: jenis => jenis.label
                 }],
                 form: new Form({
                     parent_id: null,
