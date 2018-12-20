@@ -6,8 +6,19 @@
   link  : /
   icon  : icon-speedometer
 -
-  title : Registrasi/Kunjungan
-  icon  : fa fa-medkit
+  title : Registrasi
+  icon  : icon-briefcase
+  childs:
+    -
+      title: Reg. Rawat Jalan
+      link : rawat-jalan/create
+    -
+      title: Reg. Rawat Inap
+    -
+      title: Reg. Rawat Darurat
+-
+  title : Kunjungan
+  icon  : icon-layers
   childs:
     -
       title: Daftar Kunjungan

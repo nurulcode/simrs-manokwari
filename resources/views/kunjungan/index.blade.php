@@ -17,8 +17,11 @@ window.pagemix.push({
     data() {
         return {
             kunjungan: {
-                url   : `{{ action('KunjunganController@index') }}`,
-                sortBy: 'created_at',
+                url    : `{{ action('KunjunganController@index') }}`,
+                options:{
+                    sortBy  : 'waktu_kunjungan',
+                    sortDesc: true
+                },
                 fields: [{
                     key      : 'nomor_kunjungan',
                     sortable : true,
@@ -26,7 +29,8 @@ window.pagemix.push({
                     key      : 'pasien',
                 },{
                     key      : 'waktu_kunjungan',
-                    formatter: waktu => format(parse(waktu), 'DD/MM/YYYY H:mm:ss')
+                    formatter: waktu => format(parse(waktu), 'DD/MM/YYYY H:mm:ss'),
+                    sortable : true
                 },{
                     key      : 'keluhan',
                     thStyle  : {
