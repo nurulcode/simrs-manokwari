@@ -14,26 +14,26 @@ class KunjunganRequest extends FormRequest
     public function rules()
     {
         return [
-            'jenis_registrasi_id' => ['required'],
-            'pasien_id'           => ['required'],
-            'keluhan'             => ['required'],
+            'jenis_registrasi_id' => 'required|exists:jenis_registrasis,id',
+            'pasien_id'           => 'required|exists:pasiens,id',
+            'keluhan'             => 'required',
 
-            'pasien_baru'         => ['nullable'],
-            'waktu_kunjungan'     => ['nullable'],
-            'kasus_id'            => ['nullable'],
-            'penyakit_id'         => ['nullable'],
+            'pasien_baru'         => 'nullable|boolean',
+            'waktu_kunjungan'     => 'nullable',
+            'kasus_id'            => 'nullable|exists:kasuses,id',
+            'penyakit_id'         => 'nullable|exists:penyakits,id',
 
-            'rujukan.jenis_id'    => ['nullable'],
-            'rujukan.asal'        => ['nullable'],
-            'rujukan.nomor'       => ['nullable'],
-            'rujukan.tanggal'     => ['nullable'],
+            'rujukan.jenis_id'    => 'nullable|exists:jenis_rujukans,id',
+            'rujukan.asal'        => 'nullable',
+            'rujukan.nomor'       => 'nullable',
+            'rujukan.tanggal'     => 'nullable',
 
-            'pj_nama'             => ['nullable', 'string'],
-            'pj_telepon'          => ['nullable', 'string'],
+            'pj_nama'             => 'nullable|string|max:32',
+            'pj_telepon'          => 'nullable|string|max:16',
 
-            'cara_pembayaran_id'  => ['nullable'],
-            'sjp_nomor'           => ['nullable'],
-            'sjp_tanggal'         => ['nullable'],
+            'cara_pembayaran_id'  => 'nullable|exists:cara_pembayarans,id',
+            'sjp_nomor'           => 'nullable',
+            'sjp_tanggal'         => 'nullable',
         ];
     }
 }
