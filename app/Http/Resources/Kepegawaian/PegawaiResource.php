@@ -21,7 +21,7 @@ class PegawaiResource extends JsonResource
             'kualifikasi'    => KualifikasiResource::make($this->whenLoaded('kualifikasi')),
             'nama'           => $this->nama,
             'tempat_lahir'   => $this->tempat_lahir,
-            'tanggal_lahir'  => optional($this->tanggal_lahir)->toDateTimeString(),
+            'tanggal_lahir'  => (string) $this->tanggal_lahir,
             'jenis_kelamin'  => $this->jenis_kelamin,
             'alamat'         => $this->alamat,
             'telepon'        => $this->telepon,

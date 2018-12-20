@@ -31,7 +31,7 @@ class PasienResource extends JsonResource
             'suku'               => Resource::make($this->whenLoaded('suku')),
             'golongan_darah'     => $this->golongan_darah,
             'tempat_lahir'       => $this->tempat_lahir,
-            'tanggal_lahir'      => optional($this->tanggal_lahir)->toDateTimeString(),
+            'tanggal_lahir'      => (string) $this->tanggal_lahir,
             'pekerjaan_id'       => $this->pekerjaan_id,
             'pekerjaan'          => Resource::make($this->whenLoaded('pekerjaan')),
             'pendidikan_id'      => $this->pendidikan_id,
