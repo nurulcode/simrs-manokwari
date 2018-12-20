@@ -253,7 +253,7 @@ use App\Models\Master\CaraPembayaran;
         </div>
     </div>
     <div class="row">
-        <div class="col">
+        <div class="col-md-4">
             <b-form-group label="Diagnosa Awal:" v-bind="form_kunjungan.feedback('penyakit_id')">
                 <ajax-select
                     deselect-label=""

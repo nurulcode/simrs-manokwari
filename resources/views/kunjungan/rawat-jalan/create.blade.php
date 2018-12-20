@@ -124,16 +124,28 @@ window.pagemix.push({
     },
     methods: {
         now() {
-            return new Date
+            return new Date;
         },
         submit(e) {
             this.form_kunjungan.post(e.target.action)
                 .then(response => {
-                    console.log(response);
+                    if (response.data.message && response.data.status) {
+                        window.flash(response.data.message, response.data.status);
+                    }
+
+                    this.reset();
                 })
                 .catch(error => {
                     //
                 });
+        },
+        reset() {
+            this.form_kunjungan.rujukan = {
+                jenis_id: null,
+                asal    : null,
+                nomor   : null,
+                tanggal : null
+            };
         }
     }
 });
