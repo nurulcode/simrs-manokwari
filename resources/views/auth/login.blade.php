@@ -82,7 +82,8 @@ window.pagemix.push({
             submiting    : false,
             form: new Form({
                 username: '',
-                password: ''
+                password: '',
+                remember: true
             })
         }
     },
