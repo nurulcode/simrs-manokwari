@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Master;
+namespace App\Http\Resources\Tarif;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class JenisRegistrasiResource extends JsonResource
+class TarifRegistrasiResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

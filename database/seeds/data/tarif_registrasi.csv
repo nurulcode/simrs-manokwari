@@ -1,0 +1,7 @@
+"1","Registrasi Pasien Baru", "1", "0","0","0"
+"2","Umum Tanpa Rujukan", "2", "7500","10000","0"
+"3","Umum Dengan Rujukan", "2", "7500", "10000", "0"
+"4","BPJS", "2", "0", "0", "0"
+"5","Dispensasi", "2", "0", "0", "0"
+"6","Unit Rawat darurat", "4", "25000", "20000", "0"
+"7","Registrasi Pasien Rawat Inap", "3", "0", "0", "0"

@@ -51,7 +51,7 @@ class RawatJalanControllerTest extends TestCase
     public function user_can_not_post_invalid_data()
     {
         $kunjungan = factory(Kunjungan::class)->make([
-            'jenis_registrasi_id' => str_random(9),
+            'tarif_registrasi_id' => str_random(9),
             'pasien_id'           => str_random(9),
             'kasus_id'            => str_random(9),
             'penyakit_id'         => str_random(9),
@@ -70,7 +70,7 @@ class RawatJalanControllerTest extends TestCase
             ))
             ->assertJson(['errors' => []])
             ->assertJsonValidationErrors([
-                'jenis_registrasi_id',
+                'tarif_registrasi_id',
                 'pasien_id',
                 'kasus_id',
                 'penyakit_id',

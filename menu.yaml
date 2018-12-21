@@ -48,6 +48,13 @@
   icon  : fa fa-stethoscope
   link  : kepegawaian
 -
+  title : Daftar Tarif
+  icon  : icon-credit-card
+  childs:
+    -
+      title: Tarif Registrasi
+      link : tarif/registrasi
+-
   title : Master Data
   icon  : icon-grid
   childs:
@@ -89,9 +96,6 @@
     -
       title: Jenis Identitas
       link : master/jenis-identitas
-    -
-      title: Jenis Registrasi
-      link : master/jenis-registrasi
     -
       title: Jenis Rujukan
       link : master/jenis-rujukan

@@ -15,7 +15,7 @@ class CreateKunjunganTables extends Migration
     {
         Schema::create('kunjungans', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('jenis_registrasi_id');
+            $table->unsignedInteger('tarif_registrasi_id');
             $table->datetime('waktu_kunjungan');
             $table->string('nomor_kunjungan')->nullable();
             $table->unsignedBigInteger('pasien_id');
@@ -33,6 +33,37 @@ class CreateKunjunganTables extends Migration
             $table->string('sjp_nomor')->nullable();
             $table->date('sjp_tanggal')->nullable();
             $table->timestamps();
+
+            $table->foreign('tarif_registrasi_id')
+                ->references('id')
+                ->on('tarif_registrasis')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+            $table->foreign('pasien_id')
+                ->references('id')
+                ->on('pasiens')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+            $table->foreign('kasus_id')
+                ->references('id')
+                ->on('kasuses')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+            $table->foreign('penyakit_id')
+                ->references('id')
+                ->on('penyakits')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+            $table->foreign('jenis_rujukan_id')
+                ->references('id')
+                ->on('jenis_rujukans')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+            $table->foreign('cara_pembayaran_id')
+                ->references('id')
+                ->on('cara_pembayarans')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
 
         Schema::create('pelayanans', function (Blueprint $table) {

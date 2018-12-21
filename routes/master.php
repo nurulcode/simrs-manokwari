@@ -11,7 +11,6 @@ Route::namespace('Master')->group(function () {
         'cara-pembayaran'      => 'CaraPembayaranController',
         'jenis-poliklinik'     => 'JenisPoliklinikController',
         'jenis-identitas'      => 'JenisIdentitasController',
-        'jenis-registrasi'     => 'JenisRegistrasiController',
         'jenis-rujukan'        => 'JenisRujukanController',
         'kasus'                => 'KasusController',
         'kategori-kegiatan'    => 'KategoriKegiatanController',

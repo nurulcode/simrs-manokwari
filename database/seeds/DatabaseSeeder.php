@@ -17,8 +17,10 @@ class DatabaseSeeder extends Seeder
         $this->call(MasterDataWilayahSeeder::class);
         $this->call(MasterDataPenyakitSeeder::class);
         $this->call(MasterDataSeeder::class);
+        $this->call(KepegawaianTableSeeder::class);
         $this->call(FasilitasSeeder::class);
         $this->call(PivotTableSeeder::class);
+        $this->call(TarifTableSeeder::class);
         // $this->call(PasienTableSeeder::class);
     }
 }

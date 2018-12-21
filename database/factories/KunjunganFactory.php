@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Tarif;
 use App\Models\Master;
 use App\Models\Pasien;
 use Faker\Generator as Faker;
@@ -8,8 +9,8 @@ use App\Models\Fasilitas\Poliklinik;
 
 $factory->define(App\Models\Kunjungan::class, function (Faker $faker) {
     return [
-        'jenis_registrasi_id' => function () {
-            return factory(Master\JenisRegistrasi::class)->create([
+        'tarif_registrasi_id' => function () {
+            return factory(Tarif\TarifRegistrasi::class)->create([
                 'kategori' => KategoriRegistrasi::RAWAT_JALAN
             ])->id;
         },

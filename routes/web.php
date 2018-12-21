@@ -35,7 +35,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('cara-pembayaran',   'CaraPembayaranController@view');
         Route::get('jenis-identitas',   'JenisIdentitasController@view');
         Route::get('jenis-poliklinik',  'JenisPoliklinikController@view');
-        Route::get('jenis-registrasi',  'JenisRegistrasiController@view');
         Route::get('jenis-rujukan',     'JenisRujukanController@view');
         Route::get('kasus',             'KasusController@view');
         Route::get('kegiatan',          'KategoriKegiatanController@view');
@@ -45,5 +44,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('suku',              'SukuController@view');
         Route::get('tindakan',          'TindakanPemeriksaanController@view');
         Route::get('wilayah',           'Wilayah\\WilayahController@view');
+    });
+
+    Route::namespace('Tarif')->prefix('tarif')->group(function () {
+        Route::get('registrasi',  'TarifRegistrasiController@view');
     });
 });
