@@ -29,7 +29,7 @@ class KunjunganRequest extends FormRequest
             'rujukan.tanggal'     => 'nullable',
 
             'pj_nama'             => 'nullable|string|max:32',
-            'pj_telepon'          => 'nullable|string|max:16',
+            'pj_telepon'          => 'nullable|string',
 
             'cara_pembayaran_id'  => 'nullable|exists:cara_pembayarans,id',
             'sjp_nomor'           => 'nullable',
