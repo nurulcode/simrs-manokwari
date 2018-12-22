@@ -4,12 +4,25 @@ use App\Models\Master\JenisRujukan;
 use App\Models\Master\CaraPembayaran;
 ?>
 
-
 @extends('layouts.single-card')
 
 @section('title', 'Registrasi Pasien Rawat Jalan')
 
+
+@section('header')
+    <h6 class="mr-auto mb-0"> Registrasi Pasien Rawat Jalan </h6>
+    <div>
+        <button class="btn btn-brand btn-spotify" v-on:click.prevent="createPasien">
+            <i class="fa fa-plus"></i> <span>Pasien Baru</span>
+        </button>
+    </div>
+@endsection
+
 @section('card')
+<form-modal ok-title="Simpan" ref="formpasien" v-bind:form="form_pasien" size="lg" title="Pasien Baru">
+    @include('pasien-form')
+</form-modal>
+
 <form id="kunjungan" method="POST" action="@yield('action')" v-on:submit.prevent="submit"
     v-on:keydown="e => form_kunjungan.errors.clear(e.target.name)">
     <div class="row">
@@ -297,3 +310,24 @@ use App\Models\Master\CaraPembayaran;
 @section('footer')
     <button form="kunjungan" type="submit" class="btn btn-primary"> Simpan </button>
 @endsection
+
+@push('javascripts')
+<script>
+window.pagemix.push({
+    methods: {
+        createPasien(e) {
+            this.$refs.formpasien.post(`{{ action('PasienController@store') }}`)
+                .then(response => {
+                    if (response.status == 201) {
+                        this.form_kunjungan.pasien_baru = true;
+                        this.form_kunjungan.pasien      = response.data.data;
+                    }
+                })
+                .catch(error => {
+                    console.log(error.response);
+                });
+        }
+    }
+});
+</script>
+@endpush

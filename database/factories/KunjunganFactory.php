@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Tarif;
 use App\Models\Master;
+use App\Models\Tarif;
 use App\Models\Pasien;
 use Faker\Generator as Faker;
 use App\Enums\KategoriRegistrasi;
@@ -9,11 +9,6 @@ use App\Models\Fasilitas\Poliklinik;
 
 $factory->define(App\Models\Kunjungan::class, function (Faker $faker) {
     return [
-        'tarif_registrasi_id' => function () {
-            return factory(Tarif\TarifRegistrasi::class)->create([
-                'kategori' => KategoriRegistrasi::RAWAT_JALAN
-            ])->id;
-        },
         'pasien_id' => function () {
             return factory(Pasien::class)->create()->id;
         },
@@ -43,11 +38,16 @@ $factory->define(App\Models\Kunjungan::class, function (Faker $faker) {
 
 $factory->define(App\Models\RawatJalan::class, function (Faker $faker) {
     return [
+        'tarif_registrasi_id' => function () {
+            return factory(Tarif\TarifRegistrasi::class)->create([
+                'kategori' => KategoriRegistrasi::RAWAT_JALAN
+            ])->id;
+        },
         'kegiatan_id' => function () {
             return factory(Master\Kegiatan::class)->create()->id;
         },
         'poliklinik_id' => function () {
             return factory(Poliklinik::class)->create()->id;
-        }
+        },
     ];
 });

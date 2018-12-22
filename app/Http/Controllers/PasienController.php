@@ -32,7 +32,9 @@ class PasienController extends Controller
     public function store(CreatePasienRequest $request)
     {
         return response()->crud(new PasienResource(
-            Pasien::create($request->validated())
+            Pasien::create($request->validated())->load([
+                'jenis_identitas', 'agama', 'suku', 'pendidikan', 'pekerjaan', 'kelurahan'
+            ])
         ));
     }
 

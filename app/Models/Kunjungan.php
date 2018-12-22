@@ -33,6 +33,10 @@ class Kunjungan extends Model
             if (empty($model->waktu_kunjungan)) {
                 $model->waktu_kunjungan = now();
             }
+
+            if ($model->pasien_baru) {
+                $model->tarif_registrasi_id = 1;
+            }
         });
 
         static::created(function ($model) {

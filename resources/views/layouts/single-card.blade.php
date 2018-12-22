@@ -3,7 +3,13 @@
 @section('content')
     @component('components.card')
 
-        @slot('header') @yield('title') @endslot
+        @slot('header')
+            @hasSection('header')
+                @yield('header')
+            @else
+                @yield('title')
+            @endif
+        @endslot
 
         @yield('card')
 
