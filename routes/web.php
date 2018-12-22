@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user',         'UserController@view');
 
     Route::get('/kunjungan',           'KunjunganController@view');
-    Route::get('/rawat-jalan/create',  'RawatJalanController@create');
+    Route::get('/rawat-jalan/create',  'RawatJalanWebController@create');
 
     Route::namespace('Master')->prefix('master')->group(function () {
         Route::get('agama',             'AgamaController@view');

@@ -1,7 +1,7 @@
 <?php
 use App\Enums\KategoriRegistrasi;
 use App\Models\Fasilitas\Poliklinik;
-use App\Models\Master\JenisRegistrasi;
+use App\Models\Tarif\TarifRegistrasi;
 ?>
 
 @extends('kunjungan.form-kunjungan')
@@ -12,12 +12,12 @@ use App\Models\Master\JenisRegistrasi;
 <hr>
 <div class="row">
     <div class="col">
-        <b-form-group v-bind="form_kunjungan.feedback('jenis_registrasi_id')">
+        <b-form-group v-bind="form_kunjungan.feedback('tarif_registrasi_id')">
             <b slot="label">Jenis Registrasi:</b>
-            <b-form-select v-model="form_kunjungan.jenis_registrasi_id"
-                v-on:change="form_kunjungan.errors.clear('jenis_registrasi_id')">
+            <b-form-select v-model="form_kunjungan.tarif_registrasi_id"
+                v-on:change="form_kunjungan.errors.clear('tarif_registrasi_id')">
                 <option :value="null" disabled>Pilih Jenis Registrasi</option>
-                @foreach(JenisRegistrasi::where('kategori', KategoriRegistrasi::RAWAT_JALAN)->get() as $registrasi)
+                @foreach(TarifRegistrasi::where('kategori', KategoriRegistrasi::RAWAT_JALAN)->get() as $registrasi)
                     <option :value="{{ $registrasi->id }}">{{ $registrasi->uraian }}</option>
                 @endforeach
             </b-form-select>
@@ -78,7 +78,7 @@ window.pagemix.push({
                 kasus_id           : null,
                 penyakit_id        : null,
                 keluhan            : null,
-                jenis_registrasi_id: null,
+                tarif_registrasi_id: null,
                 poliklinik_id      : null,
                 kegiatan_id        : null
             },{
