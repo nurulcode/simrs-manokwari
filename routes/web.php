@@ -19,7 +19,7 @@ Auth::routes([
 Route::middleware(['auth'])->group(function () {
     Route::get('/',             'HomeController@index');
     Route::get('/activities',   'ActivityController@view');
-    Route::get('/fasilitas',    'Fasilitas\\FasilitasController@view');
+    Route::get('/fasilitas',    'Fasilitas\\FasilitasViewController');
     Route::get('/kepegawaian',  'Kepegawaian\\KepegawaianController@view');
     Route::get('/pasien',       'PasienController@view');
     Route::get('/permission',   'PermissionController@view');

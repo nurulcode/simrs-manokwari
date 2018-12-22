@@ -10,7 +10,7 @@ class FasilitasControllerTest extends TestCase
     public function page_not_accessible_for_guest()
     {
         $this->withExceptionHandling()
-             ->get(action('Fasilitas\FasilitasController@view'))
+             ->get(action('Fasilitas\FasilitasViewController'))
              ->assertRedirect('/login');
     }
 
@@ -19,7 +19,7 @@ class FasilitasControllerTest extends TestCase
     {
         $this->withExceptionHandling()
              ->signIn()
-             ->get(action('Fasilitas\FasilitasController@view'))
+             ->get(action('Fasilitas\FasilitasViewController'))
              ->assertSee('Fasilitas')
              ->assertStatus(200);
     }

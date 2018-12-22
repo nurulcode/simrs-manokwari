@@ -5,6 +5,10 @@
   title : Beranda
   link  : /
   icon  : icon-speedometer
+
+# ------------------------------------ #
+# ------- R E G I S T R A S I -------- #
+# ------------------------------------ #
 -
   title : Registrasi
   icon  : icon-briefcase
@@ -36,6 +40,10 @@
 -
   title : Farmasi dan Logistik
   icon  : icon-social-dropbox
+
+# ------------------------------------ #
+# ----------- A D M I N -------------- #
+# ------------------------------------ #
 -
   title : Admin Area
   type  : header
@@ -54,6 +62,10 @@
     -
       title: Tarif Registrasi
       link : tarif/registrasi
+-
+  title : Poliklinik/Ruangan
+  icon  : fa fa-hospital-o
+  link  : fasilitas
 -
   title : Master Data
   icon  : icon-grid
@@ -106,10 +118,10 @@
 -
   title : Data Rumah Sakit
   icon  : fa fa-hospital-o
--
-  title : Fasilitas Rumah Sakit
-  icon  : fa fa-hospital-o
-  link  : fasilitas
+
+# ------------------------------------ #
+# ---------- S Y S T E M ------------- #
+# ------------------------------------ #
 -
   title : System
   type  : header
