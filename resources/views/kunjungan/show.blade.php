@@ -8,27 +8,14 @@ use App\Models\Master\CaraPembayaran;
 
 @section('title', 'Registrasi Pasien Rawat Jalan')
 
-@section('header')
-    <h6 class="mr-auto mb-0"> Registrasi Pasien Rawat Jalan </h6>
-    <div>
-        <button class="btn btn-brand btn-spotify" v-on:click.prevent="createPasien">
-            <i class="fa fa-plus"></i> <span>Pasien Baru</span>
-        </button>
-    </div>
-@endsection
-
 @section('card')
-<form-modal ok-title="Simpan" ref="formpasien" v-bind:form="form_pasien" size="lg" title="Pasien Baru">
-    @include('pasien-form')
-</form-modal>
-
-<form id="kunjungan" method="POST" action="@yield('action')"
+<form id="kunjungan" method="POST"
     v-on:submit.prevent="submit"
     v-on:keydown="e => form_kunjungan.errors.clear(e.target.name)">
 
     <pasien-picker
+        disabled
         :data-pasien.sync="form_kunjungan.pasien"
-        :feedback="form_kunjungan.feedback('pasien_id')"
         url="{{ action('PasienController@index') }}"
         v-model="form_kunjungan.pasien_id"
         v-on:change="form_kunjungan.errors.clear('pasien_id')">
@@ -42,9 +29,7 @@ use App\Models\Master\CaraPembayaran;
                 <b slot="label">Nomor Kunjungan:</b>
                 <input
                     class="form-control"
-                    :disabled="form_kunjungan.nomor_kunjungan == null"
                     name="nomor_kunjungan"
-                    placeholder="Nomor Kunjungan Akan Dibuat Secara Otomatis"
                     type="text"
                     v-model="form_kunjungan.nomor_kunjungan"
                     >
@@ -62,16 +47,14 @@ use App\Models\Master\CaraPembayaran;
             </b-form-group>
         </div>
         <div class="col">
-            <b-form-group label="Waktu Kunjungan:" v-bind="form_kunjungan.feedback('waktu_kunjungan')">
-                <date-picker
-                    alt-format="d/m/Y H:i"
-                    :default-date="now()"
-                    :default-hour="now().getHours()"
-                    enable-time
-                    v-model="form_kunjungan.waktu_kunjungan"
-                    v-on:input="form_kunjungan.errors.clear('waktu_kunjungan')"
+            <b-form-group label="Waktu Kunjungan:">
+                <input
+                    class="form-control"
+                    disabled
+                    type="text"
+                    value="{{ $kunjungan->waktu_kunjungan->format('d/m/Y H:i') }}"
                     >
-                </date-picker>
+                </input>
             </b-form-group>
         </div>
     </div>
@@ -238,19 +221,58 @@ use App\Models\Master\CaraPembayaran;
 @push('javascripts')
 <script>
 window.pagemix.push({
-    methods: {
-        createPasien(e) {
-            this.$refs.formpasien.post(`{{ action('PasienController@store') }}`)
-                .then(response => {
-                    if (response.status == 201) {
-                        this.form_kunjungan.pasien_baru = true;
-                        this.form_kunjungan.pasien      = response.data.data;
-                    }
-                })
-                .catch(error => {
-                    console.log(error.response);
-                });
+    computed: {
+        pasien() {
+            return this.form_kunjungan.pasien;
+        },
+        jenis_identitas() {
+            return this.pasien.jenis_identitas ? `(${this.pasien.jenis_identitas.uraian})` : '';
+        },
+        tempat_tanggal_lahir() {
+            if (!this.pasien.tempat_lahir) {
+                return this.tanggal_lahir;
+            }
+
+            return `${this.pasien.tempat_lahir || ''}, ${this.tanggal_lahir}`
+        },
+        tanggal_lahir() {
+            if (!this.pasien.tanggal_lahir) {
+                return '';
+            }
+
+            return `${format(parse(this.pasien.tanggal_lahir), 'DD MMMM YYYY')}`;
         }
+    },
+    data() {
+        return {
+            form_kunjungan: new Form({
+                nomor_kunjungan    : @json($kunjungan->nomor_kunjungan),
+                rujukan            : @json($kunjungan->rujukan),
+                waktu_kunjungan    : @json($kunjungan->waktu_kunjungan),
+                cara_pembayaran_id : null,
+                sjp_nomor          : null,
+                sjp_tanggal        : null,
+                pj_nama            : null,
+                pj_telepon         : null,
+                kasus_id           : null,
+                penyakit_id        : null,
+                keluhan            : null,
+                tarif_registrasi_id: null,
+                poliklinik_id      : null,
+                kegiatan_id        : null
+            },{
+                pasien             : @json($kunjungan->pasien),
+                jenis_rujukan      : null,
+                kasus              : null,
+                penyakit           : null,
+                jenis_registrasi   : null,
+                poliklinik         : null,
+                kegiatan           : null
+            })
+        }
+    },
+    methods: {
+        //
     }
 });
 </script>

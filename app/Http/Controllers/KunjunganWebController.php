@@ -2,23 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Sty\HttpQuery;
 use App\Models\Kunjungan;
 use Illuminate\Http\Request;
-use App\Http\Resources\KunjunganResource;
 
-class KunjunganController extends Controller
+class KunjunganWebController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index()
     {
-        $this->authorize('index', Kunjungan::class);
+        $this->authorize('view', Kunjungan::class);
 
-        return KunjunganResource::collection(Kunjungan::filter($query));
+        return view('kunjungan.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -29,53 +37,53 @@ class KunjunganController extends Controller
      */
     public function store(Request $request)
     {
-        return abort(403);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Kunjungan\Kunjungan  $kunjungan
+     * @param  \App\Models\Kunjungan  $kunjungan
      * @return \Illuminate\Http\Response
      */
     public function show(Kunjungan $kunjungan)
     {
         $this->authorize('show', $kunjungan);
 
-        return new KunjunganResource($kunjungan);
+        return view('kunjungan.show', compact(['kunjungan']));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Kunjungan\Kunjungan  $kunjungan
+     * @param  \App\Models\Kunjungan  $kunjungan
      * @return \Illuminate\Http\Response
      */
     public function edit(Kunjungan $kunjungan)
     {
-        return abort(403);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Kunjungan\Kunjungan  $kunjungan
+     * @param  \App\Models\Kunjungan  $kunjungan
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Kunjungan $kunjungan)
     {
-        return abort(403);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Kunjungan\Kunjungan  $kunjungan
+     * @param  \App\Models\Kunjungan  $kunjungan
      * @return \Illuminate\Http\Response
      */
     public function destroy(Kunjungan $kunjungan)
     {
-        return abort(403);
+        //
     }
 }

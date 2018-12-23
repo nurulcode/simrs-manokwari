@@ -12,6 +12,13 @@ class Kunjungan extends Model
     protected $casts = ['pasien_baru' => 'boolean'];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['waktu_kunjungan'];
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array

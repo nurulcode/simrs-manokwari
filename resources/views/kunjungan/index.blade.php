@@ -4,6 +4,11 @@
 
 @section('card')
     <data-table v-bind.sync="kunjungan" ref="table" no-action no-add-button-text>
+        <template slot="view" slot-scope="{item: kunjungan}">
+            <a :href="`{{ action('KunjunganWebController@index') }}/${kunjungan.id}`"
+                class="btn btn-primary"> <i class="icon-eye"></i> &nbsp;View
+            </a>
+        </template>
         <template slot="pasien" slot-scope="{value}">
             @{{ value.nama }}
             <p class="text-muted">@{{ value.no_rekam_medis }}</p>
@@ -36,6 +41,8 @@ window.pagemix.push({
                     thStyle  : {
                         'width': '400px'
                     }
+                }, {
+                    key      : 'view'
                 }]
             }
         }

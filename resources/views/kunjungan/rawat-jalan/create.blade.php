@@ -92,36 +92,6 @@ window.pagemix.push({
             })
         }
     },
-    computed: {
-        pasien() {
-            return this.form_kunjungan.pasien ? this.form_kunjungan.pasien : {
-                no_rekam_medis : null,
-                nomor_identitas: null,
-                jenis_identitas: null,
-                tempat_lahir   : null,
-                tanggal_lahir  : null,
-                alamat         : null,
-                telepon        : null
-            };
-        },
-        jenis_identitas() {
-            return this.pasien.jenis_identitas ? `(${this.pasien.jenis_identitas.uraian})` : '';
-        },
-        tempat_tanggal_lahir() {
-            if (!this.pasien.tempat_lahir) {
-                return this.tanggal_lahir;
-            }
-
-            return `${this.pasien.tempat_lahir || ''}, ${this.tanggal_lahir}`
-        },
-        tanggal_lahir() {
-            if (!this.pasien.tanggal_lahir) {
-                return '';
-            }
-
-            return `${format(parse(this.pasien.tanggal_lahir), 'DD MMMM YYYY')}`;
-        }
-    },
     methods: {
         now() {
             return new Date;

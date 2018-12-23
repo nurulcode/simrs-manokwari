@@ -36,4 +36,21 @@ class KunjunganRequest extends FormRequest
             'sjp_tanggal'         => 'nullable',
         ];
     }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'pasien_id'           => 'pasien',
+            'tarif_registrasi_id' => 'jenis registrasi',
+            'kasus_id'            => 'kasus',
+            'penyakit_id'         => 'penyakit',
+            'rujukan.jenis_id'    => 'jenis rujukan',
+            'cara_pembayaran_id'  => 'cara pembayaran',
+        ];
+    }
 }

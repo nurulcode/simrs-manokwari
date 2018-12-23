@@ -9,6 +9,11 @@ use App\Models\Fasilitas\Poliklinik;
 
 $factory->define(App\Models\Kunjungan::class, function (Faker $faker) {
     return [
+        'tarif_registrasi_id' => function () {
+            return factory(Tarif\TarifRegistrasi::class)->create([
+                'kategori' => KategoriRegistrasi::RAWAT_JALAN
+            ])->id;
+        },
         'pasien_id' => function () {
             return factory(Pasien::class)->create()->id;
         },

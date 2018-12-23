@@ -1616,6 +1616,199 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"@babel/preset-env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"]},\"forceAllTransforms\":true}]],\"plugins\":[\"@babel/plugin-proposal-object-rest-spread\",[\"@babel/plugin-transform-runtime\",{\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/PasienPicker.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    no_rekam_medis: function no_rekam_medis() {
+      return this.pasien && this.pasien.no_rekam_medis;
+    },
+    nama: function nama() {
+      return this.pasien && this.pasien.nama;
+    },
+    nomor_identitas: function nomor_identitas() {
+      return this.pasien && this.pasien.nomor_identitas;
+    },
+    jenis_identitas: function jenis_identitas() {
+      if (!this.pasien) {
+        return;
+      }
+
+      return this.pasien.jenis_identitas ? "(".concat(this.pasien.jenis_identitas.uraian, ")") : '';
+    },
+    tempat_tanggal_lahir: function tempat_tanggal_lahir() {
+      if (!this.pasien) {
+        return;
+      }
+
+      if (!this.pasien.tempat_lahir) {
+        return this.tanggal_lahir;
+      }
+
+      return "".concat(this.pasien.tempat_lahir || '', ", ").concat(this.tanggal_lahir);
+    },
+    tanggal_lahir: function tanggal_lahir() {
+      if (!this.pasien) {
+        return;
+      }
+
+      if (!this.pasien.tanggal_lahir) {
+        return;
+      }
+
+      return "".concat(format(parse(this.pasien.tanggal_lahir), 'DD MMMM YYYY'));
+    },
+    alamat: function alamat() {
+      return this.pasien && this.pasien.alamat;
+    },
+    telepon: function telepon() {
+      return this.pasien && this.pasien.telepon;
+    }
+  },
+  data: function data() {
+    return {
+      pasien: {
+        no_rekam_medis: null,
+        nomor_identitas: null,
+        jenis_identitas: null,
+        tempat_lahir: null,
+        tanggal_lahir: null,
+        alamat: null,
+        telepon: null
+      }
+    };
+  },
+  methods: {
+    select: function select(pasien) {
+      this.$emit('update:dataPasien', pasien);
+      this.$emit('change', pasien);
+      this.$emit('input', pasien && pasien.id);
+    }
+  },
+  mounted: function mounted() {
+    this.pasien = this.dataPasien;
+  },
+  props: {
+    dataPasien: Object,
+    disabled: Boolean,
+    feedback: Object,
+    url: String,
+    value: [String, Number]
+  },
+  watch: {
+    dataPasien: function dataPasien(value) {
+      this.pasien = value;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"@babel/preset-env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"]},\"forceAllTransforms\":true}]],\"plugins\":[\"@babel/plugin-proposal-object-rest-spread\",[\"@babel/plugin-transform-runtime\",{\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/SidebarNavItem.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2328,16 +2521,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     var options = this.options;
     var value = __WEBPACK_IMPORTED_MODULE_0_flatpickr___default.a.parseDate(this.value, this.dateFormat);
-    var minute = 0;
-
-    if (value) {
-      hours = __WEBPACK_IMPORTED_MODULE_0_flatpickr___default.a.formatDate(value, 'H');
-      minute = __WEBPACK_IMPORTED_MODULE_0_flatpickr___default.a.formatDate(value, 'i');
-    }
-
     this.fp = __WEBPACK_IMPORTED_MODULE_0_flatpickr___default()(this.$refs.input, _objectSpread({}, this.$props, {
       defaultDate: this.defaultDate || value,
-      defaultMinute: minute,
       time_24hr: true,
       static: true,
       onChange: function onChange(selectedDates, dateStr, instance) {
@@ -24263,6 +24448,221 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-d2d3feee\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/PasienPicker.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col" },
+        [
+          _c(
+            "b-form-group",
+            _vm._b({}, "b-form-group", _vm.feedback, false),
+            [
+              _c("b", { attrs: { slot: "label" }, slot: "label" }, [
+                _vm._v("Pasien:")
+              ]),
+              _vm._v(" "),
+              _vm.disabled
+                ? _c("input", {
+                    staticClass: "form-control text-right",
+                    attrs: {
+                      disabled: "",
+                      placeholder: "Pasien",
+                      readonly: "",
+                      type: "text"
+                    },
+                    domProps: { value: _vm.nama }
+                  })
+                : _c("ajax-select", {
+                    attrs: {
+                      url: _vm.url,
+                      "deselect-label": "",
+                      label: "nama",
+                      placeholder: "Pilih Pasien",
+                      "select-label": ""
+                    },
+                    on: { select: _vm.select },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "option",
+                        fn: function(ref) {
+                          var option = ref.option
+                          return [
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(option.no_rekam_medis) +
+                                  " - " +
+                                  _vm._s(option.nama)
+                              )
+                            ])
+                          ]
+                        }
+                      },
+                      {
+                        key: "singleLabel",
+                        fn: function(ref) {
+                          var option = ref.option
+                          return [
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(option.no_rekam_medis) +
+                                  " - " +
+                                  _vm._s(option.nama)
+                              )
+                            ])
+                          ]
+                        }
+                      }
+                    ]),
+                    model: {
+                      value: _vm.pasien,
+                      callback: function($$v) {
+                        _vm.pasien = $$v
+                      },
+                      expression: "pasien"
+                    }
+                  })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col" },
+        [
+          _c("b-form-group", { attrs: { label: "Nomor Rekam Medis:" } }, [
+            _c("input", {
+              staticClass: "form-control text-right",
+              attrs: {
+                disabled: "",
+                placeholder: "Nomor Rekam Medis",
+                readonly: "",
+                type: "text"
+              },
+              domProps: { value: _vm.no_rekam_medis }
+            })
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col" },
+        [
+          _c(
+            "b-form-group",
+            {
+              attrs: { label: "Nomor Identitas " + _vm.jenis_identitas + ":" }
+            },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.nomor_identitas,
+                    expression: "nomor_identitas"
+                  }
+                ],
+                staticClass: "form-control text-right",
+                attrs: {
+                  disabled: "",
+                  placeholder: "Nomor Identitas",
+                  readonly: "",
+                  type: "text"
+                },
+                domProps: { value: _vm.nomor_identitas },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.nomor_identitas = $event.target.value
+                  }
+                }
+              })
+            ]
+          )
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col" },
+        [
+          _c("b-form-group", { attrs: { label: "Tempat, Tanggal Lahir:" } }, [
+            _c("input", {
+              staticClass: "text-right form-control",
+              attrs: {
+                disabled: "",
+                placeholder: "Tempat, Tanggal Lahir",
+                readonly: ""
+              },
+              domProps: { value: _vm.tempat_tanggal_lahir }
+            })
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col" },
+        [
+          _c("b-form-group", { attrs: { label: "Alamat:" } }, [
+            _c("input", {
+              staticClass: "text-right form-control",
+              attrs: { disabled: "", placeholder: "Alamat", readonly: "" },
+              domProps: { value: _vm.alamat }
+            })
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col" },
+        [
+          _c("b-form-group", { attrs: { label: "Telepon/HP:" } }, [
+            _c("input", {
+              staticClass: "text-right form-control",
+              attrs: { disabled: "", placeholder: "Telepon/HP", readonly: "" },
+              domProps: { value: _vm.telepon }
+            })
+          ])
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-d2d3feee", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24592,6 +24992,7 @@ module.exports = function listToStyles (parentId, list) {
 
 var map = {
 	"./components/ClosableCard.vue": "./resources/js/components/ClosableCard.vue",
+	"./components/PasienPicker.vue": "./resources/js/components/PasienPicker.vue",
 	"./components/SidebarNavItem.vue": "./resources/js/components/SidebarNavItem.vue",
 	"./shared/components/AjaxSelect.vue": "./resources/js/shared/components/AjaxSelect.vue",
 	"./shared/components/BsAlert.vue": "./resources/js/shared/components/BsAlert.vue",
@@ -24784,6 +25185,54 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-1dffdf02", Component.options)
   } else {
     hotAPI.reload("data-v-1dffdf02", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PasienPicker.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"@babel/preset-env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"]},\"forceAllTransforms\":true}]],\"plugins\":[\"@babel/plugin-proposal-object-rest-spread\",[\"@babel/plugin-transform-runtime\",{\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/PasienPicker.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-d2d3feee\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/PasienPicker.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/PasienPicker.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d2d3feee", Component.options)
+  } else {
+    hotAPI.reload("data-v-d2d3feee", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

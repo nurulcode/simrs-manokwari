@@ -3,18 +3,28 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Kunjungan;
 
 class KunjunganWebControllerTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    /** @test */
+    public function page_not_accessible_for_guest()
     {
-        $this->assertTrue(true);
+        $kunjungan = factory(Kunjungan::class)->create();
+
+        $this->withExceptionHandling()
+             ->get(action('KunjunganWebController@show', $kunjungan))
+             ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function user_can_access_resource_page()
+    {
+        $kunjungan = factory(Kunjungan::class)->create();
+
+        $this->disableExceptionHandling()
+             ->signIn()
+             ->get(action('KunjunganWebController@show', $kunjungan))
+             ->assertStatus(200);
     }
 }
