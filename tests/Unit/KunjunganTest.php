@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\Pasien;
 use App\Models\Kunjungan;
+use App\Models\Master\Penyakit\Penyakit;
 
 class KunjunganTest extends TestCase
 {
@@ -14,6 +15,14 @@ class KunjunganTest extends TestCase
         $kunjungan = factory(Kunjungan::class)->create();
 
         $this->assertInstanceof(Pasien::class, $kunjungan->pasien);
+    }
+
+    /** @test */
+    public function resource_belongs_to_penyakit()
+    {
+        $kunjungan = factory(Kunjungan::class)->create();
+
+        $this->assertInstanceof(Penyakit::class, $kunjungan->penyakit);
     }
 
     /** @test */

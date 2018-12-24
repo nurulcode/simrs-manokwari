@@ -23,8 +23,8 @@ class RawatJalanControllerTest extends TestCase
 
         $this->signIn()
             ->postJson($resource->path('store'), array_merge(
-                $resource->toArray(),
-                $kunjungan->toArray()
+                $kunjungan->toArray(),
+                $resource->toArray()
             ))
             ->assertJson(['status' => 'success'])
             ->assertHeader('Location')
@@ -41,7 +41,6 @@ class RawatJalanControllerTest extends TestCase
         );
 
         $this->assertDatabaseHas('pelayanans', [
-            'kunjungan_id' => '1',
             'layanan_id'   => '1',
             'layanan_type' => get_class($resource)
         ]);
@@ -51,7 +50,7 @@ class RawatJalanControllerTest extends TestCase
     public function user_can_not_post_invalid_data()
     {
         $kunjungan = factory(Kunjungan::class)->make([
-            'tarif_registrasi_id' => str_random(9),
+            'jenis_registrasi_id' => str_random(9),
             'pasien_id'           => str_random(9),
             'kasus_id'            => str_random(9),
             'penyakit_id'         => str_random(9),
@@ -70,7 +69,7 @@ class RawatJalanControllerTest extends TestCase
             ))
             ->assertJson(['errors' => []])
             ->assertJsonValidationErrors([
-                'tarif_registrasi_id',
+                'jenis_registrasi_id',
                 'pasien_id',
                 'kasus_id',
                 'penyakit_id',

@@ -114,7 +114,7 @@ export default {
         },
         jenis_identitas() {
             if (!this.pasien) {
-                return;
+                return '';
             }
 
             return this.pasien.jenis_identitas ? `(${this.pasien.jenis_identitas.uraian})` : '';

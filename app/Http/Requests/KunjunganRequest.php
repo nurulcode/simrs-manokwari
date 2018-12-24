@@ -14,7 +14,7 @@ class KunjunganRequest extends FormRequest
     public function rules()
     {
         return [
-            'tarif_registrasi_id' => 'required|exists:tarif_registrasis,id',
+            'jenis_registrasi_id' => 'required|exists:jenis_registrasis,id',
             'pasien_id'           => 'required|exists:pasiens,id',
             'keluhan'             => 'required',
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Tarif;
+namespace App\Http\Requests\Master;
 
 use App\Enums\KategoriRegistrasi;
 use BenSampo\Enum\Rules\EnumValue;
-use App\Models\Tarif\TarifRegistrasi;
+use App\Models\Master\JenisRegistrasi;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TarifRegistrasiRequest extends FormRequest
+class JenisRegistrasiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,7 +20,7 @@ class TarifRegistrasiRequest extends FormRequest
             return $this->user()->can('update', $this->route('registrasi'));
         }
 
-        return $this->user()->can('create', TarifRegistrasi::class);
+        return $this->user()->can('create', JenisRegistrasi::class);
     }
 
     /**
@@ -32,10 +32,7 @@ class TarifRegistrasiRequest extends FormRequest
     {
         return [
             'kategori'        => ['required', new EnumValue(KategoriRegistrasi::class)],
-            'uraian'          => ['required', 'max:128'],
-            'tarif_sarana'    => ['required', 'integer'],
-            'tarif_pelayanan' => ['required', 'integer'],
-            'tarif_bhp'       => ['required', 'integer']
+            'uraian'          => ['required', 'max:128']
         ];
     }
 }

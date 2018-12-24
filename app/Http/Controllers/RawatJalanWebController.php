@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\RawatJalan;
 use Illuminate\Http\Request;
+use App\Enums\KategoriRegistrasi;
+use App\Models\Master\JenisRegistrasi;
 
 class RawatJalanWebController extends Controller
 {
@@ -24,7 +26,9 @@ class RawatJalanWebController extends Controller
      */
     public function create()
     {
-        return view('kunjungan.rawat-jalan.create');
+        $jenis_registrasis = JenisRegistrasi::where('kategori', KategoriRegistrasi::RAWAT_JALAN)->get();
+
+        return view('kunjungan.rawat-jalan.create', compact(['jenis_registrasis']));
     }
 
     /**

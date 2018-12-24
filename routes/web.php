@@ -46,8 +46,4 @@ Route::middleware(['auth'])->group(function () {
         Route::get('tindakan',          'TindakanPemeriksaanController@view');
         Route::get('wilayah',           'Wilayah\\WilayahController@view');
     });
-
-    Route::namespace('Tarif')->prefix('tarif')->group(function () {
-        Route::get('registrasi',  'TarifRegistrasiController@view');
-    });
 });

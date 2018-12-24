@@ -18,6 +18,7 @@ class MasterDataSeeder extends Seeder
             Master\JenisIdentitas::class       => ['master/jenis_identitas.csv', 10],
             Master\JenisPoliklinik::class      => ['master/jenis_poliklinik.csv', 12],
             Master\JenisRujukan::class         => ['master/jenis_rujukan.csv', 7],
+            Master\JenisRegistrasi::class      => ['master/jenis_registrasi.csv', 7],
             Master\Kasus::class                => ['master/kasus.csv', 9],
             Master\KategoriKegiatan::class     => ['master/kegiatan/kategori.csv', 13],
             Master\Kegiatan::class             => ['master/kegiatan/kegiatan.csv', 373],

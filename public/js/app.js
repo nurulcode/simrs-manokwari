@@ -1736,7 +1736,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     jenis_identitas: function jenis_identitas() {
       if (!this.pasien) {
-        return;
+        return '';
       }
 
       return this.pasien.jenis_identitas ? "(".concat(this.pasien.jenis_identitas.uraian, ")") : '';

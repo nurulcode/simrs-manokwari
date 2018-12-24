@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTarifRegistrasisTable extends Migration
+class CreateMasterJenisRegistrasisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateTarifRegistrasisTable extends Migration
      */
     public function up()
     {
-        Schema::create('tarif_registrasis', function (Blueprint $table) {
+        Schema::create('jenis_registrasis', function (Blueprint $table) {
             $table->increments('id');
             $table->string('uraian');
             $table->unsignedTinyInteger('kategori');
-            $table->integer('tarif_sarana')->default(0);
-            $table->integer('tarif_pelayanan')->default(0);
-            $table->integer('tarif_bhp')->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateTarifRegistrasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tarif_registrasis');
+        Schema::dropIfExists('jenis_registrasis');
     }
 }

@@ -158,6 +158,7 @@ use App\Models\Master\CaraPembayaran;
             <b-form-group label="Penanggung Jawab:" v-bind="form_kunjungan.feedback('pj_nama')">
                 <input
                     class="form-control"
+                    maxlength="32"
                     name="pj_nama"
                     placeholder="Penanggung Jawab"
                     type="text"

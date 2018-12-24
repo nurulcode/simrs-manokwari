@@ -10,11 +10,11 @@ class RegistrasiRawatJalan
     public static function create(array $data)
     {
         $perawatan = RawatJalan::create(array_only($data, [
-            'kegiatan_id', 'poliklinik_id', 'tarif_registrasi_id'
+            'kegiatan_id', 'poliklinik_id', 'jenis_registrasi_id'
         ]));
 
         $kunjungan = Kunjungan::create(array_except($data, [
-            'kegiatan_id', 'poliklinik_id', 'tarif_registrasi_id'
+            'kegiatan_id', 'poliklinik_id', 'jenis_registrasi_id'
         ]));
 
         $kunjungan->pelayanans()->create([

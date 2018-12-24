@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Master\Penyakit\Penyakit;
+
 class Kunjungan extends Model
 {
     /**
@@ -40,10 +42,6 @@ class Kunjungan extends Model
             if (empty($model->waktu_kunjungan)) {
                 $model->waktu_kunjungan = now();
             }
-
-            if ($model->pasien_baru) {
-                $model->tarif_registrasi_id = 1;
-            }
         });
 
         static::created(function ($model) {
@@ -81,5 +79,10 @@ class Kunjungan extends Model
     public function pasien()
     {
         return $this->belongsTo(Pasien::class);
+    }
+
+    public function penyakit()
+    {
+        return $this->belongsTo(Penyakit::class);
     }
 }

@@ -273,6 +273,9 @@ window.pagemix.push({
     },
     methods: {
         //
+    },
+    mounted() {
+        this.form_kunjungan.assign(@json($kunjungan))
     }
 });
 </script>
