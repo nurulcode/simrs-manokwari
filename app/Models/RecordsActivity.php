@@ -32,6 +32,11 @@ trait RecordsActivity
         ]);
     }
 
+    public function changes()
+    {
+        return $this->morphMany(Activity::class, 'subject');
+    }
+
     public function getEventType($event)
     {
         $subject = snake_case(str_replace(
@@ -71,10 +76,5 @@ trait RecordsActivity
         }
 
         return;
-    }
-
-    public function changes()
-    {
-        return $this->morphMany(Activity::class, 'subject');
     }
 }

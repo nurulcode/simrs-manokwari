@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Pelayanan;
+namespace Tests\Feature\Perawatan;
 
 use Tests\TestCase;
 
@@ -10,11 +10,11 @@ class RawatJalanWebControllerTest extends TestCase
     public function create_page_not_accessible_for_guest()
     {
         $this->withExceptionHandling()
-             ->get(action('Pelayanan\RawatJalanWebController@create'))
+             ->get(action('Perawatan\RawatJalanWebController@create'))
              ->assertRedirect('/login');
 
         $this->withExceptionHandling()
-             ->get(action('Pelayanan\RawatJalanWebController@index'))
+             ->get(action('Perawatan\RawatJalanWebController@index'))
              ->assertRedirect('/login');
     }
 
@@ -23,12 +23,12 @@ class RawatJalanWebControllerTest extends TestCase
     {
         $this->disableExceptionHandling()
              ->signIn()
-             ->get(action('Pelayanan\RawatJalanWebController@create'))
+             ->get(action('Perawatan\RawatJalanWebController@create'))
              ->assertStatus(200);
 
         $this->disableExceptionHandling()
              ->signIn()
-             ->get(action('Pelayanan\RawatJalanWebController@index'))
+             ->get(action('Perawatan\RawatJalanWebController@index'))
              ->assertStatus(200);
     }
 }

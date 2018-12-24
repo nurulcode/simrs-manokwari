@@ -1,6 +1,6 @@
 <?php
 
-Route::namespace('Pelayanan')->group(function () {
+Route::namespace('Perawatan')->group(function () {
     Route::apiResources([
         'rawat-jalan' => 'RawatJalanController',
     ]);

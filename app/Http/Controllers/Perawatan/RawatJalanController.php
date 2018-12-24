@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Pelayanan;
+namespace App\Http\Controllers\Perawatan;
 
 use Sty\HttpQuery;
 use Illuminate\Http\Request;
 use App\RegistrasiRawatJalan;
 use App\Http\Controllers\Controller;
-use App\Models\Pelayanan\RawatJalan;
-use App\Http\Resources\Pelayanan\RawatJalanResource;
-use App\Http\Requests\Pelayanan\CreateRawatJalanRequest;
+use App\Models\Perawatan\RawatJalan;
+use App\Http\Resources\Perawatan\RawatJalanResource;
+use App\Http\Requests\Perawatan\CreateRawatJalanRequest;
 
 class RawatJalanController extends Controller
 {
@@ -22,7 +22,7 @@ class RawatJalanController extends Controller
         $this->authorize('index', RawatJalan::class);
 
         return RawatJalanResource::collection(
-            RawatJalan::with(['pelayanan', 'pelayanan.kunjungan'])->filter($query)
+            RawatJalan::with(['kunjungan'])->filter($query)
         );
     }
 

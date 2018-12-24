@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Models\Pelayanan;
+namespace App\Models\Perawatan;
 
 use App\Models\Model;
+use App\Models\Kunjungan;
 use App\Models\Fasilitas\Poliklinik;
 
 class RawatJalan extends Model
@@ -30,13 +31,8 @@ class RawatJalan extends Model
         return $this->belongsTo(Poliklinik::class);
     }
 
-    public function pelayanan()
-    {
-        return $this->morphOne(Pelayanan::class, 'layanan')->withDefault();
-    }
-
     public function kunjungan()
     {
-        return $this->pelayanan->kunjungan();
+        return $this->belongsTo(Kunjungan::class);
     }
 }

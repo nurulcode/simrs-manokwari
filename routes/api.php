@@ -32,7 +32,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::prefix('kepegawaian')->group(base_path('routes/kepegawaian.php'));
 
-    Route::prefix('pelayanan')->group(base_path('routes/pelayanan.php'));
+    Route::prefix('perawatan')->group(base_path('routes/perawatan.php'));
 });
 
 //TODO: Hapus saat production

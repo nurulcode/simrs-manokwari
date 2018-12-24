@@ -19,7 +19,7 @@
   childs:
     -
       title: Reg. Rawat Jalan
-      link : pelayanan/rawat-jalan/create
+      link : perawatan/rawat-jalan/create
     -
       title: Reg. Rawat Inap
     -
@@ -30,7 +30,7 @@
   childs:
     -
       title: Rawat Jalan
-      link : pelayanan/rawat-jalan
+      link : perawatan/rawat-jalan
     -
       title: Reg. Rawat Inap
     -

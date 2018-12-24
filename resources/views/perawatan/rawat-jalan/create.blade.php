@@ -6,7 +6,7 @@ use App\Models\Master\JenisRegistrasi;
 
 @extends('kunjungan.create')
 
-@section('action', action('Pelayanan\RawatJalanController@store'))
+@section('action', action('Perawatan\RawatJalanController@store'))
 
 @section('form')
 <hr>

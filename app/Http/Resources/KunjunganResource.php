@@ -18,6 +18,7 @@ class KunjunganResource extends JsonResource
     {
         return [
             'id'                  => $this->id,
+            'cara_pembayaran_id'  => $this->cara_pembayaran_id,
             'jenis_registrasi_id' => $this->jenis_registrasi_id,
             'kasus'               => KasusResource::make($this->whenLoaded('kasus')),
             'kasus_id'            => $this->kasus_id,
@@ -35,8 +36,6 @@ class KunjunganResource extends JsonResource
             'path'                => $this->path,
             'rujukan'             => $this->rujukan,
             'waktu_kunjungan'     => (string) $this->waktu_kunjungan,
-            '__editable'          => $request->user()->can('update', $this->resource),
-            '__deletable'         => $request->user()->can('delete', $this->resource),
         ];
     }
 }

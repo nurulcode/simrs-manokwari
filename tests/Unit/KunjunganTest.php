@@ -5,6 +5,8 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\Pasien;
 use App\Models\Kunjungan;
+use Illuminate\Support\Collection;
+use App\Models\Perawatan\RawatJalan;
 use App\Models\Master\Penyakit\Penyakit;
 
 class KunjunganTest extends TestCase
@@ -26,9 +28,22 @@ class KunjunganTest extends TestCase
     }
 
     /** @test */
+    public function resource_may_has_many_rawat_jalan()
+    {
+        $kunjungan     = factory(Kunjungan::class)->create();
+
+        $rawat_jalans = factory(RawatJalan::class, 5)->create([
+            'kunjungan_id' => $kunjungan->id
+        ]);
+
+        $this->assertInstanceOf(Collection::class, $kunjungan->rawat_jalans);
+        $this->assertInstanceOf(RawatJalan::class, $kunjungan->rawat_jalans->random());
+    }
+
+    /** @test */
     public function model_can_auto_generate_nomor_kunjungan()
     {
-        $kunjungan = factory(Kunjungan::class)->create(['nomor_kunjungan' => null]);
+        $kunjungan = factory(Kunjungan::class)->create();
 
         $this->assertEquals(str_pad($kunjungan->id, 8, 0, STR_PAD_LEFT), $kunjungan->nomor_kunjungan);
     }

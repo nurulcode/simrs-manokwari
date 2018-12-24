@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Resources\Pelayanan;
+namespace App\Http\Resources\Perawatan;
 
 use App\Http\Resources\KunjunganResource;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Resources\PotentiallyMissing;
 use App\Http\Resources\Fasilitas\PoliklinikResource;
 
 class RawatJalanResource extends JsonResource
@@ -21,16 +20,8 @@ class RawatJalanResource extends JsonResource
             'id'            => $this->id,
             'poliklinik_id' => $this->poliklinik_id,
             'poliklinik'    => PoliklinikResource::make($this->whenLoaded('poliklinik')),
-            'pelayanan'     => $this->whenLoaded('pelayanan'),
-            'kunjungan'     => KunjunganResource::make($this->getKunjungan()),
+            'kunjungan'     => KunjunganResource::make($this->whenLoaded('kunjungan')),
             'path'          => $this->path
         ];
-    }
-
-    public function getKunjungan()
-    {
-        if (!$this->whenLoaded('pelayanan') instanceof PotentiallyMissing) {
-            return $this->pelayanan->kunjungan;
-        }
     }
 }

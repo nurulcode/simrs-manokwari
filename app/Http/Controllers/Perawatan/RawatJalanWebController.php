@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Pelayanan;
+namespace App\Http\Controllers\Perawatan;
 
 use Illuminate\Http\Request;
 use App\Enums\KategoriRegistrasi;
 use App\Http\Controllers\Controller;
-use App\Models\Pelayanan\RawatJalan;
+use App\Models\Perawatan\RawatJalan;
 use App\Models\Master\JenisRegistrasi;
 
 class RawatJalanWebController extends Controller
@@ -17,7 +17,7 @@ class RawatJalanWebController extends Controller
      */
     public function index()
     {
-        return view('pelayanan.rawat-jalan.index');
+        return view('perawatan.rawat-jalan.index');
     }
 
     /**
@@ -29,7 +29,7 @@ class RawatJalanWebController extends Controller
     {
         $jenis_registrasis = JenisRegistrasi::where('kategori', KategoriRegistrasi::RAWAT_JALAN)->get();
 
-        return view('pelayanan.rawat-jalan.create', compact(['jenis_registrasis']));
+        return view('perawatan.rawat-jalan.create', compact(['jenis_registrasis']));
     }
 
     /**
@@ -46,10 +46,10 @@ class RawatJalanWebController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\RawatJalan  $rawatJalan
+     * @param  \App\Models\Perawatan\RawatJalan  $rawat_jalan
      * @return \Illuminate\Http\Response
      */
-    public function show(RawatJalan $rawatJalan)
+    public function show(RawatJalan $rawat_jalan)
     {
         //
     }
@@ -57,10 +57,10 @@ class RawatJalanWebController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\RawatJalan  $rawatJalan
+     * @param  \App\Models\Perawatan\RawatJalan  $rawat_jalan
      * @return \Illuminate\Http\Response
      */
-    public function edit(RawatJalan $rawatJalan)
+    public function edit(RawatJalan $rawat_jalan)
     {
         //
     }
@@ -69,10 +69,10 @@ class RawatJalanWebController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\RawatJalan  $rawatJalan
+     * @param  \App\Models\Perawatan\RawatJalan  $rawat_jalan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RawatJalan $rawatJalan)
+    public function update(Request $request, RawatJalan $rawat_jalan)
     {
         //
     }
@@ -80,10 +80,10 @@ class RawatJalanWebController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\RawatJalan  $rawatJalan
+     * @param  \App\Models\Perawatan\RawatJalan  $rawat_jalan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RawatJalan $rawatJalan)
+    public function destroy(RawatJalan $rawat_jalan)
     {
         //
     }

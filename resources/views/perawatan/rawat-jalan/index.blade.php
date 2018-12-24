@@ -28,7 +28,7 @@ window.pagemix.push({
     data() {
         return {
             pelayanan: {
-                url    : `{{ action('Pelayanan\RawatJalanController@index') }}`,
+                url    : `{{ action('Perawatan\RawatJalanController@index') }}`,
                 options:{
                     sortBy  : 'id',
                     sortDesc: true

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Pelayanan\Pelayanan;
+use App\Models\Perawatan\RawatJalan;
 use App\Models\Master\Penyakit\Penyakit;
 
 class Kunjungan extends Model
@@ -72,9 +72,9 @@ class Kunjungan extends Model
         $this->attributes['rujukan_tanggal']  = $value['tanggal'];
     }
 
-    public function pelayanans()
+    public function rawat_jalans()
     {
-        return $this->hasMany(Pelayanan::class);
+        return $this->hasMany(RawatJalan::class);
     }
 
     public function pasien()

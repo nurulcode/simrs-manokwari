@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Pelayanan;
+namespace App\Http\Requests\Perawatan;
 
-use App\Models\RawatJalan;
+use App\Models\Perawatan\RawatJalan;
 use App\Http\Requests\KunjunganRequest;
 
 class CreateRawatJalanRequest extends KunjunganRequest

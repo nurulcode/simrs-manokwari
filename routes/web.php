@@ -30,7 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/kunjungan',               'KunjunganWebController@index');
     Route::get('/kunjungan/{kunjungan}',   'KunjunganWebController@show');
 
-    Route::namespace('Pelayanan')->prefix('pelayanan')->group(function () {
+    Route::namespace('Perawatan')->prefix('perawatan')->group(function () {
         Route::get('/rawat-jalan',         'RawatJalanWebController@index');
         Route::get('/rawat-jalan/create',  'RawatJalanWebController@create');
     });
