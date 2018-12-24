@@ -9,7 +9,10 @@ use App\Models\Master\CaraPembayaran;
 @section('title', 'Registrasi Pasien Rawat Jalan')
 
 @section('card')
-<form id="kunjungan" method="POST"
+<form
+    action="{{ $kunjungan->path }}"
+    id="form_kunjungan"
+    method="POST"
     v-on:submit.prevent="submit"
     v-on:keydown="e => form_kunjungan.errors.clear(e.target.name)">
 
@@ -28,8 +31,10 @@ use App\Models\Master\CaraPembayaran;
             <b-form-group v-bind="form_kunjungan.feedback('nomor_kunjungan')">
                 <b slot="label">Nomor Kunjungan:</b>
                 <input
+                    disabled
                     class="form-control"
                     name="nomor_kunjungan"
+                    readonly
                     type="text"
                     v-model="form_kunjungan.nomor_kunjungan"
                     >
@@ -208,14 +213,12 @@ use App\Models\Master\CaraPembayaran;
             </b-form-group>
         </div>
     </div>
-
-    @yield('form')
 </form>
 <loading-overlay v-show="form_kunjungan.is_loading"></loading-overlay>
 @endsection
 
 @section('footer')
-    <button form="kunjungan" type="submit" class="btn btn-primary"> Simpan </button>
+    <button form="form_kunjungan" type="submit" class="btn btn-primary"> Simpan </button>
 @endsection
 
 @push('javascripts')
@@ -246,20 +249,22 @@ window.pagemix.push({
     data() {
         return {
             form_kunjungan: new Form({
+                _method            : 'PUT',
                 nomor_kunjungan    : @json($kunjungan->nomor_kunjungan),
                 rujukan            : @json($kunjungan->rujukan),
                 waktu_kunjungan    : @json($kunjungan->waktu_kunjungan),
-                cara_pembayaran_id : null,
+                cara_pembayaran_id : @json($kunjungan->cara_pembayaran_id),
                 sjp_nomor          : null,
                 sjp_tanggal        : null,
                 pj_nama            : null,
                 pj_telepon         : null,
                 kasus_id           : null,
+                pasien_id          : null,
                 penyakit_id        : null,
                 keluhan            : null,
                 tarif_registrasi_id: null,
                 poliklinik_id      : null,
-                kegiatan_id        : null
+                kegiatan_id        : null,
             },{
                 pasien             : @json($kunjungan->pasien),
                 jenis_rujukan      : null,
@@ -272,7 +277,20 @@ window.pagemix.push({
         }
     },
     methods: {
-        //
+        submit(e) {
+            this[e.target.id].post(e.target.action)
+                .then(response => {
+                    if (response.data.message && response.data.status) {
+                        window.flash(response.data.message, response.data.status);
+                    }
+
+                    this.form_kunjungan.assign(response.data.data);
+                })
+                .catch(error => {
+                    //
+                });
+
+        }
     },
     mounted() {
         this.form_kunjungan.assign(@json($kunjungan))

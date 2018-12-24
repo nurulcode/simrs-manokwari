@@ -24,8 +24,10 @@ class CreateRawatJalanRequest extends KunjunganRequest
     public function rules()
     {
         return array_merge(parent::rules(), [
-            'kegiatan_id'   => 'required|exists:kegiatans,id',
-            'poliklinik_id' => 'required|exists:polikliniks,id',
+            'waktu_kunjungan'     => 'nullable',
+            'jenis_registrasi_id' => 'required|exists:jenis_registrasis,id',
+            'kegiatan_id'         => 'required|exists:kegiatans,id',
+            'poliklinik_id'       => 'required|exists:polikliniks,id',
         ]);
     }
 }

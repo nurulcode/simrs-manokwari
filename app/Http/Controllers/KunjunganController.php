@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Sty\HttpQuery;
 use App\Models\Kunjungan;
 use Illuminate\Http\Request;
+use App\Http\Requests\KunjunganRequest;
 use App\Http\Resources\KunjunganResource;
 
 class KunjunganController extends Controller
@@ -46,26 +47,17 @@ class KunjunganController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Kunjungan\Kunjungan  $kunjungan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Kunjungan $kunjungan)
-    {
-        return abort(403);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Kunjungan\Kunjungan  $kunjungan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kunjungan $kunjungan)
+    public function update(KunjunganRequest $request, Kunjungan $kunjungan)
     {
-        return abort(403);
+        $kunjungan->update($request->validated());
+
+        return response()->crud(new KunjunganResource($kunjungan->fresh()));
     }
 
     /**

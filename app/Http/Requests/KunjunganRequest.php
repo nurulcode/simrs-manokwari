@@ -7,6 +7,16 @@ use Illuminate\Foundation\Http\FormRequest;
 class KunjunganRequest extends FormRequest
 {
     /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return $this->user()->can('update', $this->route('kunjungan'));
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -14,12 +24,10 @@ class KunjunganRequest extends FormRequest
     public function rules()
     {
         return [
-            'jenis_registrasi_id' => 'required|exists:jenis_registrasis,id',
             'pasien_id'           => 'required|exists:pasiens,id',
             'keluhan'             => 'required',
 
             'pasien_baru'         => 'nullable|boolean',
-            'waktu_kunjungan'     => 'nullable',
             'kasus_id'            => 'nullable|exists:kasuses,id',
             'penyakit_id'         => 'nullable|exists:penyakits,id',
 

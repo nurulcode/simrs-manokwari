@@ -26,18 +26,6 @@ class KunjunganControllerTest extends TestCase
         return false;
     }
 
-    /** @skip **/
-    public function user_can_not_put_empty_data_to_a_resource()
-    {
-        return false;
-    }
-
-    /** @skip **/
-    public function user_can_update_a_resource()
-    {
-        return false;
-    }
-
     /** @skip */
     public function user_can_delete_a_resource()
     {

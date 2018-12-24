@@ -32,7 +32,7 @@ class Kunjungan extends Model
      *
      * @var array
      */
-    protected $with = ['pasien'];
+    protected $with = ['pasien', 'penyakit'];
 
     protected static function boot()
     {
