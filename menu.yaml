@@ -5,6 +5,10 @@
   title : Beranda
   link  : /
   icon  : icon-speedometer
+-
+  title : Daftar Kunjungan
+  icon  : icon-calendar
+  link  : kunjungan
 
 # ------------------------------------ #
 # ------- R E G I S T R A S I -------- #
@@ -15,21 +19,18 @@
   childs:
     -
       title: Reg. Rawat Jalan
-      link : rawat-jalan/create
+      link : pelayanan/rawat-jalan/create
     -
       title: Reg. Rawat Inap
     -
       title: Reg. Rawat Darurat
 -
-  title : Kunjungan
+  title : Daftar Pelayanan
   icon  : icon-layers
   childs:
     -
-      title: Daftar Kunjungan
-      link : kunjungan
-    -
-      title: Reg. Rawat Jalan
-      link : rawat-jalan/create
+      title: Rawat Jalan
+      link : pelayanan/rawat-jalan
     -
       title: Reg. Rawat Inap
     -

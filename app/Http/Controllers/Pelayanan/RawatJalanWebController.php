@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pelayanan;
 
-use App\Models\RawatJalan;
 use Illuminate\Http\Request;
 use App\Enums\KategoriRegistrasi;
+use App\Http\Controllers\Controller;
+use App\Models\Pelayanan\RawatJalan;
 use App\Models\Master\JenisRegistrasi;
 
 class RawatJalanWebController extends Controller
@@ -16,7 +17,7 @@ class RawatJalanWebController extends Controller
      */
     public function index()
     {
-        //
+        return view('pelayanan.rawat-jalan.index');
     }
 
     /**
@@ -28,7 +29,7 @@ class RawatJalanWebController extends Controller
     {
         $jenis_registrasis = JenisRegistrasi::where('kategori', KategoriRegistrasi::RAWAT_JALAN)->get();
 
-        return view('kunjungan.rawat-jalan.create', compact(['jenis_registrasis']));
+        return view('pelayanan.rawat-jalan.create', compact(['jenis_registrasis']));
     }
 
     /**

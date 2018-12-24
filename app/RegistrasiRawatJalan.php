@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Models\Kunjungan;
-use App\Models\RawatJalan;
+use App\Models\Pelayanan\RawatJalan;
 
 class RegistrasiRawatJalan
 {

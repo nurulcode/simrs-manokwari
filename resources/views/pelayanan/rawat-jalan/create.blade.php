@@ -4,9 +4,9 @@ use App\Models\Fasilitas\Poliklinik;
 use App\Models\Master\JenisRegistrasi;
 ?>
 
-@extends('kunjungan.form-kunjungan')
+@extends('kunjungan.create')
 
-@section('action', action('RawatJalanController@store'))
+@section('action', action('Pelayanan\RawatJalanController@store'))
 
 @section('form')
 <hr>

@@ -1,18 +1,18 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Pelayanan;
 
 use Tests\TestCase;
 use App\Models\Kunjungan;
-use Sty\Tests\APITestCase;
+use Sty\Tests\ResourceControllerTestCase;
 
 class RawatJalanControllerTest extends TestCase
 {
-    use APITestCase;
+    use ResourceControllerTestCase;
 
     public function resource()
     {
-        return \App\Models\RawatJalan::class;
+        return \App\Models\Pelayanan\RawatJalan::class;
     }
 
     /** @test **/
@@ -79,5 +79,23 @@ class RawatJalanControllerTest extends TestCase
                 'poliklinik_id',
             ])
             ->assertStatus(422);
+    }
+
+    /** @test **/
+    public function user_can_update_a_resource()
+    {
+        $this->assertTrue(true);
+    }
+
+    /** @test **/
+    public function user_can_delete_a_resource()
+    {
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function user_can_not_put_empty_data_to_a_resource()
+    {
+        $this->assertTrue(true);
     }
 }

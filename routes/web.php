@@ -27,9 +27,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/role',         'RoleController@view');
     Route::get('/user',         'UserController@view');
 
-    Route::get('/kunjungan',             'KunjunganWebController@index');
-    Route::get('/kunjungan/{kunjungan}', 'KunjunganWebController@show');
-    Route::get('/rawat-jalan/create',    'RawatJalanWebController@create');
+    Route::get('/kunjungan',               'KunjunganWebController@index');
+    Route::get('/kunjungan/{kunjungan}',   'KunjunganWebController@show');
+
+    Route::namespace('Pelayanan')->prefix('pelayanan')->group(function () {
+        Route::get('/rawat-jalan',         'RawatJalanWebController@index');
+        Route::get('/rawat-jalan/create',  'RawatJalanWebController@create');
+    });
 
     Route::namespace('Master')->prefix('master')->group(function () {
         Route::get('agama',             'AgamaController@view');

@@ -1,17 +1,23 @@
 @extends('layouts.single-card')
 
-@section('title', 'Kunjungan Management')
+@section('title', 'Rawat Jalan Management')
 
 @section('card')
-    <data-table v-bind.sync="kunjungan" ref="table" no-action no-add-button-text>
-        <template slot="view" slot-scope="{item: kunjungan}">
-            <a :href="`{{ action('KunjunganWebController@index') }}/${kunjungan.id}`"
+    <data-table v-bind.sync="pelayanan" ref="table" no-action no-add-button-text>
+        <template slot="view" slot-scope="{item: pelayanan}">
+            <a :href="`{{ action('KunjunganWebController@index') }}/${pelayanan.id}`"
                 class="btn btn-primary"> <i class="icon-eye"></i> &nbsp;View
             </a>
         </template>
-        <template slot="pasien" slot-scope="{value}">
-            @{{ value.nama }}
-            <p class="text-muted">@{{ value.no_rekam_medis }}</p>
+        <template slot="nomor_kunjungan" slot-scope="{item}">
+            @{{ item.kunjungan.nomor_kunjungan }}
+        </template>
+        <template slot="pasien" slot-scope="{item}">
+            @{{ item.kunjungan.pasien.nama }}
+            <p class="text-muted">@{{ item.kunjungan.pasien.no_rekam_medis }}</p>
+        </template>
+        <template slot="nomor_kunjungan" slot-scope="{item}">
+            @{{ item.kunjungan.nomor_kunjungan }}
         </template>
     </data-table>
 @endsection
@@ -21,31 +27,29 @@
 window.pagemix.push({
     data() {
         return {
-            kunjungan: {
-                url    : `{{ action('KunjunganController@index') }}`,
+            pelayanan: {
+                url    : `{{ action('Pelayanan\RawatJalanController@index') }}`,
                 options:{
-                    sortBy  : 'waktu_kunjungan',
+                    sortBy  : 'id',
                     sortDesc: true
                 },
                 fields: [{
                     key      : 'nomor_kunjungan',
-                    sortable : true,
                     thStyle  : {
                         'width': '160px'
                     }
                 },{
                     key      : 'pasien',
                 },{
-                    key      : 'waktu_kunjungan',
+                    key      : 'poliklinik',
+                    formatter: poliklinik => poliklinik.nama,
+                },{
+                    key      : 'waktu_pelayanan',
                     formatter: waktu => format(parse(waktu), 'DD/MM/YYYY H:mm:ss'),
                     sortable : true,
                     thStyle  : {
                         'width': '160px'
                     }
-                },{
-                    key      : 'penyakit',
-                    label    : 'Diagnosa Awal',
-                    formatter: penyakit => `${penyakit.icd} - ${penyakit.uraian}`
                 },{
                     key      : 'keluhan',
                     thStyle  : {

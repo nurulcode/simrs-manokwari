@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Pelayanan\Pelayanan;
 use App\Models\Master\Penyakit\Penyakit;
 
 class Kunjungan extends Model

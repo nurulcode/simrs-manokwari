@@ -31,6 +31,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::prefix('fasilitas')->group(base_path('routes/fasilitas.php'));
 
     Route::prefix('kepegawaian')->group(base_path('routes/kepegawaian.php'));
+
+    Route::prefix('pelayanan')->group(base_path('routes/pelayanan.php'));
 });
 
 //TODO: Hapus saat production
