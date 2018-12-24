@@ -3,7 +3,13 @@
         <form class="sidebar-form">
 
             @component('components.input-group')
-                <input class="form-control" placeholder="Search..." type="text" v-model="filter" />
+                <input
+                    class="form-control"
+                    name="search"
+                    placeholder="Search..."
+                    type="text"
+                    v-model="filter"
+                />
                 <span class="input-group-btn">
                     <button class="btn btn-flat" title="Cari menu" v-on:click.prevent="clearfilter">
                         <i v-if="filter" class="fa fa-times"></i>
