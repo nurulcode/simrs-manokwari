@@ -24,6 +24,15 @@ class RawatJalan extends Model
                 $model->waktu_kunjungan = now();
             }
         });
+
+        static::created(function ($model) {
+            $model->perawatan()->create(['kunjungan_id' => $model->kunjungan_id]);
+        });
+    }
+
+    public function perawatan()
+    {
+        return $this->morphOne(Perawatan::class, 'perawatan');
     }
 
     public function poliklinik()

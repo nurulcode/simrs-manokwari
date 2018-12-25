@@ -16,8 +16,10 @@
             @{{ item.kunjungan.pasien.nama }}
             <p class="text-muted">@{{ item.kunjungan.pasien.no_rekam_medis }}</p>
         </template>
-        <template slot="nomor_kunjungan" slot-scope="{item}">
-            @{{ item.kunjungan.nomor_kunjungan }}
+        <template slot="diagnosa_awal" slot-scope="{item}">
+            @{{ item.kunjungan.penyakit.icd }} -
+            @{{ item.kunjungan.penyakit.uraian }}
+
         </template>
     </data-table>
 @endsection
@@ -44,14 +46,14 @@ window.pagemix.push({
                     key      : 'poliklinik',
                     formatter: poliklinik => poliklinik.nama,
                 },{
-                    key      : 'waktu_pelayanan',
+                    key      : 'waktu_kunjungan',
                     formatter: waktu => format(parse(waktu), 'DD/MM/YYYY H:mm:ss'),
                     sortable : true,
                     thStyle  : {
                         'width': '160px'
                     }
                 },{
-                    key      : 'keluhan',
+                    key      : 'diagnosa_awal',
                     thStyle  : {
                         'width': '200px'
                     }
