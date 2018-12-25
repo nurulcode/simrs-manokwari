@@ -68,6 +68,24 @@ class CreateFasilitasTables extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
+
+        Schema::create('poliklinik_tindakan_pemeriksaan', function (Blueprint $table) {
+            $table->unsignedInteger('poliklinik_id');
+            $table->unsignedInteger('tindakan_pemeriksaan_id');
+
+            $table->primary(['poliklinik_id', 'tindakan_pemeriksaan_id']);
+
+            $table->foreign('poliklinik_id')
+                ->references('id')
+                ->on('polikliniks')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('tindakan_pemeriksaan_id')
+                ->references('id')
+                ->on('tindakan_pemeriksaans')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+        });
     }
 
     /**

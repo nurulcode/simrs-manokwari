@@ -2,6 +2,8 @@
 
 namespace App\Models\Master;
 
+use App\Models\Fasilitas\Poliklinik;
+
 class TindakanPemeriksaan extends Master
 {
     /**
@@ -14,5 +16,10 @@ class TindakanPemeriksaan extends Master
     public function parent()
     {
         return $this->belongsTo(self::class);
+    }
+
+    public function polikliniks()
+    {
+        return $this->belongsToMany(Poliklinik::class);
     }
 }
