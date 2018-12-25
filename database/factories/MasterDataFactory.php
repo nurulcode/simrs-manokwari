@@ -25,14 +25,14 @@ $factory->define(Master\TipeDiagnosa::class, $generic_factory);
 
 $factory->define(Master\Kasus::class, function (Faker $faker) {
     return [
-        'kode'   => $faker->unique()->word,
+        'kode'   => $faker->unique()->swiftBicNumber,
         'uraian' => $faker->sentence
     ];
 });
 
 $factory->define(Master\CaraPembayaran::class, function (Faker $faker) {
     return [
-        'kode'   => $faker->unique()->word,
+        'kode'   => $faker->unique()->swiftBicNumber,
         'uraian' => $faker->sentence
     ];
 });

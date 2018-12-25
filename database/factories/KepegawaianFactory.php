@@ -10,7 +10,7 @@ $factory->define(Kepegawaian\Jabatan::class, function (Faker $faker) {
 
 $factory->define(Kepegawaian\KategoriKualifikasi::class, function (Faker $faker) {
     return [
-        'kode'         => $faker->unique()->word,
+        'kode'         => $faker->unique()->swiftBicNumber,
         'tenaga_medis' => $faker->boolean,
         'uraian'       => $faker->sentence,
     ];
@@ -21,7 +21,7 @@ $factory->define(Kepegawaian\Kualifikasi::class, function (Faker $faker) {
         'kategori_id' => function () {
             return factory(Kepegawaian\KategoriKualifikasi::class)->create()->id;
         },
-        'kode'        => $faker->unique()->word,
+        'kode'        => $faker->unique()->swiftBicNumber,
         'uraian'      => $faker->sentence,
         'laki_laki'   => $faker->randomDigit,
         'perempuan'   => $faker->randomDigit

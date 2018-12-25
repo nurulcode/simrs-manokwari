@@ -12,7 +12,7 @@ $factory->define(Poliklinik::class, function (Faker $faker) {
         'jenis_id' => function () {
             return factory(JenisPoliklinik::class)->create()->id;
         },
-        'kode'     => strtoupper(substr($faker->unique()->word, 0, 12)),
+        'kode'     => strtoupper(substr($faker->unique()->swiftBicNumber, 0, 12)),
         'nama'     => $faker->sentence(2),
     ];
 });
@@ -22,7 +22,7 @@ $factory->define(Ruangan::class, function (Faker $faker) {
         'poliklinik_id' => function () {
             return factory(Poliklinik::class)->create()->id;
         },
-        'kode'  => $faker->unique()->word,
+        'kode'  => $faker->unique()->swiftBicNumber,
         'nama'  => $faker->word,
         'kelas' => 1,
         'jenis' => 1
@@ -43,6 +43,6 @@ $factory->define(Ranjang::class, function (Faker $faker) {
         'kamar_id' => function () {
             return factory(Kamar::class)->create()->id;
         },
-        'kode'  => $faker->unique()->word,
+        'kode'  => $faker->unique()->swiftBicNumber,
     ];
 });

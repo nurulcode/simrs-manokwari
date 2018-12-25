@@ -11,7 +11,7 @@ $factory->define(App\Models\Pasien::class, function (Faker $faker) {
         'jenis_identitas_id' => function () {
             return factory(Master\JenisIdentitas::class)->create()->id;
         },
-        'nomor_identitas'    => $faker->unique()->word,
+        'nomor_identitas'    => $faker->unique()->swiftBicNumber,
         'tanggal_registrasi' => $faker->date,
         'nama'               => $faker->name,
         'tempat_lahir'       => $faker->city,

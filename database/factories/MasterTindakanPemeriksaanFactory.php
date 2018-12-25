@@ -6,7 +6,7 @@ use App\Models\Master\TindakanPemeriksaan;
 
 $factory->define(TindakanPemeriksaan::class, function (Faker $faker) {
     return [
-        'kode'   => $faker->unique()->word,
+        'kode'   => $faker->unique()->swiftBicNumber,
         'uraian' => $faker->sentence,
         'jenis'  => $faker->randomElement(JenisTindakanPemeriksaan::getValues())
     ];
