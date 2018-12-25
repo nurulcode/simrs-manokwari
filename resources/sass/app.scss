@@ -2,7 +2,9 @@
 @import 'variables';
 
 // Bootstrap
+@import '~bootstrap/dist/css/bootstrap.css';
 @import "~@coreui/coreui/scss/coreui";
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
 
 @import "./sidebar";
 @import "../js/shared/sass/datepicker";
@@ -78,6 +80,34 @@ a, button:focus, button:active,  {
         .input-group-text,
         .input-group .btn {
             border-color: $form-feedback-invalid-color;
+        }
+    }
+}
+
+.card > .tabs {
+    > .tab-content {
+        background: transparent;
+        border    : none;
+
+        .tab-pane.card-body {
+            padding: 1.25rem;
+        }
+    }
+
+    > .card-header {
+        .card-header-tabs {
+            margin-top   : 0;
+            margin-bottom: -.75rem;
+            border-bottom: 0;
+        }
+
+        .nav-tabs .nav-link:hover {
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav-tabs .nav-link.active {
+            border-top: 1px solid;
+            border-color: #dee2e6 #dee2e6 #fff;
         }
     }
 }
