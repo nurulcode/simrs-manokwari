@@ -3,10 +3,7 @@
 @section('title', 'Master Tindakan Pemeriksaan Management')
 
 @section('card')
-    <data-table v-bind.sync="tindakan" ref="table"
-        @cannot('create', App\Models\Master\TindakanPemeriksaan::class)
-            no-add-button-text
-        @endcannot >
+    <data-table v-bind.sync="tindakan" ref="table">
         <div slot="form">
             <b-form-group label="Kelompok Tindakan:" v-bind="tindakan.form.feedback('parent_id')">
                 <ajax-select
@@ -48,7 +45,25 @@
                     <option slot="first" :value="null" disabled>Pilih Jenis Tindakan</option>
                 </b-form-select>
             </b-form-group>
+            <b-form-group label="Poliklinik:" v-bind="tindakan.form.feedback('poliklinik')">
+                <ajax-select
+                    :multiple="true"
+                    url="{{ action('Fasilitas\PoliklinikController@index') }}"
+                    label="nama"
+                    placeholder="Pilih Poliklinik"
+                    v-model="tindakan.form.polikliniks"
+                    >
+                </ajax-select>
+            </b-form-group>
         </div>
+        <template slot="uraian" slot-scope="{item, value}">
+            @{{ value }}
+            <p>
+                <span v-for="poliklinik in item.polikliniks" class="badge badge-primary mr-1">
+                    @{{ poliklinik.nama }}
+                </span>
+            </p>
+        </template>
     </data-table>
 @endsection
 
@@ -68,12 +83,13 @@ window.pagemix.push({
                     sortable : true,
                 }],
                 form: new Form({
-                    parent_id: null,
-                    kode     : null,
-                    uraian   : null,
-                    jenis    : null
+                    parent_id  : null,
+                    kode       : null,
+                    uraian     : null,
+                    jenis      : null,
+                    polikliniks: []
                 },{
-                    parent   : null
+                    parent     : null
                 }),
             }
         }

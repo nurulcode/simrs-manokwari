@@ -73,7 +73,9 @@ class CreateFasilitasTables extends Migration
             $table->unsignedInteger('poliklinik_id');
             $table->unsignedInteger('tindakan_pemeriksaan_id');
 
-            $table->primary(['poliklinik_id', 'tindakan_pemeriksaan_id']);
+            $table->primary(['poliklinik_id', 'tindakan_pemeriksaan_id'],
+                'poliklinik_tindakan_pemeriksaan_id_primary'
+            );
 
             $table->foreign('poliklinik_id')
                 ->references('id')

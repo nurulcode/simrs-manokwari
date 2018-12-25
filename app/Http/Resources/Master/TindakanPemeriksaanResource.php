@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Master;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Fasilitas\PoliklinikResource;
 
 class TindakanPemeriksaanResource extends JsonResource
 {
@@ -15,13 +16,14 @@ class TindakanPemeriksaanResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'        => $this->id,
-            'parent_id' => $this->parent_id,
-            'parent'    => self::make($this->whenLoaded('parent')),
-            'kode'      => $this->kode,
-            'uraian'    => $this->uraian,
-            'jenis'     => $this->jenis,
-            'path'      => $this->path,
+            'id'          => $this->id,
+            'parent_id'   => $this->parent_id,
+            'parent'      => self::make($this->whenLoaded('parent')),
+            'kode'        => $this->kode,
+            'uraian'      => $this->uraian,
+            'jenis'       => $this->jenis,
+            'polikliniks' => PoliklinikResource::collection($this->whenLoaded('polikliniks')),
+            'path'        => $this->path,
         ];
     }
 }

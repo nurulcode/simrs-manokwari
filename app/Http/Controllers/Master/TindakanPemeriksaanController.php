@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Master;
 
 use Sty\HttpQuery;
+use App\TindakanPoliklinik;
 use App\Models\Master\TindakanPemeriksaan;
 use App\Http\Requests\Master\TindakanPemeriksaanRequest;
 use App\Http\Resources\Master\TindakanPemeriksaanResource;
@@ -17,7 +18,7 @@ class TindakanPemeriksaanController extends Controller
     public function index(HttpQuery $query)
     {
         return TindakanPemeriksaanResource::collection(
-            TindakanPemeriksaan::filter($query)
+            TindakanPemeriksaan::with('polikliniks')->filter($query)
         );
     }
 
@@ -30,7 +31,7 @@ class TindakanPemeriksaanController extends Controller
     public function store(TindakanPemeriksaanRequest $request)
     {
         return response()->crud(new TindakanPemeriksaanResource(
-            TindakanPemeriksaan::create($request->validated())
+            TindakanPoliklinik::create($request->validated())
         ));
     }
 
@@ -55,7 +56,7 @@ class TindakanPemeriksaanController extends Controller
     public function update(TindakanPemeriksaanRequest $request, TindakanPemeriksaan $tindakan_pemeriksaan)
     {
         return response()->crud(new TindakanPemeriksaanResource(
-            tap($tindakan_pemeriksaan)->update($request->validated())
+            TindakanPoliklinik::update($tindakan_pemeriksaan, $request->validated())
         ));
     }
 

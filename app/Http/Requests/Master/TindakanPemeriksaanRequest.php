@@ -31,10 +31,11 @@ class TindakanPemeriksaanRequest extends FormRequest
         );
 
         return [
-            'kode'      => ['required', $unique],
-            'parent_id' => ['nullable', 'exists:tindakan_pemeriksaans,id'],
-            'uraian'    => ['required', 'max:128'],
-            'jenis'     => ['required', new EnumValue(JenisTindakanPemeriksaan::class)]
+            'kode'             => ['required', $unique],
+            'parent_id'        => ['nullable', 'exists:tindakan_pemeriksaans,id'],
+            'uraian'           => ['required', 'max:128'],
+            'jenis'            => ['required', new EnumValue(JenisTindakanPemeriksaan::class)],
+            'polikliniks.*.id' => ['nullable', 'exists:polikliniks']
         ];
     }
 
