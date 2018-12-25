@@ -25,7 +25,7 @@ use App\Models\Master\CaraPembayaran;
             <b-card no-body>
                 <b-tabs lazy card>
                     <b-tab title="Diagnosa" active>
-                        @include('perawatan.tabs.diagnosa')
+                        @include('perawatan.tabs.diagnosa', ['url' => $diagnosa_url])
                     </b-tab>
                     <b-tab title="second" >
                         <br>I'm the second tab content

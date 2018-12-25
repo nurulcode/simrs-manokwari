@@ -4,6 +4,7 @@ namespace Tests\Unit\Perawatan;
 
 use Tests\TestCase;
 use App\Models\Kunjungan;
+use App\Models\Layanan\Diagnosa;
 use App\Models\Perawatan\Perawatan;
 use App\Models\Fasilitas\Poliklinik;
 use App\Models\Perawatan\RawatJalan;
@@ -52,11 +53,16 @@ class RawatJalanTest extends TestCase
         ]);
     }
 
-    // /** @test */
-    // public function resource_has_many_diagnosa()
-    // {
-    //     $resource = factory(RawatJalan::class)->create();
+    /** @test */
+    public function resource_has_many_diagnosa()
+    {
+        $resource = factory(RawatJalan::class)->create();
 
-    //     $this->assertInstanceof(Poliklinik::class, $resource->poliklinik);
-    // }
+        factory(Diagnosa::class, 5)->create([
+            'perawatan_type' => RawatJalan::class,
+            'perawatan_id'   => $resource->id,
+        ]);
+
+        $this->assertInstanceof(Diagnosa::class, $resource->diagnosa->random());
+    }
 }

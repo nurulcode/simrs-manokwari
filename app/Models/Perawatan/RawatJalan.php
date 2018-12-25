@@ -4,6 +4,7 @@ namespace App\Models\Perawatan;
 
 use App\Models\Model;
 use App\Models\Kunjungan;
+use App\Models\Layanan\Diagnosa;
 use App\Models\Fasilitas\Poliklinik;
 
 class RawatJalan extends Model
@@ -50,5 +51,10 @@ class RawatJalan extends Model
     public function kunjungan()
     {
         return $this->belongsTo(Kunjungan::class);
+    }
+
+    public function diagnosa()
+    {
+        return $this->morphMany(Diagnosa::class, 'perawatan');
     }
 }

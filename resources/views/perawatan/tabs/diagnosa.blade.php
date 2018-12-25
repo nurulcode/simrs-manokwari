@@ -88,7 +88,7 @@ window.pagemix.push({
     data() {
         return {
             diagnosa: {
-                url   : `{{ action('Layanan\DiagnosaController@index') }}`,
+                url   : `{{ $url }}`,
                 fields: [{
                     key      : 'penyakit',
                 },{
