@@ -119,9 +119,6 @@ class UserRoleControllerTest extends TestCase
     /** @test **/
     public function can_not_delete_super_admin()
     {
-        $this->artisan('db:seed', ['--class' => 'PermissionsTableSeeder']);
-        $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
-
         $user     = factory(User::class)->create();
 
         $this
@@ -133,13 +130,8 @@ class UserRoleControllerTest extends TestCase
     /** @test **/
     public function can_not_edit_super_admin()
     {
-        $this->artisan('db:seed', ['--class' => 'PermissionsTableSeeder']);
-        $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
-
         $resource = factory(User::class)->create();
         $user     = factory(User::class)->create();
-
-        $resource->giveRoleAs('superadmin');
 
         $this->signIn($user)
              ->putJson($resource->path, [
