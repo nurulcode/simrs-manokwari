@@ -40,7 +40,7 @@ class RawatJalanWebController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        abort(403);
     }
 
     /**
@@ -51,7 +51,7 @@ class RawatJalanWebController extends Controller
      */
     public function show(RawatJalan $rawat_jalan)
     {
-        //
+        return view('perawatan.rawat-jalan.show', compact(['rawat_jalan']));
     }
 
     /**
@@ -62,7 +62,7 @@ class RawatJalanWebController extends Controller
      */
     public function edit(RawatJalan $rawat_jalan)
     {
-        //
+        abort(403);
     }
 
     /**

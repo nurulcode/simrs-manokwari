@@ -1,7 +1,9 @@
 <div class="card {{ $class ?? '' }}">
 
     @isset($header)
-        <div class="card-header d-flex">{{ $header }}</div>
+        <div class="card-header d-flex">
+            {{ $header }}
+        </div>
     @endisset
 
     <div class="card-body">

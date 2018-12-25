@@ -6,7 +6,7 @@
     <data-table v-bind.sync="kunjungan" ref="table" no-action no-add-button-text>
         <template slot="view" slot-scope="{item: kunjungan}">
             <a :href="`{{ action('KunjunganWebController@index') }}/${kunjungan.id}`"
-                class="btn btn-primary"> <i class="icon-eye"></i> &nbsp;View
+                class="btn btn-primary"> <i class="icon-eye"></i>
             </a>
         </template>
         <template slot="pasien" slot-scope="{value}">
@@ -45,14 +45,18 @@ window.pagemix.push({
                 },{
                     key      : 'penyakit',
                     label    : 'Diagnosa Awal',
-                    formatter: penyakit => `${penyakit.icd} - ${penyakit.uraian}`
+                    formatter: penyakit => `${penyakit.icd} - ${penyakit.uraian}`,
+                    thStyle  : {
+                        'width': '200px'
+                    }
                 },{
                     key      : 'keluhan',
                     thStyle  : {
                         'width': '200px'
                     }
                 }, {
-                    key      : 'view'
+                    key      : 'view',
+                    class    : 'text-center'
                 }]
             }
         }

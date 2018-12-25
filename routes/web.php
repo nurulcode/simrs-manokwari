@@ -31,8 +31,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/kunjungan/{kunjungan}',   'KunjunganWebController@show');
 
     Route::namespace('Perawatan')->prefix('perawatan')->group(function () {
-        Route::get('/rawat-jalan',         'RawatJalanWebController@index');
-        Route::get('/rawat-jalan/create',  'RawatJalanWebController@create');
+        Route::get('/rawat-jalan',                'RawatJalanWebController@index');
+        Route::get('/rawat-jalan/create',         'RawatJalanWebController@create');
+        Route::get('/rawat-jalan/{rawat_jalan}',  'RawatJalanWebController@show');
     });
 
     Route::namespace('Master')->prefix('master')->group(function () {

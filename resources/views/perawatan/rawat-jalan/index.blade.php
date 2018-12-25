@@ -3,10 +3,10 @@
 @section('title', 'Rawat Jalan Management')
 
 @section('card')
-    <data-table v-bind.sync="pelayanan" ref="table" no-action no-add-button-text>
-        <template slot="view" slot-scope="{item: pelayanan}">
-            <a :href="`{{ action('KunjunganWebController@index') }}/${pelayanan.id}`"
-                class="btn btn-primary"> <i class="icon-eye"></i> &nbsp;View
+    <data-table v-bind.sync="perawatan" ref="table" no-action no-add-button-text>
+        <template slot="view" slot-scope="{item}">
+            <a :href="`{{ action('Perawatan\RawatJalanWebController@index') }}/${item.id}`"
+                class="btn btn-primary"> <i class="icon-eye"></i>
             </a>
         </template>
         <template slot="nomor_kunjungan" slot-scope="{item}">
@@ -29,7 +29,7 @@
 window.pagemix.push({
     data() {
         return {
-            pelayanan: {
+            perawatan: {
                 url    : `{{ action('Perawatan\RawatJalanController@index') }}`,
                 options:{
                     sortBy  : 'id',
@@ -58,7 +58,8 @@ window.pagemix.push({
                         'width': '200px'
                     }
                 }, {
-                    key      : 'view'
+                    key      : 'view',
+                    class    : 'text-center'
                 }]
             }
         }
