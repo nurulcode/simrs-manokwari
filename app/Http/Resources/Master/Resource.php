@@ -15,11 +15,9 @@ class Resource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'          => $this->id,
-            'uraian'      => $this->uraian,
-            'path'        => $this->path,
-            '__editable'  => $request->user()->can('update', $this->resource),
-            '__deletable' => $request->user()->can('delete', $this->resource),
+            'id'     => $this->id,
+            'uraian' => $this->uraian,
+            'path'   => $this->path,
         ];
     }
 }

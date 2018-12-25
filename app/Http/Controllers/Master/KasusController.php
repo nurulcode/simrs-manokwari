@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Master;
 
 use Sty\HttpQuery;
 use App\Models\Master\Kasus;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Master\KasusRequest;
 use App\Http\Resources\Master\KasusResource;
 
@@ -18,8 +16,6 @@ class KasusController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Kasus::class);
-
         return KasusResource::collection(Kasus::filter($query));
     }
 
@@ -44,8 +40,6 @@ class KasusController extends Controller
      */
     public function show(Kasus $kasus)
     {
-        $this->authorize('show', $kasus);
-
         return new KasusResource($kasus);
     }
 
@@ -71,21 +65,6 @@ class KasusController extends Controller
      */
     public function destroy(Kasus $kasus)
     {
-        $this->authorize('delete', $kasus);
-
         return response()->crud(tap($kasus)->delete());
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        $this->authorize('view', Kasus::class);
-
-        return view('master.kasus');
     }
 }

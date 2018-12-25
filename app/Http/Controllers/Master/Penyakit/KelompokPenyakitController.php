@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Master\Penyakit;
 
 use Sty\HttpQuery;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Master\Controller;
 use App\Models\Master\Penyakit\KelompokPenyakit;
 use App\Http\Requests\Master\Penyakit\KelompokPenyakitRequest;
 use App\Http\Resources\Master\Penyakit\KelompokPenyakitResource;
@@ -17,11 +17,7 @@ class KelompokPenyakitController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', KelompokPenyakit::class);
-
-        return KelompokPenyakitResource::collection(
-            KelompokPenyakit::filter($query)
-        );
+        return KelompokPenyakitResource::collection(KelompokPenyakit::filter($query));
     }
 
     /**
@@ -45,8 +41,6 @@ class KelompokPenyakitController extends Controller
      */
     public function show(KelompokPenyakit $kelompok)
     {
-        $this->authorize('show', $kelompok);
-
         return new KelompokPenyakitResource($kelompok);
     }
 
@@ -72,8 +66,6 @@ class KelompokPenyakitController extends Controller
      */
     public function destroy(KelompokPenyakit $kelompok)
     {
-        $this->authorize('delete', KelompokPenyakit::class);
-
         return response()->crud(tap($kelompok)->delete());
     }
 }

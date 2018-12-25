@@ -8,6 +8,6 @@ class Controller extends BaseController
 {
     public function __construct()
     {
-        $this->middleware('can:manage_master_data');
+        $this->middleware('can:manage_master_data')->except('index');
     }
 }

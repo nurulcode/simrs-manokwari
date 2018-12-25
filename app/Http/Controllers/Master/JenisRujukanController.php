@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Master;
 use Sty\HttpQuery;
 use Illuminate\Http\Request;
 use App\Models\Master\JenisRujukan;
-use App\Http\Controllers\Controller;
 use App\Http\Resources\Master\Resource;
 
 class JenisRujukanController extends Controller
@@ -17,8 +16,6 @@ class JenisRujukanController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', JenisRujukan::class);
-
         return Resource::collection(JenisRujukan::filter($query));
     }
 
@@ -30,8 +27,6 @@ class JenisRujukanController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', JenisRujukan::class);
-
         $request->validate(['uraian' => 'required|max:255']);
 
         return response()->crud(new Resource(
@@ -47,8 +42,6 @@ class JenisRujukanController extends Controller
      */
     public function show(JenisRujukan $jenis_rujukan)
     {
-        $this->authorize('show', $jenis_rujukan);
-
         return new Resource($jenis_rujukan);
     }
 
@@ -61,8 +54,6 @@ class JenisRujukanController extends Controller
      */
     public function update(Request $request, JenisRujukan $jenis_rujukan)
     {
-        $this->authorize('create', $jenis_rujukan);
-
         $request->validate(['uraian' => 'required|max:255']);
 
         return response()->crud(new Resource(
@@ -78,21 +69,6 @@ class JenisRujukanController extends Controller
      */
     public function destroy(JenisRujukan $jenis_rujukan)
     {
-        $this->authorize('delete', $jenis_rujukan);
-
         return response()->crud(tap($jenis_rujukan)->delete());
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        $this->authorize('view', JenisRujukan::class);
-
-        return view('master.jenis-rujukan');
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Master;
 
 use Sty\HttpQuery;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Master\JenisIdentitas;
 use App\Http\Resources\Master\Resource;
 
@@ -17,8 +16,6 @@ class JenisIdentitasController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', JenisIdentitas::class);
-
         return Resource::collection(JenisIdentitas::filter($query));
     }
 
@@ -30,8 +27,6 @@ class JenisIdentitasController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', JenisIdentitas::class);
-
         $request->validate(['uraian' => 'required|max:255']);
 
         return response()->crud(new Resource(
@@ -47,8 +42,6 @@ class JenisIdentitasController extends Controller
      */
     public function show(JenisIdentitas $jenis_identita)
     {
-        $this->authorize('show', $jenis_identita);
-
         return new Resource($jenis_identita);
     }
 
@@ -61,8 +54,6 @@ class JenisIdentitasController extends Controller
      */
     public function update(Request $request, JenisIdentitas $jenis_identita)
     {
-        $this->authorize('update', $jenis_identita);
-
         $request->validate(['uraian' => 'required|max:255']);
 
         return response()->crud(new Resource(
@@ -78,21 +69,6 @@ class JenisIdentitasController extends Controller
      */
     public function destroy(JenisIdentitas $jenis_identita)
     {
-        $this->authorize('delete', $jenis_identita);
-
         return response()->crud(tap($jenis_identita)->delete());
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        $this->authorize('view', JenisIdentitas::class);
-
-        return view('master.jenis-identitas');
     }
 }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Master;
 use Sty\HttpQuery;
 use Illuminate\Http\Request;
 use App\Models\Master\Pendidikan;
-use App\Http\Controllers\Controller;
 use App\Http\Resources\Master\Resource;
 
 class PendidikanController extends Controller
@@ -17,8 +16,6 @@ class PendidikanController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Pendidikan::class);
-
         return Resource::collection(Pendidikan::filter($query));
     }
 
@@ -30,8 +27,6 @@ class PendidikanController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Pendidikan::class);
-
         $request->validate(['uraian' => 'required|max:255']);
 
         return response()->crud(new Resource(
@@ -47,8 +42,6 @@ class PendidikanController extends Controller
      */
     public function show(Pendidikan $pendidikan)
     {
-        $this->authorize('show', $pendidikan);
-
         return new Resource($pendidikan);
     }
 
@@ -61,8 +54,6 @@ class PendidikanController extends Controller
      */
     public function update(Request $request, Pendidikan $pendidikan)
     {
-        $this->authorize('update', $pendidikan);
-
         $request->validate(['uraian' => 'required|max:255']);
 
         return response()->crud(new Resource(
@@ -78,21 +69,6 @@ class PendidikanController extends Controller
      */
     public function destroy(Pendidikan $pendidikan)
     {
-        $this->authorize('delete', $pendidikan);
-
         return response()->crud(tap($pendidikan)->delete());
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        $this->authorize('view', Pendidikan::class);
-
-        return view('master.pendidikan');
     }
 }

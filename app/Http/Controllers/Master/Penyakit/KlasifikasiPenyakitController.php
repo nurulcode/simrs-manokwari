@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Master\Penyakit;
 
 use Sty\HttpQuery;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Master\Controller;
 use App\Models\Master\Penyakit\KlasifikasiPenyakit;
 use App\Http\Requests\Master\Penyakit\KlasifikasiPenyakitRequest;
 use App\Http\Resources\Master\Penyakit\KlasifikasiPenyakitResource;
@@ -17,11 +17,7 @@ class KlasifikasiPenyakitController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', KlasifikasiPenyakit::class);
-
-        return KlasifikasiPenyakitResource::collection(
-            KlasifikasiPenyakit::filter($query)
-        );
+        return KlasifikasiPenyakitResource::collection(KlasifikasiPenyakit::filter($query));
     }
 
     /**
@@ -45,8 +41,6 @@ class KlasifikasiPenyakitController extends Controller
      */
     public function show(KlasifikasiPenyakit $klasifikasi)
     {
-        $this->authorize('show', $klasifikasi);
-
         return new KlasifikasiPenyakitResource($klasifikasi);
     }
 
@@ -72,8 +66,6 @@ class KlasifikasiPenyakitController extends Controller
      */
     public function destroy(KlasifikasiPenyakit $klasifikasi)
     {
-        $this->authorize('delete', $klasifikasi);
-
         return response()->crud(tap($klasifikasi)->delete());
     }
 }

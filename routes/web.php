@@ -37,19 +37,20 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::namespace('Master')->prefix('master')->group(function () {
-        Route::get('agama',             'AgamaController@view');
-        Route::get('cara-pembayaran',   'CaraPembayaranController@view');
-        Route::get('jenis-identitas',   'JenisIdentitasController@view');
-        Route::get('jenis-poliklinik',  'JenisPoliklinikController@view');
-        Route::get('jenis-rujukan',     'JenisRujukanController@view');
-        Route::get('kasus',             'KasusController@view');
-        Route::get('kegiatan',          'KategoriKegiatanController@view');
-        Route::get('pekerjaan',         'PekerjaanController@view');
-        Route::get('pendidikan',        'PendidikanController@view');
-        Route::get('penyakit',          'Penyakit\\PenyakitController@view');
-        Route::get('suku',              'SukuController@view');
-        Route::get('tindakan',          'TindakanPemeriksaanController@view');
+        Route::get('penyakit',          'Penyakit\\PenyakitViewController');
+        Route::get('wilayah',           'Wilayah\\WilayahViewController');
+        Route::get('agama',             'AgamaViewController');
+        Route::get('cara-pembayaran',   'CaraPembayaranViewController');
+        Route::get('jenis-identitas',   'JenisIdentitasViewController');
+        Route::get('jenis-poliklinik',  'JenisPoliklinikViewController');
+        Route::get('jenis-registrasi',  'JenisRegistrasiViewController');
+        Route::get('jenis-rujukan',     'JenisRujukanViewController');
+        Route::get('kasus',             'KasusViewController');
+        Route::get('kegiatan',          'KegiatanViewController');
+        Route::get('pekerjaan',         'PekerjaanViewController');
+        Route::get('pendidikan',        'PendidikanViewController');
+        Route::get('suku',              'SukuViewController');
+        Route::get('tindakan',          'TindakanPemeriksaanViewController');
         Route::get('tipe-diagnosa',     'TipeDiagnosaViewController');
-        Route::get('wilayah',           'Wilayah\\WilayahController@view');
     });
 });

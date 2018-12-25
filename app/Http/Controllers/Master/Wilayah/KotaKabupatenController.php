@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Master\Wilayah;
 
 use Sty\HttpQuery;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Master\Controller;
 use App\Models\Master\Wilayah\KotaKabupaten;
 use App\Http\Requests\Master\Wilayah\KotaKabupatenRequest;
 use App\Http\Resources\Master\Wilayah\KotaKabupatenResource;
@@ -17,8 +17,6 @@ class KotaKabupatenController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', KotaKabupaten::class);
-
         return KotaKabupatenResource::collection(
             KotaKabupaten::withParent()->filter($query)
         );
@@ -45,8 +43,6 @@ class KotaKabupatenController extends Controller
      */
     public function show(KotaKabupaten $kota_kabupaten)
     {
-        $this->authorize('show', $kota_kabupaten);
-
         return new KotaKabupatenResource($kota_kabupaten);
     }
 
@@ -72,8 +68,6 @@ class KotaKabupatenController extends Controller
      */
     public function destroy(KotaKabupaten $kota_kabupaten)
     {
-        $this->authorize('delete', $kota_kabupaten);
-
         return response()->crud(tap($kota_kabupaten)->delete());
     }
 }

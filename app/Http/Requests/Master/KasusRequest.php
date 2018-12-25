@@ -15,11 +15,7 @@ class KasusRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('kasus')) {
-            return $this->user()->can('update', $this->route('kasus'));
-        }
-
-        return $this->user()->can('create', Kasus::class);
+        return true;
     }
 
     /**

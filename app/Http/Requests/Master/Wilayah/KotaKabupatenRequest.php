@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Master\Wilayah;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Master\Wilayah\KotaKabupaten;
 
 class KotaKabupatenRequest extends FormRequest
 {
@@ -14,11 +13,7 @@ class KotaKabupatenRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('kota_kabupaten')) {
-            return $this->user()->can('update', $this->route('kota_kabupaten'));
-        }
-
-        return $this->user()->can('create', KotaKabupaten::class);
+        return true;
     }
 
     /**

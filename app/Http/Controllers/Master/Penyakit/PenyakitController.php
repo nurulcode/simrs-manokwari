@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Master\Penyakit;
 
 use Sty\HttpQuery;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Master\Penyakit\Penyakit;
+use App\Http\Controllers\Master\Controller;
 use App\Http\Requests\Master\Penyakit\PenyakitRequest;
 use App\Http\Resources\Master\Penyakit\PenyakitResource;
 
@@ -18,8 +17,6 @@ class PenyakitController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Penyakit::class);
-
         return PenyakitResource::collection(Penyakit::filter($query));
     }
 
@@ -44,8 +41,6 @@ class PenyakitController extends Controller
      */
     public function show(Penyakit $penyakit)
     {
-        $this->authorize('show', $penyakit);
-
         return new PenyakitResource($penyakit);
     }
 
@@ -71,21 +66,6 @@ class PenyakitController extends Controller
      */
     public function destroy(Penyakit $penyakit)
     {
-        $this->authorize('delete', $penyakit);
-
         return response()->crud(tap($penyakit)->delete());
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        $this->authorize('view', Penyakit::class);
-
-        return view('master.penyakit.index');
     }
 }

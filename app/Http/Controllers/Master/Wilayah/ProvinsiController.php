@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Master\Wilayah;
 
 use Sty\HttpQuery;
-use App\Http\Controllers\Controller;
 use App\Models\Master\Wilayah\Provinsi;
+use App\Http\Controllers\Master\Controller;
 use App\Http\Requests\Master\Wilayah\ProvinsiRequest;
 use App\Http\Resources\Master\Wilayah\ProvinsiResource;
 
@@ -17,8 +17,6 @@ class ProvinsiController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Provinsi::class);
-
         return ProvinsiResource::collection(Provinsi::filter($query));
     }
 
@@ -43,8 +41,6 @@ class ProvinsiController extends Controller
      */
     public function show(Provinsi $provinsi)
     {
-        $this->authorize('show', $provinsi);
-
         return new ProvinsiResource($provinsi);
     }
 
@@ -70,8 +66,6 @@ class ProvinsiController extends Controller
      */
     public function destroy(Provinsi $provinsi)
     {
-        $this->authorize('delete', $provinsi);
-
         return response()->crud(tap($provinsi)->delete());
     }
 }

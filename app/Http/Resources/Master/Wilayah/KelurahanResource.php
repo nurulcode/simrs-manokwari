@@ -19,11 +19,9 @@ class KelurahanResource extends JsonResource
             'name'                => $this->name,
             'kecamatan_id'        => $this->kecamatan_id,
             'kecamatan_name'      => $this->when($this->kecamatan_name, $this->kecamatan_name),
-            'kota_kabupaten_name' => $this->when($this->kota_kabupaten_name, $this->kota_kabupaten_name),
             'kecamatan'           => KecamatanResource::make($this->whenLoaded('kecamatan')),
+            'kota_kabupaten_name' => $this->when($this->kota_kabupaten_name, $this->kota_kabupaten_name),
             'path'                => $this->path,
-            '__editable'          => $request->user()->can('update', $this->resource),
-            '__deletable'         => $request->user()->can('delete', $this->resource),
         ];
     }
 }

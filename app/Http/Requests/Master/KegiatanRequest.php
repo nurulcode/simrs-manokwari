@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Master;
 
-use App\Models\Master\Kegiatan;
 use Illuminate\Foundation\Http\FormRequest;
 
 class KegiatanRequest extends FormRequest
@@ -14,11 +13,7 @@ class KegiatanRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('kegiatan')) {
-            return $this->user()->can('update', $this->route('kegiatan'));
-        }
-
-        return $this->user()->can('create', Kegiatan::class);
+        return true;
     }
 
     /**

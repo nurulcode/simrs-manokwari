@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Master\Wilayah;
 
 use Sty\HttpQuery;
-use App\Http\Controllers\Controller;
 use App\Models\Master\Wilayah\Kecamatan;
+use App\Http\Controllers\Master\Controller;
 use App\Http\Requests\Master\Wilayah\KecamatanRequest;
 use App\Http\Resources\Master\Wilayah\KecamatanResource;
 
@@ -17,8 +17,6 @@ class KecamatanController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Kecamatan::class);
-
         return KecamatanResource::collection(Kecamatan::withParent()->filter($query));
     }
 
@@ -43,8 +41,6 @@ class KecamatanController extends Controller
      */
     public function show(Kecamatan $kecamatan)
     {
-        $this->authorize('show', $kecamatan);
-
         return new KecamatanResource($kecamatan);
     }
 
@@ -70,8 +66,6 @@ class KecamatanController extends Controller
      */
     public function destroy(Kecamatan $kecamatan)
     {
-        $this->authorize('delete', $kecamatan);
-
         return response()->crud(tap($kecamatan)->delete());
     }
 }

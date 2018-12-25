@@ -22,8 +22,6 @@ class KecamatanResource extends JsonResource
             'kota_kabupaten'      => KotaKabupatenResource::make($this->whenLoaded('kota_kabupaten')),
             'provinsi_name'       => $this->when($this->provinsi_name, $this->provinsi_name),
             'path'                => $this->path,
-            '__editable'          => $request->user()->can('update', $this->resource),
-            '__deletable'         => $request->user()->can('delete', $this->resource),
         ];
     }
 }

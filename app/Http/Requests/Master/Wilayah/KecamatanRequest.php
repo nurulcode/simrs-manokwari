@@ -14,11 +14,7 @@ class KecamatanRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('kecamatan')) {
-            return $this->user()->can('update', $this->route('kecamatan'));
-        }
-
-        return $this->user()->can('create', Kecamatan::class);
+        return true;
     }
 
     /**

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Master;
 
 use Sty\HttpQuery;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Master\TindakanPemeriksaan;
 use App\Http\Requests\Master\TindakanPemeriksaanRequest;
 use App\Http\Resources\Master\TindakanPemeriksaanResource;
@@ -18,8 +16,6 @@ class TindakanPemeriksaanController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', TindakanPemeriksaan::class);
-
         return TindakanPemeriksaanResource::collection(
             TindakanPemeriksaan::filter($query)
         );
@@ -46,8 +42,6 @@ class TindakanPemeriksaanController extends Controller
      */
     public function show(TindakanPemeriksaan $tindakan_pemeriksaan)
     {
-        $this->authorize('show', $tindakan_pemeriksaan);
-
         return new TindakanPemeriksaanResource($tindakan_pemeriksaan);
     }
 
@@ -73,21 +67,6 @@ class TindakanPemeriksaanController extends Controller
      */
     public function destroy(TindakanPemeriksaan $tindakan_pemeriksaan)
     {
-        $this->authorize('delete', $tindakan_pemeriksaan);
-
         return response()->crud(tap($tindakan_pemeriksaan)->delete());
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        $this->authorize('view', TindakanPemeriksaan::class);
-
-        return view('master.tindakan-pemeriksaan');
     }
 }

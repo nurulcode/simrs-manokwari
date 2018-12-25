@@ -14,11 +14,7 @@ class ProvinsiRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('provinsi')) {
-            return $this->user()->can('update', $this->route('provinsi'));
-        }
-
-        return $this->user()->can('create', Provinsi::class);
+        return true;
     }
 
     /**

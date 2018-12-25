@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Master;
 
 use Sty\HttpQuery;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Master\CaraPembayaran;
 use App\Http\Requests\Master\CaraPembayaranRequest;
 use App\Http\Resources\Master\CaraPembayaranResource;
@@ -18,8 +17,6 @@ class CaraPembayaranController extends Controller
      */
     public function index(HttpQuery $query, Request $request)
     {
-        $this->authorize('index', CaraPembayaran::class);
-
         $cara_pembayaran = CaraPembayaran::query();
 
         if ($request->filled('parent')) {
@@ -50,8 +47,6 @@ class CaraPembayaranController extends Controller
      */
     public function show(CaraPembayaran $cara_pembayaran)
     {
-        $this->authorize('show', $cara_pembayaran);
-
         return new CaraPembayaranResource($cara_pembayaran);
     }
 
@@ -77,21 +72,6 @@ class CaraPembayaranController extends Controller
      */
     public function destroy(CaraPembayaran $cara_pembayaran)
     {
-        $this->authorize('delete', $cara_pembayaran);
-
         return response()->crud(tap($cara_pembayaran)->delete());
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        $this->authorize('view', CaraPembayaran::class);
-
-        return view('master.cara-pembayaran');
     }
 }

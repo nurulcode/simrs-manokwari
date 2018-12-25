@@ -16,14 +16,12 @@ class KelompokPenyakitResource extends JsonResource
     {
         return [
             'id'             => $this->id,
-            'klasifikasi'    => KlasifikasiPenyakitResource::make($this->whenLoaded('klasifikasi')),
-            'klasifikasi_id' => $this->klasifikasi_id,
-            'kode'           => $this->kode,
             'icd'            => $this->icd,
+            'kode'           => $this->kode,
+            'klasifikasi_id' => $this->klasifikasi_id,
+            'klasifikasi'    => KlasifikasiPenyakitResource::make($this->whenLoaded('klasifikasi')),
             'uraian'         => $this->uraian,
             'path'           => $this->path,
-            '__editable'     => $request->user()->can('update', $this->resource),
-            '__deletable'    => $request->user()->can('delete', $this->resource),
         ];
     }
 }

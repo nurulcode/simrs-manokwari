@@ -4,10 +4,11 @@ namespace Tests\Feature\Master\Penyakit;
 
 use Tests\TestCase;
 use Sty\Tests\ResourceControllerTestCase;
+use Sty\Tests\ResourceViewControllerTestCase;
 
 class PenyakitControllerTest extends TestCase
 {
-    use ResourceControllerTestCase;
+    use ResourceControllerTestCase, ResourceViewControllerTestCase;
 
     public function resource()
     {

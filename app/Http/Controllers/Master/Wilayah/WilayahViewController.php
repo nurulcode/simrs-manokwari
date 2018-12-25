@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Master\Wilayah;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Master\Controller;
 
-class WilayahController extends Controller
+class WilayahViewController extends Controller
 {
-    public function view(Request $request)
+    public function __invoke(Request $request)
     {
         return view('master.wilayah.index');
     }

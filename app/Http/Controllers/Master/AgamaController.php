@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Master;
 use Sty\HttpQuery;
 use App\Models\Master\Agama;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Resources\Master\Resource;
 
 class AgamaController extends Controller
@@ -17,8 +16,6 @@ class AgamaController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Agama::class);
-
         return Resource::collection(Agama::filter($query));
     }
 
@@ -30,8 +27,6 @@ class AgamaController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Agama::class);
-
         $request->validate(['uraian' => 'required|max:255']);
 
         return response()->crud(new Resource(
@@ -47,8 +42,6 @@ class AgamaController extends Controller
      */
     public function show(Agama $agama)
     {
-        $this->authorize('show', $agama);
-
         return new Resource($agama);
     }
 
@@ -61,8 +54,6 @@ class AgamaController extends Controller
      */
     public function update(Request $request, Agama $agama)
     {
-        $this->authorize('update', $agama);
-
         $request->validate(['uraian' => 'required|max:255']);
 
         return response()->crud(new Resource(
@@ -78,21 +69,6 @@ class AgamaController extends Controller
      */
     public function destroy(Agama $agama)
     {
-        $this->authorize('delete', $agama);
-
         return response()->crud(tap($agama)->delete());
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        $this->authorize('view', Agama::class);
-
-        return view('master.agama');
     }
 }

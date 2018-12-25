@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Master;
 
-use App\Models\Master\CaraPembayaran;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CaraPembayaranRequest extends FormRequest
@@ -14,11 +13,7 @@ class CaraPembayaranRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('cara_pembayaran')) {
-            return $this->user()->can('update', $this->route('cara_pembayaran'));
-        }
-
-        return $this->user()->can('create', CaraPembayaran::class);
+        return true;
     }
 
     /**

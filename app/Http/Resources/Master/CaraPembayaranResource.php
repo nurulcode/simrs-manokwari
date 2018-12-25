@@ -15,14 +15,12 @@ class CaraPembayaranResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'          => $this->id,
-            'parent_id'   => $this->parent_id,
-            'parent'      => self::make($this->whenLoaded('parent')),
-            'kode'        => $this->kode,
-            'uraian'      => $this->uraian,
-            'path'        => $this->path,
-            '__editable'  => $request->user()->can('update', $this->resource),
-            '__deletable' => $request->user()->can('delete', $this->resource),
+            'id'        => $this->id,
+            'parent_id' => $this->parent_id,
+            'parent'    => self::make($this->whenLoaded('parent')),
+            'kode'      => $this->kode,
+            'uraian'    => $this->uraian,
+            'path'      => $this->path,
         ];
     }
 }

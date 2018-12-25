@@ -16,13 +16,11 @@ class PenyakitResource extends JsonResource
     {
         return [
             'id'          => $this->id,
-            'kelompok'    => KelompokPenyakitResource::make($this->whenLoaded('kelompok')),
-            'kelompok_id' => $this->kelompok_id,
             'icd'         => $this->icd,
-            'uraian'      => $this->uraian,
+            'kelompok_id' => $this->kelompok_id,
+            'kelompok'    => KelompokPenyakitResource::make($this->whenLoaded('kelompok')),
             'path'        => $this->path,
-            '__editable'  => $request->user()->can('update', $this->resource),
-            '__deletable' => $request->user()->can('delete', $this->resource),
+            'uraian'      => $this->uraian,
         ];
     }
 }

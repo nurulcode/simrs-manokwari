@@ -4,7 +4,6 @@ namespace App\Http\Requests\Master\Penyakit;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Master\Penyakit\KlasifikasiPenyakit;
 
 class KlasifikasiPenyakitRequest extends FormRequest
 {
@@ -15,11 +14,7 @@ class KlasifikasiPenyakitRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('klasifikasi')) {
-            return $this->user()->can('update', $this->route('klasifikasi'));
-        }
-
-        return $this->user()->can('create', KlasifikasiPenyakit::class);
+        return true;
     }
 
     /**

@@ -6,10 +6,11 @@ use Tests\TestCase;
 use App\Models\Master\Kegiatan;
 use App\Models\Master\KategoriKegiatan;
 use Sty\Tests\ResourceControllerTestCase;
+use Sty\Tests\ResourceViewControllerTestCase;
 
 class KegiatanControllerTest extends TestCase
 {
-    use ResourceControllerTestCase;
+    use ResourceControllerTestCase, ResourceViewControllerTestCase;
 
     public function resource()
     {

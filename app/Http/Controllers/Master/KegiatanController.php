@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Master;
 use Sty\HttpQuery;
 use App\KegiatanKategori;
 use App\Models\Master\Kegiatan;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Master\KegiatanRequest;
 use App\Http\Resources\Master\KegiatanResource;
 
@@ -18,8 +17,6 @@ class KegiatanController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Kegiatan::class);
-
         return KegiatanResource::collection(Kegiatan::filter($query));
     }
 
@@ -44,8 +41,6 @@ class KegiatanController extends Controller
      */
     public function show(Kegiatan $kegiatan)
     {
-        $this->authorize('show', $kegiatan);
-
         return new KegiatanResource($kegiatan);
     }
 
@@ -71,21 +66,6 @@ class KegiatanController extends Controller
      */
     public function destroy(Kegiatan $kegiatan)
     {
-        $this->authorize('delete', $kegiatan);
-
         return response()->crud(tap($kegiatan)->delete());
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        $this->authorize('view', Kegiatan::class);
-
-        return view('master.kegiatan');
     }
 }

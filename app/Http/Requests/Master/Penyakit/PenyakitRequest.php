@@ -15,11 +15,7 @@ class PenyakitRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('penyakit')) {
-            return $this->user()->can('update', $this->route('penyakit'));
-        }
-
-        return $this->user()->can('create', Penyakit::class);
+        return true;
     }
 
     /**

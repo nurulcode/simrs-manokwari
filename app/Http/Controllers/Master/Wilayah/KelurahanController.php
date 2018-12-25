@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Master\Wilayah;
 
 use Sty\HttpQuery;
-use App\Http\Controllers\Controller;
 use App\Models\Master\Wilayah\Kelurahan;
+use App\Http\Controllers\Master\Controller;
 use App\Http\Requests\Master\Wilayah\KelurahanRequest;
 use App\Http\Resources\Master\Wilayah\KelurahanResource;
 
@@ -17,8 +17,6 @@ class KelurahanController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Kelurahan::class);
-
         return KelurahanResource::collection(Kelurahan::withParent()->filter($query));
     }
 
@@ -43,8 +41,6 @@ class KelurahanController extends Controller
      */
     public function show(Kelurahan $kelurahan)
     {
-        $this->authorize('show', $kelurahan);
-
         return new KelurahanResource($kelurahan);
     }
 
@@ -70,8 +66,6 @@ class KelurahanController extends Controller
      */
     public function destroy(Kelurahan $kelurahan)
     {
-        $this->authorize('delete', $kelurahan);
-
         return response()->crud(tap($kelurahan)->delete());
     }
 }

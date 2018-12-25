@@ -5,7 +5,6 @@ namespace App\Http\Requests\Master;
 use Illuminate\Validation\Rule;
 use BenSampo\Enum\Rules\EnumValue;
 use App\Enums\JenisTindakanPemeriksaan;
-use App\Models\Master\TindakanPemeriksaan;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TindakanPemeriksaanRequest extends FormRequest
@@ -17,11 +16,7 @@ class TindakanPemeriksaanRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('tindakan_pemeriksaan')) {
-            return $this->user()->can('update', $this->route('tindakan_pemeriksaan'));
-        }
-
-        return $this->user()->can('create', TindakanPemeriksaan::class);
+        return true;
     }
 
     /**
