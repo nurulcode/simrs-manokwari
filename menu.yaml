@@ -104,6 +104,9 @@
       title: Daftar Pekerjaan
       link : master/pekerjaan
     -
+      title: Daftar Tipe Diagnosa
+      link : master/tipe-diagnosa
+    -
       title: Jenis Poliklinik
       link : master/jenis-poliklinik
     -

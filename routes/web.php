@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('penyakit',          'Penyakit\\PenyakitController@view');
         Route::get('suku',              'SukuController@view');
         Route::get('tindakan',          'TindakanPemeriksaanController@view');
+        Route::get('tipe-diagnosa',     'TipeDiagnosaViewController');
         Route::get('wilayah',           'Wilayah\\WilayahController@view');
     });
 });

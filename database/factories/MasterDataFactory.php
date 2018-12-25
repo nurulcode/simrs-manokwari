@@ -21,6 +21,8 @@ $factory->define(Master\Pendidikan::class, $generic_factory);
 
 $factory->define(Master\Suku::class, $generic_factory);
 
+$factory->define(Master\TipeDiagnosa::class, $generic_factory);
+
 $factory->define(Master\Kasus::class, function (Faker $faker) {
     return [
         'kode'   => $faker->unique()->word,

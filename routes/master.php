@@ -19,7 +19,8 @@ Route::namespace('Master')->group(function () {
         'pekerjaan'            => 'PekerjaanController',
         'pendidikan'           => 'PendidikanController',
         'suku'                 => 'SukuController',
-        'tindakan-pemeriksaan' => 'TindakanPemeriksaanController'
+        'tindakan-pemeriksaan' => 'TindakanPemeriksaanController',
+        'tipe-diagnosa'        => 'TipeDiagnosaController'
     ]);
 
     Route::namespace('Wilayah')->prefix('wilayah')->name('wilayah.')->group(function () {

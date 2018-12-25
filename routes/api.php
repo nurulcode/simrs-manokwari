@@ -32,6 +32,8 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::prefix('kepegawaian')->group(base_path('routes/kepegawaian.php'));
 
+    Route::prefix('layanan')->group(base_path('routes/layanan.php'));
+
     Route::prefix('perawatan')->group(base_path('routes/perawatan.php'));
 });
 
