@@ -10,10 +10,10 @@
     <b-collapse id="pasien" visible>
         <div class="card-body">
             <div class="row">
-                <div class="col">
+                <div class="col-lg-12 col-md-4">
                     <b-form-group label="Pasien:">
                         <input
-                            class="form-control text-right"
+                            class="form-control"
                             disabled
                             placeholder="Pasien"
                             readonly
@@ -23,10 +23,10 @@
                         </input>
                     </b-form-group>
                 </div>
-                <div class="col">
+                <div class="col-lg-12 col-md-4">
                     <b-form-group label="Nomor Rekam Medis:">
                         <input
-                            class="form-control text-right"
+                            class="form-control"
                             disabled
                             placeholder="Nomor Rekam Medis"
                             readonly
@@ -36,10 +36,10 @@
                         </input>
                     </b-form-group>
                 </div>
-                <div class="col">
+                <div class="col-lg-12 col-md-4">
                     <b-form-group label="Tempat, Tanggal Lahir:">
                         <input
-                            class="text-right form-control"
+                            class="form-control"
                             disabled
                             placeholder="Tanggal Lahir"
                             readonly
@@ -52,10 +52,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col-lg-12 col-md-4">
                     <b-form-group label="Umur:">
                         <input
-                            class="text-right form-control"
+                            class="form-control"
                             disabled
                             placeholder="Umur"
                             readonly
@@ -66,10 +66,10 @@
                         </input>
                     </b-form-group>
                 </div>
-                <div class="col">
+                <div class="col-lg-12 col-md-4">
                     <b-form-group label="Alamat:">
                         <input
-                            class="text-right form-control"
+                            class="form-control"
                             disabled
                             placeholder="Alamat"
                             readonly
@@ -78,10 +78,10 @@
                         </input>
                     </b-form-group>
                 </div>
-                <div class="col">
+                <div class="col-lg-12 col-md-4">
                     <b-form-group label="Telepon/HP:">
                         <input
-                            class="text-right form-control"
+                            class="form-control"
                             disabled
                             placeholder="Telepon/HP"
                             readonly
