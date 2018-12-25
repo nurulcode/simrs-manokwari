@@ -1,10 +1,7 @@
-@component('components.card', ['header' => 'Kunjungan Rawat Jalan'])
-    @slot('title')
-        {{ $rawat_jalan->poliklinik->nama }}
-    @endslot
-    <b-tabs>
-        <b-tab title="first" active>
-            <br>I'm the first fading tab
+<b-card no-body>
+    <b-tabs lazy card>
+        <b-tab title="Diagnosa" active>
+            I'm the first fading tab
         </b-tab>
         <b-tab title="second" >
             <br>I'm the second tab content
@@ -13,7 +10,8 @@
             <br>Disabled tab!
         </b-tab>
     </b-tabs>
-@endcomponent
+</b-card>
+
 
 @push('javascripts')
 <script>

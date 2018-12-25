@@ -11,31 +11,44 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-12 col-md-4">
-                    <b-form-group label="Pasien:">
+                    <b-form-group label="Nomor Kunjungan:">
                         <input
                             class="form-control"
                             disabled
                             placeholder="Pasien"
                             readonly
                             type="text"
-                            value="{{ $pasien->nama }}"
+                            value="{{ $nomor_kunjungan }}"
                             >
                         </input>
                     </b-form-group>
                 </div>
                 <div class="col-lg-12 col-md-4">
-                    <b-form-group label="Nomor Rekam Medis:">
+                    <b-form-group label="Waktu Kunjungan:">
+                        <input
+                            class="form-control"
+                            disabled
+                            type="text"
+                            value="{{ $waktu_kunjungan->format('d/m/Y H:i') }}"
+                            >
+                        </input>
+                    </b-form-group>
+                </div>
+                <div class="col-lg-12 col-md-4">
+                    <b-form-group label="Pasien:">
                         <input
                             class="form-control"
                             disabled
                             placeholder="Nomor Rekam Medis"
                             readonly
                             type="text"
-                            value="{{ $pasien->no_rekam_medis }}"
+                            value="{{ $pasien->no_rekam_medis }} - {{ $pasien->nama }}"
                             >
                         </input>
                     </b-form-group>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-12 col-md-4">
                     <b-form-group label="Tempat, Tanggal Lahir:">
                         <input
@@ -44,14 +57,12 @@
                             placeholder="Tanggal Lahir"
                             readonly
                             @if(!empty($pasien->tanggal_lahir))
-                                value="{{ $pasien->tanggal_lahir->format('d M Y') }}"
+                                value="{{ $pasien->tanggal_lahir->format('d/m/Y') }}"
                             @endif
                             >
                         </input>
                     </b-form-group>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-lg-12 col-md-4">
                     <b-form-group label="Umur:">
                         <input
@@ -74,18 +85,6 @@
                             placeholder="Alamat"
                             readonly
                             value="{{ $pasien->alamat }}"
-                            >
-                        </input>
-                    </b-form-group>
-                </div>
-                <div class="col-lg-12 col-md-4">
-                    <b-form-group label="Telepon/HP:">
-                        <input
-                            class="form-control"
-                            disabled
-                            placeholder="Telepon/HP"
-                            readonly
-                            value="{{ $pasien->telepon }}"
                             >
                         </input>
                     </b-form-group>

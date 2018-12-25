@@ -15,20 +15,6 @@ use App\Models\Master\CaraPembayaran;
 
     <div class="row">
         <div class="col">
-            <b-form-group v-bind="form_kunjungan.feedback('nomor_kunjungan')">
-                <b slot="label">Nomor Kunjungan:</b>
-                <input
-                    disabled
-                    class="form-control"
-                    name="nomor_kunjungan"
-                    readonly
-                    type="text"
-                    v-model="form_kunjungan.nomor_kunjungan"
-                    >
-                </input>
-            </b-form-group>
-        </div>
-        <div class="col">
             <b-form-group label="Jenis Rujukan:" v-bind="form_kunjungan.feedback('rujukan.jenis_id')">
                 <b-form-select v-model="form_kunjungan.rujukan.jenis_id">
                     <option :value="null" disabled>Pilih Jenis Rujukan</option>
@@ -38,19 +24,6 @@ use App\Models\Master\CaraPembayaran;
                 </b-form-select>
             </b-form-group>
         </div>
-        <div class="col">
-            <b-form-group label="Waktu Kunjungan:">
-                <input
-                    class="form-control"
-                    disabled
-                    type="text"
-                    value="{{ $kunjungan->waktu_kunjungan->format('d/m/Y H:i') }}"
-                    >
-                </input>
-            </b-form-group>
-        </div>
-    </div>
-    <div class="row">
         <div class="col">
             <b-form-group label="Nomor Rujukan:" v-bind="form_kunjungan.feedback('rujukan.nomor')">
                 <input
@@ -75,6 +48,8 @@ use App\Models\Master\CaraPembayaran;
                 </input>
             </b-form-group>
         </div>
+    </div>
+    <div class="row">
         <div class="col">
             <b-form-group label="Tanggal Rujukan:" v-bind="form_kunjungan.feedback('rujukan.tanggal')">
                 <date-picker
@@ -83,6 +58,30 @@ use App\Models\Master\CaraPembayaran;
                     v-on:input="form_kunjungan.errors.clear('rujukan.tanggal')"
                     >
                 </date-picker>
+            </b-form-group>
+        </div>
+        <div class="col">
+            <b-form-group label="Penanggung Jawab:" v-bind="form_kunjungan.feedback('pj_nama')">
+                <input
+                    class="form-control"
+                    name="pj_nama"
+                    placeholder="Penanggung Jawab"
+                    type="text"
+                    v-model="form_kunjungan.pj_nama"
+                    >
+                </input>
+            </b-form-group>
+        </div>
+        <div class="col">
+            <b-form-group label="Telp. Penanggung Jawab:" v-bind="form_kunjungan.feedback('pj_telepon')">
+                <input
+                    class="form-control"
+                    name="pj_telepon"
+                    placeholder="Telp. Penanggung Jawab"
+                    type="text"
+                    v-model="form_kunjungan.pj_telepon"
+                    >
+                </input>
             </b-form-group>
         </div>
     </div>
@@ -130,30 +129,6 @@ use App\Models\Master\CaraPembayaran;
     </div>
     <div class="row">
         <div class="col">
-            <b-form-group label="Penanggung Jawab:" v-bind="form_kunjungan.feedback('pj_nama')">
-                <input
-                    class="form-control"
-                    name="pj_nama"
-                    placeholder="Penanggung Jawab"
-                    type="text"
-                    v-model="form_kunjungan.pj_nama"
-                    >
-                </input>
-            </b-form-group>
-        </div>
-        <div class="col">
-            <b-form-group label="Telp. Penanggung Jawab:" v-bind="form_kunjungan.feedback('pj_telepon')">
-                <input
-                    class="form-control"
-                    name="pj_telepon"
-                    placeholder="Telp. Penanggung Jawab"
-                    type="text"
-                    v-model="form_kunjungan.pj_telepon"
-                    >
-                </input>
-            </b-form-group>
-        </div>
-        <div class="col">
             <b-form-group label="Jenis Kasus:" v-bind="form_kunjungan.feedback('kasus_id')">
                 <b-form-select v-model="form_kunjungan.kasus_id">
                     <option :value="null" disabled>Pilih Jenis Kasus</option>
@@ -163,9 +138,7 @@ use App\Models\Master\CaraPembayaran;
                 </b-form-select>
             </b-form-group>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-8">
             <b-form-group label="Diagnosa Awal:" v-bind="form_kunjungan.feedback('penyakit_id')">
                 <ajax-select
                     deselect-label=""
@@ -186,7 +159,9 @@ use App\Models\Master\CaraPembayaran;
                 </ajax-select>
             </b-form-group>
         </div>
-        <div class="col-md-8">
+    </div>
+    <div class="row">
+        <div class="col">
             <b-form-group v-bind="form_kunjungan.feedback('keluhan')">
                 <b slot="label">Keluhan:</b>
                 <input

@@ -15,6 +15,13 @@ class RawatJalan extends Model
      */
     protected $with = ['poliklinik'];
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['waktu_kunjungan'];
+
     protected static function boot()
     {
         parent::boot();
