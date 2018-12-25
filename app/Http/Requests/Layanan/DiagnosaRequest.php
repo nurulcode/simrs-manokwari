@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Layanan;
 
+use App\Enums\KasusDiagnosa;
+use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DiagnosaRequest extends FormRequest
@@ -24,11 +26,27 @@ class DiagnosaRequest extends FormRequest
     public function rules()
     {
         return [
-            'penyakit_id'      => 'required',
+            'perawatan_id'     => 'required|morph_exists:perawatan_type',
+            'perawatan_type'   => 'required|morph',
+            'penyakit_id'      => 'required|exists:penyakits,id',
             'lama_menderita'   => 'nullable',
-            'kasus'            => 'required',
-            'tipe_diagnosa_id' => 'required',
-            'petugas_id'       => 'required',
+            'tipe_diagnosa_id' => 'required|exists:tipe_diagnosas,id',
+            'petugas_id'       => 'required|exists:pegawais,id',
+            'kasus'            => ['required', new EnumValue(KasusDiagnosa::class)],
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'penyakit_id'      => 'penyakit',
+            'tipe_diagnosa_id' => 'tipe',
+            'petugas_id'       => 'petugas',
         ];
     }
 }

@@ -51,4 +51,12 @@ class RawatJalanTest extends TestCase
             'perawatan_type' => get_class($resource),
         ]);
     }
+
+    // /** @test */
+    // public function resource_has_many_diagnosa()
+    // {
+    //     $resource = factory(RawatJalan::class)->create();
+
+    //     $this->assertInstanceof(Poliklinik::class, $resource->poliklinik);
+    // }
 }

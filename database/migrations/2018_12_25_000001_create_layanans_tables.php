@@ -15,6 +15,8 @@ class CreateLayanansTables extends Migration
     {
         Schema::create('diagnosas', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('perawatan_id');
+            $table->string('perawatan_type');
             $table->unsignedInteger('penyakit_id');
             $table->string('lama_menderita')->nullable();
             $table->unsignedTinyInteger('kasus');
