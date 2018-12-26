@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Perawatan;
 
 use Sty\HttpQuery;
+use App\Models\Kunjungan;
 use Illuminate\Http\Request;
-use App\RegistrasiRawatJalan;
 use App\Http\Controllers\Controller;
 use App\Models\Perawatan\RawatJalan;
 use App\Http\Resources\Perawatan\RawatJalanResource;
@@ -32,9 +32,17 @@ class RawatJalanController extends Controller
      */
     public function store(CreateRawatJalanRequest $request)
     {
-        return response()->crud(new RawatJalanResource(
-            RegistrasiRawatJalan::create($request->validated())
-        ));
+        $kunjungan   = Kunjungan::create(array_except($request->validated(), [
+            'kegiatan_id', 'poliklinik_id', 'jenis_registrasi_id'
+        ]));
+
+        $rawat_jalan = new RawatJalan(array_only($request->validated(), [
+            'kegiatan_id', 'poliklinik_id', 'jenis_registrasi_id', 'waktu_kunjungan'
+        ]));
+
+        $kunjungan->rawat_jalans()->save($rawat_jalan);
+
+        return response()->crud(new RawatJalanResource($rawat_jalan));
     }
 
     /**
