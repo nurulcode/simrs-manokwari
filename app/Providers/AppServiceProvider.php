@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Sty\CrudResponse;
 use BenSampo\Enum\Enum;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -49,6 +50,10 @@ class AppServiceProvider extends ServiceProvider
             }
 
             return false;
+        });
+
+        Carbon::serializeUsing(function ($carbon) {
+            return $carbon->format('Y-m-d H:i:s');
         });
     }
 
