@@ -10,7 +10,7 @@ class TindakanPoliklinik
     {
         $tindakan = TindakanPemeriksaan::create(array_except($data, 'polikliniks'));
 
-        $tindakan->polikliniks()->sync(array_pluck($data['polikliniks'], 'id'));
+        $tindakan->polikliniks()->sync(array_pluck(array_get($data, 'polikliniks', []), 'id'));
 
         return $tindakan;
     }
@@ -19,7 +19,7 @@ class TindakanPoliklinik
     {
         $tindakan->update(array_except($data, 'polikliniks'));
 
-        $tindakan->polikliniks()->sync(array_pluck($data['polikliniks'], 'id'));
+        $tindakan->polikliniks()->sync(array_pluck(array_get($data, 'polikliniks', []), 'id'));
 
         return $tindakan;
     }
