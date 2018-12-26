@@ -1,20 +1,22 @@
 <div class="card {{ $class ?? '' }}">
 
     @isset($header)
-        <div class="card-header d-flex">
+        <div class="card-header" v-b-toggle.{{ $rand = uniqid() }}>
             {{ $header }}
         </div>
     @endisset
 
-    <div class="card-body">
+    <b-collapse id="{{ $rand }}" visible>
+        <div class="card-body">
 
-        @isset($title)
-            <{{ $title_tag ?? 'h4' }} class="card-title">{{ $title }}</{{ $title_tag ?? 'h4'}}>
-        @endisset
+            @isset($title)
+                <{{ $title_tag ?? 'h4' }} class="card-title">{{ $title }}</{{ $title_tag ?? 'h4'}}>
+            @endisset
 
-        {{ $slot }}
+            {{ $slot }}
 
-    </div>
+        </div>
+    </b-collapse>
 
     @if(isset($footer) && !empty($footer->toHtml()))
         <div class="card-footer">{{ $footer }}</div>

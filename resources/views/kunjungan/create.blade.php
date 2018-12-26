@@ -9,11 +9,15 @@ use App\Models\Master\CaraPembayaran;
 @section('title', 'Registrasi Pasien Rawat Jalan')
 
 @section('header')
-    <h6 class="mr-auto mb-0"> Registrasi Pasien Rawat Jalan </h6>
-    <div>
-        <button class="btn btn-brand btn-spotify" v-on:click.prevent="createPasien">
-            <i class="fa fa-plus"></i> <span>Pasien Baru</span>
-        </button>
+    <div class="row">
+        <div class="col">
+            <h6 class="mr-auto mb-0" style="line-height: 33px"> Registrasi Pasien Rawat Jalan </h6>
+        </div>
+        <div class="col text-right">
+            <button class="btn btn-brand btn-spotify" v-on:click.prevent="createPasien">
+                <i class="fa fa-plus"></i> <span>Pasien Baru</span>
+            </button>
+        </div>
     </div>
 @endsection
 
