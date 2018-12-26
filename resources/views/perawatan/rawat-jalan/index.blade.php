@@ -3,7 +3,7 @@
 @section('title', 'Rawat Jalan Management')
 
 @section('card')
-    <data-table v-bind.sync="perawatan" ref="table" no-action no-add-button-text>
+    <data-table v-bind.sync="perawatan" ref="table" no-action v-on:dt:item-create="create">
         <template slot="view" slot-scope="{item}">
             <a :href="`{{ action('Perawatan\RawatJalanWebController@index') }}/${item.id}`"
                 class="btn btn-primary"> <i class="icon-eye"></i>
@@ -57,11 +57,19 @@ window.pagemix.push({
                     }
                 }, {
                     key      : 'view',
-                    class    : 'text-center'
+                    class    : 'text-center',
+                    thStyle  : {
+                        'width': '80px'
+                    }
                 }]
             }
         }
     },
+    methods: {
+        create() {
+            window.location.replace(`{{ action('Perawatan\RawatJalanWebController@create') }}`);
+        }
+    }
 });
 </script>
 @endpush
