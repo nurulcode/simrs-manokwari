@@ -45,7 +45,7 @@ window.pagemix.push({
                     formatter: poliklinik => poliklinik.nama,
                 },{
                     key      : 'waktu_kunjungan',
-                    formatter: waktu => format(parse(waktu.date), 'DD/MM/YYYY H:mm:ss'),
+                    formatter: waktu => format(parse(waktu), 'DD/MM/YYYY H:mm:ss'),
                     sortable : true,
                     thStyle  : {
                         'width': '160px'
