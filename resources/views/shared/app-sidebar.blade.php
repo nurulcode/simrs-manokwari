@@ -1,15 +1,13 @@
 <app-sidebar inline-template>
     <div class="sidebar">
         <form class="sidebar-form">
-
-            @component('components.input-group')
+            <div class="input-group">
                 <input
                     class="form-control"
                     name="search"
                     placeholder="Search..."
                     type="text"
-                    v-model="filter"
-                />
+                    v-model="filter"/>
                 <span class="input-group-btn">
                     <button class="btn btn-flat" title="Cari menu" v-on:click.prevent="clearfilter">
                         <i v-if="filter" class="fa fa-times"></i>
@@ -17,8 +15,7 @@
                     </button>
 
                 </span>
-            @endcomponent
-
+            </div>
         </form>
         <nav class="sidebar-nav" ref="nav">
             <ul class="nav">
