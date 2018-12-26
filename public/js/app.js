@@ -2300,7 +2300,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return {
         bordered: true,
         hover: true,
-        striped: false
+        striped: false,
+        showEmpty: true
       };
     },
     context: function context() {
