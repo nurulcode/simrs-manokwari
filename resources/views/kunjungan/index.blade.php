@@ -23,7 +23,7 @@ window.pagemix.push({
         return {
             kunjungan: {
                 sortBy  : `waktu_kunjungan`,
-                sortDesc: true
+                sortDesc: true,
                 url     : `{{ action('KunjunganController@index') }}`,
                 fields: [{
                     key      : 'nomor_kunjungan',

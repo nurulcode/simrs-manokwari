@@ -31,7 +31,7 @@ window.pagemix.push({
         return {
             perawatan: {
                 sortBy  : `id`,
-                sortDesc: true
+                sortDesc: true,
                 url     : `{{ action('Perawatan\RawatJalanController@index') }}`,
                 fields: [{
                     key      : 'nomor_kunjungan',
