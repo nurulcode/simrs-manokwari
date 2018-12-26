@@ -24313,7 +24313,11 @@ var render = function() {
         },
         [
           _vm._v(
+<<<<<<< HEAD
             "\n            Peringatan! Data yang dihapus tidak dapat dikembalikan kembali\n        "
+=======
+            "\n        Peringatan! Data yang dihapus tidak dapat dikembalikan kembali\n    "
+>>>>>>> ec0eb777078e424c566f3513a195b0244ff2518f
           )
         ]
       ),
