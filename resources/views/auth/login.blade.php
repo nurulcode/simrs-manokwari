@@ -13,19 +13,15 @@
                 <div class="input-group">
                     <input
                         class="form-control"
-                        name="username"
-                        placeholder="{{ __('Username') }}"
-                        tabindex=1
-                        v-model="form.username">
-                    </input>
-
+                        name="search"
+                        placeholder="Search..."
+                        type="text"
+                        v-model="filter"/>
                     <div class="input-group-append">
                         <button class="btn btn-secondary"> <i class="icon-user"></i></button>
                     </div>
                 </div>
-
             </b-form-group>
-
             <b-form-group v-bind="form.feedback('password')">
                 <div class="input-group">
                     <input
@@ -36,16 +32,13 @@
                         v-bind:type="show_password ? `text`: `password`"
                         v-model="form.password">
                     </input>
-
                     <div class="input-group-append">
                         <button class="btn btn-secondary" v-on:click.prevent="show_password = !show_password">
                             <i :class="show_password ? `icon-lock` : `icon-eye`"></i>
                         </button>
                     </div>
                 </div>
-
             </b-form-group>
-
         </form>
 
         <button class="px-4 btn btn-primary" v-on:click.prevent="submit"> {{ __('Login') }} </button>
