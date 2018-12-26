@@ -25615,7 +25615,8 @@ module.exports = Component.exports
       class: 'form-control',
       attrs: {
         placeholder: 'Search...',
-        type: 'text'
+        type: 'text',
+        name: 'search'
       },
       domProps: {
         value: context.props.value
@@ -25833,6 +25834,7 @@ var HANDLER = '_outside_click_handler';
   },
   sortBy: {
     type: String,
+    default: 'id',
     required: false
   },
   sortDesc: {
