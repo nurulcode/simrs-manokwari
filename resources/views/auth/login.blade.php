@@ -13,18 +13,15 @@
                 <div class="input-group">
                     <input
                         class="form-control"
-                        name="username"
-                        placeholder="{{ __('Username') }}"
-                        tabindex=1
-                        v-model="form.username">
-                    </input>
-
+                        name="search"
+                        placeholder="Search..."
+                        type="text"
+                        v-model="filter"/>
                     <div class="input-group-append">
                         <button class="btn btn-secondary"> <i class="icon-user"></i></button>
                     </div>
                 </div>
             </b-form-group>
-
             <b-form-group v-bind="form.feedback('password')">
                 <div class="input-group">
                     <input
