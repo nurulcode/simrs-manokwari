@@ -22,7 +22,6 @@ class KunjunganResource extends JsonResource
             'jenis_registrasi_id' => $this->jenis_registrasi_id,
             'kasus'               => KasusResource::make($this->whenLoaded('kasus')),
             'kasus_id'            => $this->kasus_id,
-            'keluhan'             => $this->keluhan,
             'nomor_kunjungan'     => $this->nomor_kunjungan,
             'pasien'              => PasienResource::make($this->whenLoaded('pasien')),
             'pasien_baru'         => $this->pasien_baru,

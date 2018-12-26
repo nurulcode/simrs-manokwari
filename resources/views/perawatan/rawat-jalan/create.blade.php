@@ -79,7 +79,6 @@ window.pagemix.push({
                 pj_telepon         : null,
                 kasus_id           : null,
                 penyakit_id        : null,
-                keluhan            : null,
                 jenis_registrasi_id: null,
                 poliklinik_id      : null,
                 kegiatan_id        : null

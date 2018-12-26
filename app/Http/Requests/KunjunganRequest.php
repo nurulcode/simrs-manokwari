@@ -25,7 +25,6 @@ class KunjunganRequest extends FormRequest
     {
         return [
             'pasien_id'           => 'required|exists:pasiens,id',
-            'keluhan'             => 'required',
             'waktu_kunjungan'     => 'nullable|date',
 
             'pasien_baru'         => 'nullable|boolean',

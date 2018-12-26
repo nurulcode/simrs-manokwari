@@ -49,7 +49,6 @@ window.pagemix.push({
                 kasus_id           : null,
                 pasien_id          : null,
                 penyakit_id        : null,
-                keluhan            : null,
                 tarif_registrasi_id: null,
                 poliklinik_id      : null,
                 kegiatan_id        : null,

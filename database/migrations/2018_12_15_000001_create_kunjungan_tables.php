@@ -21,7 +21,6 @@ class CreateKunjunganTables extends Migration
             $table->boolean('pasien_baru')->default(false);
             $table->unsignedInteger('kasus_id')->nullable();
             $table->unsignedInteger('penyakit_id')->nullable();
-            $table->string('keluhan');
             $table->unsignedInteger('jenis_rujukan_id')->nullable();
             $table->string('rujukan_asal')->nullable();
             $table->string('rujukan_nomor')->nullable();

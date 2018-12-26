@@ -48,13 +48,11 @@ window.pagemix.push({
                         'width': '200px'
                     }
                 },{
-                    key      : 'keluhan',
-                    thStyle  : {
-                        'width': '200px'
-                    }
-                }, {
                     key      : 'view',
-                    class    : 'text-center'
+                    class    : 'text-center',
+                    thStyle  : {
+                        'width': '80px'
+                    }
                 }]
             }
         }

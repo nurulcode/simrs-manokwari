@@ -66,18 +66,4 @@
             </b-form-group>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <b-form-group label="Keluhan:">
-                <input
-                    class="form-control"
-                    disabled
-                    placeholder="Keluhan"
-                    readonly
-                    value="{{ $kunjungan->keluhan }}"
-                    >
-                </input>
-            </b-form-group>
-        </div>
-    </div>
 @endcomponent

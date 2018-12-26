@@ -190,17 +190,4 @@ use App\Models\Master\CaraPembayaran;
             </ajax-select>
         </b-form-group>
     </div>
-    <div class="col-md-8">
-        <b-form-group v-bind="form_kunjungan.feedback('keluhan')">
-            <b slot="label">Keluhan:</b>
-            <input
-                class="form-control"
-                name="keluhan"
-                placeholder="Keluhan"
-                type="text"
-                v-model="form_kunjungan.keluhan"
-                >
-            </input>
-        </b-form-group>
-    </div>
 </div>
