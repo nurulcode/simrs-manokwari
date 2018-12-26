@@ -4,15 +4,13 @@
 
 @section('content')
 <div class="card-group">
-    @component('components.card', ['class' => 'p-4', 'title' => 'Login', 'title_tag' => 'h1'])
+    @component('components.card', ['class' => 'p-4'])
+        <h1>Login</h1>
         <p class="text-muted">Sign In to your account</p>
 
         <form v-on:submit.prevent="submit">
-
             <b-form-group v-bind="form.feedback('username')">
-
-                @component('components.input-group')
-
+                <div class="input-group">
                     <input
                         class="form-control"
                         name="username"
@@ -21,18 +19,15 @@
                         v-model="form.username">
                     </input>
 
-                    @slot('append')
+                    <div class="input-group-append">
                         <button class="btn btn-secondary"> <i class="icon-user"></i></button>
-                    @endslot
-
-                @endcomponent
+                    </div>
+                </div>
 
             </b-form-group>
 
             <b-form-group v-bind="form.feedback('password')">
-
-                @component('components.input-group')
-
+                <div class="input-group">
                     <input
                         class="form-control"
                         name="password"
@@ -42,13 +37,12 @@
                         v-model="form.password">
                     </input>
 
-                    @slot('append')
+                    <div class="input-group-append">
                         <button class="btn btn-secondary" v-on:click.prevent="show_password = !show_password">
                             <i :class="show_password ? `icon-lock` : `icon-eye`"></i>
                         </button>
-                    @endslot
-
-                @endcomponent
+                    </div>
+                </div>
 
             </b-form-group>
 
@@ -82,7 +76,8 @@ window.pagemix.push({
             submiting    : false,
             form: new Form({
                 username: '',
-                password: ''
+                password: '',
+                remember: true
             })
         }
     },
