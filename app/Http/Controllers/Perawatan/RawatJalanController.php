@@ -19,8 +19,6 @@ class RawatJalanController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', RawatJalan::class);
-
         return RawatJalanResource::collection(
             RawatJalan::with(['kunjungan'])->filter($query)
         );
@@ -47,8 +45,6 @@ class RawatJalanController extends Controller
      */
     public function show(RawatJalan $rawat_jalan)
     {
-        $this->authorize('show', $rawat_jalan);
-
         return new RawatJalanResource($rawat_jalan);
     }
 

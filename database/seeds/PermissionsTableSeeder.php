@@ -37,6 +37,16 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Mengubah data permission'
         ]);
 
+        Permission::create([
+            'name'        => 'manage_master_data',
+            'description' => 'Mengelola master data'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_rawat_jalan',
+            'description' => 'Mengelola data rawat jalan'
+        ]);
+
         foreach (config('resources') as $resource) {
             $slug = with(new $resource)->permissionKeyName();
             $name = str_replace('_', ' ', $slug);

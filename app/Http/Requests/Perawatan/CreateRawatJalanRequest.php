@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Perawatan;
 
-use App\Models\Perawatan\RawatJalan;
 use App\Http\Requests\KunjunganRequest;
 
 class CreateRawatJalanRequest extends KunjunganRequest
@@ -14,7 +13,7 @@ class CreateRawatJalanRequest extends KunjunganRequest
      */
     public function authorize()
     {
-        return $this->user()->can('create', RawatJalan::class);
+        return true;
     }
 
     /**
