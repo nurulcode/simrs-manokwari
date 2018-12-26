@@ -8,7 +8,16 @@
 -
   title : Daftar Kunjungan
   icon  : icon-calendar
-  link  : kunjungan
+  childs:
+    - title : Daftar Kunjungan
+      link  : kunjungan
+    -
+      title: Rawat Jalan
+      link : perawatan/rawat-jalan
+    -
+      title: Reg. Rawat Inap
+    -
+      title: Reg. Rawat Darurat
 
 # ------------------------------------ #
 # ------- R E G I S T R A S I -------- #
@@ -24,20 +33,6 @@
       title: Reg. Rawat Inap
     -
       title: Reg. Rawat Darurat
--
-  title : Daftar Perawatan
-  icon  : icon-layers
-  childs:
-    -
-      title: Rawat Jalan
-      link : perawatan/rawat-jalan
-    -
-      title: Reg. Rawat Inap
-    -
-      title: Reg. Rawat Darurat
--
-  title : Info Rawat Inap
-  icon  : icon-info
 -
   title : Farmasi dan Logistik
   icon  : icon-social-dropbox
