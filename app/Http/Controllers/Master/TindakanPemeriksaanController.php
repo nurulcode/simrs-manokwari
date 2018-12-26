@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Master;
 
-use Sty\HttpQuery;
 use App\TindakanPoliklinik;
+use App\Http\Queries\TindakanQuery;
 use App\Models\Master\TindakanPemeriksaan;
 use App\Http\Requests\Master\TindakanPemeriksaanRequest;
 use App\Http\Resources\Master\TindakanPemeriksaanResource;
@@ -15,7 +15,7 @@ class TindakanPemeriksaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(TindakanQuery $query)
     {
         return TindakanPemeriksaanResource::collection(
             TindakanPemeriksaan::with('polikliniks')->filter($query)

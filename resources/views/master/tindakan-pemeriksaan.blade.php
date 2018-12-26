@@ -64,6 +64,18 @@
                 </span>
             </p>
         </template>
+        <div slot="before-top-button" class="mr-3" style="width: 240px">
+            <ajax-select
+                deselect-label=""
+                label="nama"
+                url="{{ action('Fasilitas\PoliklinikController@index') }}"
+                select-label=""
+                placeholder="Filter by Poliklinik"
+                v-bind:key-value.sync="tindakan.params.poliklinik"
+                v-model="tindakan.poliklinik"
+                >
+            </ajax-select>
+        </div>
     </data-table>
 @endsection
 
@@ -73,8 +85,11 @@ window.pagemix.push({
     data() {
         return {
             tindakan: {
+                sortBy: `kode`,
                 url   : `{{ action('Master\TindakanPemeriksaanController@index') }}`,
-                sortBy: 'kode',
+                params: {
+                    poliklinik: null
+                },
                 fields: [{
                     key      : 'kode',
                     sortable : true,
@@ -94,6 +109,11 @@ window.pagemix.push({
             }
         }
     },
+    methods: {
+        reload() {
+            this.tindakan.sortBy = uraian;
+        }
+    }
 });
 </script>
 @endpush
