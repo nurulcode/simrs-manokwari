@@ -30,11 +30,9 @@ window.pagemix.push({
     data() {
         return {
             perawatan: {
-                url    : `{{ action('Perawatan\RawatJalanController@index') }}`,
-                options:{
-                    sortBy  : 'id',
-                    sortDesc: true
-                },
+                sortBy  : `id`,
+                sortDesc: true
+                url     : `{{ action('Perawatan\RawatJalanController@index') }}`,
                 fields: [{
                     key      : 'nomor_kunjungan',
                     thStyle  : {

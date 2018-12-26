@@ -3,11 +3,7 @@
     <h5>@{{ selected_poliklinik.nama }}</h5>
 </closable-card>
 
-<data-table v-bind.sync="ruangan" ref="table" v-model="selected_ruangan"
-    @cannot('create', App\Models\Fasilitas\Ruangan::class)
-        no-add-button-text
-    @endcannot
-    >
+<data-table v-bind.sync="ruangan" ref="table" v-model="selected_ruangan">
     <template slot="jenis" slot-scope="{value}">
         @{{ ruangan.jenis[value] }}
     </template>
@@ -85,7 +81,7 @@ window.pagemix.push({
             ruangan: {
                 jenis : @json(App\Enums\JenisRuangan::toSelectArray()),
                 kelas : @json(App\Enums\KelasRuangan::toSelectArray()),
-                sortBy: `kode`,
+                sortBy: `nama`,
                 url   : `{{ action('Fasilitas\RuanganController@index') }}`,
                 fields: [{
                     key      : 'kode',

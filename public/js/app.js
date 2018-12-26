@@ -2192,6 +2192,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__form__ = __webpack_require__("./resources/js/shared/form/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_debounce__ = __webpack_require__("./node_modules/lodash.debounce/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_lodash_debounce__);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
 //
 //
 //
@@ -2272,91 +2280,77 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   directives: __WEBPACK_IMPORTED_MODULE_4__directives__["a" /* default */],
   props: __WEBPACK_IMPORTED_MODULE_5__props__["a" /* default */],
   computed: {
-    tableOptions: function tableOptions() {
-      return Object.assign({
-        apiUrl: this.url,
-        bordered: true,
-        fields: this.tableFields,
-        filter: this.search,
-        hover: true,
-        sortBy: this.sortBy,
-        sortDesc: false,
-        striped: false
-      }, this.options, {
-        currentPage: Number.parseInt(this.meta.current_page),
-        perPage: Number.parseInt(this.meta.per_page)
-      });
-    },
-    tableFields: function tableFields() {
+    computedFields: function computedFields() {
       var fields = this.fields;
 
       if (!this.noIndex) {
-        fields.unshift({
-          class: 'text-right',
-          key: 'dt-index',
-          label: 'No',
-          thStyle: 'width:24px'
-        });
+        fields.unshift(this.indexField);
       }
 
       if (!this.noAction) {
-        fields.push({
-          class: 'text-center',
-          label: 'Aksi',
-          key: 'dt-action',
-          thStyle: 'width:150px'
-        });
+        fields.push(this.actionField);
       }
 
       return fields;
     },
-    hasForm: function hasForm() {
-      return (this.$slots.form || this.$scopedSlots.form) && this.form;
+    sortDirection: function sortDirection() {
+      return this.localSortDesc ? 'desc' : 'asc';
+    },
+    options: function options() {
+      return {
+        bordered: true,
+        hover: true,
+        striped: false
+      };
+    },
+    context: function context() {
+      return Object.assign({
+        apiUrl: this.url
+      }, this.params);
     },
     scopedSlots: function scopedSlots() {
       return Object.keys(this.$scopedSlots);
+    },
+    hasForm: function hasForm() {
+      return (this.$slots.form || this.$scopedSlots.form) && this.form;
     }
   },
   data: function data() {
     return {
+      currentPage: 1,
       is_busy: false,
       items: [],
-      meta: {
-        current_page: 1,
-        from: 0,
-        per_page: 5,
-        to: 0,
-        total: 0
-      },
+      localSortBy: this.sortBy,
+      localSortDesc: this.sortDesc,
+      localPerPage: this.perPage,
       search: this.filter,
-      selected: null
+      selected: null,
+      totalRow: 0
     };
   },
   methods: {
     provider: function provider(ctx) {
       var _this = this;
 
-      return axios.get(ctx.apiUrl, {
-        params: Object.assign({
-          limit: ctx.perPage,
-          page: ctx.currentPage,
-          search: ctx.filter,
-          sortBy: [ctx.sortBy, ctx.sortDesc ? 'desc' : 'asc']
+      return axios.get(this.url, {
+        params: _objectSpread({
+          limit: this.localPerPage,
+          page: this.currentPage,
+          search: this.search,
+          sortBy: [this.localSortBy, this.sortDirection]
         }, this.params)
-      }).takeAtLeast(500).then(function (response) {
-        if (response.data.meta) {
-          _this.meta.current_page = Number.parseInt(response.data.meta.current_page);
-          _this.meta.from = Number.parseInt(response.data.meta.from);
-          _this.meta.to = Number.parseInt(response.data.meta.to);
-          _this.meta.per_page = Number.parseInt(response.data.meta.per_page);
-          _this.meta.total = Number.parseInt(response.data.meta.total);
+      }).takeAtLeast(400).then(function (response) {
+        var meta = response.data.meta;
+
+        if (meta) {
+          _this.currentPage = Number.parseInt(meta.current_page);
+          _this.localPerPage = Number.parseInt(meta.per_page);
+          _this.totalRow = Number.parseInt(meta.total);
         }
 
         return response.data.data.map(_this.dataMap) || [];
       }).catch(function (error) {
-        if (error.response.status === 401) {
-          window.location.reload();
-        }
+        _this.exception(error);
 
         return [];
       });
@@ -2388,11 +2382,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     create: function create() {
       var _this2 = this;
 
+      this.$emit('dt:item-create');
+
       if (!this.hasForm) {
         return;
       }
 
-      this.$emit('dt:item-create');
       this.$refs.form.post(this.url).then(function (response) {
         return _this2.response(response);
       }).catch(function (error) {
@@ -2402,16 +2397,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     destroy: function destroy(item) {
       var _this3 = this;
 
+      this.$emit('dt:item-destroy', item);
       this.form.assign(item);
       this.$refs.delete.delete(item.path).then(function (response) {
         return _this3.response(response);
       }).catch(function (error) {
         return _this3.exception(error);
       });
-      this.$emit('dt:item-destroy', item);
     },
     edit: function edit(item) {
       var _this4 = this;
+
+      this.$emit('dt:item-edit', item);
 
       if (!this.hasForm) {
         return;
@@ -2423,18 +2420,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).catch(function (error) {
         return _this4.exception(error);
       });
-      this.$emit('dt:item-edit', item);
     },
     response: function response(_ref) {
       var data = _ref.data;
-
-      if (data.message && data.status) {
-        window.flash(data.message, data.status);
-      }
-
+      window.flash(data.message, data.status);
       this.refresh();
     },
     exception: function exception(error) {
+      if (error.response.status === 401) {
+        window.location.reload();
+      }
+
       var response = error.response;
       var data = error.response.data;
 
@@ -2456,22 +2452,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.selected = null;
       var rows = this.$refs.table.$el.querySelectorAll('tbody tr');
       rows.forEach(function (child, index) {
-        child.classList.remove('active');
+        return child.classList.remove('active');
       });
     }
   },
-  created: function created() {
-    this.meta.current_page = this.options.currentPage || 1;
-    this.meta.per_page = this.options.perPage || 5;
-  },
   watch: {
+    localPerPage: function localPerPage(value) {
+      this.$emit('update:perPage', value);
+    },
+    perPage: function perPage(value) {
+      this.localPerPage = value;
+    },
+    localSortBy: function localSortBy(value) {
+      this.$emit('update:sortBy', value);
+    },
+    sortBy: function sortBy(value) {
+      this.localSortBy = value;
+    },
+    localSortDesc: function localSortDesc(value) {
+      this.$emit('update:sortDesc', value);
+    },
+    sortDesc: function sortDesc(value) {
+      this.localSortDesc = value;
+    },
+    context: function context(value) {
+      this.refresh();
+    },
     filter: function filter(value) {
       this.search = value;
-    },
-    params: {
-      handler: function handler(options) {
-        this.refresh();
-      }
     }
   }
 });
@@ -17927,7 +17935,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.DataTable {\n  position: relative;\n}\n.DataTable tbody .active {\n    background-color: #f0f3f5 !important;\n}\n.DataTable .DataTable__limit {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n.DataTable .DataTable__limit label {\n      line-height: 35px;\n      margin: 0 1em 0 0;\n      width: 9em;\n}\n", "", {"version":3,"sources":["/var/www/resources/js/shared/components/DataTable/DataTable.vue"],"names":[],"mappings":";AAAA;EACE,mBAAmB;CAAE;AACrB;IACE,qCAAqC;CAAE;AACzC;IACE,qBAAc;IAAd,qBAAc;IAAd,cAAc;CAAE;AAChB;MACE,kBAAkB;MAClB,kBAAkB;MAClB,WAAW;CAAE","file":"DataTable.vue","sourcesContent":[".DataTable {\n  position: relative; }\n  .DataTable tbody .active {\n    background-color: #f0f3f5 !important; }\n  .DataTable .DataTable__limit {\n    display: flex; }\n    .DataTable .DataTable__limit label {\n      line-height: 35px;\n      margin: 0 1em 0 0;\n      width: 9em; }\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.DataTable {\n  position: relative;\n}\n.DataTable tbody .active {\n  background-color: #f0f3f5 !important;\n}\n.DataTable__limit {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.DataTable__limit label {\n    line-height: 35px;\n    margin: 0 1em 0 0;\n    width: 9em;\n}\n", "", {"version":3,"sources":["/var/www/resources/js/shared/components/DataTable/DataTable.vue"],"names":[],"mappings":";AAAA;EACE,mBAAmB;CAAE;AAEvB;EACE,qCAAqC;CAAE;AAEzC;EACE,qBAAc;EAAd,qBAAc;EAAd,cAAc;CAAE;AAChB;IACE,kBAAkB;IAClB,kBAAkB;IAClB,WAAW;CAAE","file":"DataTable.vue","sourcesContent":[".DataTable {\n  position: relative; }\n\n.DataTable tbody .active {\n  background-color: #f0f3f5 !important; }\n\n.DataTable__limit {\n  display: flex; }\n  .DataTable__limit label {\n    line-height: 35px;\n    margin: 0 1em 0 0;\n    width: 9em; }\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -24076,11 +24084,11 @@ var render = function() {
           [
             _c("data-table-row-limitter", {
               model: {
-                value: _vm.meta.per_page,
+                value: _vm.localPerPage,
                 callback: function($$v) {
-                  _vm.$set(_vm.meta, "per_page", $$v)
+                  _vm.localPerPage = $$v
                 },
-                expression: "meta.per_page"
+                expression: "localPerPage"
               }
             })
           ],
@@ -24140,10 +24148,31 @@ var render = function() {
               }
             ],
             ref: "table",
-            attrs: { busy: _vm.is_busy, items: _vm.provider },
+            attrs: {
+              busy: _vm.is_busy,
+              "current-page": _vm.currentPage,
+              fields: _vm.computedFields,
+              filter: _vm.search,
+              items: _vm.provider,
+              "per-page": _vm.localPerPage,
+              "sort-by": _vm.localSortBy,
+              "sort-desc": _vm.localSortDesc
+            },
             on: {
               "update:busy": function($event) {
                 _vm.is_busy = $event
+              },
+              "update:currentPage": function($event) {
+                _vm.currentPage = $event
+              },
+              "update:perPage": function($event) {
+                _vm.localPerPage = $event
+              },
+              "update:sortBy": function($event) {
+                _vm.localSortBy = $event
+              },
+              "update:sortDesc": function($event) {
+                _vm.localSortDesc = $event
               },
               "row-dblclicked": _vm.onDoubleClick,
               "row-clicked": _vm.toggleSelected
@@ -24160,7 +24189,7 @@ var render = function() {
                             _vm._s(
                               index +
                                 1 +
-                                (_vm.meta.current_page - 1) * _vm.meta.per_page
+                                (_vm.currentPage - 1) * _vm.localPerPage
                             ) +
                             "\n            "
                         )
@@ -24175,14 +24204,8 @@ var render = function() {
                     return [
                       _vm._t(
                         sslot,
-                        [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(data.value) +
-                              "\n                "
-                          )
-                        ],
-                        { meta: _vm.meta },
+                        [_vm._v(" " + _vm._s(data.value) + " ")],
+                        null,
                         data
                       )
                     ]
@@ -24237,7 +24260,7 @@ var render = function() {
             }
           },
           "b-table",
-          _vm.tableOptions,
+          _vm.options,
           false
         ),
         [
@@ -24246,7 +24269,7 @@ var render = function() {
               " Menampilkan " +
                 _vm._s(_vm.items.length) +
                 " dari " +
-                _vm._s(_vm.meta.total) +
+                _vm._s(_vm.totalRow) +
                 " data "
             )
           ])
@@ -24255,13 +24278,13 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("b-pagination", {
-        attrs: { "per-page": _vm.meta.per_page, "total-rows": _vm.meta.total },
+        attrs: { "per-page": _vm.localPerPage, "total-rows": _vm.totalRow },
         model: {
-          value: _vm.meta.current_page,
+          value: _vm.currentPage,
           callback: function($$v) {
-            _vm.$set(_vm.meta, "current_page", $$v)
+            _vm.currentPage = $$v
           },
-          expression: "meta.current_page"
+          expression: "currentPage"
         }
       }),
       _vm._v(" "),
@@ -24284,17 +24307,14 @@ var render = function() {
             "ok-title": "Hapus",
             "ok-variant": "danger",
             form: _vm.form,
-            title: _vm.title
+            title: _vm.title || "Hapus data"
           }
         },
         [
-          [
-            _vm._v(
-              "\n                Peringatan! Data yang dihapus tidak dapat dikembalikan kembali\n            "
-            )
-          ]
-        ],
-        2
+          _vm._v(
+            "\n            Peringatan! Data yang dihapus tidak dapat dikembalikan kembali\n        "
+          )
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -24305,7 +24325,7 @@ var render = function() {
             "ok-title": "Simpan",
             form: _vm.form,
             size: _vm.modalSize,
-            title: _vm.title
+            title: _vm.title || "Form"
           }
         },
         [_vm._t("form")],
@@ -25717,6 +25737,17 @@ var HANDLER = '_outside_click_handler';
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
+  actionField: {
+    type: Object,
+    default: function _default() {
+      return {
+        class: 'text-center',
+        label: 'Aksi',
+        key: 'dt-action',
+        thStyle: 'width:150px'
+      };
+    }
+  },
   addButtonText: {
     type: String,
     required: false,
@@ -25743,6 +25774,17 @@ var HANDLER = '_outside_click_handler';
       return new Form({});
     },
     required: false
+  },
+  indexField: {
+    type: Object,
+    default: function _default() {
+      return {
+        class: 'text-right',
+        key: 'dt-index',
+        label: 'No',
+        thStyle: 'width:24px'
+      };
+    }
   },
   modalSize: {
     type: String,
@@ -25777,13 +25819,6 @@ var HANDLER = '_outside_click_handler';
       return item;
     }
   },
-  options: {
-    type: Object,
-    default: function _default() {
-      return {};
-    },
-    required: false
-  },
   params: {
     type: Object,
     default: function _default() {
@@ -25791,8 +25826,17 @@ var HANDLER = '_outside_click_handler';
     },
     required: false
   },
+  perPage: {
+    type: Number,
+    default: 5
+  },
   sortBy: {
     type: String,
+    required: false
+  },
+  sortDesc: {
+    type: Boolean,
+    default: false,
     required: false
   },
   title: {

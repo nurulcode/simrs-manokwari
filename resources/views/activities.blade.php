@@ -14,11 +14,9 @@ window.pagemix.push({
     data() {
         return {
             activities: {
-                url    : `{{ action('ActivityController@index') }}`,
-                options: {
-                    sortBy  : 'created_at',
-                    sortDesc: true
-                },
+                sortBy  : `created_at`,
+                sortDesc: true
+                url     : `{{ action('ActivityController@index') }}`,
                 fields: [
                     {
                         key      : 'user',

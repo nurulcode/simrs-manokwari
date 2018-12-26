@@ -37,8 +37,6 @@ window.pagemix.push({
             if (value) {
                 this.ruangan.url    = `${value.path}/ruangan`;
 
-                this.ruangan.sortBy = `nama`;
-
                 this.ruangan.form.setDefault('poliklinik', value);
 
                 this.ruangan.form.setDefault('poliklinik_id', value.id);
@@ -46,8 +44,6 @@ window.pagemix.push({
                 this.selected_tab = 1;
             } else {
                 this.ruangan.url    = `{{ action('Fasilitas\RuanganController@index') }}`;
-
-                this.ruangan.sortBy = `kode`;
 
                 this.ruangan.form.setDefault('poliklinik', null);
 
