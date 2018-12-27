@@ -18,15 +18,5 @@ class RolesTableSeeder extends Seeder
         ]);
 
         $superadmin->givePermsissionTo('do_anything');
-
-        $admin = Role::create([
-            'name'        => 'admin',
-            'description' => 'Administrator'
-        ]);
-
-        $user = Role::create([
-            'name'        => 'user',
-            'description' => 'Regular User'
-        ]);
     }
 }

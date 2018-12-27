@@ -21,15 +21,5 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => now(),
             'remember_token'    => str_random(10),
         ])->giveRoleAs('superadmin');
-
-        factory(User::class)->create([
-            'username' => 'admin',
-            'active'   => true
-        ]);
-
-        factory(User::class)->create([
-            'username' => 'user',
-            'active'   => true
-        ]);
     }
 }
