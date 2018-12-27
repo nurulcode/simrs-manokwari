@@ -3,8 +3,9 @@ use App\Enums\KategoriRegistrasi;
 use App\Models\Fasilitas\Poliklinik;
 use App\Models\Master\JenisRegistrasi;
 ?>
-
 @extends('kunjungan.create')
+
+@section('title', 'Registrasi Pasien Rawat Jalan')
 
 @section('action', action('Perawatan\RawatJalanController@store'))
 

@@ -1,12 +1,10 @@
 @extends('layouts.single-card')
 
-@section('title', 'Registrasi Pasien Rawat Jalan')
-
 @section('header')
 
 <div class="row">
     <div class="col">
-        <h6 class="mr-auto mb-0" style="line-height: 33px"> Registrasi Pasien Rawat Jalan </h6>
+        <h6 class="mr-auto mb-0" style="line-height: 33px"> @yield('title') </h6>
     </div>
     <div class="col text-right">
         <button class="btn btn-brand btn-spotify" v-on:click.stop="createPasien">
