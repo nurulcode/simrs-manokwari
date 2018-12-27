@@ -16,7 +16,7 @@
             @{{ item.kunjungan.pasien.nama }}
             <p class="text-muted">@{{ item.kunjungan.pasien.no_rekam_medis }}</p>
         </template>
-        <template slot="diagnosa_awal" slot-scope="{item}">
+        <template slot="diagnosa_awal" slot-scope="{item}" v-if="item.kunjungan.penyakit">
             @{{ item.kunjungan.penyakit.icd }} -
             @{{ item.kunjungan.penyakit.uraian }}
 
@@ -40,9 +40,15 @@ window.pagemix.push({
                     }
                 },{
                     key      : 'pasien',
+                    thStyle  : {
+                        'min-width': '160px'
+                    }
                 },{
                     key      : 'poliklinik',
                     formatter: poliklinik => poliklinik.nama,
+                    thStyle  : {
+                        'min-width': '160px'
+                    }
                 },{
                     key      : 'waktu_kunjungan',
                     formatter: waktu => format(parse(waktu), 'DD/MM/YYYY H:mm:ss'),
@@ -53,7 +59,7 @@ window.pagemix.push({
                 },{
                     key      : 'diagnosa_awal',
                     thStyle  : {
-                        'width': '200px'
+                        'min-width': '200px'
                     }
                 }, {
                     key      : 'view',

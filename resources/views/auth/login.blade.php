@@ -13,10 +13,11 @@
                 <div class="input-group">
                     <input
                         class="form-control"
-                        name="search"
-                        placeholder="Search..."
-                        type="text"
-                        v-model="filter"/>
+                        name="username"
+                        placeholder="{{ __('Username') }}"
+                        tabindex=1
+                        v-model="form.username">
+                    </input>
                     <div class="input-group-append">
                         <button class="btn btn-secondary"> <i class="icon-user"></i></button>
                     </div>

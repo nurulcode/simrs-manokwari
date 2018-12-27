@@ -1,5 +1,3 @@
-
-
 @extends('layouts.single-card')
 
 @section('title', 'Registrasi Pasien Rawat Jalan')
@@ -11,7 +9,7 @@
         <h6 class="mr-auto mb-0" style="line-height: 33px"> Registrasi Pasien Rawat Jalan </h6>
     </div>
     <div class="col text-right">
-        <button class="btn btn-brand btn-spotify" v-on:click.prevent="createPasien">
+        <button class="btn btn-brand btn-spotify" v-on:click.stop="createPasien">
             <i class="fa fa-plus"></i> <span>Pasien Baru</span>
         </button>
     </div>
@@ -65,6 +63,7 @@ window.pagemix.push({
                     if (response.status == 201) {
                         this.form_kunjungan.pasien_baru = true;
                         this.form_kunjungan.pasien      = response.data.data;
+                        this.form_kunjungan.pasien_id   = response.data.data.id;
                     }
                 })
                 .catch(error => {

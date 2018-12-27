@@ -13,6 +13,9 @@
             @{{ value.nama }}
             <p class="text-muted">@{{ value.no_rekam_medis }}</p>
         </template>
+        <template slot="penyakit" slot-scope="{value: penyakit}" v-if="penyakit">
+            @{{ `${penyakit.icd} - ${penyakit.uraian}` }}
+        </template>
     </data-table>
 @endsection
 
@@ -33,6 +36,9 @@ window.pagemix.push({
                     }
                 },{
                     key      : 'pasien',
+                    thStyle  : {
+                        'min-width': '200px'
+                    }
                 },{
                     key      : 'waktu_kunjungan',
                     formatter: waktu => format(parse(waktu), 'DD/MM/YYYY H:mm:ss'),
@@ -43,9 +49,8 @@ window.pagemix.push({
                 },{
                     key      : 'penyakit',
                     label    : 'Diagnosa Awal',
-                    formatter: penyakit => `${penyakit.icd} - ${penyakit.uraian}`,
                     thStyle  : {
-                        'width': '200px'
+                        'min-width': '220px'
                     }
                 },{
                     key      : 'view',
