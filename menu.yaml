@@ -15,9 +15,10 @@
       title: Rawat Jalan
       link : perawatan/rawat-jalan
     -
-      title: Reg. Rawat Inap
+      title: Rawat Inap
     -
-      title: Reg. Rawat Darurat
+      title: Rawat Darurat (IGD)
+      link : perawatan/rawat-darurat
 
 # ------------------------------------ #
 # ------- R E G I S T R A S I -------- #
@@ -32,7 +33,8 @@
     -
       title: Reg. Rawat Inap
     -
-      title: Reg. Rawat Darurat
+      title: Reg. Rawat Darurat (IGD)
+      link : perawatan/rawat-darurat/create
 -
   title : Farmasi dan Logistik
   icon  : icon-social-dropbox

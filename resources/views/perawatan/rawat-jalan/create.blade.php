@@ -32,7 +32,7 @@ use App\Models\Master\JenisRegistrasi;
             <b-form-select v-model="form_kunjungan.poliklinik_id"
                 v-on:change="form_kunjungan.errors.clear('poliklinik_id')">
                 <option :value="null" disabled>Pilih Poliklinik Tujuan</option>
-                @foreach(Poliklinik::where('jenis_id', 1)->get() as $poliklinik)
+                @foreach($polikliniks as $poliklinik)
                     <option :value="{{ $poliklinik->id }}">{{ $poliklinik->nama }}</option>
                 @endforeach
             </b-form-select>
@@ -46,7 +46,7 @@ use App\Models\Master\JenisRegistrasi;
                 label="uraian"
                 placeholder="Pilih Jenis Kegiatan"
                 select-label=""
-                url="{{ action('Master\KegiatanKategoriKegiatanController', 2) }}"
+                url="{{ action('Master\KegiatanKategoriKegiatanController', $kategori_kegiatan) }}"
                 v-model="form_kunjungan.kegiatan"
                 v-bind:key-value.sync="form_kunjungan.kegiatan_id"
                 v-on:select="form_kunjungan.errors.clear('kegiatan_id')"

@@ -7,6 +7,7 @@ use App\Models\Pasien;
 use App\Models\Kunjungan;
 use Illuminate\Support\Collection;
 use App\Models\Perawatan\RawatJalan;
+use App\Models\Perawatan\RawatDarurat;
 use App\Models\Master\Penyakit\Penyakit;
 
 class KunjunganTest extends TestCase
@@ -38,6 +39,19 @@ class KunjunganTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $kunjungan->rawat_jalans);
         $this->assertInstanceOf(RawatJalan::class, $kunjungan->rawat_jalans->random());
+    }
+
+    /** @test */
+    public function resource_may_has_many_rawat_darurat()
+    {
+        $kunjungan      = factory(Kunjungan::class)->create();
+
+        $rawat_darurats = factory(RawatDarurat::class, 5)->create([
+            'kunjungan_id' => $kunjungan->id
+        ]);
+
+        $this->assertInstanceOf(Collection::class, $kunjungan->rawat_darurats);
+        $this->assertInstanceOf(RawatDarurat::class, $kunjungan->rawat_darurats->random());
     }
 
     /** @test */

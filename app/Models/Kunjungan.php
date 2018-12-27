@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Perawatan\RawatJalan;
+use App\Models\Perawatan\RawatDarurat;
 use App\Models\Master\Penyakit\Penyakit;
 
 class Kunjungan extends Model
@@ -75,6 +76,11 @@ class Kunjungan extends Model
     public function rawat_jalans()
     {
         return $this->hasMany(RawatJalan::class);
+    }
+
+    public function rawat_darurats()
+    {
+        return $this->hasMany(RawatDarurat::class);
     }
 
     public function pasien()

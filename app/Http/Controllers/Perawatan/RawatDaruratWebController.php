@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use App\Enums\KategoriRegistrasi;
 use App\Http\Controllers\Controller;
 use App\Models\Fasilitas\Poliklinik;
-use App\Models\Perawatan\RawatJalan;
 use App\Models\Master\JenisRegistrasi;
+use App\Models\Perawatan\RawatDarurat;
 
-class RawatJalanWebController extends Controller
+class RawatDaruratWebController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class RawatJalanWebController extends Controller
      */
     public function index()
     {
-        return view('perawatan.rawat-jalan.index');
+        return view('perawatan.rawat-darurat.index');
     }
 
     /**
@@ -28,15 +28,15 @@ class RawatJalanWebController extends Controller
      */
     public function create()
     {
-        $polikliniks       = Poliklinik::where('jenis_id', 1)->get();
+        $polikliniks       = Poliklinik::where('jenis_id', 2)->get();
 
-        $kategori_kegiatan = 2;
+        $kategori_kegiatan = 3;
 
         $jenis_registrasis = JenisRegistrasi::where(
-            'kategori', KategoriRegistrasi::RAWAT_JALAN
+            'kategori', KategoriRegistrasi::GAWAT_DARURAT
         )->get();
 
-        return view('perawatan.rawat-jalan.create', compact([
+        return view('perawatan.rawat-darurat.create', compact([
             'jenis_registrasis', 'polikliniks', 'kategori_kegiatan'
         ]));
     }
@@ -55,21 +55,21 @@ class RawatJalanWebController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Perawatan\RawatJalan  $rawat_jalan
+     * @param  \App\Models\Perawatan\RawatDarurat  $rawat_darurat
      * @return \Illuminate\Http\Response
      */
-    public function show(RawatJalan $rawat_jalan)
+    public function show(RawatDarurat $rawat_darurat)
     {
-        return view('perawatan.rawat-jalan.show', compact(['rawat_jalan']));
+        return view('perawatan.rawat-darurat.show', compact(['rawat_darurat']));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Perawatan\RawatJalan  $rawat_jalan
+     * @param  \App\Models\Perawatan\RawatDarurat  $rawat_darurat
      * @return \Illuminate\Http\Response
      */
-    public function edit(RawatJalan $rawat_jalan)
+    public function edit(RawatDarurat $rawat_darurat)
     {
         abort(403);
     }
@@ -78,10 +78,10 @@ class RawatJalanWebController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Perawatan\RawatJalan  $rawat_jalan
+     * @param  \App\Models\Perawatan\RawatDarurat  $rawat_darurat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RawatJalan $rawat_jalan)
+    public function update(Request $request, RawatDarurat $rawat_darurat)
     {
         abort(403);
     }
@@ -89,10 +89,10 @@ class RawatJalanWebController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Perawatan\RawatJalan  $rawat_jalan
+     * @param  \App\Models\Perawatan\RawatDarurat  $rawat_darurat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RawatJalan $rawat_jalan)
+    public function destroy(RawatDarurat $rawat_darurat)
     {
         abort(403);
     }
