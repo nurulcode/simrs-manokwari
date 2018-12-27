@@ -28,20 +28,6 @@ class RawatJalanTest extends TestCase
     }
 
     /** @test */
-    public function resource_belongs_to_perawatan()
-    {
-        $resource  = factory(RawatJalan::class)->create();
-
-        $perawatan = Perawatan::create([
-            'kunjungan_id'   => $resource->kunjungan_id,
-            'perawatan_id'   => $resource->id,
-            'perawatan_type' => get_class($resource)
-        ]);
-
-        $this->assertInstanceof(Perawatan::class, $resource->perawatan);
-    }
-
-    /** @test */
     public function creating_resource_also_create_pivot_perawatans()
     {
         $resource  = factory(RawatJalan::class)->create();
@@ -51,6 +37,14 @@ class RawatJalanTest extends TestCase
             'perawatan_id'   => $resource->id,
             'perawatan_type' => get_class($resource),
         ]);
+    }
+
+    /** @test */
+    public function resource_belongs_to_perawatan()
+    {
+        $resource = factory(RawatJalan::class)->create();
+
+        $this->assertInstanceof(Perawatan::class, $resource->perawatan);
     }
 
     /** @test */
