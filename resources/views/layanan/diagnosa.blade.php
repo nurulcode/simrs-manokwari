@@ -75,9 +75,7 @@
     </div>
     <template slot="penyakit" slot-scope="{value, item}">
         @{{ value.icd }} - @{{ value.uraian }}
-        <p class="text-muted">
-            @{{ item.tipe.uraian }}
-        </p>
+        <p class="text-muted"> @{{ item.tipe.uraian }} </p>
     </template>
 </data-table>
 
@@ -88,7 +86,11 @@ window.pagemix.push({
     data() {
         return {
             diagnosa: {
-                url   : `{{ $url }}`,
+                url   : `{{ action('Layanan\DiagnosaController@index') }}`,
+                params: {
+                    perawatan_id  : @json($perawatan->id),
+                    perawatan_type: @json(get_class($perawatan))
+                },
                 fields: [{
                     key      : 'penyakit',
                 },{
@@ -98,6 +100,8 @@ window.pagemix.push({
                     formatter: petugas => petugas.nama
                 }],
                 form: new Form({
+                    perawatan_id    : @json($perawatan->id),
+                    perawatan_type  : @json(get_class($perawatan)),
                     penyakit_id     : null,
                     lama_menderita  : null,
                     kasus           : null,

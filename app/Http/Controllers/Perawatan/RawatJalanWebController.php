@@ -27,7 +27,9 @@ class RawatJalanWebController extends Controller
      */
     public function create()
     {
-        $jenis_registrasis = JenisRegistrasi::where('kategori', KategoriRegistrasi::RAWAT_JALAN)->get();
+        $jenis_registrasis = JenisRegistrasi::where(
+            'kategori', KategoriRegistrasi::RAWAT_JALAN
+        )->get();
 
         return view('perawatan.rawat-jalan.create', compact(['jenis_registrasis']));
     }
@@ -51,11 +53,7 @@ class RawatJalanWebController extends Controller
      */
     public function show(RawatJalan $rawat_jalan)
     {
-        $diagnosa_url = action('Perawatan\RawatJalanDiagnosaController@index', $rawat_jalan->id);
-
-        return view('perawatan.rawat-jalan.show', compact([
-            'rawat_jalan', 'diagnosa_url'
-        ]));
+        return view('perawatan.rawat-jalan.show', compact(['rawat_jalan']));
     }
 
     /**
@@ -78,7 +76,7 @@ class RawatJalanWebController extends Controller
      */
     public function update(Request $request, RawatJalan $rawat_jalan)
     {
-        //
+        abort(403);
     }
 
     /**
@@ -89,6 +87,6 @@ class RawatJalanWebController extends Controller
      */
     public function destroy(RawatJalan $rawat_jalan)
     {
-        //
+        abort(403);
     }
 }

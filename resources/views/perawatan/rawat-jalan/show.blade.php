@@ -12,7 +12,7 @@
 <b-card no-body>
     <b-tabs lazy card>
         <b-tab title="Diagnosa" active>
-            @include('perawatan.tabs.diagnosa', ['url' => $diagnosa_url])
+            @include('layanan.diagnosa', ['perawatan' => $rawat_jalan])
         </b-tab>
     </b-tabs>
 </b-card>

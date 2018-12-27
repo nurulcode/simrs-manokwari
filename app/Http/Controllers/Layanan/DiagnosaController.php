@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Layanan;
 
-use Sty\HttpQuery;
 use App\Models\Layanan\Diagnosa;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Layanan\DiagnosaRequest;
 use App\Http\Resources\Layanan\DiagnosaResource;
+use App\Http\Queries\LayananQuery;
 
 class DiagnosaController extends Controller
 {
@@ -20,7 +20,7 @@ class DiagnosaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(LayananQuery $query)
     {
         return DiagnosaResource::collection(Diagnosa::filter($query));
     }
