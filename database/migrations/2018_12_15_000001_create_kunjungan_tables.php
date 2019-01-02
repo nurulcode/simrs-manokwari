@@ -16,6 +16,7 @@ class CreateKunjunganTables extends Migration
         Schema::create('kunjungans', function (Blueprint $table) {
             $table->increments('id');
             $table->datetime('waktu_kunjungan');
+            $table->datetime('waktu_keluar')->nullable();
             $table->string('nomor_kunjungan')->nullable();
             $table->unsignedBigInteger('pasien_id');
             $table->boolean('pasien_baru')->default(false);

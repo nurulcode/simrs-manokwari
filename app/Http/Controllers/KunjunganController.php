@@ -10,6 +10,11 @@ use App\Http\Resources\KunjunganResource;
 
 class KunjunganController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:manage_kunjungan');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +22,6 @@ class KunjunganController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Kunjungan::class);
-
         return KunjunganResource::collection(Kunjungan::filter($query));
     }
 
@@ -41,8 +44,6 @@ class KunjunganController extends Controller
      */
     public function show(Kunjungan $kunjungan)
     {
-        $this->authorize('show', $kunjungan);
-
         return new KunjunganResource($kunjungan);
     }
 

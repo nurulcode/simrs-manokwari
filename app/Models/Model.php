@@ -19,4 +19,9 @@ abstract class Model extends BaseModel implements ResourceModel
      * @var array
      */
     protected $guarded = [];
+
+    public static function make($var)
+    {
+        return new static($var);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Perawatan\RawatJalan;
 use App\Models\Perawatan\RawatDarurat;
 use App\Models\Master\Penyakit\Penyakit;
+use App\Models\Perawatan\RawatInap;
 
 class Kunjungan extends Model
 {
@@ -35,6 +36,32 @@ class Kunjungan extends Model
      * @var array
      */
     protected $with = ['pasien', 'penyakit'];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'cara_pembayaran_id', 'kasus_id',
+
+        'pasien_baru', 'pasien_id', 'penyakit_id',
+
+        'pj_nama', 'pj_telepon',
+
+        'rujukan', 'jenis_rujukan_id', 'rujukan_asal', 'rujukan_nomor', 'rujukan_tanggal',
+
+        'sjp_nomor', 'sjp_tanggal',
+
+        'waktu_kunjungan', 'waktu_keluar'
+    ];
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded;
 
     protected static function boot()
     {
@@ -81,6 +108,11 @@ class Kunjungan extends Model
     public function rawat_darurats()
     {
         return $this->hasMany(RawatDarurat::class);
+    }
+
+    public function rawat_inaps()
+    {
+        return $this->hasMany(RawatInap::class);
     }
 
     public function pasien()

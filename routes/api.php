@@ -21,7 +21,6 @@ Route::middleware(['auth:api'])->group(function () {
         'kunjungan'   => 'KunjunganController',
         'pasien'      => 'PasienController',
         'permission'  => 'PermissionController',
-        'rawat-jalan' => 'RawatJalanController',
         'role'        => 'RoleController',
         'user'        => 'UserController',
     ]);

@@ -92,6 +92,41 @@ class CreatePerawatansTables extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
         });
+
+        Schema::create('rawat_inaps', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('kunjungan_id');
+            $table->datetime('waktu_kunjungan');
+            $table->datetime('waktu_keluar')->nullable();
+            $table->unsignedTinyInteger('kondisi_akhir')->nullable();
+            $table->unsignedInteger('jenis_registrasi_id');
+            $table->unsignedInteger('kegiatan_id');
+            $table->unsignedInteger('ranjang_id');
+            $table->unsignedTinyInteger('cara_penerimaan');
+            $table->unsignedTinyInteger('aktifitas');
+            $table->timestamps();
+
+            $table->foreign('kunjungan_id')
+                ->references('id')
+                ->on('kunjungans')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+            $table->foreign('jenis_registrasi_id')
+                ->references('id')
+                ->on('jenis_registrasis')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+            $table->foreign('kegiatan_id')
+                ->references('id')
+                ->on('kegiatans')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+            $table->foreign('ranjang_id')
+                ->references('id')
+                ->on('ranjangs')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+        });
     }
 
     /**
@@ -101,6 +136,8 @@ class CreatePerawatansTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('rawat_inaps');
+
         Schema::dropIfExists('rawat_darurats');
 
         Schema::dropIfExists('rawat_jalans');

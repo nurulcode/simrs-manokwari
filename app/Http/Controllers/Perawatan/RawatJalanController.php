@@ -32,13 +32,9 @@ class RawatJalanController extends Controller
      */
     public function store(CreateRawatJalanRequest $request)
     {
-        $kunjungan   = Kunjungan::create(array_except($request->validated(), [
-            'kegiatan_id', 'poliklinik_id', 'jenis_registrasi_id'
-        ]));
+        $kunjungan   = Kunjungan::create($request->validated());
 
-        $rawat_jalan = new RawatJalan(array_only($request->validated(), [
-            'kegiatan_id', 'poliklinik_id', 'jenis_registrasi_id', 'waktu_kunjungan'
-        ]));
+        $rawat_jalan = new RawatJalan($request->validated());
 
         $kunjungan->rawat_jalans()->save($rawat_jalan);
 

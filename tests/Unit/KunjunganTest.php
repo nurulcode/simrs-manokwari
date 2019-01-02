@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use App\Models\Perawatan\RawatJalan;
 use App\Models\Perawatan\RawatDarurat;
 use App\Models\Master\Penyakit\Penyakit;
+use App\Models\Perawatan\RawatInap;
 
 class KunjunganTest extends TestCase
 {
@@ -52,6 +53,19 @@ class KunjunganTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $kunjungan->rawat_darurats);
         $this->assertInstanceOf(RawatDarurat::class, $kunjungan->rawat_darurats->random());
+    }
+
+    /** @test */
+    public function resource_may_has_many_rawat_inap()
+    {
+        $kunjungan   = factory(Kunjungan::class)->create();
+
+        $rawat_inaps = factory(RawatInap::class, 5)->create([
+            'kunjungan_id' => $kunjungan->id
+        ]);
+
+        $this->assertInstanceOf(Collection::class, $kunjungan->rawat_inaps);
+        $this->assertInstanceOf(RawatInap::class, $kunjungan->rawat_inaps->random());
     }
 
     /** @test */

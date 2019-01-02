@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class KunjunganWebController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:manage_kunjungan');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +19,6 @@ class KunjunganWebController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', Kunjungan::class);
-
         return view('kunjungan.index');
     }
 
@@ -26,7 +29,7 @@ class KunjunganWebController extends Controller
      */
     public function create()
     {
-        //
+        abort(403);
     }
 
     /**
@@ -37,7 +40,7 @@ class KunjunganWebController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        abort(403);
     }
 
     /**
@@ -48,8 +51,6 @@ class KunjunganWebController extends Controller
      */
     public function show(Kunjungan $kunjungan)
     {
-        $this->authorize('show', $kunjungan);
-
         return view('kunjungan.show', compact(['kunjungan']));
     }
 
@@ -61,7 +62,7 @@ class KunjunganWebController extends Controller
      */
     public function edit(Kunjungan $kunjungan)
     {
-        //
+        abort(403);
     }
 
     /**
@@ -73,7 +74,7 @@ class KunjunganWebController extends Controller
      */
     public function update(Request $request, Kunjungan $kunjungan)
     {
-        //
+        abort(403);
     }
 
     /**
@@ -84,6 +85,6 @@ class KunjunganWebController extends Controller
      */
     public function destroy(Kunjungan $kunjungan)
     {
-        //
+        abort(403);
     }
 }
