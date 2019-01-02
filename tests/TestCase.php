@@ -49,4 +49,9 @@ abstract class TestCase extends BaseTestCase
     {
         return factory(User::class)->create();
     }
+
+    public function createAdmin()
+    {
+        return $this->createUser();
+    }
 }

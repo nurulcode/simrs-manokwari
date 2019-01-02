@@ -13,10 +13,11 @@ class UserActivationToggleControllerTest extends TestCase
     /** @test **/
     public function admin_can_toggle_user_activation()
     {
-        $this->withExceptionHandling()
-             ->signIn();
-
+        $admin    = $this->createAdmin();
         $resource = factory(User::class)->create(['active' => false]);
+
+        $this->withExceptionHandling()
+             ->signIn($admin);
 
         $this->putJson(action('UserActivationToggleController', ['id' => $resource->id]))
              ->assertJson(['status' => 'success'])
@@ -32,17 +33,12 @@ class UserActivationToggleControllerTest extends TestCase
     /** @test **/
     public function can_not_deactivate_super_admin()
     {
-        $this->artisan('db:seed', ['--class' => 'PermissionsTableSeeder']);
-        $this->artisan('db:seed', ['--class' => 'RolesTableSeeder']);
+        $admin    = $this->createAdmin();
 
-        $resource = factory(User::class)->create();
-
-        $resource->giveRoleAs('superadmin');
-
-        $user     = factory(User::class)->create();
+        $user     = $this->createUser();
 
         $this->signIn($user)
-             ->putJson(action('UserActivationToggleController', ['id' => $resource->id]))
+             ->putJson(action('UserActivationToggleController', ['id' => $admin->id]))
              ->assertStatus(403);
     }
 }
