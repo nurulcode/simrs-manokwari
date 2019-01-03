@@ -7,17 +7,24 @@ use App\Models\Master\Master;
 class KotaKabupaten extends Master
 {
     /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = ['provinsi'];
-
-    /**
      * The attributes that are searchable.
      *
      */
-    protected $searchable = ['name', 'provinsi', 'provinsi_id'];
+    protected $searchable = ['name', 'provinsi'];
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'provinsi_id'];
 
     public function provinsi()
     {
@@ -31,11 +38,15 @@ class KotaKabupaten extends Master
         });
     }
 
-    public function scopeWithParent($builder)
+    public function orderByProvinsi($builder, $direction = 'asc')
     {
-        return $builder
-            ->join('provinsis', 'kota_kabupatens.provinsi_id', '=', 'provinsis.id')
-            ->select('kota_kabupatens.*', 'provinsis.name as provinsi_name');
+        $provinsi_name = Provinsi::select('name')->whereColumn('id', 'provinsi_id');
+
+        $builder->orderBySub($provinsi_name, $direction);
+
+        $builder->orderBy('name', 'asc');
+
+        return $builder;
     }
 
     public function kecamatans()

@@ -2,11 +2,7 @@
     <h5>@{{ selected_provinsi.name }}</h5>
 </closable-card>
 
-<data-table v-bind.sync="kota_kabupaten" ref="table" v-model="selected_kota_kabupaten"
-    @cannot('create', App\Models\Master\Wilayah\KotaKabupaten::class)
-        no-add-button-text
-    @endcannot
-    >
+<data-table v-bind.sync="kota_kabupaten" ref="table" v-model="selected_kota_kabupaten">
     <div slot="form">
         <b-form-group v-bind="kota_kabupaten.form.feedback('provinsi_id')">
             <b slot="label">Provinsi:</b>
@@ -41,12 +37,13 @@ window.pagemix.push({
     data() {
         return {
             kota_kabupaten: {
-                sortBy: `provinsi_name`,
+                sortBy: `provinsi`,
                 url   : `{{ action('Master\Wilayah\KotaKabupatenController@index') }}`,
                 fields: [{
-                    key      : 'provinsi_name',
                     label    : 'Nama Provinsi',
-                    sortable : true
+                    key      : 'provinsi',
+                    sortable : true,
+                    formatter: provinsi => !provinsi ? '' : provinsi.name
                 },{
                     key      : 'name',
                     sortable : true,

@@ -18,7 +18,7 @@ class KotaKabupatenController extends Controller
     public function index(HttpQuery $query)
     {
         return KotaKabupatenResource::collection(
-            KotaKabupaten::withParent()->filter($query)
+            KotaKabupaten::with('provinsi')->filter($query)
         );
     }
 
@@ -30,9 +30,9 @@ class KotaKabupatenController extends Controller
      */
     public function store(KotaKabupatenRequest $request)
     {
-        return response()->crud(new KotaKabupatenResource(
-            KotaKabupaten::create($request->validated())
-        ));
+        return response()->crud(
+            new KotaKabupatenResource(KotaKabupaten::create($request->validated()))
+        );
     }
 
     /**
@@ -55,9 +55,9 @@ class KotaKabupatenController extends Controller
      */
     public function update(KotaKabupatenRequest $request, KotaKabupaten $kota_kabupaten)
     {
-        return response()->crud(new KotaKabupatenResource(
-            tap($kota_kabupaten)->update($request->validated())
-        ));
+        return response()->crud(
+            new KotaKabupatenResource(tap($kota_kabupaten)->update($request->validated()))
+        );
     }
 
     /**

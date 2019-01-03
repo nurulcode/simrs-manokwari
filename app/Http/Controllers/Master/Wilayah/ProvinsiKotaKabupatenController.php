@@ -12,7 +12,7 @@ class ProvinsiKotaKabupatenController extends Controller
     public function __invoke(Provinsi $provinsi, HttpQuery $query)
     {
         return KotaKabupatenResource::collection(
-            $provinsi->kota_kabupaten()->withParent()->filter($query)
+            $provinsi->kota_kabupaten()->with('provinsi')->filter($query)
         );
     }
 }

@@ -49,7 +49,7 @@ window.pagemix.push({
 
                 this.kota_kabupaten.form.setDefault('provinsi_id', null);
 
-                this.kota_kabupaten.sortBy = 'provinsi_name';
+                this.kota_kabupaten.sortBy = 'provinsi';
 
                 this.kota_kabupaten.url    = `{{ action('Master\Wilayah\KotaKabupatenController@index') }}`;
             }

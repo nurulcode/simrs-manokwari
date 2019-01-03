@@ -15,12 +15,11 @@ class KotaKabupatenResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'            => $this->id,
-            'name'          => $this->name,
-            'path'          => $this->path,
-            'provinsi_id'   => $this->provinsi_id,
-            'provinsi_name' => $this->when($this->provinsi_name, $this->provinsi_name),
-            'provinsi'      => ProvinsiResource::make($this->whenLoaded('provinsi')),
+            'id'          => $this->id,
+            'name'        => $this->name,
+            'provinsi_id' => $this->provinsi_id,
+            'provinsi'    => ProvinsiResource::make($this->whenLoaded('provinsi')),
+            'path'        => $this->path,
         ];
     }
 }
