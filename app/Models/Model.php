@@ -7,11 +7,12 @@ use Sty\HasPolicy;
 use Sty\Searchable;
 use Sty\FilterScope;
 use Sty\ResourceModel;
+use Sty\MethodOrderable;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 
 abstract class Model extends BaseModel implements ResourceModel
 {
-    use HasPath, FilterScope, HasPolicy, Searchable, RecordsActivity;
+    use HasPath, FilterScope, HasPolicy, Searchable, RecordsActivity, MethodOrderable;
 
     /**
      * The attributes that aren't mass assignable.
@@ -20,6 +21,9 @@ abstract class Model extends BaseModel implements ResourceModel
      */
     protected $guarded = [];
 
+    /**
+     * Make new model instance without persisting data
+     */
     public static function make($var)
     {
         return new static($var);
