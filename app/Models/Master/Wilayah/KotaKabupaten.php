@@ -6,6 +6,8 @@ use App\Models\Master\Master;
 
 class KotaKabupaten extends Master
 {
+    use BelongsToProvinsi;
+
     /**
      * The attributes that are searchable.
      *
@@ -26,27 +28,9 @@ class KotaKabupaten extends Master
      */
     protected $fillable = ['name', 'provinsi_id'];
 
-    public function provinsi()
+    public function afterOrder($builder, $orderBy, $orderDirection)
     {
-        return $this->belongsTo(Provinsi::class);
-    }
-
-    public function searchProvinsi($builder, $searchQuery)
-    {
-        return $builder->orwhereHas('provinsi', function ($query) use ($searchQuery) {
-            $query->where('name', 'like', '%' . $searchQuery . '%');
-        });
-    }
-
-    public function orderByProvinsi($builder, $direction = 'asc')
-    {
-        $provinsi_name = Provinsi::select('name')->whereColumn('id', 'provinsi_id');
-
-        $builder->orderBySub($provinsi_name, $direction);
-
-        $builder->orderBy('name', 'asc');
-
-        return $builder;
+        return $orderBy != 'name' ? $builder->orderBy('name', 'asc') : $builder;
     }
 
     public function kecamatans()
