@@ -47,7 +47,7 @@ class KecamatanControllerTest extends TestCase
                 'data'  => [],
              ])
              ->assertJsonStructure([
-                'data'  => ['*' => ['kota_kabupaten', 'kota_kabupaten_name']],
+                'data'  => ['*' => ['kota_kabupaten']],
              ]);
     }
 }
