@@ -70,7 +70,7 @@ window.pagemix.push({
 
                 this.selected_tab = 2;
             } else {
-                this.kecamatan.sortBy = `kota_kabupaten_name`;
+                this.kecamatan.sortBy = `provinsi`;
 
                 this.kecamatan.url    = `{{ action('Master\Wilayah\KecamatanController@index') }}`;
 

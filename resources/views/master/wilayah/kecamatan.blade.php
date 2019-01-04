@@ -4,11 +4,7 @@
     <h5>@{{ selected_kota_kabupaten.name }}, @{{ selected_kota_kabupaten.provinsi_name }}</h5>
 </closable-card>
 
-<data-table v-bind.sync="kecamatan" ref="table" v-model="selected_kecamatan"
-    @cannot('create', App\Models\Master\Wilayah\Kecamatan::class)
-        no-add-button-text
-    @endcannot
-    >
+<data-table v-bind.sync="kecamatan" ref="table" v-model="selected_kecamatan">
     <div slot="form">
         <b-form-group v-bind="kecamatan.form.feedback('provinsi_id')">
             <b slot="label">Provinsi:</b>
@@ -55,23 +51,18 @@ window.pagemix.push({
     data() {
         return {
             kecamatan: {
-                sortBy: `kota_kabupaten_name`,
+                sortBy: `provinsi`,
                 url   : `{{ action('Master\Wilayah\KecamatanController@index') }}`,
-                dataMap(item) {
-                    return {
-                        provinsi   : item.kota_kabupaten.provinsi,
-                        provinsi_id: item.kota_kabupaten.provinsi_id,
-                        ...item
-                    }
-                },
                 fields: [{
-                    key      : 'provinsi_name',
+                    key      : 'provinsi',
                     label    : 'Nama Provinsi',
-                    sortable : true
+                    sortable : true,
+                    formatter: provinsi => !provinsi ? '' : provinsi.name
                 },{
-                    key      : 'kota_kabupaten_name',
                     label    : 'Nama Kota/Kabupaten',
-                    sortable : true
+                    key      : 'kota_kabupaten',
+                    sortable : true,
+                    formatter: kota_kabupaten => !kota_kabupaten ? '' : kota_kabupaten.name
                 },{
                     key      : 'name',
                     sortable : true,

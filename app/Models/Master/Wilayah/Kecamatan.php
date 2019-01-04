@@ -3,15 +3,11 @@
 namespace App\Models\Master\Wilayah;
 
 use App\Models\Master\Master;
+use Illuminate\Database\Eloquent\Builder;
 
 class Kecamatan extends Master
 {
-    /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = ['kota_kabupaten'];
+    use BelongsToProvinsi, BelongsToKotaKabupaten;
 
     /**
      * The attributes that aren't mass assignable.
@@ -31,30 +27,53 @@ class Kecamatan extends Master
      * The attributes that are searchable.
      *
      */
-    protected $searchable = ['name', 'kota_kabupaten', 'kota_kabupaten_id'];
+    protected $searchable = ['name', 'parent'];
 
-    public function kota_kabupaten()
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
     {
-        return $this->belongsTo(KotaKabupaten::class);
-    }
+        parent::boot();
 
-    public function searchKotaKabupaten($builder, $searchQuery)
-    {
-        return $builder->orwhereHas('kota_kabupaten', function ($query) use ($searchQuery) {
-            $query->where('name', 'like', '%' . $searchQuery . '%');
+        static::addGlobalScope('provinsi', function (Builder $builder) {
+            $builder->addSubSelect('provinsi_id', KotaKabupaten::select('provinsi_id')
+                ->whereColumn('id', 'kecamatans.kota_kabupaten_id'));
         });
     }
 
-    public function scopeWithParent($builder)
+    public function searchParent($builder, $searchQuery)
     {
-        return $builder
-            ->join('kota_kabupatens', 'kecamatans.kota_kabupaten_id', '=', 'kota_kabupatens.id')
-            ->join('provinsis', 'kota_kabupatens.provinsi_id', '=', 'provinsis.id')
-            ->select('kecamatans.*', 'kota_kabupatens.name as kota_kabupaten_name', 'provinsis.name as provinsi_name');
+        return $builder->orwhereHas('kota_kabupaten', function ($query) use ($searchQuery) {
+            $query
+                ->where('name', 'like', '%' . $searchQuery . '%')
+                ->orWhereExists(function ($query) use ($searchQuery) {
+                    $query->select('*')
+                        ->from('provinsis')
+                        ->whereRaw('kota_kabupatens.provinsi_id = provinsis.id')
+                        ->where('name', 'like', '%' . $searchQuery . '%');
+                });
+        });
+    }
+
+    public function afterOrder($builder, $orderBy, $orderDirection)
+    {
+        switch ($orderBy) {
+            case 'provinsi':
+                $builder = $this->orderByKotaKabupaten($builder, $orderDirection);
+            case 'kota_kabupaten':
+                $builder = $builder->orderBy('name', 'asc');
+                break;
+        }
+
+        return $builder;
     }
 
     public function kelurahans()
     {
         return $this->hasMany(Kelurahan::class);
     }
+
 }

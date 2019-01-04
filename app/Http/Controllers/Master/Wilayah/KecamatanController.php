@@ -17,7 +17,8 @@ class KecamatanController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        return KecamatanResource::collection(Kecamatan::withParent()->filter($query));
+        return KecamatanResource::collection(
+            Kecamatan::with('provinsi', 'kota_kabupaten')->filter($query));
     }
 
     /**
@@ -28,9 +29,9 @@ class KecamatanController extends Controller
      */
     public function store(KecamatanRequest $request)
     {
-        return response()->crud(new KecamatanResource(
-            Kecamatan::create($request->validated())
-        ));
+        return response()->crud(
+            new KecamatanResource(Kecamatan::create($request->validated()))
+        );
     }
 
     /**
@@ -53,9 +54,9 @@ class KecamatanController extends Controller
      */
     public function update(KecamatanRequest $request, Kecamatan $kecamatan)
     {
-        return response()->crud(new KecamatanResource(
-            tap($kecamatan)->update($request->validated())
-        ));
+        return response()->crud(
+            new KecamatanResource(tap($kecamatan)->update($request->validated()))
+        );
     }
 
     /**

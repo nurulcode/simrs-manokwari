@@ -15,13 +15,13 @@ class KecamatanResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'                  => $this->id,
-            'name'                => $this->name,
-            'kota_kabupaten_id'   => $this->kota_kabupaten_id,
-            'kota_kabupaten_name' => $this->when($this->kota_kabupaten_name, $this->kota_kabupaten_name),
-            'kota_kabupaten'      => KotaKabupatenResource::make($this->whenLoaded('kota_kabupaten')),
-            'provinsi_name'       => $this->when($this->provinsi_name, $this->provinsi_name),
-            'path'                => $this->path,
+            'id'                => $this->id,
+            'name'              => $this->name,
+            'provinsi_id'       => $this->provinsi_id,
+            'provinsi'          => ProvinsiResource::make($this->whenLoaded('provinsi')),
+            'kota_kabupaten_id' => $this->kota_kabupaten_id,
+            'kota_kabupaten'    => KotaKabupatenResource::make($this->whenLoaded('kota_kabupaten')),
+            'path'              => $this->path,
         ];
     }
 }

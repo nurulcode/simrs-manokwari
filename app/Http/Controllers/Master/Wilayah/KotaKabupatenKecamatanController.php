@@ -12,7 +12,10 @@ class KotaKabupatenKecamatanController extends Controller
     public function __invoke(KotaKabupaten $kota_kabupaten, HttpQuery $query)
     {
         return KecamatanResource::collection(
-            $kota_kabupaten->kecamatans()->withParent()->filter($query)
+            $kota_kabupaten
+                ->kecamatans()
+                ->with('provinsi', 'kota_kabupaten')
+                ->filter($query)
         );
     }
 }
