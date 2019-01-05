@@ -28,9 +28,9 @@ class PenyakitController extends Controller
      */
     public function store(PenyakitRequest $request)
     {
-        return response()->crud(new PenyakitResource(
-            Penyakit::create($request->validated())
-        ));
+        return response()->crud(
+            new PenyakitResource(Penyakit::create($request->validated()))
+        );
     }
 
     /**
@@ -53,9 +53,9 @@ class PenyakitController extends Controller
      */
     public function update(PenyakitRequest $request, Penyakit $penyakit)
     {
-        return response()->crud(new PenyakitResource(
-            tap($penyakit)->update($request->validated())
-        ));
+        return response()->crud(
+            new PenyakitResource(tap($penyakit)->update($request->validated()))
+        );
     }
 
     /**

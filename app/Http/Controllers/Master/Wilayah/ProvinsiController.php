@@ -28,9 +28,9 @@ class ProvinsiController extends Controller
      */
     public function store(ProvinsiRequest $request)
     {
-        return response()->crud(new ProvinsiResource(
-            Provinsi::create($request->validated())
-        ));
+        return response()->crud(
+            new ProvinsiResource(Provinsi::create($request->validated()))
+        );
     }
 
     /**
@@ -53,9 +53,9 @@ class ProvinsiController extends Controller
      */
     public function update(ProvinsiRequest $request, Provinsi $provinsi)
     {
-        return response()->crud(new ProvinsiResource(
-            tap($provinsi)->update($request->validated())
-        ));
+        return response()->crud(
+            new ProvinsiResource(tap($provinsi)->update($request->validated()))
+        );
     }
 
     /**

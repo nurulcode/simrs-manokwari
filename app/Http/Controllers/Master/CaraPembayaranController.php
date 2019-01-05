@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use Sty\HttpQuery;
 use Illuminate\Http\Request;
 use App\Models\Master\CaraPembayaran;
+use App\Http\Queries\CaraPembayaranQuery;
 use App\Http\Requests\Master\CaraPembayaranRequest;
 use App\Http\Resources\Master\CaraPembayaranResource;
 
@@ -15,15 +16,9 @@ class CaraPembayaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query, Request $request)
+    public function index(CaraPembayaranQuery $query, Request $request)
     {
-        $cara_pembayaran = CaraPembayaran::query();
-
-        if ($request->filled('parent')) {
-            $cara_pembayaran->where('parent_id', null);
-        }
-
-        return CaraPembayaranResource::collection($cara_pembayaran->filter($query));
+        return CaraPembayaranResource::collection(CaraPembayaran::filter($query));
     }
 
     /**
@@ -59,9 +54,11 @@ class CaraPembayaranController extends Controller
      */
     public function update(CaraPembayaranRequest $request, CaraPembayaran $cara_pembayaran)
     {
-        return response()->crud(new CaraPembayaranResource(
-            tap($cara_pembayaran)->update($request->validated())
-        ));
+        return response()->crud(
+            new CaraPembayaranResource(
+                tap($cara_pembayaran)->update($request->validated())
+            )
+        );
     }
 
     /**

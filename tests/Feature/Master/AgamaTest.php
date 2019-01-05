@@ -3,20 +3,20 @@
 namespace Tests\Feature\Master;
 
 use Tests\TestCase;
-use Sty\Tests\ResourceControllerTestCase;
 use Sty\Tests\ResourceViewTestCase;
+use Sty\Tests\ResourceControllerTestCase;
 
-class TipeDiagnosaControllerTest extends TestCase
+class AgamaTest extends TestCase
 {
     use ResourceControllerTestCase, ResourceViewTestCase;
 
     public function resource()
     {
-        return \App\Models\Master\TipeDiagnosa::class;
+        return \App\Models\Master\Agama::class;
     }
 
     public function viewpath()
     {
-        return url('master/tipe-diagnosa');
+        return url('master/agama');
     }
 }

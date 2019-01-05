@@ -5,7 +5,7 @@ namespace Tests\Feature\Master;
 use Tests\TestCase;
 use Sty\Tests\ResourceControllerTestCase;
 
-class KategoriKegiatanControllerTest extends TestCase
+class KategoriKegiatanTest extends TestCase
 {
     use ResourceControllerTestCase;
 

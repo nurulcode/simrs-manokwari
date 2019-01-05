@@ -4,15 +4,20 @@ namespace Tests\Feature\Master;
 
 use Tests\TestCase;
 use Sty\Tests\ResourceControllerTestCase;
-use Sty\Tests\ResourceViewControllerTestCase;
+use Sty\Tests\ResourceViewTestCase;
 
-class TindakanPemeriksaanControllerTest extends TestCase
+class TindakanPemeriksaanTest extends TestCase
 {
-    use ResourceControllerTestCase, ResourceViewControllerTestCase;
+    use ResourceControllerTestCase, ResourceViewTestCase;
 
     public function resource()
     {
         return \App\Models\Master\TindakanPemeriksaan::class;
+    }
+
+    public function viewpath()
+    {
+        return url('master/tindakan');
     }
 
     /** @test **/

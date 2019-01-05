@@ -6,17 +6,17 @@ use Tests\TestCase;
 use Sty\Tests\ResourceControllerTestCase;
 use Sty\Tests\ResourceViewTestCase;
 
-class TipeDiagnosaControllerTest extends TestCase
+class PekerjaanTest extends TestCase
 {
     use ResourceControllerTestCase, ResourceViewTestCase;
 
     public function resource()
     {
-        return \App\Models\Master\TipeDiagnosa::class;
+        return \App\Models\Master\Pekerjaan::class;
     }
 
     public function viewpath()
     {
-        return url('master/tipe-diagnosa');
+        return url('master/pekerjaan');
     }
 }

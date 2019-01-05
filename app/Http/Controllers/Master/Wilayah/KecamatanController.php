@@ -18,7 +18,8 @@ class KecamatanController extends Controller
     public function index(HttpQuery $query)
     {
         return KecamatanResource::collection(
-            Kecamatan::with('provinsi', 'kota_kabupaten')->filter($query));
+            Kecamatan::with('provinsi', 'kota_kabupaten')->filter($query)
+        );
     }
 
     /**

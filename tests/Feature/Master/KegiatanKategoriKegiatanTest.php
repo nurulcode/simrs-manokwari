@@ -7,7 +7,7 @@ use Sty\Tests\APITestCase;
 use App\Models\Master\Kegiatan;
 use App\Models\Master\KategoriKegiatan;
 
-class KegiatanKategoriKegiatanControllerTest extends TestCase
+class KegiatanKategoriKegiatanTest extends TestCase
 {
     use APITestCase;
 

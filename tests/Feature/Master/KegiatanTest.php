@@ -6,15 +6,20 @@ use Tests\TestCase;
 use App\Models\Master\Kegiatan;
 use App\Models\Master\KategoriKegiatan;
 use Sty\Tests\ResourceControllerTestCase;
-use Sty\Tests\ResourceViewControllerTestCase;
+use Sty\Tests\ResourceViewTestCase;
 
-class KegiatanControllerTest extends TestCase
+class KegiatanTest extends TestCase
 {
-    use ResourceControllerTestCase, ResourceViewControllerTestCase;
+    use ResourceControllerTestCase, ResourceViewTestCase;
 
     public function resource()
     {
         return \App\Models\Master\Kegiatan::class;
+    }
+
+    public function viewpath()
+    {
+        return url('master/kegiatan');
     }
 
     /** @test */
@@ -47,9 +52,7 @@ class KegiatanControllerTest extends TestCase
     public function user_can_create_a_resource_with_parent()
     {
         $parent   = factory($this->resource())->create();
-        $resource = factory($this->resource())->make([
-            'parent_id' => $parent->id
-        ]);
+        $resource = factory($this->resource())->make(['parent_id' => $parent->id]);
 
         $this->signIn()
              ->postJson($resource->path('store'), $this->beforePost($resource))

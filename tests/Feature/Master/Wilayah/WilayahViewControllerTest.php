@@ -3,34 +3,14 @@
 namespace Tests\Feature\Master\Wilayah;
 
 use Tests\TestCase;
-use Sty\Tests\APITestCase;
+use Sty\Tests\ResourceViewTestCase;
 
 class WilayahViewControllerTest extends TestCase
 {
-    use APITestCase;
+    use ResourceViewTestCase;
 
-    /** @test */
-    public function page_not_accessible_for_guest()
+    public function viewpath()
     {
-        $this->withExceptionHandling()
-             ->get(action('Master\Wilayah\WilayahViewController'))
-             ->assertRedirect('/login');
-    }
-
-    /** @test */
-    public function user_can_access_resource_page()
-    {
-        $admin = $this->createAdmin();
-        $user  = $this->createUser();
-
-        $this
-            ->signIn($user)
-            ->get(action('Master\Wilayah\WilayahViewController'))
-            ->assertStatus(403);
-
-        $this->disableExceptionHandling()
-            ->signIn($admin)
-             ->get(action('Master\Wilayah\WilayahViewController'))
-            ->assertStatus(200);
+        return url('master/wilayah');
     }
 }

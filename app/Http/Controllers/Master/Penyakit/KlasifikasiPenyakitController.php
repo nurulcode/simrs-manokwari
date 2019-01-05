@@ -17,7 +17,9 @@ class KlasifikasiPenyakitController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        return KlasifikasiPenyakitResource::collection(KlasifikasiPenyakit::filter($query));
+        return KlasifikasiPenyakitResource::collection(
+            KlasifikasiPenyakit::filter($query)
+        );
     }
 
     /**
@@ -28,9 +30,11 @@ class KlasifikasiPenyakitController extends Controller
      */
     public function store(KlasifikasiPenyakitRequest $request)
     {
-        return response()->crud(new KlasifikasiPenyakitResource(
-            KlasifikasiPenyakit::create($request->validated())
-        ));
+        return response()->crud(
+            new KlasifikasiPenyakitResource(
+                KlasifikasiPenyakit::create($request->validated())
+            )
+        );
     }
 
     /**
@@ -51,11 +55,15 @@ class KlasifikasiPenyakitController extends Controller
      * @param  \App\Models\Master\Penyakit\KlasifikasiPenyakit  $klasifikasi
      * @return \Illuminate\Http\Response
      */
-    public function update(KlasifikasiPenyakitRequest $request, KlasifikasiPenyakit $klasifikasi)
+    public function update(
+        KlasifikasiPenyakitRequest $request,
+        KlasifikasiPenyakit $klasifikasi)
     {
-        return response()->crud(new KlasifikasiPenyakitResource(
-            tap($klasifikasi)->update($request->validated())
-        ));
+        return response()->crud(
+            new KlasifikasiPenyakitResource(
+                tap($klasifikasi)->update($request->validated())
+            )
+        );
     }
 
     /**

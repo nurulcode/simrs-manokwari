@@ -4,15 +4,20 @@ namespace Tests\Feature\Master;
 
 use Tests\TestCase;
 use Sty\Tests\ResourceControllerTestCase;
-use Sty\Tests\ResourceViewControllerTestCase;
+use Sty\Tests\ResourceViewTestCase;
 
-class KasusControllerTest extends TestCase
+class KasusTest extends TestCase
 {
-    use ResourceControllerTestCase, ResourceViewControllerTestCase;
+    use ResourceControllerTestCase, ResourceViewTestCase;
 
     public function resource()
     {
         return \App\Models\Master\Kasus::class;
+    }
+
+    public function viewpath()
+    {
+        return url('master/kasus');
     }
 
     /** @test **/
@@ -21,9 +26,7 @@ class KasusControllerTest extends TestCase
         $this->signIn();
 
         $existing = factory($this->resource())->create();
-        $resource = factory($this->resource())->make([
-            'kode' => $existing->kode
-        ]);
+        $resource = factory($this->resource())->make(['kode' => $existing->kode]);
 
         $this->postJson($resource->path('store'), $this->beforePost($resource))
              ->assertJson(['errors' => []])
@@ -37,9 +40,7 @@ class KasusControllerTest extends TestCase
         $this->signIn();
 
         $existing = factory($this->resource())->create();
-        $resource = factory($this->resource())->make([
-            'kode' => $existing->kode
-        ]);
+        $resource = factory($this->resource())->make(['kode' => $existing->kode]);
 
         $this->putJson($existing->path, $this->beforePost($resource))
              ->assertJson(['status' => 'success'])

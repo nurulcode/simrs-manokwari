@@ -17,9 +17,10 @@ Auth::routes([
 ]);
 
 Route::middleware(['auth'])->group(function () {
+    Route::view('fasilitas', 'fasilitas.index');
+
     Route::get('/', 'HomeController@index');
     Route::get('/activities', 'ActivityController@view');
-    Route::get('/fasilitas', 'Fasilitas\\FasilitasViewController');
     Route::get('/kepegawaian', 'Kepegawaian\\KepegawaianController@view');
     Route::get('/pasien', 'PasienController@view');
     Route::get('/permission', 'PermissionController@view');
@@ -44,21 +45,24 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 
-    Route::namespace('Master')->prefix('master')->group(function () {
-        Route::get('penyakit', 'Penyakit\\PenyakitViewController');
-        Route::get('wilayah', 'Wilayah\\WilayahViewController');
-        Route::get('agama', 'AgamaViewController');
-        Route::get('cara-pembayaran', 'CaraPembayaranViewController');
-        Route::get('jenis-identitas', 'JenisIdentitasViewController');
-        Route::get('jenis-poliklinik', 'JenisPoliklinikViewController');
-        Route::get('jenis-registrasi', 'JenisRegistrasiViewController');
-        Route::get('jenis-rujukan', 'JenisRujukanViewController');
-        Route::get('kasus', 'KasusViewController');
-        Route::get('kegiatan', 'KegiatanViewController');
-        Route::get('pekerjaan', 'PekerjaanViewController');
-        Route::get('pendidikan', 'PendidikanViewController');
-        Route::get('suku', 'SukuViewController');
-        Route::get('tindakan', 'TindakanPemeriksaanViewController');
-        Route::get('tipe-diagnosa', 'TipeDiagnosaViewController');
-    });
+    Route::namespace('Master')
+        ->middleware('can:manage_master_data')
+        ->prefix('master')
+        ->group(function () {
+            Route::view('penyakit',         'master.penyakit.index');
+            Route::view('wilayah',          'master.wilayah.index');
+            Route::view('agama',            'master.agama');
+            Route::view('cara-pembayaran',  'master.cara-pembayaran');
+            Route::view('jenis-identitas',  'master.jenis-identitas');
+            Route::view('jenis-poliklinik', 'master.jenis-poliklinik');
+            Route::view('jenis-registrasi', 'master.jenis-registrasi');
+            Route::view('jenis-rujukan',    'master.jenis-rujukan');
+            Route::view('kasus',            'master.kasus');
+            Route::view('kegiatan',         'master.kegiatan');
+            Route::view('pekerjaan',        'master.pekerjaan');
+            Route::view('pendidikan',       'master.pendidikan');
+            Route::view('suku',             'master.suku');
+            Route::view('tindakan',         'master.tindakan-pemeriksaan');
+            Route::view('tipe-diagnosa',    'master.tipe-diagnosa');
+        });
 });

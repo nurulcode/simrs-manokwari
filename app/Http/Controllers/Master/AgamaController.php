@@ -29,9 +29,9 @@ class AgamaController extends Controller
     {
         $request->validate(['uraian' => 'required|max:255']);
 
-        return response()->crud(new Resource(
-            Agama::create($request->only('uraian'))
-        ));
+        return response()->crud(
+            new Resource(Agama::create($request->only('uraian')))
+        );
     }
 
     /**
@@ -56,9 +56,9 @@ class AgamaController extends Controller
     {
         $request->validate(['uraian' => 'required|max:255']);
 
-        return response()->crud(new Resource(
-            tap($agama)->update($request->only('uraian'))
-        ));
+        return response()->crud(
+            new Resource(tap($agama)->update($request->only('uraian')))
+        );
     }
 
     /**

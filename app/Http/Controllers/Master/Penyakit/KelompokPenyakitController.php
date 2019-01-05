@@ -28,9 +28,11 @@ class KelompokPenyakitController extends Controller
      */
     public function store(KelompokPenyakitRequest $request)
     {
-        return response()->crud(new KelompokPenyakitResource(
-            KelompokPenyakit::create($request->validated())
-        ));
+        return response()->crud(
+            new KelompokPenyakitResource(
+                KelompokPenyakit::create($request->validated())
+            )
+        );
     }
 
     /**
@@ -53,9 +55,11 @@ class KelompokPenyakitController extends Controller
      */
     public function update(KelompokPenyakitRequest $request, KelompokPenyakit $kelompok)
     {
-        return response()->crud(new KelompokPenyakitResource(
-            tap($kelompok)->update($request->validated())
-        ));
+        return response()->crud(
+            new KelompokPenyakitResource(
+                tap($kelompok)->update($request->validated())
+            )
+        );
     }
 
     /**

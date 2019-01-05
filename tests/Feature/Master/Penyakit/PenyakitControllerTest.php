@@ -4,15 +4,20 @@ namespace Tests\Feature\Master\Penyakit;
 
 use Tests\TestCase;
 use Sty\Tests\ResourceControllerTestCase;
-use Sty\Tests\ResourceViewControllerTestCase;
+use Sty\Tests\ResourceViewTestCase;
 
 class PenyakitControllerTest extends TestCase
 {
-    use ResourceControllerTestCase, ResourceViewControllerTestCase;
+    use ResourceControllerTestCase, ResourceViewTestCase;
 
     public function resource()
     {
         return \App\Models\Master\Penyakit\Penyakit::class;
+    }
+
+    public function viewpath()
+    {
+        return url('master/penyakit');
     }
 
     /** @test **/
