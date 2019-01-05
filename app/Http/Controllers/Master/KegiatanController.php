@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Master;
 
-use Sty\HttpQuery;
 use App\KegiatanKategori;
 use App\Models\Master\Kegiatan;
+use App\Http\Queries\Master\KegiatanQuery;
 use App\Http\Requests\Master\KegiatanRequest;
 use App\Http\Resources\Master\KegiatanResource;
 
@@ -15,7 +15,7 @@ class KegiatanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(KegiatanQuery $query)
     {
         return KegiatanResource::collection(Kegiatan::filter($query));
     }
@@ -28,9 +28,9 @@ class KegiatanController extends Controller
      */
     public function store(KegiatanRequest $request)
     {
-        return response()->crud(new KegiatanResource(
-            KegiatanKategori::create($request->validated())
-        ));
+        return response()->crud(
+            new KegiatanResource(KegiatanKategori::create($request->validated()))
+        );
     }
 
     /**
@@ -53,9 +53,9 @@ class KegiatanController extends Controller
      */
     public function update(KegiatanRequest $request, Kegiatan $kegiatan)
     {
-        return response()->crud(new KegiatanResource(
-            KegiatanKategori::update($kegiatan, $request->validated())
-        ));
+        return response()->crud(
+            new KegiatanResource(KegiatanKategori::update($kegiatan, $request->validated()))
+        );
     }
 
     /**

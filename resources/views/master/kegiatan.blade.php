@@ -5,11 +5,7 @@
 @section('tabs')
 
 <b-tab title="Kategori Kegiatan">
-    <data-table v-bind.sync="kategori" ref="table" v-model="selected_kategori"
-        @cannot('create', App\Models\Master\KategoriKegiatan::class)
-            no-add-button-text
-        @endcannot
-        >
+    <data-table v-bind.sync="kategori" ref="table" v-model="selected_kategori">
         <div slot="form">
             <b-form-group v-bind="kategori.form.feedback('uraian')">
                 <b slot="label">Uraian:</b>
@@ -31,11 +27,7 @@
         <h5>@{{ selected_kategori.uraian }}</h5>
     </closable-card>
 
-    <data-table v-bind.sync="kegiatan" ref="table"
-        @cannot('create', App\Models\Master\Kegiatan::class)
-            no-add-button-text
-        @endcannot
-        >
+    <data-table v-bind.sync="kegiatan" ref="table">
         <div slot="form">
             <b-form-group label="Uraian:" v-bind="kegiatan.form.feedback('uraian')">
                 <input
@@ -109,7 +101,7 @@ window.pagemix.push({
     data() {
         return {
             kategori: {
-                sortBy: 'uraian',
+                sortBy: `uraian`,
                 url   : `{{ action('Master\KategoriKegiatanController@index') }}`,
                 fields: [{
                     key     : 'uraian',
@@ -118,8 +110,11 @@ window.pagemix.push({
                 form: new Form({ uraian: null }),
             },
             kegiatan: {
-                sortBy: 'uraian',
+                sortBy: `uraian`,
                 url   : `{{ action('Master\KegiatanController@index') }}`,
+                params: {
+                    kategori: null
+                },
                 fields: [
                     {
                         key     : 'uraian',
@@ -144,17 +139,15 @@ window.pagemix.push({
         selected_kategori(value, before) {
             if (value) {
                 this.kegiatan.form.kategori.push(value);
-
-                this.kegiatan.url = `${value.path}/kegiatan`;
-
-                this.selected_tab = 1;
             } else {
-                this.kegiatan.url = `{{ action('Master\KegiatanController@index') }}`;
+                this.kegiatan.form.setDefault('kategori', []);
 
                 this.kegiatan.form.kategori = [];
-
-                this.kegiatan.form.setDefault('kategori', []);
             }
+
+            this.selected_tab = value ? 1 : this.selected_tab;
+
+            this.kegiatan.params.kategori = value && value.id;
         }
     }
 });

@@ -72,4 +72,26 @@ class KegiatanTest extends TestCase
             $this->getDatabaseConnection($parent)
         );
     }
+
+    /** @test */
+    public function collection_can_be_filtered_by_kategori()
+    {
+        $kategori  = factory(KategoriKegiatan::class)->create();
+        $kegiatan  = factory(Kegiatan::class, 5)->create();
+        $lainnya   = factory(Kegiatan::class, 5)->create();
+
+        $kategori->kegiatan()->attach(
+            $kegiatan->pluck('id')->flip()->map(function ($value, $key) {
+                return ['kode' => str_random(5)];
+            })
+        );
+
+        $this->signIn()
+             ->getJson(action('Master\KegiatanController@index') . '?kategori=' . $kategori->id)
+             ->assertJsonStructure(['data'  => ['*' => ['uraian']]])
+             ->assertJsonCount(5, 'data')
+             ->assertSee($kegiatan->random()->uraian)
+             ->assertDontSee($lainnya->random()->uraian)
+             ->assertStatus(200);
+    }
 }

@@ -46,7 +46,7 @@ use App\Models\Master\JenisRegistrasi;
                 label="uraian"
                 placeholder="Pilih Jenis Kegiatan"
                 select-label=""
-                url="{{ action('Master\KegiatanKategoriKegiatanController', $kategori_kegiatan) }}"
+                url="{{ action('Master\KegiatanController@index') . '?kategori=' . $kategori_kegiatan }}"
                 v-model="form_kunjungan.kegiatan"
                 v-bind:key-value.sync="form_kunjungan.kegiatan_id"
                 v-on:select="form_kunjungan.errors.clear('kegiatan_id')"
