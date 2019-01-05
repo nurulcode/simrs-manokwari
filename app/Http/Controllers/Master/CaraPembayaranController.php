@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Master;
 
-use Sty\HttpQuery;
 use Illuminate\Http\Request;
 use App\Models\Master\CaraPembayaran;
-use App\Http\Queries\CaraPembayaranQuery;
+use App\Http\Queries\Master\CaraPembayaranQuery;
 use App\Http\Requests\Master\CaraPembayaranRequest;
 use App\Http\Resources\Master\CaraPembayaranResource;
 
@@ -29,9 +28,9 @@ class CaraPembayaranController extends Controller
      */
     public function store(CaraPembayaranRequest $request)
     {
-        return response()->crud(new CaraPembayaranResource(
-            CaraPembayaran::create($request->validated())
-        ));
+        return response()->crud(
+            new CaraPembayaranResource(CaraPembayaran::create($request->validated()))
+        );
     }
 
     /**
