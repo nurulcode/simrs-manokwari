@@ -3,15 +3,11 @@
 namespace App\Models\Master\Wilayah;
 
 use App\Models\Master\Master;
+use Illuminate\Database\Eloquent\Builder;
 
 class Kelurahan extends Master
 {
-    /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = ['kecamatan'];
+    use BelongsToProvinsi, BelongsToKotaKabupaten, BelongsToKecamatan;
 
     /**
      * The attributes that are mass assignable.
@@ -24,30 +20,71 @@ class Kelurahan extends Master
      * The attributes that are searchable.
      *
      */
-    protected $searchable = ['name', 'kecamatan', 'kecamatan_id'];
+    protected $searchable = ['name', 'parent'];
 
-    public function kecamatan()
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
     {
-        return $this->belongsTo(Kecamatan::class);
-    }
+        parent::boot();
 
-    public function searchKecamatan($builder, $searchQuery)
-    {
-        return $builder->orwhereHas('kecamatan', function ($query) use ($searchQuery) {
-            $query->where('name', 'like', '%' . $searchQuery . '%');
+        static::addGlobalScope('provinsi', function (Builder $builder) {
+            $kotakab   = KotaKabupaten::select('provinsi_id')
+                ->whereColumn('id', 'kecamatans.kota_kabupaten_id');
+            $kecamatan = Kecamatan::getQuery()
+                ->whereColumn('id', 'kelurahans.kecamatan_id')
+                ->selectSub($kotakab, 'provinsi_id');
+
+            $builder->addSubSelect('provinsi_id', $kecamatan);
+        });
+
+        static::addGlobalScope('kota_kabupaten', function (Builder $builder) {
+            $builder->addSubSelect('kota_kabupaten_id', Kecamatan::withoutGlobalScope('provinsi')
+                ->select('kota_kabupaten_id')
+                ->whereColumn('id', 'kelurahans.kecamatan_id'));
         });
     }
 
-    public function scopeWithParent($builder)
+    public function afterOrder($builder, $orderBy, $orderDirection)
     {
-        return $builder
-            ->join('kecamatans', 'kelurahans.kecamatan_id', '=', 'kecamatans.id')
-            ->join('kota_kabupatens', 'kecamatans.kota_kabupaten_id', '=', 'kota_kabupatens.id')
-            ->select('kelurahans.*', 'kecamatans.name as kecamatan_name', 'kota_kabupatens.name as kota_kabupaten_name');
+        switch ($orderBy) {
+            case 'provinsi':
+                $builder = $this->orderByKotaKabupaten($builder, $orderDirection);
+                // no break
+            case 'kota_kabupaten':
+                $builder = $this->orderByKecamatan($builder, 'asc');
+                // no break
+            case 'kecamatan':
+                $builder = $builder->orderBy('name', 'asc');
+                break;
+        }
+
+        return $builder;
     }
 
-    public function kelurahans()
+    public function searchParent($builder, $searchQuery)
     {
-        return $this->hasMany(Kelurahan::class);
+        return $builder->orwhereHas('kecamatan', function ($query) use ($searchQuery) {
+            $query
+                ->where('name', 'like', '%' . $searchQuery . '%')
+                ->orWhereExists(function ($query) use ($searchQuery) {
+                    $query->select('*')
+                        ->from('kota_kabupatens')
+                        ->whereRaw('kota_kabupatens.id = kecamatans.kota_kabupaten_id')
+                        ->where(function ($query) use ($searchQuery) {
+                            $query
+                                ->where('name', 'like', '%' . $searchQuery . '%')
+                                ->orWhereExists(function ($query) use ($searchQuery) {
+                                    $query->select('*')
+                                        ->from('provinsis')
+                                        ->whereRaw('kota_kabupatens.provinsi_id = provinsis.id')
+                                        ->where('name', 'like', '%' . $searchQuery . '%');
+                                });
+                        });
+                });
+        });
     }
 }

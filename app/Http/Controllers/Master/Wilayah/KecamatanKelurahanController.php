@@ -12,7 +12,10 @@ class KecamatanKelurahanController extends Controller
     public function __invoke(Kecamatan $kecamatan, HttpQuery $query)
     {
         return KelurahanResource::collection(
-            $kecamatan->kelurahans()->withParent()->filter($query)
+            $kecamatan
+                ->kelurahans()
+                ->with(['provinsi', 'kota_kabupaten', 'kecamatan'])
+                ->filter($query)
         );
     }
 }

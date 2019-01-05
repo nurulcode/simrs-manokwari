@@ -104,9 +104,9 @@ window.pagemix.push({
                 this.selected_tab = 3;
             } else {
 
-                this.kelurahan.sortBy   = 'kecamatan_name';
+                this.kelurahan.sortBy = 'provinsi';
 
-                this.kelurahan.url      = `{{ action('Master\Wilayah\KelurahanController@index') }}`;
+                this.kelurahan.url    = `{{ action('Master\Wilayah\KelurahanController@index') }}`;
 
                 this.kelurahan.form.setDefault('kecamatan', null);
 

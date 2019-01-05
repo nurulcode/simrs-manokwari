@@ -4,11 +4,7 @@
     <h5>@{{ selected_kecamatan.name }}, @{{ selected_kecamatan.kota_kabupaten_name }}</h5>
 </closable-card>
 
-<data-table v-bind.sync="kelurahan" ref="table"
-    @cannot('create', App\Models\Master\Wilayah\Kelurahan::class)
-        no-add-button-text
-    @endcannot
-    >
+<data-table v-bind.sync="kelurahan" ref="table">
     <div slot="form">
         <b-form-group v-bind="kelurahan.form.feedback('provinsi_id')">
             <b slot="label">Provinsi:</b>
@@ -69,25 +65,23 @@ window.pagemix.push({
     data() {
         return {
             kelurahan: {
-                sortBy: 'kecamatan_name',
+                sortBy: `provinsi`,
                 url   : `{{ action('Master\Wilayah\KelurahanController@index') }}`,
-                dataMap(item) {
-                    return {
-                        kota_kabupaten   : item.kecamatan.kota_kabupaten,
-                        kota_kabupaten_id: item.kecamatan.kota_kabupaten_id,
-                        provinsi         : item.kecamatan.kota_kabupaten.provinsi,
-                        provinsi_id      : item.kecamatan.kota_kabupaten.provinsi_id,
-                        ...item
-                    }
-                },
                 fields: [{
+                    label    : 'Nama Provinsi',
+                    key      : 'provinsi',
+                    sortable : true,
+                    formatter: provinsi => !provinsi ? '' : provinsi.name,
+                },{
                     label    : 'Nama Kota/Kabupaten',
-                    key      : 'kota_kabupaten_name',
-                    sortable : true
+                    key      : 'kota_kabupaten',
+                    sortable : true,
+                    formatter: kota_kabupaten => !kota_kabupaten ? '' : kota_kabupaten.name,
                 },{
                     label    : 'Nama Kecamatan',
-                    key      : 'kecamatan_name',
-                    sortable : true
+                    key      : 'kecamatan',
+                    sortable : true,
+                    formatter: kecamatan => !kecamatan ? '' : kecamatan.name,
                 },{
                     key     : 'name',
                     sortable: true,

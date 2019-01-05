@@ -17,7 +17,9 @@ class KelurahanController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        return KelurahanResource::collection(Kelurahan::withParent()->filter($query));
+        return KelurahanResource::collection(
+            Kelurahan::with(['provinsi', 'kota_kabupaten', 'kecamatan'])->filter($query)
+        );
     }
 
     /**
@@ -28,9 +30,9 @@ class KelurahanController extends Controller
      */
     public function store(KelurahanRequest $request)
     {
-        return response()->crud(new KelurahanResource(
-            Kelurahan::create($request->validated())
-        ));
+        return response()->crud(
+            new KelurahanResource(Kelurahan::create($request->validated()))
+        );
     }
 
     /**
@@ -53,9 +55,9 @@ class KelurahanController extends Controller
      */
     public function update(KelurahanRequest $request, Kelurahan $kelurahan)
     {
-        return response()->crud(new KelurahanResource(
-            tap($kelurahan)->update($request->validated())
-        ));
+        return response()->crud(
+            new KelurahanResource(tap($kelurahan)->update($request->validated()))
+        );
     }
 
     /**

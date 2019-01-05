@@ -15,13 +15,15 @@ class KelurahanResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'                  => $this->id,
-            'name'                => $this->name,
-            'kecamatan_id'        => $this->kecamatan_id,
-            'kecamatan_name'      => $this->when($this->kecamatan_name, $this->kecamatan_name),
-            'kecamatan'           => KecamatanResource::make($this->whenLoaded('kecamatan')),
-            'kota_kabupaten_name' => $this->when($this->kota_kabupaten_name, $this->kota_kabupaten_name),
-            'path'                => $this->path,
+            'id'                => $this->id,
+            'name'              => $this->name,
+            'kecamatan_id'      => $this->kecamatan_id,
+            'kecamatan'         => KecamatanResource::make($this->whenLoaded('kecamatan')),
+            'kota_kabupaten_id' => $this->kota_kabupaten_id,
+            'kota_kabupaten'    => KotaKabupatenResource::make($this->whenLoaded('kota_kabupaten')),
+            'provinsi_id'       => $this->provinsi_id,
+            'provinsi'          => ProvinsiResource::make($this->whenLoaded('provinsi')),
+            'path'              => $this->path,
         ];
     }
 }

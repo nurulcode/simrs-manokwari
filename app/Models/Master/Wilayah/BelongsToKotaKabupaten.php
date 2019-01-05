@@ -22,7 +22,7 @@ trait BelongsToKotaKabupaten
     public function orderByKotaKabupaten($builder, $direction = 'asc')
     {
         $kota_kabupaten_name = KotaKabupaten::select('name')
-            ->whereColumn('id', 'kecamatans.kota_kabupaten_id');
+            ->whereColumn('id', 'kota_kabupaten_id');
 
         $builder->orderBySub($kota_kabupaten_name, $direction);
 

@@ -45,11 +45,7 @@ class KelurahanControllerTest extends TestCase
 
         $this->signIn()
              ->getJson(action('Master\Wilayah\KelurahanController@index'))
-             ->assertJson([
-                'data'  => [],
-             ])
-             ->assertJsonStructure([
-                'data'  => ['*' => ['kecamatan', 'kecamatan_name']],
-             ]);
+             ->assertJson(['data'  => []])
+             ->assertJsonStructure(['data'  => ['*' => ['kecamatan']]]);
     }
 }

@@ -30,7 +30,7 @@ class KecamatanKelurahanControllerTest extends TestCase
 
         $this->signIn()
              ->getJson(action('Master\Wilayah\KecamatanKelurahanController', $kecamatan->id))
-             ->assertJsonStructure(['data'  => ['*' => ['name', 'kecamatan_name']]])
+             ->assertJsonStructure(['data'  => ['*' => ['name']]])
              ->assertJsonCount(5, 'data')
              ->assertSee($kelurahan->random()->name)
              ->assertDontSee($lainnya->random()->name)

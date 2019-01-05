@@ -63,6 +63,7 @@ class Kecamatan extends Master
         switch ($orderBy) {
             case 'provinsi':
                 $builder = $this->orderByKotaKabupaten($builder, $orderDirection);
+                // no break
             case 'kota_kabupaten':
                 $builder = $builder->orderBy('name', 'asc');
                 break;
@@ -75,5 +76,4 @@ class Kecamatan extends Master
     {
         return $this->hasMany(Kelurahan::class);
     }
-
 }
