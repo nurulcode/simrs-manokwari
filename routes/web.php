@@ -17,13 +17,13 @@ Auth::routes([
 ]);
 
 Route::middleware(['auth'])->group(function () {
-    Route::view('fasilitas', 'fasilitas.index')->middleware('can:manage_fasilitas');
+    Route::view('fasilitas',  'fasilitas.index')->middleware('can:manage_fasilitas');
+    Route::view('pasien',     'pasien')->middleware('can:manage_pasien');
     Route::view('permission', 'permission')->middleware('can:manage_permission');
 
     Route::get('/', 'HomeController@index');
     Route::get('/activities', 'ActivityController@view');
     Route::get('/kepegawaian', 'Kepegawaian\\KepegawaianController@view');
-    Route::get('/pasien', 'PasienController@view');
     Route::get('/role', 'RoleController@view');
     Route::get('/user', 'UserController@view');
 

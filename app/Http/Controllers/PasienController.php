@@ -4,13 +4,22 @@ namespace App\Http\Controllers;
 
 use Sty\HttpQuery;
 use App\Models\Pasien;
-use Illuminate\Http\Request;
 use App\Http\Resources\PasienResource;
 use App\Http\Requests\CreatePasienRequest;
 use App\Http\Requests\UpdatePasienRequest;
 
 class PasienController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('can:manage_pasien')->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -92,16 +101,5 @@ class PasienController extends Controller
     public function destroy(Pasien $pasien)
     {
         return response()->crud(tap($pasien)->delete());
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        return view('pasien');
     }
 }
