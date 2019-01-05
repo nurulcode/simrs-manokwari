@@ -28,15 +28,9 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
-            'name'        => 'view_permission_page',
-            'description' => 'Akses halaman kelola permission'
+            'name'        => 'manage_permission',
+            'description' => 'Mengelola permission'
         ]);
-
-        Permission::create([
-            'name'        => 'update_permission',
-            'description' => 'Mengubah data permission'
-        ]);
-
         Permission::create([
             'name'        => 'manage_master_data',
             'description' => 'Mengelola master data'

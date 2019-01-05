@@ -52,29 +52,4 @@ class AuthenticationTest extends TestCase
             'last_login' => $time->toDateTimeString()
         ]);
     }
-
-    /** @test */
-    public function only_active_user_can_loggedin()
-    {
-        $user = factory(User::class)->create([
-            'active'   => false,
-            'username' => 'user'
-        ]);
-
-        $this->withExceptionHandling();
-
-        $this
-             ->postJson(route('login'), ['username' => 'user', 'password' => 'secret'])
-             ->assertJson(['errors' => []])
-             ->assertJsonValidationErrors(['username']);
-
-        $user = factory(User::class)->create([
-            'active'   => true,
-            'username' => 'activeuser'
-        ]);
-
-        $this
-             ->postJson(route('login'), ['username' => 'activeuser', 'password' => 'secret'])
-             ->assertStatus(302);
-    }
 }

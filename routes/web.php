@@ -18,13 +18,12 @@ Auth::routes([
 
 Route::middleware(['auth'])->group(function () {
     Route::view('fasilitas', 'fasilitas.index')->middleware('can:manage_fasilitas');
+    Route::view('permission', 'permission')->middleware('can:manage_permission');
 
     Route::get('/', 'HomeController@index');
     Route::get('/activities', 'ActivityController@view');
     Route::get('/kepegawaian', 'Kepegawaian\\KepegawaianController@view');
     Route::get('/pasien', 'PasienController@view');
-    Route::get('/permission', 'PermissionController@view');
-    Route::get('/permission', 'PermissionController@view');
     Route::get('/role', 'RoleController@view');
     Route::get('/user', 'UserController@view');
 

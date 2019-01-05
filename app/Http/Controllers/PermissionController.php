@@ -4,13 +4,21 @@ namespace App\Http\Controllers;
 
 use Sty\HttpQuery;
 use App\Models\Permission;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PermissionRequest;
 use App\Http\Resources\PermissionResource;
 
 class PermissionController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('can:manage_permission');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,11 +26,7 @@ class PermissionController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        if (Auth::user()->can('view_permission_page')) {
-            return PermissionResource::collection(Permission::filter($query));
-        }
-
-        return abort(403);
+        return PermissionResource::collection(Permission::filter($query));
     }
 
     /**
@@ -44,8 +48,6 @@ class PermissionController extends Controller
      */
     public function show(Permission $permission)
     {
-        $this->authorize('view_permission_page');
-
         return new PermissionResource($permission);
     }
 
@@ -58,9 +60,9 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, Permission $permission)
     {
-        return response()->crud(new PermissionResource(
-            tap($permission)->update($request->validated())
-        ));
+        return response()->crud(
+            new PermissionResource(tap($permission)->update($request->validated()))
+        );
     }
 
     /**
@@ -72,18 +74,5 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         return abort(403);
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        $this->authorize('view_permission_page');
-
-        return view('permission');
     }
 }
