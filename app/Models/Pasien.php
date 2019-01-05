@@ -2,11 +2,23 @@
 
 namespace App\Models;
 
+use App\Models\Master\Wilayah\Kelurahan;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Master\Wilayah\BelongsToKelurahan;
+use App\Models\Master\Wilayah\BelongsToKecamatan;
+use App\Models\Master\Wilayah\Kecamatan;
+use App\Models\Master\Wilayah\BelongsToKotaKabupaten;
+use App\Models\Master\Wilayah\KotaKabupaten;
+use App\Models\Master\Wilayah\BelongsToProvinsi;
 
 class Pasien extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes,
+        BelongsToProvinsi,
+        BelongsToKotaKabupaten,
+        BelongsToKecamatan,
+        BelongsToKelurahan;
 
     /**
      * The attributes that should be mutated to dates.
@@ -14,15 +26,6 @@ class Pasien extends Model
      * @var array
      */
     protected $dates = ['tanggal_registrasi', 'tanggal_lahir'];
-
-    /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = [
-        'jenis_identitas', 'agama', 'suku', 'pendidikan', 'pekerjaan', 'kelurahan'
-    ];
 
     protected static function boot()
     {
@@ -34,6 +37,38 @@ class Pasien extends Model
             }
 
             $model->save();
+        });
+
+        static::addGlobalScope('kecamatan', function (Builder $builder) {
+            $builder->addSubSelect('kecamatan_id',
+                Kelurahan::withoutGlobalScopes(['provinsi', 'kota_kabupaten'])
+                    ->select('kecamatan_id')
+                    ->whereColumn('id', 'pasiens.kelurahan_id'));
+        });
+
+        static::addGlobalScope('kota_kabupaten', function (Builder $builder) {
+            $kecamatan = Kecamatan::withoutGlobalScope('provinsi')
+                ->select('kota_kabupaten_id')
+                ->whereColumn('id', 'kelurahans.kecamatan_id');
+            $kelurahan = Kelurahan::getQuery()
+                ->whereColumn('id', 'pasiens.kelurahan_id')
+                ->selectSub($kecamatan, 'kota_kabupaten_id');
+
+            $builder->addSubSelect('kota_kabupaten_id', $kelurahan);
+        });
+
+        static::addGlobalScope('provinsi', function (Builder $builder) {
+            $kotakab = KotaKabupaten::getQuery()
+                ->select('provinsi_id')
+                ->whereColumn('id', 'kecamatans.kota_kabupaten_id');
+            $kecamatan = Kecamatan::withoutGlobalScope('provinsi')
+                ->whereColumn('id', 'kelurahans.kecamatan_id')
+                ->selectSub($kotakab, 'provinsi_id');
+            $kelurahan = Kelurahan::getQuery()
+                ->whereColumn('id', 'pasiens.kelurahan_id')
+                ->selectSub($kecamatan, 'provinsi_id');
+
+            $builder->addSubSelect('provinsi_id', $kelurahan);
         });
     }
 
@@ -60,10 +95,5 @@ class Pasien extends Model
     public function pekerjaan()
     {
         return $this->belongsTo(Master\Pekerjaan::class);
-    }
-
-    public function kelurahan()
-    {
-        return $this->belongsTo(Master\Wilayah\Kelurahan::class);
     }
 }

@@ -3,8 +3,11 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use App\Models\Pasien;
 use App\Models\Master;
+use App\Models\Pasien;
+use App\Models\Master\Wilayah\Provinsi;
+use App\Models\Master\Wilayah\Kecamatan;
+use App\Models\Master\Wilayah\KotaKabupaten;
 
 class PasienTest extends TestCase
 {
@@ -62,5 +65,71 @@ class PasienTest extends TestCase
         $pasien = factory(Pasien::class)->create();
 
         $this->assertInstanceOf(Master\Wilayah\Kelurahan::class, $pasien->kelurahan);
+    }
+
+    /** @test */
+    public function a_pasien_have_virtual_kecamatan_id()
+    {
+        $pasien = factory(Pasien::class)->create();
+
+        $pasien = Pasien::find($pasien->id);
+
+        $this->assertSame($pasien->kecamatan_id, $pasien->kelurahan->kecamatan_id);
+    }
+
+    /** @test */
+    public function a_pasien_belongs_to_kecamatan()
+    {
+        $pasien = factory(Pasien::class)->create();
+
+        $pasien = Pasien::find($pasien->id);
+
+        $this->assertInstanceof(Kecamatan::class, $pasien->kecamatan);
+    }
+
+    /** @test */
+    public function a_pasien_have_virtual_kota_kabupaten_id()
+    {
+        $pasien = factory(Pasien::class)->create();
+
+        $pasien = Pasien::find($pasien->id);
+
+        $this->assertSame(
+            $pasien->kota_kabupaten_id,
+            $pasien->kelurahan->kecamatan->kota_kabupaten_id
+        );
+    }
+
+    /** @test */
+    public function a_pasien_belongs_to_kota_kabupaten()
+    {
+        $pasien = factory(Pasien::class)->create();
+
+        $pasien = Pasien::find($pasien->id);
+
+        $this->assertInstanceof(KotaKabupaten::class, $pasien->kota_kabupaten);
+    }
+
+    /** @test */
+    public function a_pasien_have_virtual_provinsi_id()
+    {
+        $pasien = factory(Pasien::class)->create();
+
+        $pasien = Pasien::find($pasien->id);
+
+        $this->assertSame(
+            $pasien->provinsi_id,
+            $pasien->kelurahan->kecamatan->kota_kabupaten->provinsi_id
+        );
+    }
+
+    /** @test */
+    public function a_pasien_belongs_to_provinsi()
+    {
+        $pasien = factory(Pasien::class)->create();
+
+        $pasien = Pasien::find($pasien->id);
+
+        $this->assertInstanceof(Provinsi::class, $pasien->provinsi);
     }
 }

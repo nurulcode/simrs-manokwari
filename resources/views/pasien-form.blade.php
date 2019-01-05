@@ -171,8 +171,8 @@
                 url="{{ action('Master\Wilayah\ProvinsiController@index') }}"
                 v-model="form_pasien.provinsi"
                 v-bind:key-value.sync="form_pasien.provinsi_id"
-                v-on:select="form_pasien.kota_kabupaten = null"
-                v-on:select="form_pasien.errors.clear('provinsi_id')"
+                v-on:select="clearWilayah(['kota_kabupaten', 'kecamatan', 'kelurahan'])"
+                v-on:change="form_pasien.errors.clear('provinsi_id')"
                 >
             </ajax-select>
         </b-form-group>
@@ -188,7 +188,8 @@
                 :params="{provinsi: form_pasien.provinsi_id}"
                 v-model="form_pasien.kota_kabupaten"
                 v-bind:key-value.sync="form_pasien.kota_kabupaten_id"
-                v-on:select="form_pasien.errors.clear('kota_kabupaten_id')"
+                v-on:select="clearWilayah(['kecamatan', 'kelurahan'])"
+                v-on:change="form_pasien.errors.clear('kota_kabupaten_id')"
                 >
             </ajax-select>
         </b-form-group>
@@ -203,8 +204,9 @@
                 url="{{ action('Master\Wilayah\KecamatanController@index') }}"
                 :params="{kota_kabupaten: form_pasien.kota_kabupaten_id}"
                 v-model="form_pasien.kecamatan"
+                v-on:select="clearWilayah(['kelurahan'])"
                 v-bind:key-value.sync="form_pasien.kecamatan_id"
-                v-on:select="form_pasien.errors.clear('kecamatan_id')"
+                v-on:change="form_pasien.errors.clear('kecamatan_id')"
                 >
             </ajax-select>
         </b-form-group>
@@ -353,6 +355,11 @@ window.pagemix.push({
     mounted() {
         this.form_pasien.setDefault('provinsi', @json(App\Models\Master\Wilayah\Provinsi::find(91)));
         this.form_pasien.setDefault('kota_kabupaten', @json(App\Models\Master\Wilayah\KotaKabupaten::find(9105)));
+    },
+    methods: {
+        clearWilayah(list) {
+            list.forEach(level => this.form_pasien[level] = null);
+        }
     }
 });
 </script>

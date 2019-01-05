@@ -18,24 +18,44 @@ class PasienController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Pasien::class);
-
-        return PasienResource::collection(Pasien::filter($query));
+        return PasienResource::collection(
+            Pasien::with([
+                'agama',
+                'jenis_identitas',
+                'suku',
+                'pendidikan',
+                'pekerjaan',
+                'provinsi',
+                'kota_kabupaten',
+                'kecamatan',
+                'kelurahan'])
+            ->filter($query)
+        );
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CreatePasienRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(CreatePasienRequest $request)
     {
-        return response()->crud(new PasienResource(
-            Pasien::create($request->validated())->load([
-                'jenis_identitas', 'agama', 'suku', 'pendidikan', 'pekerjaan', 'kelurahan'
-            ])
-        ));
+        return response()->crud(
+            new PasienResource(
+                Pasien::create($request->validated())->load([
+                    'agama',
+                    'jenis_identitas',
+                    'suku',
+                    'pendidikan',
+                    'pekerjaan',
+                    'provinsi',
+                    'kota_kabupaten',
+                    'kecamatan',
+                    'kelurahan'
+                ]
+            ))
+        );
     }
 
     /**
@@ -46,8 +66,6 @@ class PasienController extends Controller
      */
     public function show(Pasien $pasien)
     {
-        $this->authorize('show', $pasien);
-
         return new PasienResource($pasien);
     }
 
@@ -60,9 +78,9 @@ class PasienController extends Controller
      */
     public function update(UpdatePasienRequest $request, Pasien $pasien)
     {
-        return response()->crud(new PasienResource(
-            tap($pasien)->update($request->validated())
-        ));
+        return response()->crud(
+            new PasienResource(tap($pasien)->update($request->validated()))
+        );
     }
 
     /**
@@ -73,8 +91,6 @@ class PasienController extends Controller
      */
     public function destroy(Pasien $pasien)
     {
-        $this->authorize('delete', $pasien);
-
         return response()->crud(tap($pasien)->delete());
     }
 
@@ -86,8 +102,6 @@ class PasienController extends Controller
      */
     public function view(Request $request)
     {
-        $this->authorize('view', Pasien::class);
-
         return view('pasien');
     }
 }

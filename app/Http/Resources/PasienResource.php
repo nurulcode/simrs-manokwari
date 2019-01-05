@@ -5,6 +5,9 @@ namespace App\Http\Resources;
 use App\Http\Resources\Master\Resource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Master\Wilayah\KelurahanResource;
+use App\Http\Resources\Master\Wilayah\KecamatanResource;
+use App\Http\Resources\Master\Wilayah\KotaKabupatenResource;
+use App\Http\Resources\Master\Wilayah\ProvinsiResource;
 
 class PasienResource extends JsonResource
 {
@@ -18,7 +21,7 @@ class PasienResource extends JsonResource
     {
         return [
             'id'                 => $this->id,
-            'tanggal_registrasi' => $this->tanggal_registrasi->toDateTimeString(),
+            'tanggal_registrasi' => (string) $this->tanggal_registrasi,
             'no_rekam_medis'     => $this->no_rekam_medis,
             'nama'               => $this->nama,
             'jenis_identitas_id' => $this->jenis_identitas_id,
@@ -38,6 +41,12 @@ class PasienResource extends JsonResource
             'pendidikan'         => Resource::make($this->whenLoaded('pendidikan')),
 
             'alamat'             => $this->alamat,
+            'provinsi_id'        => $this->provinsi_id,
+            'provinsi'           => ProvinsiResource::make($this->whenLoaded('provinsi')),
+            'kota_kabupaten_id'  => $this->kota_kabupaten_id,
+            'kota_kabupaten'     => KotaKabupatenResource::make($this->whenLoaded('kota_kabupaten')),
+            'kecamatan_id'       => $this->kecamatan_id,
+            'kecamatan'          => KecamatanResource::make($this->whenLoaded('kecamatan')),
             'kelurahan_id'       => $this->kelurahan_id,
             'kelurahan'          => KelurahanResource::make($this->whenLoaded('kelurahan')),
             'telepon'            => $this->telepon,
@@ -50,8 +59,6 @@ class PasienResource extends JsonResource
             'telepon_keluarga'   => $this->telepon_keluarga,
 
             'path'               => $this->path,
-            '__editable'         => $request->user()->can('update', $this->resource),
-            '__deletable'        => $request->user()->can('delete', $this->resource),
         ];
     }
 }

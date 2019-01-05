@@ -1974,6 +1974,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.search = "".concat(query);
       }
     }, 300),
+    refresh: __WEBPACK_IMPORTED_MODULE_0_lodash_debounce___default()(function () {
+      this.loadData();
+    }, 300),
     loadData: function loadData() {
       var _this = this;
 
@@ -1999,25 +2002,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.loadData();
   },
   watch: {
-    url: function url(value, before) {
-      this.loadData();
-    },
     search: function search(value, before) {
       this.loadData();
+    },
+    url: function url(value, before) {
+      this.refresh();
     },
     params: {
       handler: function handler(options, before) {
         if (JSON.stringify(options) != JSON.stringify(before)) {
-          this.loadData();
+          this.refresh();
         }
       }
     },
-    value: function value(_value) {
+    value: function value(_value, before) {
       if (_value instanceof Object) {
         this.$emit('update:keyValue', _value[this.trackBy]);
       } else {
         this.$emit('update:keyValue', _value);
       }
+
+      this.$emit('change', _value, before);
     }
   },
   props: {
