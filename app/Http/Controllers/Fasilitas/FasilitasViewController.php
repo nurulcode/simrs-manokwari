@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Fasilitas;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class FasilitasViewController extends Controller
 {

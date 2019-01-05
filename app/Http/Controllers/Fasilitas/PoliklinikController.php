@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Fasilitas;
 
 use Sty\HttpQuery;
-use App\Http\Controllers\Controller;
 use App\Models\Fasilitas\Poliklinik;
 use App\Http\Requests\Fasilitas\PoliklinikRequest;
 use App\Http\Resources\Fasilitas\PoliklinikResource;
@@ -17,8 +16,6 @@ class PoliklinikController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Poliklinik::class);
-
         return PoliklinikResource::collection(Poliklinik::filter($query));
     }
 
@@ -30,9 +27,9 @@ class PoliklinikController extends Controller
      */
     public function store(PoliklinikRequest $request)
     {
-        return response()->crud(new PoliklinikResource(
-            Poliklinik::create($request->validated())
-        ));
+        return response()->crud(
+            new PoliklinikResource(Poliklinik::create($request->validated()))
+        );
     }
 
     /**
@@ -43,8 +40,6 @@ class PoliklinikController extends Controller
      */
     public function show(Poliklinik $poliklinik)
     {
-        $this->authorize('show', $poliklinik);
-
         return new PoliklinikResource($poliklinik);
     }
 
@@ -57,9 +52,9 @@ class PoliklinikController extends Controller
      */
     public function update(PoliklinikRequest $request, Poliklinik $poliklinik)
     {
-        return response()->crud(new PoliklinikResource(
-            tap($poliklinik)->update($request->validated())
-        ));
+        return response()->crud(
+            new PoliklinikResource(tap($poliklinik)->update($request->validated()))
+        );
     }
 
     /**
@@ -70,8 +65,6 @@ class PoliklinikController extends Controller
      */
     public function destroy(Poliklinik $poliklinik)
     {
-        $this->authorize('delete', $poliklinik);
-
         return response()->crud(tap($poliklinik)->delete());
     }
 }

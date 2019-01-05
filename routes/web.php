@@ -17,7 +17,7 @@ Auth::routes([
 ]);
 
 Route::middleware(['auth'])->group(function () {
-    Route::view('fasilitas', 'fasilitas.index');
+    Route::view('fasilitas', 'fasilitas.index')->middleware('can:manage_fasilitas');
 
     Route::get('/', 'HomeController@index');
     Route::get('/activities', 'ActivityController@view');

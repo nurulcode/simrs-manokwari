@@ -13,11 +13,7 @@ class KamarRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('kamar')) {
-            return $this->user()->can('update', $this->route('kamar'));
-        }
-
-        return $this->user()->can('create', Kamar::class);
+        return true;
     }
 
     /**
@@ -28,9 +24,9 @@ class KamarRequest extends FormRequest
     public function rules()
     {
         return [
-            'poliklinik_id' => ['required', 'exists:polikliniks,id'],
-            'ruangan_id'    => ['required', 'exists:ruangans,id'],
-            'nama'          => ['required'],
+            'nama'          => 'required',
+            'poliklinik_id' => 'required|exists:polikliniks,id',
+            'ruangan_id'    => 'required|exists:ruangans,id',
         ];
     }
 }

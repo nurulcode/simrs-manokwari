@@ -2,11 +2,7 @@
     <h5>@{{ selected_kamar.ruangan.nama }}, @{{ selected_kamar.nama }}</h5>
 </closable-card>
 
-<data-table v-bind.sync="ranjang" ref="table"
-    @cannot('create', App\Models\Fasilitas\Ranjang::class)
-        no-add-button-text
-    @endcannot
-    >
+<data-table v-bind.sync="ranjang" ref="table">
     <div slot="form">
         <b-form-group label="Poliklinik:" v-bind="ranjang.form.feedback('poliklinik_id')">
             <ajax-select

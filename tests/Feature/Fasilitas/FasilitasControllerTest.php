@@ -3,24 +3,14 @@
 namespace Tests\Feature\Fasilitas;
 
 use Tests\TestCase;
+use Sty\Tests\ResourceViewTestCase;
 
 class FasilitasControllerTest extends TestCase
 {
-    /** @test */
-    public function page_not_accessible_for_guest()
-    {
-        $this->withExceptionHandling()
-             ->get(action('Fasilitas\FasilitasViewController'))
-             ->assertRedirect('/login');
-    }
+    use ResourceViewTestCase;
 
-    /** @test */
-    public function user_can_access_resource_page()
+    public function viewpath()
     {
-        $this->withExceptionHandling()
-             ->signIn()
-             ->get(action('Fasilitas\FasilitasViewController'))
-             ->assertSee('Fasilitas')
-             ->assertStatus(200);
+        return url('fasilitas');
     }
 }

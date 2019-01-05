@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Fasilitas;
 
 use Sty\HttpQuery;
 use App\Models\Fasilitas\Ranjang;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Fasilitas\RanjangRequest;
 use App\Http\Resources\Fasilitas\RanjangResource;
 
@@ -17,8 +16,6 @@ class RanjangController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Ranjang::class);
-
         return RanjangResource::collection(Ranjang::withKamar()->filter($query));
     }
 
@@ -30,9 +27,9 @@ class RanjangController extends Controller
      */
     public function store(RanjangRequest $request)
     {
-        return response()->crud(new RanjangResource(
-            Ranjang::create($request->validated())
-        ));
+        return response()->crud(
+            new RanjangResource(Ranjang::create($request->validated()))
+        );
     }
 
     /**
@@ -43,8 +40,6 @@ class RanjangController extends Controller
      */
     public function show(Ranjang $ranjang)
     {
-        $this->authorize('show', $ranjang);
-
         return new RanjangResource($ranjang);
     }
 
@@ -57,9 +52,9 @@ class RanjangController extends Controller
      */
     public function update(RanjangRequest $request, Ranjang $ranjang)
     {
-        return response()->crud(new RanjangResource(
-            tap($ranjang)->update($request->validated())
-        ));
+        return response()->crud(
+            new RanjangResource(tap($ranjang)->update($request->validated()))
+        );
     }
 
     /**
@@ -70,8 +65,6 @@ class RanjangController extends Controller
      */
     public function destroy(Ranjang $ranjang)
     {
-        $this->authorize('delete', $ranjang);
-
         return response()->crud(tap($ranjang)->delete());
     }
 }

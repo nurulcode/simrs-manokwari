@@ -1,8 +1,4 @@
-<data-table v-bind.sync="poliklinik" ref="table" v-model="selected_poliklinik"
-    @cannot('create', App\Models\Fasilitas\Poliklinik::class)
-        no-add-button-text
-    @endcannot
-    >
+<data-table v-bind.sync="poliklinik" ref="table" v-model="selected_poliklinik">
     <div slot="form">
         <b-form-group label="Kode:" v-bind="poliklinik.form.feedback('kode')">
             <input

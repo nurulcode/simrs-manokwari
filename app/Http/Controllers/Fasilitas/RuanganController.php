@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Fasilitas;
 
 use Sty\HttpQuery;
 use App\Models\Fasilitas\Ruangan;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Fasilitas\RuanganRequest;
 use App\Http\Resources\Fasilitas\RuanganResource;
 
@@ -17,8 +16,6 @@ class RuanganController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Ruangan::class);
-
         return RuanganResource::collection(Ruangan::filter($query));
     }
 
@@ -30,9 +27,9 @@ class RuanganController extends Controller
      */
     public function store(RuanganRequest $request)
     {
-        return response()->crud(new RuanganResource(
-            Ruangan::create($request->validated())
-        ));
+        return response()->crud(
+            new RuanganResource(Ruangan::create($request->validated()))
+        );
     }
 
     /**
@@ -43,8 +40,6 @@ class RuanganController extends Controller
      */
     public function show(Ruangan $ruangan)
     {
-        $this->authorize('show', $ruangan);
-
         return new RuanganResource($ruangan);
     }
 
@@ -57,9 +52,9 @@ class RuanganController extends Controller
      */
     public function update(RuanganRequest $request, Ruangan $ruangan)
     {
-        return response()->crud(new RuanganResource(
-            tap($ruangan)->update($request->validated())
-        ));
+        return response()->crud(
+            new RuanganResource(tap($ruangan)->update($request->validated()))
+        );
     }
 
     /**
@@ -70,8 +65,6 @@ class RuanganController extends Controller
      */
     public function destroy(Ruangan $ruangan)
     {
-        $this->authorize('delete', $ruangan);
-
         return response()->crud(tap($ruangan)->delete());
     }
 }
