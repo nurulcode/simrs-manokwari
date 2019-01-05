@@ -1,7 +1,7 @@
 <closable-card v-if="!!selected_kota_kabupaten"
     header="Kota/Kabupaten Terpilih:"
     v-on:close="selected_kota_kabupaten = null">
-    <h5>@{{ selected_kota_kabupaten.name }}, @{{ selected_kota_kabupaten.provinsi_name }}</h5>
+    <h5>@{{ selected_kota_kabupaten.name }}, @{{ selected_kota_kabupaten.provinsi.name }}</h5>
 </closable-card>
 
 <data-table v-bind.sync="kecamatan" ref="table" v-model="selected_kecamatan">
@@ -22,7 +22,8 @@
         <b-form-group v-if="kecamatan.form.provinsi" v-bind="kecamatan.form.feedback('kota_kabupaten_id')">
             <b slot="label">Kota/Kabupaten:</b>
             <ajax-select
-                :url="`${kecamatan.form.provinsi.path}/kota-kabupaten`"
+                :params="{provinsi: kecamatan.form.provinsi_id}"
+                url="{{ action('Master\Wilayah\KotaKabupatenController@index') }}"
                 label="name"
                 placeholder="Pilih Kota/Kabupaten"
                 v-model="kecamatan.form.kota_kabupaten"
@@ -53,6 +54,9 @@ window.pagemix.push({
             kecamatan: {
                 sortBy: `provinsi`,
                 url   : `{{ action('Master\Wilayah\KecamatanController@index') }}`,
+                params: {
+                    kota_kabupaten: null
+                },
                 fields: [{
                     key      : 'provinsi',
                     label    : 'Nama Provinsi',

@@ -4,6 +4,7 @@ namespace Tests\Feature\Master\Wilayah;
 
 use Tests\TestCase;
 use App\Models\Master\Wilayah\Kecamatan;
+use App\Models\Master\Wilayah\Kelurahan;
 use Sty\Tests\ResourceControllerTestCase;
 
 class KelurahanControllerTest extends TestCase
@@ -47,5 +48,23 @@ class KelurahanControllerTest extends TestCase
              ->getJson(action('Master\Wilayah\KelurahanController@index'))
              ->assertJson(['data'  => []])
              ->assertJsonStructure(['data'  => ['*' => ['kecamatan']]]);
+    }
+
+    /** @test */
+    public function collection_can_be_filtered_by_kecamatan()
+    {
+        $kecamatan  = factory(Kecamatan::class)->create();
+        $kelurahan  = factory(Kelurahan::class, 5)->create(['kecamatan_id' => $kecamatan->id]);
+        $lainnya    = factory(Kelurahan::class, 5)->create();
+
+        $controller = 'Master\Wilayah\KelurahanController@index';
+
+        $this->signIn()
+             ->getJson(action($controller) . '?kecamatan=' . $kecamatan->id)
+             ->assertJsonStructure(['data'  => ['*' => ['name']]])
+             ->assertJsonCount(5, 'data')
+             ->assertSee($kelurahan->random()->name)
+             ->assertDontSee($lainnya->random()->name)
+             ->assertStatus(200);
     }
 }

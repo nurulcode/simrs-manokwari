@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Master\Wilayah;
 
-use Sty\HttpQuery;
 use App\Models\Master\Wilayah\Kelurahan;
 use App\Http\Controllers\Master\Controller;
 use App\Http\Requests\Master\Wilayah\KelurahanRequest;
 use App\Http\Resources\Master\Wilayah\KelurahanResource;
+use App\Http\Queries\Master\WilayahQuery;
 
 class KelurahanController extends Controller
 {
@@ -15,7 +15,7 @@ class KelurahanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(WilayahQuery $query)
     {
         return KelurahanResource::collection(
             Kelurahan::with(['provinsi', 'kota_kabupaten', 'kecamatan'])->filter($query)

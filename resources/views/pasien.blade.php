@@ -3,10 +3,7 @@
 @section('title', 'Pasien Management')
 
 @section('card')
-    <data-table v-bind.sync="pasien" ref="table" modal-size="lg" :form="form_pasien"
-        @cannot('create', App\Models\Pasien::class)
-            no-add-button-text
-        @endcannot>
+    <data-table v-bind.sync="pasien" ref="table" modal-size="lg" :form="form_pasien">
         <div slot="form"> @include('pasien-form') </div>
     </data-table>
 @endsection
@@ -18,7 +15,7 @@ window.pagemix.push({
         return {
             pasien: {
                 sortBy  : `no_rekam_medis`,
-                sortDesc: true
+                sortDesc: true,
                 url     : `{{ action('PasienController@index') }}`,
                 fields: [{
                     key      : 'no_rekam_medis',

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Master\Wilayah;
 
-use Sty\HttpQuery;
+use App\Http\Queries\Master\WilayahQuery;
 use App\Http\Controllers\Master\Controller;
 use App\Models\Master\Wilayah\KotaKabupaten;
 use App\Http\Requests\Master\Wilayah\KotaKabupatenRequest;
@@ -15,7 +15,7 @@ class KotaKabupatenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(WilayahQuery $query)
     {
         return KotaKabupatenResource::collection(
             KotaKabupaten::with('provinsi')->filter($query)

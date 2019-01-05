@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Master\Wilayah;
 
-use Sty\HttpQuery;
 use App\Models\Master\Wilayah\Kecamatan;
 use App\Http\Controllers\Master\Controller;
 use App\Http\Requests\Master\Wilayah\KecamatanRequest;
 use App\Http\Resources\Master\Wilayah\KecamatanResource;
+use App\Http\Queries\Master\WilayahQuery;
 
 class KecamatanController extends Controller
 {
@@ -15,7 +15,7 @@ class KecamatanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(WilayahQuery $query)
     {
         return KecamatanResource::collection(
             Kecamatan::with('provinsi', 'kota_kabupaten')->filter($query)

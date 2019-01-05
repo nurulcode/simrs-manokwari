@@ -34,92 +34,49 @@ window.pagemix.push({
     },
     watch: {
         selected_provinsi(value) {
-            if (value) {
-                this.kota_kabupaten.url    = `${value.path}/kota-kabupaten`;
+            this.kota_kabupaten.params.provinsi = value && value.id;
 
-                this.kota_kabupaten.sortBy = `name`;
+            this.kota_kabupaten.form.setDefault('provinsi', value);
 
-                this.kota_kabupaten.form.setDefault('provinsi', value);
+            this.kota_kabupaten.form.setDefault('provinsi_id', value && value.id);
 
-                this.kota_kabupaten.form.setDefault('provinsi_id', value.id);
+            this.selected_tab = value ? 1 : this.selected_tab;
 
-                this.selected_tab = 1;
-            } else {
-                this.kota_kabupaten.form.setDefault('provinsi', null);
-
-                this.kota_kabupaten.form.setDefault('provinsi_id', null);
-
-                this.kota_kabupaten.sortBy = 'provinsi';
-
-                this.kota_kabupaten.url    = `{{ action('Master\Wilayah\KotaKabupatenController@index') }}`;
-            }
+            this.kota_kabupaten.sortBy = value ? 'name' : 'provinsi';
         },
         selected_kota_kabupaten(value) {
-            if (value) {
-                this.kecamatan.url    = `${value.path}/kecamatan`;
+            this.kecamatan.params.kota_kabupaten = value && value.id;
 
-                this.kecamatan.sortBy = `name`;
+            this.selected_tab = value ? 2 : this.selected_tab;
 
-                this.kecamatan.form.setDefault('kota_kabupaten', value);
+            this.kecamatan.sortBy = value ? 'name' : 'provinsi';
 
-                this.kecamatan.form.setDefault('kota_kabupaten_id', value.id);
+            this.kecamatan.form.setDefault('kota_kabupaten', value);
 
-                this.kecamatan.form.setDefault('provinsi', value.provinsi);
+            this.kecamatan.form.setDefault('kota_kabupaten_id', value && value.id);
 
-                this.kecamatan.form.setDefault('provinsi_id', value.provinsi_id);
+            this.kecamatan.form.setDefault('provinsi', value && value.provinsi);
 
-                this.selected_tab = 2;
-            } else {
-                this.kecamatan.sortBy = `provinsi`;
-
-                this.kecamatan.url    = `{{ action('Master\Wilayah\KecamatanController@index') }}`;
-
-                this.kecamatan.form.setDefault('kota_kabupaten', null);
-
-                this.kecamatan.form.setDefault('kota_kabupaten_id', null);
-
-                this.kecamatan.form.setDefault('provinsi', null);
-
-                this.kecamatan.form.setDefault('provinsi_id', null);
-            }
+            this.kecamatan.form.setDefault('provinsi_id', value && value.provinsi_id);
         },
         selected_kecamatan(value) {
-            if (value) {
-                this.kelurahan.sortBy = `name`;
+            this.selected_tab = value ? 3 : this.selected_tab;
 
-                this.kelurahan.url    = `${value.path}/kelurahan`;
+            this.kelurahan.sortBy = value ? 'name' : 'provinsi';
 
-                this.kelurahan.form.setDefault('kecamatan', value);
+            this.kelurahan.params.kecamatan = value && value.id;
 
-                this.kelurahan.form.setDefault('kecamatan_id', value.id);
+            this.kelurahan.form.setDefault('kecamatan', value);
 
-                this.kelurahan.form.setDefault('kota_kabupaten', value.kota_kabupaten);
+            this.kelurahan.form.setDefault('kecamatan_id', value && value.id);
 
-                this.kelurahan.form.setDefault('kota_kabupaten_id', value.kota_kabupaten_id);
+            this.kelurahan.form.setDefault('kota_kabupaten', value && value.kota_kabupaten);
 
-                this.kelurahan.form.setDefault('provinsi', value.kota_kabupaten.provinsi);
+            this.kelurahan.form.setDefault('kota_kabupaten_id', value && value.kota_kabupaten_id);
 
-                this.kelurahan.form.setDefault('provinsi_id', value.kota_kabupaten.provinsi_id);
+            this.kelurahan.form.setDefault('provinsi', value && value.provinsi);
 
-                this.selected_tab = 3;
-            } else {
-
-                this.kelurahan.sortBy = 'provinsi';
-
-                this.kelurahan.url    = `{{ action('Master\Wilayah\KelurahanController@index') }}`;
-
-                this.kelurahan.form.setDefault('kecamatan', null);
-
-                this.kelurahan.form.setDefault('kecamatan_id', null);
-
-                this.kelurahan.form.setDefault('kota_kabupaten', null);
-
-                this.kelurahan.form.setDefault('kota_kabupaten_id', null);
-
-                this.kelurahan.form.setDefault('provinsi', null);
-
-                this.kelurahan.form.setDefault('provinsi_id', null);
-            }
+            this.kelurahan.form.setDefault('provinsi_id', value && value.provinsi_id);
         }
     }
 });

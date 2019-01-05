@@ -39,6 +39,9 @@ window.pagemix.push({
             kota_kabupaten: {
                 sortBy: `provinsi`,
                 url   : `{{ action('Master\Wilayah\KotaKabupatenController@index') }}`,
+                params: {
+                    provinsi: null
+                },
                 fields: [{
                     label    : 'Nama Provinsi',
                     key      : 'provinsi',
