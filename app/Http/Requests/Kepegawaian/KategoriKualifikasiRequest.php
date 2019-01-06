@@ -4,7 +4,6 @@ namespace App\Http\Requests\Kepegawaian;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Kepegawaian\KategoriKualifikasi;
 
 class KategoriKualifikasiRequest extends FormRequest
 {
@@ -15,11 +14,7 @@ class KategoriKualifikasiRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('kategori')) {
-            return $this->user()->can('update', $this->route('kategori'));
-        }
-
-        return $this->user()->can('create', KategoriKualifikasi::class);
+        return true;
     }
 
     /**

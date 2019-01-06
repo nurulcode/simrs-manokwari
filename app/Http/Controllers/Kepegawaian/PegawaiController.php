@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Kepegawaian;
 
-use Sty\HttpQuery;
 use App\Models\Kepegawaian\Pegawai;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Kepegawaian\PegawaiRequest;
 use App\Http\Resources\Kepegawaian\PegawaiResource;
+use App\Http\Queries\Kepegawaian\PegawaiQuery;
 
 class PegawaiController extends Controller
 {
@@ -15,10 +14,8 @@ class PegawaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(PegawaiQuery $query)
     {
-        $this->authorize('index', Pegawai::class);
-
         return PegawaiResource::collection(Pegawai::filter($query));
     }
 
@@ -43,8 +40,6 @@ class PegawaiController extends Controller
      */
     public function show(Pegawai $pegawai)
     {
-        $this->authorize('show', $pegawai);
-
         return new PegawaiResource($pegawai);
     }
 
@@ -70,8 +65,6 @@ class PegawaiController extends Controller
      */
     public function destroy(Pegawai $pegawai)
     {
-        $this->authorize('delete', $pegawai);
-
         return response()->crud(tap($pegawai)->delete());
     }
 }

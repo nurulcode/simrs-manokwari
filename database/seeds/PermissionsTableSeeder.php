@@ -42,6 +42,11 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
+            'name'        => 'manage_kepegawaian',
+            'description' => 'Mengelola kepegawaian'
+        ]);
+
+        Permission::create([
             'name'        => 'manage_pasien',
             'description' => 'Mengelola pasien'
         ]);

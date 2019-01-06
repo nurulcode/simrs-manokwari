@@ -3,15 +3,21 @@
 namespace Tests\Feature\Authorization;
 
 use Tests\TestCase;
+use Sty\Tests\ResourceViewTestCase;
 use Sty\Tests\ResourceControllerTestCase;
 
-class PermissionControllerTest extends TestCase
+class PermissionTest extends TestCase
 {
-    use ResourceControllerTestCase;
+    use ResourceControllerTestCase, ResourceViewTestCase;
 
     public function resource()
     {
         return \App\Models\Permission::class;
+    }
+
+    public function viewpath()
+    {
+        return url('permission');
     }
 
     /** @skip **/

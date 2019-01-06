@@ -3,15 +3,23 @@
 namespace Tests\Feature\Kepegawaian;
 
 use Tests\TestCase;
+use App\Models\Kepegawaian\Jabatan;
+use App\Models\Kepegawaian\Kualifikasi;
 use Sty\Tests\ResourceControllerTestCase;
+use Sty\Tests\ResourceViewTestCase;
 
 class PegawaiControllerTest extends TestCase
 {
-    use ResourceControllerTestCase;
+    use ResourceControllerTestCase, ResourceViewTestCase;
 
     public function resource()
     {
         return \App\Models\Kepegawaian\Pegawai::class;
+    }
+
+    public function viewpath()
+    {
+        return url('kepegawaian');
     }
 
     /** @test */
@@ -36,5 +44,43 @@ class PegawaiControllerTest extends TestCase
                 'tanggal_lahir'
             ])
             ->assertStatus(422);
+    }
+
+    /** @test */
+    public function collection_can_be_filtered_by_kualifikasi()
+    {
+        $kualifikasi = factory(Kualifikasi::class)->create();
+
+        $pegawai = factory($this->resource(), 5)->create([
+            'kualifikasi_id' => $kualifikasi->id
+        ]);
+
+        $lainnya = factory($this->resource(), 5)->create();
+
+        $controller = 'Kepegawaian\PegawaiController@index';
+
+        $this->signIn()
+             ->getJson(action($controller) . '?kualifikasi=' . $kualifikasi->id)
+             ->assertJson(['data' => []])
+             ->assertJsonCount(5, 'data')
+             ->assertStatus(200);
+    }
+
+    /** @test */
+    public function collection_can_be_filtered_by_jabatan()
+    {
+        $jabatan = factory(Jabatan::class)->create();
+
+        $pegawai = factory($this->resource(), 5)->create(['jabatan_id' => $jabatan->id]);
+
+        $lainnya = factory($this->resource(), 5)->create();
+
+        $controller = 'Kepegawaian\PegawaiController@index';
+
+        $this->signIn()
+             ->getJson(action($controller) . '?jabatan=' . $jabatan->id)
+             ->assertJson(['data' => []])
+             ->assertJsonCount(5, 'data')
+             ->assertStatus(200);
     }
 }

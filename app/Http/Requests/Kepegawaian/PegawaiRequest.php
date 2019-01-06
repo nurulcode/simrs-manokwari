@@ -4,7 +4,6 @@ namespace App\Http\Requests\Kepegawaian;
 
 use App\Enums\JenisKelamin;
 use BenSampo\Enum\Rules\EnumValue;
-use App\Models\Kepegawaian\Pegawai;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PegawaiRequest extends FormRequest
@@ -16,11 +15,7 @@ class PegawaiRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('pegawai')) {
-            return $this->user()->can('update', $this->route('pegawai'));
-        }
-
-        return $this->user()->can('create', Pegawai::class);
+        return true;
     }
 
     /**

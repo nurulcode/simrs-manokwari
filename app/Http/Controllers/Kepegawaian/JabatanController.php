@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Kepegawaian;
 use Sty\HttpQuery;
 use Illuminate\Http\Request;
 use App\Models\Kepegawaian\Jabatan;
-use App\Http\Controllers\Controller;
 use App\Http\Resources\Master\Resource;
 
 class JabatanController extends Controller
@@ -17,8 +16,6 @@ class JabatanController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Jabatan::class);
-
         return Resource::collection(Jabatan::filter($query));
     }
 
@@ -30,8 +27,6 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Jabatan::class);
-
         $request->validate(['uraian' => 'required|max:255']);
 
         return response()->crud(new Resource(
@@ -47,8 +42,6 @@ class JabatanController extends Controller
      */
     public function show(Jabatan $jabatan)
     {
-        $this->authorize('show', $jabatan);
-
         return new Resource($jabatan);
     }
 
@@ -61,8 +54,6 @@ class JabatanController extends Controller
      */
     public function update(Request $request, Jabatan $jabatan)
     {
-        $this->authorize('update', $jabatan);
-
         $request->validate(['uraian' => 'required|max:255']);
 
         return response()->crud(new Resource(
@@ -78,8 +69,6 @@ class JabatanController extends Controller
      */
     public function destroy(Jabatan $jabatan)
     {
-        $this->authorize('delete', $jabatan);
-
         return response()->crud(tap($jabatan)->delete());
     }
 }

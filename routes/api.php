@@ -25,11 +25,18 @@ Route::middleware(['auth:api'])->group(function () {
         'user'        => 'UserController',
     ]);
 
+    Route::namespace('Kepegawaian')->prefix('kepegawaian')->group(function () {
+        Route::apiResources([
+            'jabatan'     => 'JabatanController',
+            'kategori'    => 'KategoriKualifikasiController',
+            'kualifikasi' => 'KualifikasiController',
+            'pegawai'     => 'PegawaiController',
+        ]);
+    });
+
     Route::prefix('master')->group(base_path('routes/master.php'));
 
     Route::prefix('fasilitas')->group(base_path('routes/fasilitas.php'));
-
-    Route::prefix('kepegawaian')->group(base_path('routes/kepegawaian.php'));
 
     Route::prefix('layanan')->group(base_path('routes/layanan.php'));
 

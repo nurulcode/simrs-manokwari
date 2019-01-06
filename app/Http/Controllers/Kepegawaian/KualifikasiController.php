@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Kepegawaian;
 
-use Sty\HttpQuery;
-use App\Http\Controllers\Controller;
 use App\Models\Kepegawaian\Kualifikasi;
 use App\Http\Requests\Kepegawaian\KualifikasiRequest;
 use App\Http\Resources\Kepegawaian\KualifikasiResource;
+use App\Http\Queries\Kepegawaian\KualifikasiQuery;
 
 class KualifikasiController extends Controller
 {
@@ -15,10 +14,8 @@ class KualifikasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(KualifikasiQuery $query)
     {
-        $this->authorize('index', Kualifikasi::class);
-
         return KualifikasiResource::collection(Kualifikasi::filter($query));
     }
 
@@ -30,9 +27,9 @@ class KualifikasiController extends Controller
      */
     public function store(KualifikasiRequest $request)
     {
-        return response()->crud(new KualifikasiResource(
-            Kualifikasi::create($request->validated())
-        ));
+        return response()->crud(
+            new KualifikasiResource(Kualifikasi::create($request->validated()))
+        );
     }
 
     /**
@@ -43,8 +40,6 @@ class KualifikasiController extends Controller
      */
     public function show(Kualifikasi $kualifikasi)
     {
-        $this->authorize('show', $kualifikasi);
-
         return new KualifikasiResource($kualifikasi);
     }
 
@@ -57,9 +52,9 @@ class KualifikasiController extends Controller
      */
     public function update(KualifikasiRequest $request, Kualifikasi $kualifikasi)
     {
-        return response()->crud(new KualifikasiResource(
-            tap($kualifikasi)->update($request->validated())
-        ));
+        return response()->crud(
+            new KualifikasiResource(tap($kualifikasi)->update($request->validated()))
+        );
     }
 
     /**
@@ -70,8 +65,6 @@ class KualifikasiController extends Controller
      */
     public function destroy(Kualifikasi $kualifikasi)
     {
-        $this->authorize('delete', $kualifikasi);
-
         return response()->crud(tap($kualifikasi)->delete());
     }
 }

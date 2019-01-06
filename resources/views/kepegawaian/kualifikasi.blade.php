@@ -3,11 +3,7 @@
     <h5>@{{ selected_kategori.uraian }}</h5>
 </closable-card>
 
-<data-table v-bind.sync="kualifikasi" ref="table" v-model="selected_kualifikasi"
-    @cannot('create', App\Models\Kepegawaian\Kualifikasi::class)
-        no-add-button-text
-    @endcannot
-    >
+<data-table v-bind.sync="kualifikasi" ref="table" v-model="selected_kualifikasi">
     <div slot="form">
         <b-form-group v-bind="kualifikasi.form.feedback('kategori_id')">
             <b slot="label">Kualifikasi:</b>
@@ -86,7 +82,10 @@ window.pagemix.push({
         return {
             kualifikasi: {
                 url   : `{{ action('Kepegawaian\KualifikasiController@index') }}`,
-                sortBy: 'kategori_id',
+                sortBy: `kategori_id`,
+                params: {
+                    kategori: null
+                },
                 fields: [{
                     key      : 'kategori',
                 },{

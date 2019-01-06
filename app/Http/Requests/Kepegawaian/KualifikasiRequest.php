@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Kepegawaian;
 
-use App\Models\Kepegawaian\Kualifikasi;
 use Illuminate\Foundation\Http\FormRequest;
 
 class KualifikasiRequest extends FormRequest
@@ -14,11 +13,7 @@ class KualifikasiRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('kualifikasi')) {
-            return $this->user()->can('update', $this->route('kualifikasi'));
-        }
-
-        return $this->user()->can('create', Kualifikasi::class);
+        return true;
     }
 
     /**

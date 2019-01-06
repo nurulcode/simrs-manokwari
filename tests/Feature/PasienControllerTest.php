@@ -4,14 +4,20 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Sty\Tests\ResourceControllerTestCase;
+use Sty\Tests\ResourceViewTestCase;
 
 class PasienControllerTest extends TestCase
 {
-    use ResourceControllerTestCase;
+    use ResourceControllerTestCase, ResourceViewTestCase;
 
     public function resource()
     {
         return \App\Models\Pasien::class;
+    }
+
+    public function viewpath()
+    {
+        return url('pasien');
     }
 
     public function matchDatabase($resource)

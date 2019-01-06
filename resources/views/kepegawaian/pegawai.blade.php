@@ -8,11 +8,7 @@
     <h5>@{{ selected_kualifikasi.uraian }}</h5>
 </closable-card>
 
-<data-table v-bind.sync="pegawai" ref="table_pegawai"
-    @cannot('create', App\Models\Kepegawaian\Pegawai::class)
-        no-add-button-text
-    @endcannot
-    >
+<data-table v-bind.sync="pegawai" ref="table_pegawai" >
     <div slot="form">
         <b-form-group v-bind="pegawai.form.feedback('nama')">
             <b slot="label">Nama:</b>
@@ -128,7 +124,11 @@ window.pagemix.push({
         return {
             pegawai: {
                 url   : `{{ action('Kepegawaian\PegawaiController@index') }}`,
-                sortBy: 'nama',
+                sortBy: `nama`,
+                params: {
+                    kualifikasi: null,
+                    jabatan    : null
+                },
                 fields: [{
                     key      : 'nama',
                     sortable : true,

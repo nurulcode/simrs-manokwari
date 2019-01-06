@@ -4,6 +4,7 @@ namespace Tests\Feature\Kepegawaian;
 
 use Tests\TestCase;
 use Sty\Tests\ResourceControllerTestCase;
+use App\Models\Kepegawaian\KategoriKualifikasi;
 
 class KualifikasiControllerTest extends TestCase
 {
@@ -28,5 +29,23 @@ class KualifikasiControllerTest extends TestCase
              ->assertJson(['errors' => []])
              ->assertJsonValidationErrors(['kategori_id', 'laki_laki', 'perempuan'])
              ->assertStatus(422);
+    }
+
+    /** @test */
+    public function collection_can_be_filtered_by_kategori()
+    {
+        $kategori = factory(KategoriKualifikasi::class)->create();
+
+        factory($this->resource(), 5)->create(['kategori_id' => $kategori->id]);
+
+        factory($this->resource(), 5)->create();
+
+        $controller = 'Kepegawaian\KualifikasiController@index';
+
+        $this->signIn()
+             ->getJson(action($controller) . '?kategori=' . $kategori->id)
+             ->assertJson(['data' => []])
+             ->assertJsonCount(5, 'data')
+             ->assertStatus(200);
     }
 }
