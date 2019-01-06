@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Fasilitas;
 
-use Sty\HttpQuery;
 use App\Models\Fasilitas\Kamar;
 use App\Http\Requests\Fasilitas\KamarRequest;
 use App\Http\Resources\Fasilitas\KamarResource;
+use App\Http\Queries\Fasilitas\KamarQuery;
 
 class KamarController extends Controller
 {
@@ -14,9 +14,11 @@ class KamarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(KamarQuery $query)
     {
-        return KamarResource::collection(Kamar::withRuangan()->filter($query));
+        return KamarResource::collection(
+            Kamar::with('ruangan', 'poliklinik')->filter($query)
+        );
     }
 
     /**

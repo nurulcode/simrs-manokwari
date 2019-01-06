@@ -3,6 +3,7 @@
 namespace Tests\Feature\Fasilitas;
 
 use Tests\TestCase;
+use App\Models\Fasilitas\Poliklinik;
 use Sty\Tests\ResourceControllerTestCase;
 
 class RuanganControllerTest extends TestCase
@@ -59,5 +60,23 @@ class RuanganControllerTest extends TestCase
              ->assertJson(['errors' => []])
              ->assertJsonValidationErrors(['jenis', 'kelas', 'poliklinik_id'])
              ->assertStatus(422);
+    }
+
+    /** @test */
+    public function user_can_filter_collection_by_poliklinik()
+    {
+        $poliklinik = factory(Poliklinik::class)->create();
+
+        factory($this->resource(), 5)->create(['poliklinik_id' => $poliklinik->id]);
+
+        factory($this->resource(), 5)->create();
+
+        $controller = 'Fasilitas\RuanganController@index';
+
+        $this->signIn()
+            ->getJson(action($controller) . '?poliklinik=' . $poliklinik->id)
+            ->assertJsonStructure(['data'  => ['*' => ['nama']]])
+            ->assertJsonCount(5, 'data')
+            ->assertStatus(200);
     }
 }

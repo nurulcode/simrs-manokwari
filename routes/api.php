@@ -34,9 +34,17 @@ Route::middleware(['auth:api'])->group(function () {
         ]);
     });
 
-    Route::prefix('master')->group(base_path('routes/master.php'));
+    Route::namespace('Fasilitas')->prefix('fasilitas')->group(function () {
+        /*  */
+        Route::apiResources([
+            'poliklinik' => 'PoliklinikController',
+            'ruangan'    => 'RuanganController',
+            'kamar'      => 'KamarController',
+            'ranjang'    => 'RanjangController',
+        ]);
+    });
 
-    Route::prefix('fasilitas')->group(base_path('routes/fasilitas.php'));
+    Route::prefix('master')->group(base_path('routes/master.php'));
 
     Route::prefix('layanan')->group(base_path('routes/layanan.php'));
 

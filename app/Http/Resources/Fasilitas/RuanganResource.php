@@ -23,8 +23,6 @@ class RuanganResource extends JsonResource
             'kelas'         => $this->kelas,
             'jenis'         => $this->jenis,
             'path'          => $this->path,
-            '__editable'    => $request->user()->can('update', $this->resource),
-            '__deletable'   => $request->user()->can('delete', $this->resource),
         ];
     }
 }

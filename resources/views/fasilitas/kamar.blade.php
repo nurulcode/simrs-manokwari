@@ -49,21 +49,19 @@ window.pagemix.push({
     data() {
         return {
             kamar: {
-                sortBy: `nama_ruangan`,
+                sortBy: `poliklinik`,
                 url   : `{{ action('Fasilitas\KamarController@index') }}`,
-                dataMap(item) {
-                    return {
-                        poliklinik   : item.ruangan.poliklinik,
-                        poliklinik_id: item.ruangan.poliklinik_id,
-                        ...item
-                    }
+                params: {
+                    ruangan: null
                 },
                 fields: [{
                     key       : 'poliklinik',
-                    formatter : poliklinik => poliklinik.nama,
-                },{
-                    key       : 'nama_ruangan',
                     sortable  : true,
+                    formatter : poliklinik => poliklinik && poliklinik.nama,
+                },{
+                    key       : 'ruangan',
+                    sortable  : true,
+                    formatter : ruangan => ruangan && ruangan.nama,
                 },{
                     key       : 'nama',
                     sortable  : true,

@@ -17,11 +17,7 @@ class RuanganRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('ruangan')) {
-            return $this->user()->can('update', $this->route('ruangan'));
-        }
-
-        return $this->user()->can('create', Ruangan::class);
+        return true;
     }
 
     /**

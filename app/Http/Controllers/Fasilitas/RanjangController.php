@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Fasilitas;
 
-use Sty\HttpQuery;
 use App\Models\Fasilitas\Ranjang;
 use App\Http\Requests\Fasilitas\RanjangRequest;
 use App\Http\Resources\Fasilitas\RanjangResource;
+use App\Http\Queries\Fasilitas\RanjangQuery;
 
 class RanjangController extends Controller
 {
@@ -14,9 +14,11 @@ class RanjangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(RanjangQuery $query)
     {
-        return RanjangResource::collection(Ranjang::withKamar()->filter($query));
+        return RanjangResource::collection(
+            Ranjang::with('kamar', 'ruangan', 'poliklinik')->filter($query)
+        );
     }
 
     /**

@@ -83,7 +83,14 @@ window.pagemix.push({
                 kelas : @json(App\Enums\KelasRuangan::toSelectArray()),
                 sortBy: `nama`,
                 url   : `{{ action('Fasilitas\RuanganController@index') }}`,
+                params: {
+                    poliklinik: null
+                },
                 fields: [{
+                    key      : 'poliklinik',
+                    sortable : true,
+                    formatter: item => item.nama
+                },{
                     key      : 'kode',
                     sortable : true,
                     formatter: item => item.toUpperCase()

@@ -6,17 +6,13 @@ use App\Models\Model;
 
 class Ruangan extends Model
 {
-    /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = ['poliklinik'];
+    use BelongsToPoliklinik;
 
-    public function poliklinik()
-    {
-        return $this->belongsTo(Poliklinik::class);
-    }
+    /**
+     * The attributes that are searchable.
+     *
+     */
+    protected $searchable = ['nama', 'kode', 'poliklinik'];
 
     public function kamars()
     {

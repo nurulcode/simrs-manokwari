@@ -15,15 +15,15 @@ class RanjangResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'          => $this->id,
-            'kamar_id'    => $this->kamar_id,
-            'kamar'       => KamarResource::make($this->whenLoaded('kamar')),
-            'nama_kamar'  => $this->when($this->nama_kamar, $this->nama_kamar),
-            'nama_ruangan' => $this->when($this->nama_ruangan, $this->nama_ruangan),
-            'kode'        => $this->kode,
-            'path'        => $this->path,
-            '__editable'  => $request->user()->can('update', $this->resource),
-            '__deletable' => $request->user()->can('delete', $this->resource),
+            'id'            => $this->id,
+            'kamar_id'      => $this->kamar_id,
+            'kamar'         => KamarResource::make($this->whenLoaded('kamar')),
+            'ruangan_id'    => $this->ruangan_id,
+            'ruangan'       => RuanganResource::make($this->whenLoaded('ruangan')),
+            'poliklinik_id' => $this->poliklinik_id,
+            'poliklinik'    => PoliklinikResource::make($this->whenLoaded('poliklinik')),
+            'kode'          => $this->kode,
+            'path'          => $this->path,
         ];
     }
 }

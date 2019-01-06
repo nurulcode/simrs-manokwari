@@ -49,29 +49,26 @@ window.pagemix.push({
     data() {
         return {
             ranjang: {
-                sortBy: `nama_ruangan`,
+                sortBy: `poliklinik`,
                 url   : `{{ action('Fasilitas\RanjangController@index') }}`,
-                dataMap(item) {
-                    return {
-                        ruangan      : item.kamar.ruangan,
-                        ruangan_id   : item.kamar.ruangan_id,
-                        poliklinik   : item.kamar.ruangan.poliklinik,
-                        poliklinik_id: item.kamar.ruangan.poliklinik_id,
-                        ...item
-                    }
+                params: {
+                    kamar: null
                 },
                 fields: [{
                     key       : 'poliklinik',
-                    formatter : poliklinik => poliklinik.nama
-                },{
-                    key       : 'nama_ruangan',
                     sortable  : true,
+                    formatter : poliklinik => poliklinik && poliklinik.nama
                 },{
-                    key       : 'nama_kamar',
+                    key       : 'ruangan',
                     sortable  : true,
+                    formatter : ruangan => ruangan && ruangan.nama
+                },{
+                    key       : 'kamar',
+                    sortable  : true,
+                    formatter : kamar => kamar && kamar.nama
                 },{
                     key       : 'kode',
-                    label     : 'Kode Ranjang',
+                    label     : 'Ranjang',
                     sortable  : true,
                 }],
                 form: new Form({

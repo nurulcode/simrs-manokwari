@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Fasilitas;
 
-use App\Models\Fasilitas\Ranjang;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RanjangRequest extends FormRequest
@@ -14,11 +13,7 @@ class RanjangRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('ranjang')) {
-            return $this->user()->can('update', $this->route('ranjang'));
-        }
-
-        return $this->user()->can('create', Ranjang::class);
+        return true;
     }
 
     /**

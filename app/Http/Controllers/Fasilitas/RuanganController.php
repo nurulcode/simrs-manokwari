@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Fasilitas;
 
-use Sty\HttpQuery;
 use App\Models\Fasilitas\Ruangan;
+use App\Http\Queries\Fasilitas\RuanganQuery;
 use App\Http\Requests\Fasilitas\RuanganRequest;
 use App\Http\Resources\Fasilitas\RuanganResource;
 
@@ -14,9 +14,11 @@ class RuanganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(RuanganQuery $query)
     {
-        return RuanganResource::collection(Ruangan::filter($query));
+        return RuanganResource::collection(
+            Ruangan::with('poliklinik')->filter($query)
+        );
     }
 
     /**

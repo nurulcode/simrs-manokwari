@@ -15,11 +15,7 @@ class PoliklinikRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('poliklinik')) {
-            return $this->user()->can('update', $this->route('poliklinik'));
-        }
-
-        return $this->user()->can('create', Poliklinik::class);
+        return true;
     }
 
     /**

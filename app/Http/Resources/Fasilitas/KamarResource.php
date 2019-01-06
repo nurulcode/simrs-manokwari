@@ -15,14 +15,13 @@ class KamarResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'           => $this->id,
-            'ruangan_id'   => $this->ruangan_id,
-            'ruangan'      => RuanganResource::make($this->whenLoaded('ruangan')),
-            'nama_ruangan' => $this->when($this->nama_ruangan, $this->nama_ruangan),
-            'nama'         => $this->nama,
-            'path'         => $this->path,
-            '__editable'   => $request->user()->can('update', $this->resource),
-            '__deletable'  => $request->user()->can('delete', $this->resource),
+            'id'            => $this->id,
+            'ruangan_id'    => $this->ruangan_id,
+            'ruangan'       => RuanganResource::make($this->whenLoaded('ruangan')),
+            'poliklinik_id' => $this->poliklinik_id,
+            'poliklinik'    => PoliklinikResource::make($this->whenLoaded('poliklinik')),
+            'nama'          => $this->nama,
+            'path'          => $this->path,
         ];
     }
 }

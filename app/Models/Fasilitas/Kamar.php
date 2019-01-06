@@ -3,15 +3,11 @@
 namespace App\Models\Fasilitas;
 
 use App\Models\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Kamar extends Model
 {
-    /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = ['ruangan'];
+    use BelongsToPoliklinik, BelongsToRuangan;
 
     /**
      * The attributes that aren't mass assignable.
@@ -27,16 +23,57 @@ class Kamar extends Model
      */
     protected $fillable = ['nama', 'ruangan_id'];
 
-    public function ruangan()
+    /**
+     * The attributes that are searchable.
+     *
+     */
+    protected $searchable = ['nama', 'parent'];
+
+    /**
+    * The "booting" method of the model.
+    *
+    * @return void
+    */
+    protected static function boot()
     {
-        return $this->belongsTo(Ruangan::class);
+        parent::boot();
+
+        static::addGlobalScope('poliklinik', function (Builder $builder) {
+            $builder->addSubSelect('poliklinik_id', Ruangan::select('poliklinik_id')
+                ->whereColumn('id', 'kamars.ruangan_id'));
+        });
     }
 
-    public function scopeWithRuangan($builder)
+    public function searchParent($builder, $searchQuery)
     {
-        return $builder
-            ->join('ruangans', 'kamars.ruangan_id', '=', 'ruangans.id')
-            ->select('kamars.*', 'ruangans.nama as nama_ruangan');
+        return $builder->orwhereHas('ruangan', function ($query) use ($searchQuery) {
+            $query
+                ->where('nama', 'like', '%' . $searchQuery . '%')
+                ->orWhere('kode', 'like', '%' . $searchQuery . '%')
+                ->orWhereExists(function ($query) use ($searchQuery) {
+                    $query->select('*')
+                        ->from('polikliniks')
+                        ->whereRaw('ruangans.poliklinik_id = polikliniks.id')
+                        ->where(function ($query) use ($searchQuery) {
+                            $query->where('nama', 'like', '%' . $searchQuery . '%')
+                                ->orWhere('kode', 'like', '%' . $searchQuery . '%');
+                        });
+                });
+        });
+    }
+
+    public function afterOrder($builder, $orderBy, $orderDirection)
+    {
+        switch ($orderBy) {
+            case 'poliklinik':
+                $builder = $this->orderByRuangan($builder, $orderDirection);
+                // no break
+            case 'ruangan':
+                $builder = $builder->orderBy('nama', 'asc');
+                break;
+        }
+
+        return $builder;
     }
 
     public function ranjangs()
