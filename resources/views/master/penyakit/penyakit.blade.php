@@ -6,18 +6,14 @@
     </h5>
 </closable-card>
 
-<data-table v-bind.sync="penyakit" ref="table"
-    @cannot('create', App\Models\Master\Penyakit\Penyakit::class)
-        no-add-button-text
-    @endcannot
-    >
+<data-table v-bind.sync="penyakit" ref="table">
     <div slot="form">
         <b-form-group label="Klasifikasi Penyakit:" v-bind="penyakit.form.feedback('klasifikasi_id')">
             <ajax-select
-                :url="klasifikasi.url"
                 deselect-label=""
                 label="kode"
                 placeholder="Pilih Klasifikasi Penyakit"
+                url="{{ action('Master\Penyakit\KlasifikasiPenyakitController@index') }}"
                 select-label=""
                 v-model="penyakit.form.klasifikasi"
                 v-bind:key-value.sync="penyakit.form.klasifikasi_id"
@@ -83,14 +79,10 @@ window.pagemix.push({
     data() {
         return {
             penyakit: {
-                sortBy: 'icd',
+                sortBy: `icd`,
                 url   : `{{ action('Master\Penyakit\PenyakitController@index') }}`,
-                dataMap(item) {
-                    return {
-                        klasifikasi   : item.kelompok.klasifikasi,
-                        klasifikasi_id: item.kelompok.klasifikasi_id,
-                        ...item
-                    }
+                params: {
+                    kelompok: null
                 },
                 fields: [{
                     key     : 'kelompok'

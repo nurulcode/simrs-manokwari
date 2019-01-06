@@ -3,8 +3,10 @@
 namespace Tests\Feature\Master\Penyakit;
 
 use Tests\TestCase;
-use Sty\Tests\ResourceControllerTestCase;
 use Sty\Tests\ResourceViewTestCase;
+use App\Models\Master\Penyakit\Penyakit;
+use Sty\Tests\ResourceControllerTestCase;
+use App\Models\Master\Penyakit\KelompokPenyakit;
 
 class PenyakitControllerTest extends TestCase
 {
@@ -66,6 +68,28 @@ class PenyakitControllerTest extends TestCase
 
         $this->putJson($existing->path, $this->beforePost($resource))
              ->assertJson(['status' => 'success'])
+             ->assertStatus(200);
+    }
+
+    /** @test */
+    public function collection_can_be_filtered_by_kelompok()
+    {
+        $kelompok = factory(KelompokPenyakit::class)->create();
+
+        $penyakit = factory($this->resource(), 5)->create([
+            'kelompok_id' => $kelompok->id
+        ]);
+
+        $lainnya     = factory(Penyakit::class, 5)->create();
+
+        $controller  = 'Master\Penyakit\PenyakitController@index';
+
+        $this->signIn()
+             ->getJson(action($controller) . '?kelompok=' . $kelompok->id)
+             ->assertJsonStructure(['data'  => ['*' => ['uraian']]])
+             ->assertJsonCount(5, 'data')
+             ->assertSee($penyakit->random()->uraian)
+             ->assertDontSee($lainnya->random()->uraian)
              ->assertStatus(200);
     }
 }

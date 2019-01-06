@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Master\Penyakit;
 
-use Sty\HttpQuery;
 use App\Models\Master\Penyakit\Penyakit;
+use App\Http\Queries\Master\PenyakitQuery;
 use App\Http\Controllers\Master\Controller;
 use App\Http\Requests\Master\Penyakit\PenyakitRequest;
 use App\Http\Resources\Master\Penyakit\PenyakitResource;
@@ -15,7 +15,7 @@ class PenyakitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(PenyakitQuery $query)
     {
         return PenyakitResource::collection(Penyakit::filter($query));
     }

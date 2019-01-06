@@ -17,8 +17,8 @@ Auth::routes([
 ]);
 
 Route::middleware(['auth'])->group(function () {
-    Route::view('fasilitas',  'fasilitas.index')->middleware('can:manage_fasilitas');
-    Route::view('pasien',     'pasien')->middleware('can:manage_pasien');
+    Route::view('fasilitas', 'fasilitas.index')->middleware('can:manage_fasilitas');
+    Route::view('pasien', 'pasien')->middleware('can:manage_pasien');
     Route::view('permission', 'permission')->middleware('can:manage_permission');
 
     Route::get('/', 'HomeController@index');

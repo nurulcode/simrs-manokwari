@@ -4,6 +4,8 @@ namespace Tests\Feature\Master\Penyakit;
 
 use Tests\TestCase;
 use Sty\Tests\ResourceControllerTestCase;
+use App\Models\Master\Penyakit\KelompokPenyakit;
+use App\Models\Master\Penyakit\KlasifikasiPenyakit;
 
 class KelompokPenyakitControllerTest extends TestCase
 {
@@ -59,6 +61,26 @@ class KelompokPenyakitControllerTest extends TestCase
 
         $this->putJson($existing->path, $this->beforePost($resource))
              ->assertJson(['status' => 'success'])
+             ->assertStatus(200);
+    }
+
+    /** @test */
+    public function collection_can_be_filtered_by_klasifikasi()
+    {
+        $klasifikasi = factory(KlasifikasiPenyakit::class)->create();
+        $kelompok    = factory(KelompokPenyakit::class, 5)->create([
+            'klasifikasi_id' => $klasifikasi->id
+        ]);
+
+        $lainnya     = factory(KelompokPenyakit::class, 5)->create();
+        $controller  = 'Master\Penyakit\KelompokPenyakitController@index';
+
+        $this->signIn()
+             ->getJson(action($controller) . '?klasifikasi=' . $klasifikasi->id)
+             ->assertJsonStructure(['data'  => ['*' => ['uraian']]])
+             ->assertJsonCount(5, 'data')
+             ->assertSee($kelompok->random()->uraian)
+             ->assertDontSee($lainnya->random()->uraian)
              ->assertStatus(200);
     }
 }

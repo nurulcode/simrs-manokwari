@@ -29,14 +29,6 @@ Route::namespace('Master')->group(function () {
     });
 
     Route::namespace('Penyakit')->prefix('penyakit')->name('penyakit.')->group(function () {
-        Route::get('klasifikasi/{klasifikasi}/kelompok', 'KlasifikasiKelompokPenyakitController');
-
-        Route::post('klasifikasi/{klasifikasi}/kelompok', 'KelompokPenyakitController@store');
-
-        Route::get('kelompok/{kelompok}/penyakit', 'KelompokPenyakitPenyakitController');
-
-        Route::post('kelompok/{kelompok}/penyakit', 'PenyakitController@store');
-
         Route::apiResources([
             'klasifikasi'    => 'KlasifikasiPenyakitController',
             'kelompok'       => 'KelompokPenyakitController',

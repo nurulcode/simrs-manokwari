@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Master\Penyakit;
 
-use Sty\HttpQuery;
 use App\Http\Controllers\Master\Controller;
 use App\Models\Master\Penyakit\KelompokPenyakit;
+use App\Http\Queries\Master\KelompokPenyakitQuery;
 use App\Http\Requests\Master\Penyakit\KelompokPenyakitRequest;
 use App\Http\Resources\Master\Penyakit\KelompokPenyakitResource;
 
@@ -15,7 +15,7 @@ class KelompokPenyakitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(KelompokPenyakitQuery $query)
     {
         return KelompokPenyakitResource::collection(KelompokPenyakit::filter($query));
     }

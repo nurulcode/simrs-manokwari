@@ -2,17 +2,13 @@
     <h5>@{{ selected_klasifikasi.kode }}, @{{ selected_klasifikasi.uraian }}</h5>
 </closable-card>
 
-<data-table v-bind.sync="kelompok" ref="table" v-model="selected_kelompok"
-    @cannot('create', App\Models\Master\Penyakit\KelompokPenyakit::class)
-        no-add-button-text
-    @endcannot
-    >
+<data-table v-bind.sync="kelompok" ref="table" v-model="selected_kelompok">
     <div slot="form">
         <b-form-group label="Klasifikasi Penyakit:" v-bind="kelompok.form.feedback('klasifikasi_id')">
             <ajax-select
-                :url="klasifikasi.url"
                 label="uraian"
                 placeholder="Pilih Klasifikasi Penyakit"
+                url="{{ action('Master\Penyakit\KlasifikasiPenyakitController@index') }}"
                 v-model="kelompok.form.klasifikasi"
                 v-bind:key-value.sync="kelompok.form.parent_id"
                 v-on:change="kelompok.form.errors.clear('parent_id')"
@@ -63,6 +59,9 @@ window.pagemix.push({
             kelompok: {
                 sortBy: 'kode',
                 url   : `{{ action('Master\Penyakit\KelompokPenyakitController@index') }}`,
+                params: {
+                    klasifikasi: null
+                },
                 fields: [{
                     key     : 'klasifikasi'
                 },{

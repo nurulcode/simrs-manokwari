@@ -29,46 +29,26 @@ window.pagemix.push({
     },
     watch: {
         selected_klasifikasi(value) {
-            if (value) {
-                this.kelompok.url    = `${value.path}/kelompok`;
+            this.kelompok.params.klasifikasi  = value && value.id;
 
-                this.kelompok.sortBy = `uraian`;
+            this.kelompok.sortBy = value ? 'uraian' : 'kode';
 
-                this.kelompok.form.setDefault('klasifikasi', value);
+            this.kelompok.form.setDefault('klasifikasi', value);
 
-                this.kelompok.form.setDefault('klasifikasi_id', value.id);
+            this.kelompok.form.setDefault('klasifikasi_id', value && value.id);
 
-                this.selected_tab = 1;
-            } else {
-                this.kelompok.url    = `{{ action('Master\Penyakit\KelompokPenyakitController@index') }}?${Math.random()}`;
-
-                this.kelompok.sortBy = `kode`;
-
-                this.kelompok.form.setDefault('klasifikasi', null);
-
-                this.kelompok.form.setDefault('klasifikasi_id', null);
-            }
+            this.selected_tab = value ? 1 : this.selected_tab;
         },
         selected_kelompok(value) {
-            if (value) {
-                this.penyakit.url    = `${value.path}/penyakit`;
+            this.penyakit.params.kelompok  = value && value.id;
 
-                this.penyakit.sortBy = `uraian`;
+            this.penyakit.sortBy = value ? 'uraian' : 'icd';
 
-                this.penyakit.form.setDefault('kelompok', value);
+            this.penyakit.form.setDefault('kelompok', value);
 
-                this.penyakit.form.setDefault('kelompok_id', value.id);
+            this.penyakit.form.setDefault('kelompok_id', value && value.id);
 
-                this.selected_tab = 2;
-            } else {
-                this.penyakit.url    = `{{ action('Master\Penyakit\PenyakitController@index') }}`;
-
-                this.penyakit.sortBy = `icd`;
-
-                this.penyakit.form.setDefault('klasifikasi', null);
-
-                this.penyakit.form.setDefault('klasifikasi_id', null);
-            }
+            this.selected_tab = value ? 2 : this.selected_tab;
         }
     }
 });

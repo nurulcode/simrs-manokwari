@@ -1,8 +1,4 @@
-<data-table v-bind.sync="klasifikasi" ref="table" v-model="selected_klasifikasi"
-    @cannot('create', App\Models\Master\Penyakit\KlasifikasiPenyakit::class)
-        no-add-button-text
-    @endcannot
-    >
+<data-table v-bind.sync="klasifikasi" ref="table" v-model="selected_klasifikasi">
     <div slot="form">
         <b-form-group label="Kode:" v-bind="klasifikasi.form.feedback('kode')">
             <input
