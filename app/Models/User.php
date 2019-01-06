@@ -14,6 +14,7 @@ class User extends Authenticatable implements Sty\ResourceModel
         Sty\HasPath,
         Sty\HasPolicy,
         Sty\Searchable,
+        Sty\MethodOrderable,
         HasApiTokens,
         HasRoles,
         Notifiable,
