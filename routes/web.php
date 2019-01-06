@@ -17,6 +17,11 @@ Auth::routes([
 ]);
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/', 'HomeController@index');
+    Route::get('/activities', 'ActivityController@view');
+    Route::get('/role', 'RoleController@view');
+    Route::get('/user', 'UserController@view');
+
     Route::middleware('can:manage_fasilitas')->group(function () {
         Route::view('fasilitas', 'fasilitas.index');
     });
@@ -33,26 +38,16 @@ Route::middleware(['auth'])->group(function () {
         Route::view('kepegawaian', 'kepegawaian.index');
     });
 
-    Route::get('/', 'HomeController@index');
-    Route::get('/activities', 'ActivityController@view');
-    Route::get('/role', 'RoleController@view');
-    Route::get('/user', 'UserController@view');
-
-    Route::get('/kunjungan', 'KunjunganWebController@index');
-    Route::get('/kunjungan/{kunjungan}', 'KunjunganWebController@show');
+    Route::resource('kunjungan', 'KunjunganWebController')->only(['index', 'show']);
 
     Route::namespace('Perawatan')->prefix('perawatan')->group(function () {
-        Route::middleware('can:manage_rawat_jalan')->group(function () {
-            Route::get('/rawat-jalan', 'RawatJalanWebController@index');
-            Route::get('/rawat-jalan/create', 'RawatJalanWebController@create');
-            Route::get('/rawat-jalan/{rawat_jalan}', 'RawatJalanWebController@show');
-        });
+        Route::resource('rawat-jalan', 'RawatJalanWebController')
+            ->middleware('can:manage_rawat_jalan')
+            ->only(['index', 'create', 'show']);
 
-        Route::middleware('can:manage_rawat_darurat')->group(function () {
-            Route::get('/rawat-darurat', 'RawatDaruratWebController@index');
-            Route::get('/rawat-darurat/create', 'RawatDaruratWebController@create');
-            Route::get('/rawat-darurat/{rawat_darurat}', 'RawatDaruratWebController@show');
-        });
+        Route::resource('rawat-darurat', 'RawatDaruratWebController')
+            ->middleware('can:manage_rawat_darurat')
+            ->only(['index', 'create', 'show']);
     });
 
     Route::namespace('Master')

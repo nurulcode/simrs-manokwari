@@ -27,7 +27,6 @@ components.keys().map(
 
 Vue.component('multiselect', Multiselect);
 
-
 for (let inline in window.inlines) {
     Vue.component(inline, window.inlines[inline]);
 }
@@ -39,7 +38,4 @@ for (let inline in window.inlines) {
  */
 Vue.use(BootstrapVue);
 
-const app = new Vue({
-    el: '#app',
-    mixins: window.pagemix
-});
+const app = new Vue({ el: '#app', mixins: window.pagemix });

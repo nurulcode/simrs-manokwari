@@ -18,7 +18,11 @@ class RawatDaruratWebController extends Controller
      */
     public function index()
     {
-        return view('perawatan.rawat-darurat.index');
+        $index  = action('Perawatan\RawatDaruratWebController@index');
+        $api    = action('Perawatan\RawatDaruratController@index');
+        $create = action('Perawatan\RawatDaruratWebController@create');
+
+        return view('perawatan.rawat-darurat.index', compact(['index', 'api', 'create']));
     }
 
     /**
@@ -28,17 +32,17 @@ class RawatDaruratWebController extends Controller
      */
     public function create()
     {
-        $polikliniks       = Poliklinik::where('jenis_id', 2)->get();
-
-        $kategori_kegiatan = 3;
-
         $jenis_registrasis = JenisRegistrasi::where(
             'kategori', KategoriRegistrasi::GAWAT_DARURAT
         )->get();
 
-        return view('perawatan.rawat-darurat.create', compact([
-            'jenis_registrasis', 'polikliniks', 'kategori_kegiatan'
-        ]));
+        $polikliniks = Poliklinik::where('jenis_id', 2)->get();
+
+        return view('perawatan.rawat-darurat.create', [
+            'jenis_registrasis' => $jenis_registrasis,
+            'kategori_kegiatan' => 3,
+            'polikliniks'       => $polikliniks
+        ]);
     }
 
     /**

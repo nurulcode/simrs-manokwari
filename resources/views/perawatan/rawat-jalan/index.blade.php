@@ -5,16 +5,25 @@
 @section('card')
     <data-table v-bind.sync="perawatan" ref="table" no-action v-on:dt:item-create="create">
         <template slot="view" slot-scope="{item}">
-            <a :href="`{{ action('Perawatan\RawatJalanWebController@index') }}/${item.id}`"
+            <a :href="`{{ $index }}/${item.id}`"
                 class="btn btn-primary"> <i class="icon-eye"></i>
             </a>
         </template>
         <template slot="nomor_kunjungan" slot-scope="{item}">
             @{{ item.kunjungan.nomor_kunjungan }}
+            <p class="text-muted">
+                @{{ item.poliklinik.nama }}
+            </p>
         </template>
         <template slot="pasien" slot-scope="{item}">
             @{{ item.kunjungan.pasien.nama }}
             <p class="text-muted">@{{ item.kunjungan.pasien.no_rekam_medis }}</p>
+        </template>
+        <template slot="waktu_kunjungan" slot-scope="{value}" v-if="value">
+            @{{ value | date_time }}
+        </template>
+        <template slot="waktu_keluar" slot-scope="{value}" v-if="value">
+            @{{ value | date_time }}
         </template>
         <template slot="diagnosa_awal" slot-scope="{item}" v-if="item.kunjungan.penyakit">
             @{{ item.kunjungan.penyakit.icd }} -
@@ -30,9 +39,9 @@ window.pagemix.push({
     data() {
         return {
             perawatan: {
+                sortBy  : `waktu_kunjungan`,
                 sortDesc: true,
-                sortBy  : `id`,
-                url     : `{{ action('Perawatan\RawatJalanController@index') }}`,
+                url     : `{{ $api }}`,
                 fields: [{
                     key      : 'nomor_kunjungan',
                     thStyle  : {
@@ -44,17 +53,16 @@ window.pagemix.push({
                         'min-width': '160px'
                     }
                 },{
-                    key      : 'poliklinik',
-                    formatter: poliklinik => poliklinik.nama,
-                    thStyle  : {
-                        'min-width': '160px'
-                    }
-                },{
                     key      : 'waktu_kunjungan',
-                    formatter: waktu => format(parse(waktu), 'DD/MM/YYYY H:mm:ss'),
                     sortable : true,
                     thStyle  : {
-                        'width': '160px'
+                        'width': '180px'
+                    }
+                },{
+                    key      : 'waktu_keluar',
+                    sortable : true,
+                    thStyle  : {
+                        'width': '180px'
                     }
                 },{
                     key      : 'diagnosa_awal',
@@ -73,7 +81,7 @@ window.pagemix.push({
     },
     methods: {
         create() {
-            window.location.replace(`{{ action('Perawatan\RawatJalanWebController@create') }}`);
+            window.location.replace(`{{ $create }}`);
         }
     }
 });

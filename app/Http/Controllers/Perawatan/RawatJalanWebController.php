@@ -18,7 +18,11 @@ class RawatJalanWebController extends Controller
      */
     public function index()
     {
-        return view('perawatan.rawat-jalan.index');
+        $index  = action('Perawatan\RawatJalanWebController@index');
+        $api    = action('Perawatan\RawatJalanController@index');
+        $create = action('Perawatan\RawatJalanWebController@create');
+
+        return view('perawatan.rawat-jalan.index', compact(['index', 'api', 'create']));
     }
 
     /**
@@ -28,17 +32,17 @@ class RawatJalanWebController extends Controller
      */
     public function create()
     {
-        $polikliniks       = Poliklinik::where('jenis_id', 1)->get();
-
-        $kategori_kegiatan = 2;
-
         $jenis_registrasis = JenisRegistrasi::where(
             'kategori', KategoriRegistrasi::RAWAT_JALAN
         )->get();
 
-        return view('perawatan.rawat-jalan.create', compact([
-            'jenis_registrasis', 'polikliniks', 'kategori_kegiatan'
-        ]));
+        $polikliniks = Poliklinik::where('jenis_id', 1)->get();
+
+        return view('perawatan.rawat-jalan.create', [
+            'jenis_registrasis' => $jenis_registrasis,
+            'kategori_kegiatan' => 2,
+            'polikliniks'       => $polikliniks
+        ]);
     }
 
     /**

@@ -19005,6 +19005,225 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/date-fns/locale/id/build_distance_in_words_locale/index.js":
+/***/ (function(module, exports) {
+
+function buildDistanceInWordsLocale () {
+  var distanceInWordsLocale = {
+    lessThanXSeconds: {
+      one: 'kurang dari 1 detik',
+      other: 'kurang dari {{count}} detik'
+    },
+
+    xSeconds: {
+      one: '1 detik',
+      other: '{{count}} detik'
+    },
+
+    halfAMinute: 'setengah menit',
+
+    lessThanXMinutes: {
+      one: 'kurang dari 1 menit',
+      other: 'kurang dari {{count}} menit'
+    },
+
+    xMinutes: {
+      one: '1 menit',
+      other: '{{count}} menit'
+    },
+
+    aboutXHours: {
+      one: 'sekitar 1 jam',
+      other: 'sekitar {{count}} jam'
+    },
+
+    xHours: {
+      one: '1 jam',
+      other: '{{count}} jam'
+    },
+
+    xDays: {
+      one: '1 hari',
+      other: '{{count}} hari'
+    },
+
+    aboutXMonths: {
+      one: 'sekitar 1 bulan',
+      other: 'sekitar {{count}} bulan'
+    },
+
+    xMonths: {
+      one: '1 bulan',
+      other: '{{count}} bulan'
+    },
+
+    aboutXYears: {
+      one: 'sekitar 1 tahun',
+      other: 'sekitar {{count}} tahun'
+    },
+
+    xYears: {
+      one: '1 tahun',
+      other: '{{count}} tahun'
+    },
+
+    overXYears: {
+      one: 'lebih dari 1 tahun',
+      other: 'lebih dari {{count}} tahun'
+    },
+
+    almostXYears: {
+      one: 'hampir 1 tahun',
+      other: 'hampir {{count}} tahun'
+    }
+  }
+
+  function localize (token, count, options) {
+    options = options || {}
+
+    var result
+    if (typeof distanceInWordsLocale[token] === 'string') {
+      result = distanceInWordsLocale[token]
+    } else if (count === 1) {
+      result = distanceInWordsLocale[token].one
+    } else {
+      result = distanceInWordsLocale[token].other.replace('{{count}}', count)
+    }
+
+    if (options.addSuffix) {
+      if (options.comparison > 0) {
+        return 'dalam waktu ' + result
+      } else {
+        return result + ' yang lalu'
+      }
+    }
+
+    return result
+  }
+
+  return {
+    localize: localize
+  }
+}
+
+module.exports = buildDistanceInWordsLocale
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/id/build_format_locale/index.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+var buildFormattingTokensRegExp = __webpack_require__("./node_modules/date-fns/locale/_lib/build_formatting_tokens_reg_exp/index.js")
+
+function buildFormatLocale () {
+  // Note: in Indonesian, the names of days of the week and months are capitalized.
+  // If you are making a new locale based on this one, check if the same is true for the language you're working on.
+  // Generally, formatted dates should look like they are in the middle of a sentence,
+  // e.g. in Spanish language the weekdays and months should be in the lowercase.
+  var months3char = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des']
+  var monthsFull = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
+  var weekdays2char = ['Mi', 'Sn', 'Sl', 'Ra', 'Ka', 'Ju', 'Sa']
+  var weekdays3char = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab']
+  var weekdaysFull = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
+  var meridiemUppercase = ['AM', 'PM']
+  var meridiemLowercase = ['am', 'pm']
+  var meridiemFull = ['a.m.', 'p.m.']
+
+  var formatters = {
+    // Month: Jan, Feb, ..., Dec
+    'MMM': function (date) {
+      return months3char[date.getMonth()]
+    },
+
+    // Month: January, February, ..., December
+    'MMMM': function (date) {
+      return monthsFull[date.getMonth()]
+    },
+
+    // Day of week: Su, Mo, ..., Sa
+    'dd': function (date) {
+      return weekdays2char[date.getDay()]
+    },
+
+    // Day of week: Sun, Mon, ..., Sat
+    'ddd': function (date) {
+      return weekdays3char[date.getDay()]
+    },
+
+    // Day of week: Sunday, Monday, ..., Saturday
+    'dddd': function (date) {
+      return weekdaysFull[date.getDay()]
+    },
+
+    // AM, PM
+    'A': function (date) {
+      return (date.getHours() / 12) >= 1 ? meridiemUppercase[1] : meridiemUppercase[0]
+    },
+
+    // am, pm
+    'a': function (date) {
+      return (date.getHours() / 12) >= 1 ? meridiemLowercase[1] : meridiemLowercase[0]
+    },
+
+    // a.m., p.m.
+    'aa': function (date) {
+      return (date.getHours() / 12) >= 1 ? meridiemFull[1] : meridiemFull[0]
+    }
+  }
+
+  // Generate ordinal version of formatters: M -> Mo, D -> Do, etc.
+  var ordinalFormatters = ['M', 'D', 'DDD', 'd', 'Q', 'W']
+  ordinalFormatters.forEach(function (formatterToken) {
+    formatters[formatterToken + 'o'] = function (date, formatters) {
+      return ordinal(formatters[formatterToken](date))
+    }
+  })
+
+  return {
+    formatters: formatters,
+    formattingTokensRegExp: buildFormattingTokensRegExp(formatters)
+  }
+}
+
+function ordinal (number) {
+  switch (number) {
+    case 1:
+      return 'pertama'
+    case 2:
+      return 'kedua'
+    case 3:
+      return 'ketiga'
+    default:
+      return 'ke-' + number
+  }
+}
+
+module.exports = buildFormatLocale
+
+
+/***/ }),
+
+/***/ "./node_modules/date-fns/locale/id/index.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+var buildDistanceInWordsLocale = __webpack_require__("./node_modules/date-fns/locale/id/build_distance_in_words_locale/index.js")
+var buildFormatLocale = __webpack_require__("./node_modules/date-fns/locale/id/build_format_locale/index.js")
+
+/**
+ * @category Locales
+ * @summary Indonesian locale.
+ * @author Rahmat Budiharso [@rbudiharso]{@link https://github.com/rbudiharso}
+ * @author Benget Nata [@bentinata]{@link https://github.com/bentinata}
+ */
+module.exports = {
+  distanceInWords: buildDistanceInWordsLocale(),
+  format: buildFormatLocale()
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/date-fns/parse/index.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25047,13 +25266,31 @@ webpackContext.id = "./resources/js recursive \\.vue$/";
 /***/ }),
 
 /***/ "./resources/js/__global.js":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__("./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_date_fns_locale_id__ = __webpack_require__("./node_modules/date-fns/locale/id/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_date_fns_locale_id___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_date_fns_locale_id__);
+
 
 window.addHours = __webpack_require__("./node_modules/date-fns/add_hours/index.js");
 window.subDays = __webpack_require__("./node_modules/date-fns/sub_days/index.js");
 window.startOfToday = __webpack_require__("./node_modules/date-fns/start_of_today/index.js");
 window.parse = __webpack_require__("./node_modules/date-fns/parse/index.js");
 window.format = __webpack_require__("./node_modules/date-fns/format/index.js");
+
+window.date_time = function (value) {
+  return format(parse(value), 'DD/MM/YYYY HH:mm', {
+    locale: __WEBPACK_IMPORTED_MODULE_1_date_fns_locale_id___default.a
+  });
+};
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('date_time', function (value) {
+  return date_time(value);
+});
 
 /***/ }),
 
