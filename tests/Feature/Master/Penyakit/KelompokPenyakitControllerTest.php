@@ -65,7 +65,7 @@ class KelompokPenyakitControllerTest extends TestCase
     }
 
     /** @test */
-    public function collection_can_be_filtered_by_klasifikasi()
+    public function user_can_filter_collection_by_klasifikasi()
     {
         $klasifikasi = factory(KlasifikasiPenyakit::class)->create();
         $kelompok    = factory(KelompokPenyakit::class, 5)->create([

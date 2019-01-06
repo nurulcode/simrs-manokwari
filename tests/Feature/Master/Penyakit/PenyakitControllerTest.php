@@ -72,7 +72,7 @@ class PenyakitControllerTest extends TestCase
     }
 
     /** @test */
-    public function collection_can_be_filtered_by_kelompok()
+    public function user_can_filter_collection_by_kelompok()
     {
         $kelompok = factory(KelompokPenyakit::class)->create();
 

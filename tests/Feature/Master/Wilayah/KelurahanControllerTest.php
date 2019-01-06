@@ -51,7 +51,7 @@ class KelurahanControllerTest extends TestCase
     }
 
     /** @test */
-    public function collection_can_be_filtered_by_kecamatan()
+    public function user_can_filter_collection_by_kecamatan()
     {
         $kecamatan  = factory(Kecamatan::class)->create();
         $kelurahan  = factory(Kelurahan::class, 5)->create(['kecamatan_id' => $kecamatan->id]);

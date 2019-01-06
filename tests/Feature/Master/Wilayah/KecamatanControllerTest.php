@@ -50,7 +50,7 @@ class KecamatanControllerTest extends TestCase
     }
 
     /** @test */
-    public function collection_can_be_filtered_by_kotakabupaten()
+    public function user_can_filter_collection_by_kotakabupaten()
     {
         $kotakab    = factory(KotaKabupaten::class)->create();
         $kecamatan  = factory(Kecamatan::class, 5)->create(['kota_kabupaten_id' => $kotakab->id]);

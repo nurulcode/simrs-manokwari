@@ -74,7 +74,7 @@ class KegiatanTest extends TestCase
     }
 
     /** @test */
-    public function collection_can_be_filtered_by_kategori()
+    public function user_can_filter_collection_by_kategori()
     {
         $kategori  = factory(KategoriKegiatan::class)->create();
         $kegiatan  = factory(Kegiatan::class, 5)->create();

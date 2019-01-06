@@ -47,7 +47,7 @@ class PegawaiControllerTest extends TestCase
     }
 
     /** @test */
-    public function collection_can_be_filtered_by_kualifikasi()
+    public function user_can_filter_collection_by_kualifikasi()
     {
         $kualifikasi = factory(Kualifikasi::class)->create();
 
@@ -67,7 +67,7 @@ class PegawaiControllerTest extends TestCase
     }
 
     /** @test */
-    public function collection_can_be_filtered_by_jabatan()
+    public function user_can_filter_collection_by_jabatan()
     {
         $jabatan = factory(Jabatan::class)->create();
 
