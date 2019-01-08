@@ -19,7 +19,9 @@ class RawatInapController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        return RawatInapResource::collection(RawatInap::filter($query));
+        return RawatInapResource::collection(
+            RawatInap::with(['kunjungan'])->filter($query)
+        );
     }
 
     /**

@@ -16,6 +16,7 @@
       link : perawatan/rawat-jalan
     -
       title: Rawat Inap
+      link : perawatan/rawat-inap
     -
       title: Rawat Darurat (IGD)
       link : perawatan/rawat-darurat
@@ -32,6 +33,7 @@
       link : perawatan/rawat-jalan/create
     -
       title: Reg. Rawat Inap
+      link : perawatan/rawat-inap/create
     -
       title: Reg. Rawat Darurat (IGD)
       link : perawatan/rawat-darurat/create

@@ -37,6 +37,8 @@
 
     @include('kunjungan.form')
 
+    <hr>
+
     @yield('form')
 </form>
 

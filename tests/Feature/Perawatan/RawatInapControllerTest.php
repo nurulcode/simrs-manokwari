@@ -34,9 +34,7 @@ class RawatInapControllerTest extends TestCase
     {
         $kunjungan = factory(Kunjungan::class)->make();
 
-        $resource  = factory($this->resource())->make([
-            'kunjungan_id' => $kunjungan->id
-        ]);
+        $resource  = factory($this->resource())->make(['kunjungan_id' => $kunjungan->id]);
 
         $this->signIn()
             ->postJson($resource->path('store'), array_merge(

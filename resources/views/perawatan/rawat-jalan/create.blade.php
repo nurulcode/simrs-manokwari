@@ -1,8 +1,3 @@
-<?php
-use App\Enums\KategoriRegistrasi;
-use App\Models\Fasilitas\Poliklinik;
-use App\Models\Master\JenisRegistrasi;
-?>
 @extends('kunjungan.create')
 
 @section('title', 'Registrasi Pasien Rawat Jalan')
@@ -10,7 +5,6 @@ use App\Models\Master\JenisRegistrasi;
 @section('action', action('Perawatan\RawatJalanController@store'))
 
 @section('form')
-<hr>
 <div class="row">
     <div class="col">
         <b-form-group v-bind="form_kunjungan.feedback('jenis_registrasi_id')">
@@ -33,7 +27,9 @@ use App\Models\Master\JenisRegistrasi;
                 v-on:change="form_kunjungan.errors.clear('poliklinik_id')">
                 <option :value="null" disabled>Pilih Poliklinik Tujuan</option>
                 @foreach($polikliniks as $poliklinik)
-                    <option :value="{{ $poliklinik->id }}">{{ $poliklinik->nama }}</option>
+                    <option :value="{{ $poliklinik->id }}">
+                        {{ $poliklinik->kode }} - {{ $poliklinik->nama }}
+                    </option>
                 @endforeach
             </b-form-select>
         </b-form-group>

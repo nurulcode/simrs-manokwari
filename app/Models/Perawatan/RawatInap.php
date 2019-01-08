@@ -4,10 +4,11 @@ namespace App\Models\Perawatan;
 
 use App\Models\Model;
 use App\Models\Fasilitas\Ranjang;
+use App\Models\Fasilitas\BelongsToRanjang;
 
 class RawatInap extends Model
 {
-    use HasKunjungan;
+    use HasKunjungan, BelongsToRanjang;
 
     /**
      * The attributes that should be mutated to dates.

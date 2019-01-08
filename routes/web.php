@@ -48,6 +48,10 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('rawat-darurat', 'RawatDaruratWebController')
             ->middleware('can:manage_rawat_darurat')
             ->only(['index', 'create', 'show']);
+
+        Route::resource('rawat-inap', 'RawatInapWebController')
+            ->middleware('can:manage_rawat_inap')
+            ->only(['index', 'create', 'show']);
     });
 
     Route::namespace('Master')
