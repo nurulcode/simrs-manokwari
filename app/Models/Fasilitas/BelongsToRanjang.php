@@ -9,14 +9,30 @@ use Illuminate\Database\Eloquent\Builder;
  */
 trait BelongsToRanjang
 {
+    use BelongsToKamar;
+
+    public static function bootBelongsToKamar()
+    {
+        // Do nothing
+    }
+
     public static function bootBelongsToRanjang()
     {
         $table = with(new static)->getTable();
 
-        static::addGlobalScope('kamar', function (Builder $builder) use ($table) {
-            $builder->addSubSelect('kamar_id',
-                Ranjang::select('kamar_id')->whereColumn('id', $table . '.ranjang_id')
+        static::addGlobalScope('ranjang', function (Builder $builder) use ($table) {
+            $ranjang = Ranjang::selectRaw(
+                'id as ranjang_id, ranjangs.kamar_id, ruangan_id, poliklinik_id'
             );
+
+            $builder->joinSub($ranjang, 'ranjang', function ($join) use ($table) {
+                $join->on($table . '.ranjang_id', '=', 'ranjang.ranjang_id');
+            });
         });
+    }
+
+    public function ranjang()
+    {
+        return $this->belongsTo(Ranjang::class);
     }
 }

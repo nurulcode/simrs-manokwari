@@ -3,11 +3,10 @@
 namespace App\Models\Fasilitas;
 
 use App\Models\Model;
-use Illuminate\Database\Eloquent\Builder;
 
 class Kamar extends Model
 {
-    use BelongsToPoliklinik, BelongsToRuangan;
+    use BelongsToRuangan;
 
     /**
      * The attributes that aren't mass assignable.
@@ -28,21 +27,6 @@ class Kamar extends Model
      *
      */
     protected $searchable = ['nama', 'parent'];
-
-    /**
-    * The "booting" method of the model.
-    *
-    * @return void
-    */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('poliklinik', function (Builder $builder) {
-            $builder->addSubSelect('poliklinik_id', Ruangan::select('poliklinik_id')
-                ->whereColumn('id', 'kamars.ruangan_id'));
-        });
-    }
 
     public function searchParent($builder, $searchQuery)
     {
