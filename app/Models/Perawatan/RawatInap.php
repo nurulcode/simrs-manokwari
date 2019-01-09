@@ -3,7 +3,6 @@
 namespace App\Models\Perawatan;
 
 use App\Models\Model;
-use App\Models\Fasilitas\Ranjang;
 use App\Models\Fasilitas\BelongsToRanjang;
 
 class RawatInap extends Model
@@ -33,9 +32,4 @@ class RawatInap extends Model
         'kegiatan_id', 'ranjang_id', 'jenis_registrasi_id', 'waktu_kunjungan',
         'waktu_keluar', 'kondisi_akhir', 'cara_penerimaan', 'aktifitas'
     ];
-
-    public function ranjang()
-    {
-        return $this->belongsTo(Ranjang::class);
-    }
 }

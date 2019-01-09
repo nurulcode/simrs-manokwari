@@ -3,8 +3,8 @@
 namespace Tests\Unit\Perawatan;
 
 use Tests\TestCase;
+use App\Models\Fasilitas;
 use App\Models\Kunjungan;
-use App\Models\Fasilitas\Ranjang;
 use App\Models\Perawatan\RawatInap;
 
 class RawatInapTest extends TestCase
@@ -14,7 +14,7 @@ class RawatInapTest extends TestCase
     {
         $resource = factory(RawatInap::class)->create();
 
-        $this->assertInstanceof(Ranjang::class, $resource->ranjang);
+        $this->assertInstanceof(Fasilitas\Ranjang::class, $resource->ranjang);
     }
 
     /** @test */
@@ -32,7 +32,9 @@ class RawatInapTest extends TestCase
     {
         $rawatinap = factory(RawatInap::class)->create();
 
-        $this->assertInstanceof(Kamar::class, $rawatinap->kamar);
+        $rawatinap = RawatInap::find($rawatinap->id);
+
+        $this->assertInstanceof(Fasilitas\Kamar::class, $rawatinap->kamar);
     }
 
     /** @test */
@@ -42,7 +44,10 @@ class RawatInapTest extends TestCase
 
         $rawatinap = RawatInap::find($rawatinap->id);
 
-        $this->assertSame($rawatinap->kamar->ruangan_id, $rawatinap->ruangan_id);
+        $this->assertSame(
+            $rawatinap->ranjang->kamar->ruangan_id,
+            $rawatinap->ruangan_id
+        );
     }
 
     /** @test */
@@ -52,7 +57,7 @@ class RawatInapTest extends TestCase
 
         $rawatinap = RawatInap::find($rawatinap->id);
 
-        $this->assertInstanceof(Ruangan::class, $rawatinap->ruangan);
+        $this->assertInstanceof(Fasilitas\Ruangan::class, $rawatinap->ruangan);
     }
 
     /** @test */
@@ -62,7 +67,10 @@ class RawatInapTest extends TestCase
 
         $rawatinap = RawatInap::find($rawatinap->id);
 
-        $this->assertSame($rawatinap->kamar->ruangan->poliklinik_id, $rawatinap->poliklinik_id);
+        $this->assertSame(
+            $rawatinap->ranjang->kamar->ruangan->poliklinik_id,
+            $rawatinap->poliklinik_id
+        );
     }
 
     /** @test */
@@ -72,7 +80,7 @@ class RawatInapTest extends TestCase
 
         $rawatinap = RawatInap::find($rawatinap->id);
 
-        $this->assertInstanceof(Poliklinik::class, $rawatinap->poliklinik);
+        $this->assertInstanceof(Fasilitas\Poliklinik::class, $rawatinap->poliklinik);
     }
 
     /** @test */
