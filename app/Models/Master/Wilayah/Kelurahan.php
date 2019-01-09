@@ -3,11 +3,10 @@
 namespace App\Models\Master\Wilayah;
 
 use App\Models\Master\Master;
-use Illuminate\Database\Eloquent\Builder;
 
 class Kelurahan extends Master
 {
-    use BelongsToProvinsi, BelongsToKotaKabupaten, BelongsToKecamatan;
+    use BelongsToKecamatan;
 
     /**
      * The attributes that are mass assignable.
@@ -21,32 +20,6 @@ class Kelurahan extends Master
      *
      */
     protected $searchable = ['name', 'parent'];
-
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('provinsi', function (Builder $builder) {
-            $kotakab   = KotaKabupaten::select('provinsi_id')
-                ->whereColumn('id', 'kecamatans.kota_kabupaten_id');
-            $kecamatan = Kecamatan::getQuery()
-                ->whereColumn('id', 'kelurahans.kecamatan_id')
-                ->selectSub($kotakab, 'provinsi_id');
-
-            $builder->addSubSelect('provinsi_id', $kecamatan);
-        });
-
-        static::addGlobalScope('kota_kabupaten', function (Builder $builder) {
-            $builder->addSubSelect('kota_kabupaten_id', Kecamatan::withoutGlobalScope('provinsi')
-                ->select('kota_kabupaten_id')
-                ->whereColumn('id', 'kelurahans.kecamatan_id'));
-        });
-    }
 
     public function afterOrder($builder, $orderBy, $orderDirection)
     {

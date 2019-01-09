@@ -2,11 +2,23 @@
 
 namespace App\Models\Master\Wilayah;
 
+use Illuminate\Database\Eloquent\Builder;
+
 /**
  * Belongs to kota kabupaten
  */
 trait BelongsToKotaKabupaten
 {
+    use BelongsToProvinsi;
+
+    public static function bootBelongsToKotaKabupaten()
+    {
+        static::addGlobalScope('provinsi', function (Builder $builder) {
+            $builder->addSubSelect('provinsi_id', KotaKabupaten::select('provinsi_id')
+                ->whereColumn('id', 'kecamatans.kota_kabupaten_id'));
+        });
+    }
+
     public function kota_kabupaten()
     {
         return $this->belongsTo(KotaKabupaten::class);

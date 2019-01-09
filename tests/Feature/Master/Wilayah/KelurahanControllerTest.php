@@ -61,10 +61,10 @@ class KelurahanControllerTest extends TestCase
 
         $this->signIn()
              ->getJson(action($controller) . '?kecamatan=' . $kecamatan->id)
-             ->assertJsonStructure(['data'  => ['*' => ['name']]])
-             ->assertJsonCount(5, 'data')
              ->assertSee($kelurahan->random()->name)
              ->assertDontSee($lainnya->random()->name)
+             ->assertJsonStructure(['data'  => ['*' => ['name']]])
+             ->assertJsonCount(5, 'data')
              ->assertStatus(200);
     }
 }

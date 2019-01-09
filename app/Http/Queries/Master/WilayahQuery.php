@@ -18,6 +18,6 @@ class WilayahQuery extends HttpQuery
 
     public function kecamatan($builder, $value)
     {
-        return $builder->where('kecamatan_id', $value);
+        return $builder->where('kelurahans.kecamatan_id', $value);
     }
 }

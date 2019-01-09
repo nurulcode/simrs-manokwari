@@ -2,11 +2,31 @@
 
 namespace App\Models\Master\Wilayah;
 
+use Illuminate\Database\Eloquent\Builder;
+
 /**
  * Belongs to Kecamatan
  */
 trait BelongsToKecamatan
 {
+    use BelongsToKotaKabupaten;
+
+    public static function bootBelongsToKotaKabupaten()
+    {
+        // Do Nothing
+    }
+
+    public static function bootBelongsToKecamatan()
+    {
+        static::addGlobalScope('ruangan', function (Builder $builder) {
+            $kecamatan = Kecamatan::selectRaw('id as kecamatan_id, kota_kabupaten_id');
+
+            $builder->joinSub($kecamatan, 'kecamatan', function ($join) {
+                $join->on('kelurahans.kecamatan_id', '=', 'kecamatan.kecamatan_id');
+            });
+        });
+    }
+
     public function kecamatan()
     {
         return $this->belongsTo(Kecamatan::class);

@@ -3,11 +3,10 @@
 namespace App\Models\Master\Wilayah;
 
 use App\Models\Master\Master;
-use Illuminate\Database\Eloquent\Builder;
 
 class Kecamatan extends Master
 {
-    use BelongsToProvinsi, BelongsToKotaKabupaten;
+    use BelongsToKotaKabupaten;
 
     /**
      * The attributes that aren't mass assignable.
@@ -28,21 +27,6 @@ class Kecamatan extends Master
      *
      */
     protected $searchable = ['name', 'parent'];
-
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('provinsi', function (Builder $builder) {
-            $builder->addSubSelect('provinsi_id', KotaKabupaten::select('provinsi_id')
-                ->whereColumn('id', 'kecamatans.kota_kabupaten_id'));
-        });
-    }
 
     public function searchParent($builder, $searchQuery)
     {
