@@ -26,7 +26,7 @@ trait BelongsToKamar
         static::addGlobalScope('ruangan', function (Builder $builder) {
             $kamar = Kamar::selectRaw('id as kamar_id, ruangan_id');
 
-            $builder->joinSub($kamar, 'kamar', function ($join) {
+            $builder->leftJoinSub($kamar, 'kamar', function ($join) {
                 $join->on('ranjangs.kamar_id', '=', 'kamar.kamar_id');
             });
         });

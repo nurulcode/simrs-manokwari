@@ -21,7 +21,7 @@ trait BelongsToKecamatan
         static::addGlobalScope('ruangan', function (Builder $builder) {
             $kecamatan = Kecamatan::selectRaw('id as kecamatan_id, kota_kabupaten_id');
 
-            $builder->joinSub($kecamatan, 'kecamatan', function ($join) {
+            $builder->leftJoinSub($kecamatan, 'kecamatan', function ($join) {
                 $join->on('kelurahans.kecamatan_id', '=', 'kecamatan.kecamatan_id');
             });
         });

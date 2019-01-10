@@ -25,7 +25,7 @@ trait BelongsToRanjang
                 'id as ranjang_id, ranjangs.kamar_id, ruangan_id, poliklinik_id'
             );
 
-            $builder->joinSub($ranjang, 'ranjang', function ($join) use ($table) {
+            $builder->leftJoinSub($ranjang, 'ranjang', function ($join) use ($table) {
                 $join->on($table . '.ranjang_id', '=', 'ranjang.ranjang_id');
             });
         });

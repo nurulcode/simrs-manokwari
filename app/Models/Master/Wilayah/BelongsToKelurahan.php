@@ -25,7 +25,7 @@ trait BelongsToKelurahan
                 'id as kelurahan_id, kelurahans.kecamatan_id, kota_kabupaten_id, provinsi_id'
             );
 
-            $builder->joinSub($kelurahan, 'kelurahan', function ($join) use ($table) {
+            $builder->leftJoinSub($kelurahan, 'kelurahan', function ($join) use ($table) {
                 $join->on($table . '.kelurahan_id', '=', 'kelurahan.kelurahan_id');
             });
         });
