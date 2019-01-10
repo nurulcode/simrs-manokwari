@@ -61,6 +61,11 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Mengelola data rawat darurat'
         ]);
 
+        Permission::create([
+            'name'        => 'manage_rawat_inap',
+            'description' => 'Mengelola data rawat darurat'
+        ]);
+
         foreach (config('resources') as $resource) {
             $slug = with(new $resource)->permissionKeyName();
             $name = str_replace('_', ' ', $slug);
