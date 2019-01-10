@@ -15,8 +15,9 @@ before_script:
 - docker-php-ext-install bcmath calendar gd iconv intl mbstring mysqli opcache pdo_mysql zip > /dev/null
 
 # Install composer dependencies
-- composer install
 - cp .env.gitlab .env
+- cp containers/workspace/conf.d/memory-limit.ini /usr/local/etc/php/conf.d/
+- composer install
 - php artisan key:generate
 - php artisan config:cache
 - php artisan passport:keys

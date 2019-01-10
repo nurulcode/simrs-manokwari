@@ -17,13 +17,6 @@ class RawatInap extends Model
     protected $dates = ['waktu_kunjungan'];
 
     /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = ['ranjang'];
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array

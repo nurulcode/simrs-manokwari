@@ -21,6 +21,7 @@ class CreateLayanansTables extends Migration
             $table->string('lama_menderita')->nullable();
             $table->unsignedTinyInteger('kasus');
             $table->unsignedInteger('tipe_diagnosa_id');
+            $table->dateTime('waktu');
             $table->unsignedInteger('petugas_id');
             $table->timestamps();
 
@@ -40,6 +41,31 @@ class CreateLayanansTables extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
         });
+
+        Schema::create('tindakans', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('perawatan_id');
+            $table->string('perawatan_type');
+            $table->unsignedInteger('tindakan_pemeriksaan_id');
+            $table->unsignedInteger('jumlah');
+            $table->dateTime('waktu');
+            $table->unsignedInteger('petugas_id');
+            $table->unsignedInteger('tarif_sarana')->default(0);
+            $table->unsignedInteger('tarif_pelayanan')->default(0);
+            $table->unsignedInteger('tarif_bhp')->default(0);
+            $table->timestamps();
+
+            $table->foreign('petugas_id')
+                ->references('id')
+                ->on('pegawais')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+            $table->foreign('tindakan_pemeriksaan_id')
+                ->references('id')
+                ->on('tindakan_pemeriksaans')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+        });
     }
 
     /**
@@ -49,6 +75,8 @@ class CreateLayanansTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('tindakans');
+
         Schema::dropIfExists('diagnosas');
     }
 }

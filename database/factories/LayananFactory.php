@@ -6,9 +6,13 @@ use App\Enums\KasusDiagnosa;
 use Faker\Generator as Faker;
 use App\Models\Kepegawaian\Pegawai;
 
-$factory->define(App\Models\Layanan\Diagnosa::class, function (Faker $faker) {
-    $perawatans = [Perawatan\RawatJalan::class];
+$perawatans = [
+    Perawatan\RawatJalan::class,
+    Perawatan\RawatInap::class,
+    Perawatan\RawatDarurat::class,
+];
 
+$factory->define(App\Models\Layanan\Diagnosa::class, function (Faker $faker) use ($perawatans) {
     return [
         'perawatan_type' => $faker->randomElement($perawatans),
         'perawatan_id'   => function ($diagnosa) {
@@ -25,5 +29,22 @@ $factory->define(App\Models\Layanan\Diagnosa::class, function (Faker $faker) {
         },
         'lama_menderita' => $faker->word,
         'kasus'          => KasusDiagnosa::getRandomValue(),
+    ];
+});
+
+$factory->define(App\Models\Layanan\Tindakan::class, function (Faker $faker) use ($perawatans) {
+    return [
+        'perawatan_type' => $faker->randomElement($perawatans),
+        'perawatan_id'   => function ($tindakan) {
+            return factory($tindakan['perawatan_type'])->create()->id;
+        },
+        'tindakan_pemeriksaan_id' => function ($tindakan) {
+            return factory(Master\TindakanPemeriksaan::class)->create()->id;
+        },
+        'petugas_id' => function () {
+            return factory(Pegawai::class)->create()->id;
+        },
+        'jumlah'          => $faker->randomNumber,
+        'waktu'           => $faker->dateTimeThisMonth,
     ];
 });

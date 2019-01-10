@@ -27,6 +27,7 @@ class DiagnosaResource extends JsonResource
             'tipe'             => Resource::make($this->whenLoaded('tipe')),
             'petugas_id'       => $this->petugas_id,
             'petugas'          => PegawaiResource::make($this->whenLoaded('petugas')),
+            'waktu'            => $this->waktu,
             'path'             => $this->path,
         ];
     }

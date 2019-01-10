@@ -16,6 +16,13 @@ class Diagnosa extends Model
      */
     protected $with = ['penyakit', 'petugas', 'tipe'];
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['waktu'];
+
     public function penyakit()
     {
         return $this->belongsTo(Penyakit::class);
