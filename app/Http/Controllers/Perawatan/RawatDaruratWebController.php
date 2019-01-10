@@ -64,7 +64,11 @@ class RawatDaruratWebController extends Controller
      */
     public function show(RawatDarurat $rawat_darurat)
     {
-        return view('perawatan.rawat-darurat.show', compact(['rawat_darurat']));
+        return view('perawatan.rawat-darurat.show', [
+            'perawatan' => $rawat_darurat,
+            'title'     => $rawat_darurat->poliklinik->nama,
+            'kunjungan' => $rawat_darurat->kunjungan,
+        ]);
     }
 
     /**

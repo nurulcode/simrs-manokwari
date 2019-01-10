@@ -2,7 +2,12 @@
 
 namespace App\Http\Resources\Perawatan;
 
+use App\Http\Resources\KunjunganResource;
+use App\Http\Resources\Fasilitas\KamarResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Fasilitas\RanjangResource;
+use App\Http\Resources\Fasilitas\RuanganResource;
+use App\Http\Resources\Fasilitas\PoliklinikResource;
 
 class RawatInapResource extends JsonResource
 {
@@ -14,6 +19,17 @@ class RawatInapResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id'              => $this->id,
+            'poliklinik_id'   => $this->poliklinik_id,
+            'waktu_kunjungan' => $this->waktu_kunjungan,
+            'waktu_keluar'    => $this->waktu_keluar,
+            'poliklinik'      => PoliklinikResource::make($this->whenLoaded('poliklinik')),
+            'ruangan'         => RuanganResource::make($this->whenLoaded('ruangan')),
+            'kamar'           => KamarResource::make($this->whenLoaded('kamar')),
+            'ranjang'         => RanjangResource::make($this->whenLoaded('ranjang')),
+            'kunjungan'       => KunjunganResource::make($this->whenLoaded('kunjungan')),
+            'path'            => $this->path
+        ];
     }
 }

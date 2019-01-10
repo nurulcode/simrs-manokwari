@@ -64,7 +64,11 @@ class RawatJalanWebController extends Controller
      */
     public function show(RawatJalan $rawat_jalan)
     {
-        return view('perawatan.rawat-jalan.show', compact(['rawat_jalan']));
+        return view('perawatan.rawat-jalan.show', [
+            'perawatan' => $rawat_jalan,
+            'title'     => $rawat_jalan->poliklinik->nama,
+            'kunjungan' => $rawat_jalan->kunjungan
+        ]);
     }
 
     /**

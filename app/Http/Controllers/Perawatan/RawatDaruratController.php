@@ -20,7 +20,7 @@ class RawatDaruratController extends Controller
     public function index(HttpQuery $query)
     {
         return RawatDaruratResource::collection(
-            RawatDarurat::with(['kunjungan'])->filter($query)
+            RawatDarurat::with(['kunjungan','poliklinik'])->filter($query)
         );
     }
 

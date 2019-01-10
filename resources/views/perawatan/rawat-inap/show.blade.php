@@ -1,6 +1,6 @@
 @extends('layouts.coreui')
 
-@section('title', 'Pasien Rawat Darurat')
+@section('title', 'Pasien Rawat Inap')
 
 @section('content')
 

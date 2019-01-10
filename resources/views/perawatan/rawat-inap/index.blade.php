@@ -22,6 +22,10 @@
         <template slot="waktu_keluar" slot-scope="{value}" v-if="value">
             @{{ value | date_time }}
         </template>
+        <template slot="ranjang" slot-scope="{item}">
+            @{{ item.ruangan.nama }} - @{{ item.kamar.nama }}
+            <p class="text-muted">Ranjang: @{{ item.ranjang.kode }}</p>
+        </template>
 
     </data-table>
 @endsection
@@ -58,6 +62,7 @@ window.pagemix.push({
                         'width': '180px'
                     }
                 },{
+                    label    : 'Kamar/Ranjang',
                     key      : 'ranjang',
                 }, {
                     key      : 'view',
