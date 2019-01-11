@@ -28,6 +28,7 @@ class DiagnosaRequest extends FormRequest
         return [
             'perawatan_id'     => 'required|morph_exists:perawatan_type',
             'perawatan_type'   => 'required',
+            'waktu'            => 'required|date',
             'penyakit_id'      => 'required|exists:penyakits,id',
             'lama_menderita'   => 'nullable',
             'tipe_diagnosa_id' => 'required|exists:tipe_diagnosas,id',

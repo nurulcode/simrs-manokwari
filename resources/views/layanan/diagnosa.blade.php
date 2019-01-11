@@ -72,6 +72,18 @@
                 >
             </ajax-select>
         </b-form-group>
+        <b-form-group v-bind="diagnosa.form.feedback('waktu')">
+            <b slot="label">Waktu Diagnosa:</b>
+            <date-picker
+                    :default-date="new Date()"
+                    :default-hour="new Date().getHours()"
+                    alt-format="d/m/Y H:i"
+                    enable-time
+                    v-model="diagnosa.form.waktu"
+                    v-on:input="diagnosa.form.errors.clear('waktu')"
+                    >
+                </date-picker>
+        </b-form-group>
     </div>
     <template slot="penyakit" slot-scope="{value, item}">
         @{{ value.icd }} - @{{ value.uraian }}
@@ -106,7 +118,8 @@ window.pagemix.push({
                     lama_menderita  : null,
                     kasus           : null,
                     tipe_diagnosa_id: null,
-                    petugas_id      : null
+                    petugas_id      : null,
+                    waktu           : new Date()
                 }, {
                     penyakit        : null,
                     petugas         : null

@@ -29,6 +29,7 @@ $factory->define(App\Models\Layanan\Diagnosa::class, function (Faker $faker) use
         },
         'lama_menderita' => $faker->word,
         'kasus'          => KasusDiagnosa::getRandomValue(),
+        'waktu'           => $faker->dateTimeThisMonth,
     ];
 });
 
