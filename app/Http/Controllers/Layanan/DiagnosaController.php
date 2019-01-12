@@ -22,7 +22,9 @@ class DiagnosaController extends Controller
      */
     public function index(LayananQuery $query)
     {
-        return DiagnosaResource::collection(Diagnosa::filter($query));
+        return DiagnosaResource::collection(
+            Diagnosa::with('petugas', 'penyakit', 'tipe')->filter($query)
+        );
     }
 
     /**

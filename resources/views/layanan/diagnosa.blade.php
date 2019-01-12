@@ -75,19 +75,20 @@
         <b-form-group v-bind="diagnosa.form.feedback('waktu')">
             <b slot="label">Waktu Diagnosa:</b>
             <date-picker
-                    :default-date="new Date()"
-                    :default-hour="new Date().getHours()"
-                    alt-format="d/m/Y H:i"
-                    enable-time
-                    v-model="diagnosa.form.waktu"
-                    v-on:input="diagnosa.form.errors.clear('waktu')"
-                    >
-                </date-picker>
+                alt-format="d/m/Y H:i"
+                enable-time
+                v-model="diagnosa.form.waktu"
+                v-on:input="diagnosa.form.errors.clear('waktu')"
+                >
+            </date-picker>
         </b-form-group>
     </div>
-    <template slot="penyakit" slot-scope="{value, item}">
+    <template slot="penyakit" slot-scope="{value, item}" v-if="value">
         @{{ value.icd }} - @{{ value.uraian }}
         <p class="text-muted"> @{{ item.tipe.uraian }} </p>
+    </template>
+    <template slot="waktu" slot-scope="{value}" v-if="value">
+        @{{ value | date_time }}
     </template>
 </data-table>
 
@@ -104,6 +105,9 @@ window.pagemix.push({
                     perawatan_type: @json(get_class($perawatan))
                 },
                 fields: [{
+                    key      : 'waktu',
+                    label    : 'Waktu Diagnosa'
+                },{
                     key      : 'penyakit',
                 },{
                     key      : 'lama_menderita'

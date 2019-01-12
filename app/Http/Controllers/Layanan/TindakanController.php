@@ -22,7 +22,9 @@ class TindakanController extends Controller
      */
     public function index(LayananQuery $query)
     {
-        return TindakanResource::collection(Tindakan::filter($query));
+        return TindakanResource::collection(
+            Tindakan::with('petugas', 'tindakan_pemeriksaan')->filter($query)
+        );
     }
 
     /**
