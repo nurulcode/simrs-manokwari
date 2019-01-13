@@ -15,4 +15,9 @@ class Model extends BaseModel
      * @var array
      */
     protected $dates = ['waktu'];
+
+    public function perawatan()
+    {
+        return $this->morphTo();
+    }
 }

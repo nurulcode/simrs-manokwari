@@ -2,9 +2,11 @@
 
 namespace Tests\Unit\Layanan;
 
+use App\Enums;
 use Tests\TestCase;
 use App\Models\Layanan\Tindakan;
 use App\Models\Kepegawaian\Pegawai;
+use App\Models\Perawatan\RawatInap;
 use App\Models\Master\TindakanPemeriksaan;
 
 class TindakanTest extends TestCase
@@ -23,5 +25,45 @@ class TindakanTest extends TestCase
         $resource = factory(Tindakan::class)->create();
 
         $this->assertInstanceOf(TindakanPemeriksaan::class, $resource->tindakan_pemeriksaan);
+    }
+
+    /** @test */
+    public function resource_belongs_to_perawatan()
+    {
+        $resource = factory(Tindakan::class)->create([
+            'perawatan_type' => RawatInap::class
+        ]);
+
+        $this->assertInstanceOf(RawatInap::class, $resource->perawatan);
+    }
+
+    /** @test */
+    public function it_copy_the_tarif_attribute_from_master_tindakan_pemeriksaan()
+    {
+        $perawatan = factory(RawatInap::class)->create();
+        $master    = factory(TindakanPemeriksaan::class)->create();
+
+        $perawatan = RawatInap::find($perawatan->id);
+
+        $master->tarif()->create([
+            'data' => [
+                $perawatan->kelas => [
+                    Enums\JenisTarif::SARANA    => 15000,
+                    Enums\JenisTarif::PELAYANAN => 10000,
+                    Enums\JenisTarif::BHP       => 0
+                ]
+            ]
+        ]);
+
+        $resource = factory(Tindakan::class)->create([
+            'perawatan_type'          => RawatInap::class,
+            'perawatan_id'            => $perawatan->id,
+            'tindakan_pemeriksaan_id' => $master->id,
+        ]);
+
+        $this->assertSame(
+            $master->tarif->getTarifKelas($perawatan->kelas),
+            $resource->tarif
+        );
     }
 }

@@ -19,6 +19,11 @@ trait BelongsToRuangan
             $builder->addSubSelect('poliklinik_id', Ruangan::select('poliklinik_id')
                 ->whereColumn('id', 'kamars.ruangan_id'));
         });
+
+        static::addGlobalScope('kelas', function (Builder $builder) use ($table) {
+            $builder->addSubSelect('kelas', Ruangan::select('kelas')
+                ->whereColumn('id', 'kamars.ruangan_id'));
+        });
     }
 
     public function ruangan()

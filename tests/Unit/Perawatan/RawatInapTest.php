@@ -61,6 +61,19 @@ class RawatInapTest extends TestCase
     }
 
     /** @test */
+    public function a_rawatinap_have_virtual_kelas()
+    {
+        $rawatinap = factory(RawatInap::class)->create();
+
+        $rawatinap = RawatInap::find($rawatinap->id);
+
+        $this->assertSame(
+            $rawatinap->ranjang->kamar->ruangan->kelas,
+            $rawatinap->kelas
+        );
+    }
+
+    /** @test */
     public function a_rawatinap_have_virtual_poliklinik_id()
     {
         $rawatinap = factory(RawatInap::class)->create();

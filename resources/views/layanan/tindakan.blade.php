@@ -1,4 +1,4 @@
-<data-table v-bind.sync="tindakan" ref="table_tindakan" title="Tindakan">
+<data-table v-bind.sync="tindakan" ref="table_tindakan" title="Tindakan" no-edit>
     <div slot="form">
         <div class="row">
             <div class="col-md-8">
@@ -63,6 +63,21 @@
     <template slot="waktu" slot-scope="{value}" v-if="value">
         @{{ value | date_time }}
     </template>
+    <template slot="tindakan_pemeriksaan" slot-scope="{value, item}" v-if="value">
+        @{{ value.uraian }}
+        <p class="text-muted">
+            Jumlah: @{{ item.jumlah }} x
+        </p>
+    </template>
+    <template slot="tarif_sarana" slot-scope="{item}">
+        @{{ item.tarif && item.tarif.tarif_sarana }}
+    </template>
+    <template slot="tarif_pelayanan" slot-scope="{item}">
+        @{{ item.tarif && item.tarif.tarif_pelayanan }}
+    </template>
+    <template slot="tarif_bhp" slot-scope="{item}">
+        @{{ item.tarif && item.tarif.tarif_bhp }}
+    </template>
 </data-table>
 
 
@@ -82,9 +97,6 @@ window.pagemix.push({
                     label    : 'Waktu Pemeriksaan'
                 },{
                     key      : 'tindakan_pemeriksaan',
-                    formatter: tindakan => tindakan && tindakan.uraian
-                },{
-                    key      : 'jumlah'
                 },{
                     key      : 'tarif_sarana',
                 },{

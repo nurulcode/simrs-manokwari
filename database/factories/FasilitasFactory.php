@@ -6,6 +6,8 @@ use App\Models\Fasilitas\Ranjang;
 use App\Models\Fasilitas\Ruangan;
 use App\Models\Fasilitas\Poliklinik;
 use App\Models\Master\JenisPoliklinik;
+use App\Enums\KelasRuangan;
+use App\Enums\JenisRuangan;
 
 $factory->define(Poliklinik::class, function (Faker $faker) {
     return [
@@ -24,8 +26,8 @@ $factory->define(Ruangan::class, function (Faker $faker) {
         },
         'kode'  => $faker->unique()->swiftBicNumber,
         'nama'  => $faker->word,
-        'kelas' => 1,
-        'jenis' => 1
+        'kelas' => KelasRuangan::getRandomValue(),
+        'jenis' => JenisRuangan::getRandomValue()
     ];
 });
 

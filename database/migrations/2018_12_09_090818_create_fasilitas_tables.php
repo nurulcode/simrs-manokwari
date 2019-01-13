@@ -97,6 +97,8 @@ class CreateFasilitasTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('poliklinik_tindakan_pemeriksaan');
+
         Schema::dropIfExists('ranjangs');
 
         Schema::dropIfExists('kamars');

@@ -22,7 +22,7 @@ trait BelongsToRanjang
 
         static::addGlobalScope('ranjang', function (Builder $builder) use ($table) {
             $ranjang = Ranjang::selectRaw(
-                'id as ranjang_id, ranjangs.kamar_id, ruangan_id, poliklinik_id'
+                'id as ranjang_id, ranjangs.kamar_id, ruangan_id, poliklinik_id, kelas'
             );
 
             $builder->leftJoinSub($ranjang, 'ranjang', function ($join) use ($table) {

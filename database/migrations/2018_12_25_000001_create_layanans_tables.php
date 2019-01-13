@@ -50,9 +50,7 @@ class CreateLayanansTables extends Migration
             $table->unsignedInteger('jumlah');
             $table->dateTime('waktu');
             $table->unsignedInteger('petugas_id');
-            $table->unsignedInteger('tarif_sarana')->default(0);
-            $table->unsignedInteger('tarif_pelayanan')->default(0);
-            $table->unsignedInteger('tarif_bhp')->default(0);
+            $table->json('tarif')->default('{}');
             $table->timestamps();
 
             $table->foreign('petugas_id')

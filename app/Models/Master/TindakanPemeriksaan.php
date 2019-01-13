@@ -2,6 +2,7 @@
 
 namespace App\Models\Master;
 
+use App\Models\Tarif;
 use App\Models\Fasilitas\Poliklinik;
 
 class TindakanPemeriksaan extends Master
@@ -21,5 +22,10 @@ class TindakanPemeriksaan extends Master
     public function polikliniks()
     {
         return $this->belongsToMany(Poliklinik::class);
+    }
+
+    public function tarif()
+    {
+        return $this->morphOne(Tarif::class, 'tarifable')->withDefault();
     }
 }

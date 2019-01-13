@@ -22,14 +22,12 @@ class TindakanResource extends JsonResource
             'tindakan_pemeriksaan'    => TindakanPemeriksaanResource::make(
                 $this->whenLoaded('tindakan_pemeriksaan')
             ),
-            'jumlah'          => $this->jumlah,
-            'petugas_id'      => $this->petugas_id,
-            'petugas'         => PegawaiResource::make($this->whenLoaded('petugas')),
-            'waktu'           => $this->waktu,
-            'tarif_sarana'    => $this->tarif_sarana,
-            'tarif_pelayanan' => $this->tarif_pelayanan,
-            'tarif_bhp'       => $this->tarif_bhp,
-            'path'            => $this->path,
+            'jumlah'     => $this->jumlah,
+            'petugas_id' => $this->petugas_id,
+            'petugas'    => PegawaiResource::make($this->whenLoaded('petugas')),
+            'waktu'      => $this->waktu,
+            'tarif'      => $this->tarif,
+            'path'       => $this->path,
         ];
     }
 }

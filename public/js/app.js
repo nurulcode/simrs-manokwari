@@ -25987,8 +25987,7 @@ var HANDLER = '_outside_click_handler';
       return {
         class: 'text-center',
         label: 'Aksi',
-        key: 'dt-action',
-        thStyle: 'width:150px'
+        key: 'dt-action'
       };
     }
   },
