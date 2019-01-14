@@ -26,6 +26,8 @@ class TindakanPemeriksaan extends Master
 
     public function tarif()
     {
-        return $this->morphOne(Tarif::class, 'tarifable')->withDefault();
+        return $this->morphOne(Tarif::class, 'tarifable')->withDefault([
+            'data' => with(new Tarif)->data
+        ]);
     }
 }

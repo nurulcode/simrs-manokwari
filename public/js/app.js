@@ -2394,7 +2394,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return;
       }
 
-      this.$refs.form.post(this.url).then(function (response) {
+      this.$refs.form.post(this.postUrl || this.url).then(function (response) {
         return _this2.response(response);
       }).catch(function (error) {
         return _this2.exception(error);
@@ -2703,7 +2703,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).catch(function (error) {
         _this2.isLoading = false;
 
-        if (error.response.status != 422) {
+        if (error.response && error.response.status != 422) {
           _this2.hide();
 
           _this2.promise.reject(error);
@@ -26073,6 +26073,10 @@ var HANDLER = '_outside_click_handler';
     type: Number,
     default: 5
   },
+  postUrl: {
+    type: String,
+    required: false
+  },
   sortBy: {
     type: String,
     default: 'id',
@@ -26354,8 +26358,8 @@ function () {
       this[field] = value;
     }
   }, {
-    key: "data",
-    value: function data() {
+    key: "getFormData",
+    value: function getFormData() {
       var _this2 = this;
 
       var data = {};
@@ -26407,7 +26411,7 @@ function () {
 
       this.is_loading = true;
       return new Promise(function (resolve, reject) {
-        __WEBPACK_IMPORTED_MODULE_0_axios___default.a[method.toLowerCase()](url, _this5.data()).then(function (response) {
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a[method.toLowerCase()](url, _this5.getFormData()).then(function (response) {
           resolve(response);
 
           _this5.onSuccess(response);

@@ -16,6 +16,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('user/password',      'UserPasswordUpdateController')->name('user.password');
     Route::put('user/{user}/toggle', 'UserActivationToggleController')->name('user.toggle');
 
+    Route::post('tarif', 'StoreTarifController');
+
     Route::apiResources([
         'activity'    => 'ActivityController',
         'kunjungan'   => 'KunjunganController',

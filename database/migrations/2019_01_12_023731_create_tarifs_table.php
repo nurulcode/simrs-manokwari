@@ -14,11 +14,12 @@ class CreateTarifsTable extends Migration
     public function up()
     {
         Schema::create('tarifs', function (Blueprint $table) {
-            $table->increments('id');
             $table->string('tarifable_type');
             $table->unsignedInteger('tarifable_id');
             $table->json('data');
             $table->timestamps();
+
+            $table->primary(['tarifable_type', 'tarifable_id']);
         });
     }
 

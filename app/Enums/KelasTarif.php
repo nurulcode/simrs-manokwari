@@ -3,8 +3,9 @@
 namespace App\Enums;
 
 use BenSampo\Enum\Enum;
+use BenSampo\Enum\Contracts\LocalizedEnum;
 
-final class KelasTarif extends Enum
+final class KelasTarif extends Enum implements LocalizedEnum
 {
     const RAWAT_JALAN   = 0;
     const RAWAT_DARURAT = 0;

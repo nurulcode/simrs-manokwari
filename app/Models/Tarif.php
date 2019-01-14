@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Enums\KelasTarif;
 use App\Enums\JenisTarif;
+use App\Enums\KelasTarif;
+use Illuminate\Database\Eloquent\Model;
 
 class Tarif extends Model
 {
@@ -13,7 +13,7 @@ class Tarif extends Model
      *
      * @var array
      */
-    protected $fillable = ['data'];
+    protected $fillable = ['data', 'tarifable_type', 'tarifable_id'];
 
     public function setDataAttribute($value)
     {

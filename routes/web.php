@@ -26,6 +26,10 @@ Route::middleware(['auth'])->group(function () {
         Route::view('fasilitas', 'fasilitas.index');
     });
 
+    Route::middleware('can:manage_tarif')->group(function () {
+        Route::view('tarif', 'tarif.index');
+    });
+
     Route::middleware('can:manage_pasien')->group(function () {
         Route::view('pasien', 'pasien');
     });
