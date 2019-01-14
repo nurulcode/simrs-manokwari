@@ -3,11 +3,7 @@
 @section('title', 'Master Daftar Kasus Management')
 
 @section('card')
-    <data-table v-bind.sync="resource" ref="table"
-        @cannot('create', App\Models\Master\Kasus::class)
-            no-add-button-text
-        @endcannot
-        >
+    <data-table v-bind.sync="resource" ref="table">
         <div slot="form">
             <b-form-group v-bind="resource.form.feedback('kode')">
                 <b slot="label">Kode:</b>

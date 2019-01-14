@@ -3,11 +3,7 @@
 @section('title', 'Master Daftar Pendidikan Management')
 
 @section('card')
-    <data-table v-bind.sync="resource" ref="table"
-        @cannot('create', App\Models\Master\Pendidikan::class)
-            no-add-button-text
-        @endcannot
-        >
+    <data-table v-bind.sync="resource" ref="table">
         <div slot="form">
             <b-form-group v-bind="resource.form.feedback('uraian')">
                 <b slot="label">Uraian:</b>
