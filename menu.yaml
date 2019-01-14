@@ -83,6 +83,9 @@
       title: Daftar Pekerjaan
       link : master/pekerjaan
     -
+      title: Daftar Pemeriksaan Umum
+      link : master/pemeriksaan-umum
+    -
       title: Daftar Pendidikan
       link : master/pendidikan
     -

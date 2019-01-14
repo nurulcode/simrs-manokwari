@@ -2,24 +2,11 @@
 
 namespace App\Models\Master;
 
+use App\Models\BelongsToItself;
+
 class CaraPembayaran extends Master
 {
-    /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = ['parent'];
-
-    public function parent()
-    {
-        return $this->belongsTo(self::class);
-    }
-
-    public function childs()
-    {
-        return $this->hasMany(self::class, 'parent_id');
-    }
+    use BelongsToItself;
 
     public function scopeOnlyFirstLevel($query)
     {

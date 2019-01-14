@@ -4,20 +4,11 @@ namespace App\Models\Master;
 
 use App\Models\Tarif;
 use App\Models\Fasilitas\Poliklinik;
+use App\Models\BelongsToItself;
 
 class TindakanPemeriksaan extends Master
 {
-    /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = ['parent'];
-
-    public function parent()
-    {
-        return $this->belongsTo(self::class);
-    }
+    use BelongsToItself;
 
     public function polikliniks()
     {

@@ -2,19 +2,18 @@
 
 namespace App\Models\Master;
 
+use App\Models\BelongsToItself;
+
 class Kegiatan extends Master
 {
+    use BelongsToItself;
+
     /**
      * The relations to eager load on every query.
      *
      * @var array
      */
-    protected $with = ['kategori', 'parent'];
-
-    public function parent()
-    {
-        return $this->belongsTo(self::class);
-    }
+    protected $with = ['kategori'];
 
     public function kategori()
     {
