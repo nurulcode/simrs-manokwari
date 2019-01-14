@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLayanansTables extends Migration
+class CreateLayananDiagnosasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLayanansTables extends Migration
      */
     public function up()
     {
-        Schema::create('diagnosas', function (Blueprint $table) {
+        Schema::create('layanan_diagnosas', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('perawatan_id');
             $table->string('perawatan_type');
@@ -41,29 +41,6 @@ class CreateLayanansTables extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
         });
-
-        Schema::create('tindakans', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('perawatan_id');
-            $table->string('perawatan_type');
-            $table->unsignedInteger('tindakan_pemeriksaan_id');
-            $table->unsignedInteger('jumlah');
-            $table->dateTime('waktu');
-            $table->unsignedInteger('petugas_id');
-            $table->json('tarif')->default('{}');
-            $table->timestamps();
-
-            $table->foreign('petugas_id')
-                ->references('id')
-                ->on('pegawais')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
-            $table->foreign('tindakan_pemeriksaan_id')
-                ->references('id')
-                ->on('tindakan_pemeriksaans')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
-        });
     }
 
     /**
@@ -73,8 +50,6 @@ class CreateLayanansTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tindakans');
-
-        Schema::dropIfExists('diagnosas');
+        Schema::dropIfExists('layanan_diagnosas');
     }
 }
