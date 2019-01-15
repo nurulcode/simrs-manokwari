@@ -6,6 +6,13 @@ use App\Models\Master\TindakanPemeriksaan;
 
 class Tindakan extends Model
 {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'layanan_tindakans';
+
     protected static function boot()
     {
         parent::boot();

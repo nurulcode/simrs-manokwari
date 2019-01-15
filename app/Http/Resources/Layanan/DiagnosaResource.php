@@ -17,16 +17,22 @@ class DiagnosaResource extends JsonResource
      */
     public function toArray($request)
     {
+        $penyakit = PenyakitResource::make($this->whenLoaded('penyakit'));
+
+        $tipe     = Resource::make($this->whenLoaded('tipe'));
+
+        $petugas  = PegawaiResource::make($this->whenLoaded('petugas'));
+
         return [
             'id'               => $this->id,
-            'lama_menderita'   => $this->lama_menderita,
             'kasus'            => $this->kasus,
+            'lama_menderita'   => $this->lama_menderita,
             'penyakit_id'      => $this->penyakit_id,
-            'penyakit'         => PenyakitResource::make($this->whenLoaded('penyakit')),
-            'tipe_diagnosa_id' => $this->tipe_diagnosa_id,
-            'tipe'             => Resource::make($this->whenLoaded('tipe')),
+            'penyakit'         => $penyakit,
             'petugas_id'       => $this->petugas_id,
-            'petugas'          => PegawaiResource::make($this->whenLoaded('petugas')),
+            'petugas'          => $petugas,
+            'tipe_diagnosa_id' => $this->tipe_diagnosa_id,
+            'tipe'             => $tipe,
             'waktu'            => $this->waktu,
             'path'             => $this->path,
         ];

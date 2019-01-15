@@ -2,7 +2,8 @@
 
 Route::namespace('Layanan')->group(function () {
     Route::apiResources([
-        'diagnosa' => 'DiagnosaController',
-        'tindakan' => 'TindakanController',
+        'diagnosa'    => 'DiagnosaController',
+        'pemeriksaan' => 'PemeriksaanController',
+        'tindakan'    => 'TindakanController',
     ]);
 });

@@ -87,9 +87,6 @@
         @{{ value.icd }} - @{{ value.uraian }}
         <p class="text-muted"> @{{ item.tipe.uraian }} </p>
     </template>
-    <template slot="waktu" slot-scope="{value}" v-if="value">
-        @{{ value | date_time }}
-    </template>
 </data-table>
 
 
@@ -106,14 +103,15 @@ window.pagemix.push({
                 },
                 fields: [{
                     key      : 'waktu',
-                    label    : 'Waktu Diagnosa'
+                    label    : 'Waktu Diagnosa',
+                    formatter: waktu => waktu ? window.date_time(waktu) : ''
                 },{
                     key      : 'penyakit',
                 },{
                     key      : 'lama_menderita'
                 }, {
                     key      : 'petugas',
-                    formatter: petugas => petugas.nama
+                    formatter: petugas => petugas && petugas.nama
                 }],
                 form: new Form({
                     perawatan_id    : @json($perawatan->id),

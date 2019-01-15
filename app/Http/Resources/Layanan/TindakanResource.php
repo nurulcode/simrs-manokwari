@@ -16,18 +16,20 @@ class TindakanResource extends JsonResource
      */
     public function toArray($request)
     {
+        $tindakan = TindakanPemeriksaanResource::make($this->whenLoaded('tindakan_pemeriksaan'));
+
+        $petugas  = PegawaiResource::make($this->whenLoaded('petugas'));
+
         return [
             'id'                      => $this->id,
+            'jumlah'                  => $this->jumlah,
+            'petugas_id'              => $this->petugas_id,
+            'petugas'                 => $petugas,
+            'waktu'                   => $this->waktu,
+            'tarif'                   => $this->tarif,
             'tindakan_pemeriksaan_id' => $this->tindakan_pemeriksaan_id,
-            'tindakan_pemeriksaan'    => TindakanPemeriksaanResource::make(
-                $this->whenLoaded('tindakan_pemeriksaan')
-            ),
-            'jumlah'     => $this->jumlah,
-            'petugas_id' => $this->petugas_id,
-            'petugas'    => PegawaiResource::make($this->whenLoaded('petugas')),
-            'waktu'      => $this->waktu,
-            'tarif'      => $this->tarif,
-            'path'       => $this->path,
+            'tindakan_pemeriksaan'    => $tindakan,
+            'path'                    => $this->path,
         ];
     }
 }

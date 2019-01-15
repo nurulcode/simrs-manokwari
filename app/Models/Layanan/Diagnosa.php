@@ -7,6 +7,13 @@ use App\Models\Master\Penyakit\Penyakit;
 
 class Diagnosa extends Model
 {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'layanan_diagnosas';
+
     public function penyakit()
     {
         return $this->belongsTo(Penyakit::class);

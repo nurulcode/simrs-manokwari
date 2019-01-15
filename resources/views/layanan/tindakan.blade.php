@@ -60,9 +60,6 @@
             </date-picker>
         </b-form-group>
     </div>
-    <template slot="waktu" slot-scope="{value}" v-if="value">
-        @{{ value | date_time }}
-    </template>
     <template slot="tindakan_pemeriksaan" slot-scope="{value, item}" v-if="value">
         @{{ value.uraian }}
         <p class="text-muted">
@@ -94,7 +91,8 @@ window.pagemix.push({
                 },
                 fields: [{
                     key      : 'waktu',
-                    label    : 'Waktu Pemeriksaan'
+                    label    : 'Waktu Pemeriksaan',
+                    formatter: waktu => waktu ? window.date_time(waktu) : ''
                 },{
                     key      : 'tindakan_pemeriksaan',
                 },{
