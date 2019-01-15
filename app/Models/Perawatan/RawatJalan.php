@@ -2,6 +2,7 @@
 
 namespace App\Models\Perawatan;
 
+use Carbon\Carbon;
 use App\Models\Model;
 use App\Models\Fasilitas\Poliklinik;
 
@@ -35,5 +36,21 @@ class RawatJalan extends Model
     public function poliklinik()
     {
         return $this->belongsTo(Poliklinik::class);
+    }
+
+    public function scopeHariIni($query)
+    {
+        return $query->hari(Carbon::now());
+    }
+
+    public function scopeHari($query, $date)
+    {
+        if (!$date instanceof Carbon) {
+            $date = new Carbon($date);
+        }
+
+        return $query->whereBetween('waktu_kunjungan', [
+            $date->startOfDay(), $date->copy()->endOfDay()
+        ]);
     }
 }

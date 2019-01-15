@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use App\Models\Perawatan\RawatInap;
 use App\Models\Perawatan\RawatJalan;
 use App\Models\Perawatan\RawatDarurat;
 use App\Models\Master\Penyakit\Penyakit;
-use App\Models\Perawatan\RawatInap;
 
 class Kunjungan extends Model
 {
@@ -123,5 +124,21 @@ class Kunjungan extends Model
     public function penyakit()
     {
         return $this->belongsTo(Penyakit::class);
+    }
+
+    public function scopeHariIni($query)
+    {
+        return $query->hari(Carbon::now());
+    }
+
+    public function scopeHari($query, $date)
+    {
+        if (!$date instanceof Carbon) {
+            $date = new Carbon($date);
+        }
+
+        return $query->whereBetween('waktu_kunjungan', [
+            $date->startOfDay(), $date->copy()->endOfDay()
+        ]);
     }
 }

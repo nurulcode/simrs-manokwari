@@ -3,6 +3,7 @@
 namespace App\Models\Fasilitas;
 
 use App\Models\Model;
+use App\Models\Perawatan\RawatInap;
 
 class Ranjang extends Model
 {
@@ -52,6 +53,18 @@ class Ranjang extends Model
                                 });
                         });
                 });
+        });
+    }
+
+    public function rawat_inaps()
+    {
+        return $this->hasMany(RawatInap::class);
+    }
+
+    public function scopeTerisi($query)
+    {
+        return $query->whereHas('rawat_inaps', function ($query) {
+            $query->whereNull('waktu_keluar');
         });
     }
 }

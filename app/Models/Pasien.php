@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Master\Wilayah\BelongsToKelurahan;
 
@@ -52,5 +53,21 @@ class Pasien extends Model
     public function pekerjaan()
     {
         return $this->belongsTo(Master\Pekerjaan::class);
+    }
+
+    public function scopeHariIni($query)
+    {
+        return $query->hari(Carbon::now());
+    }
+
+    public function scopeHari($query, $date)
+    {
+        if (!$date instanceof Carbon) {
+            $date = new Carbon($date);
+        }
+
+        return $query->whereBetween('tanggal_registrasi', [
+            $date->startOfDay(), $date->copy()->endOfDay()
+        ]);
     }
 }
