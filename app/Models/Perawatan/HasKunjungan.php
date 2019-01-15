@@ -15,13 +15,16 @@ trait HasKunjungan
         });
 
         static::created(function ($model) {
-            $model->perawatan()->create(['kunjungan_id' => $model->kunjungan_id]);
+            $model->registrasi()->create([
+                'kunjungan_id'        => $model->kunjungan_id,
+                'jenis_registrasi_id' => $model->jenis_registrasi_id
+            ]);
         });
     }
 
-    public function perawatan()
+    public function registrasi()
     {
-        return $this->morphOne(Perawatan::class, 'perawatan');
+        return $this->morphOne(Registrasi::class, 'perawatan');
     }
 
     public function kunjungan()

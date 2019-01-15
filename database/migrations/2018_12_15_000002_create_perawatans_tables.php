@@ -13,13 +13,19 @@ class CreatePerawatansTables extends Migration
      */
     public function up()
     {
-        Schema::create('perawatans', function (Blueprint $table) {
+        Schema::create('registrasis', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('jenis_registrasi_id');
             $table->unsignedInteger('kunjungan_id');
-            $table->unsignedInteger('perawatan_id');
-            $table->string('perawatan_type');
+            $table->unsignedInteger('perawatan_id')->nullable();
+            $table->string('perawatan_type')->nullable();
             $table->timestamps();
 
+            $table->foreign('jenis_registrasi_id')
+                ->references('id')
+                ->on('jenis_registrasis')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
             $table->foreign('kunjungan_id')
                 ->references('id')
                 ->on('kunjungans')

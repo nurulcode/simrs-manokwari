@@ -4,7 +4,7 @@ namespace App\Models\Perawatan;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Perawatan extends Model
+class Registrasi extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class Perawatan extends Model
      * @var array
      */
     protected $fillable = [
-        'kunjungan_id', 'perawatan_id', 'perawatan_type'
+        'kunjungan_id', 'perawatan_id', 'perawatan_type', 'jenis_registrasi_id'
     ];
 
     public function perawatan()
