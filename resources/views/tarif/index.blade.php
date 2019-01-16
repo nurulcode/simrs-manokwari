@@ -18,7 +18,7 @@
             >
         </input>
     </b-form-group>
-    <template v-for="kelas in Object.keys(form.data)">
+    <template v-for="kelas in Object.keys(form.tarif)">
         <hr>
         <h6>@{{ kelas_tarif[kelas] }}</h6>
         <div class="row">
@@ -27,7 +27,7 @@
                     <input
                         class="form-control"
                         type="number"
-                        v-model="form.data[kelas].tarif_sarana"
+                        v-model="form.tarif[kelas].tarif_sarana"
                         >
                     </input>
                 </b-form-group>
@@ -37,7 +37,7 @@
                     <input
                         class="form-control"
                         type="number"
-                        v-model="form.data[kelas].tarif_pelayanan"
+                        v-model="form.tarif[kelas].tarif_pelayanan"
                         >
                     </input>
                 </b-form-group>
@@ -47,7 +47,7 @@
                     <input
                         class="form-control"
                         type="number"
-                        v-model="form.data[kelas].tarif_bhp"
+                        v-model="form.tarif[kelas].tarif_bhp"
                         >
                     </input>
                 </b-form-group>
@@ -66,20 +66,23 @@ window.pagemix.push({
             form: new Form({
                 tarifable_type: null,
                 tarifable_id  : null,
-                data: {}
+                tarif: {}
             }),
             edite: '',
             kelas_tarif: @json(App\Enums\KelasTarif::toSelectArray())
         }
     },
     methods: {
-        setTarif(title, tarif) {
+        setTarif(title, tarif, table) {
             this.edite = title;
+
             this.form.assign(tarif);
 
             this.$refs.form.post(`{{ action('StoreTarifController') }}`)
                 .then(response => {
-                    console.log(response);
+                    window.flash(response.data.message, response.data.status);
+
+                    this.$refs[table].refresh();
                 })
                 .catch(error => {
                     console.log(error);

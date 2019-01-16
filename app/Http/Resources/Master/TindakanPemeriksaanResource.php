@@ -23,7 +23,11 @@ class TindakanPemeriksaanResource extends JsonResource
             'uraian'      => $this->uraian,
             'jenis'       => $this->jenis,
             'polikliniks' => PoliklinikResource::collection($this->whenLoaded('polikliniks')),
-            'tarif'       => $this->whenLoaded('tarif'),
+            'tarif'       => [
+                'tarifable_type' => get_class($this->resource),
+                'tarifable_id'   => $this->id,
+                'tarif'          => $this->tarif
+            ],
             'path'        => $this->path,
         ];
     }

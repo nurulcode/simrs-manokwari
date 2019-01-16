@@ -21,7 +21,7 @@ class Tindakan extends Model
             $master = $model->tindakan_pemeriksaan;
             $kelas  = $model->perawatan->kelas;
 
-            $model->tarif = $master->tarif->getTarifKelas($kelas);
+            $model->tarif = $master->getTarifByKelas($kelas);
         });
     }
 

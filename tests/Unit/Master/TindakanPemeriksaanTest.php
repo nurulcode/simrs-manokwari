@@ -3,7 +3,6 @@
 namespace Tests\Unit\Master;
 
 use Tests\TestCase;
-use App\Models\Tarif;
 use Illuminate\Support\Collection;
 use App\Models\Fasilitas\Poliklinik;
 use App\Models\Master\TindakanPemeriksaan;
@@ -40,13 +39,5 @@ class TindakanPemeriksaanTest extends TestCase
         $this->assertEquals($tindakan->polikliniks->count(), 10);
 
         $this->assertInstanceOf(Poliklinik::class, $tindakan->polikliniks->random());
-    }
-
-    /** @test */
-    public function resource_has_many_tarif()
-    {
-        $tindakan = factory(TindakanPemeriksaan::class)->create();
-
-        $this->assertInstanceof(Tarif::class, $tindakan->tarif);
     }
 }

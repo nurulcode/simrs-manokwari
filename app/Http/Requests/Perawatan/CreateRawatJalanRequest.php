@@ -30,4 +30,18 @@ class CreateRawatJalanRequest extends KunjunganRequest
             'poliklinik_id'       => 'required|exists:polikliniks,id',
         ]);
     }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return array_merge(parent::attributes(),  [
+            'jenis_registrasi_id' => 'jenis registrasi',
+            'kegiatan_id'         => 'kegiatan',
+            'poliklinik_id'       => 'poliklinik'
+        ]);
+    }
 }

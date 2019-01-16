@@ -12,7 +12,10 @@ class Registrasi extends Model
      * @var array
      */
     protected $fillable = [
-        'kunjungan_id', 'perawatan_id', 'perawatan_type', 'jenis_registrasi_id'
+        'jenis_registrasi_id',
+        'kunjungan_id',
+        'perawatan_id',
+        'perawatan_type',
     ];
 
     public function perawatan()

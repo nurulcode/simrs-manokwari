@@ -5,6 +5,7 @@ namespace App\Models\Perawatan;
 use Carbon\Carbon;
 use App\Models\Model;
 use App\Models\Fasilitas\Poliklinik;
+use App\Enums\KelasTarif;
 
 class RawatJalan extends Model
 {
@@ -52,5 +53,10 @@ class RawatJalan extends Model
         return $query->whereBetween('waktu_kunjungan', [
             $date->startOfDay(), $date->copy()->endOfDay()
         ]);
+    }
+
+    public function getKelasAttribute()
+    {
+        return KelasTarif::UMUM;
     }
 }

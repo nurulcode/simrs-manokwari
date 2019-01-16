@@ -16,7 +16,7 @@ class StoreTarifController extends Controller
 
         Tarif::updateOrCreate(
             $request->only(['tarifable_type', 'tarifable_id']),
-            $request->only(['data'])
+            $request->only(['tarif'])
         );
 
         return response()->crud($tarifable);

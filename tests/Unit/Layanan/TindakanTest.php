@@ -41,17 +41,18 @@ class TindakanTest extends TestCase
     public function it_copy_the_tarif_attribute_from_master_tindakan_pemeriksaan()
     {
         $perawatan = factory(RawatInap::class)->create();
+
         $master    = factory(TindakanPemeriksaan::class)->create();
 
         $perawatan = RawatInap::find($perawatan->id);
 
         $master->tarif()->create([
-            'data' => [
+            'tarif' => [
                 $perawatan->kelas => [
                     Enums\JenisTarif::SARANA    => 15000,
                     Enums\JenisTarif::PELAYANAN => 10000,
                     Enums\JenisTarif::BHP       => 0
-                ]
+                ],
             ]
         ]);
 
@@ -61,8 +62,10 @@ class TindakanTest extends TestCase
             'tindakan_pemeriksaan_id' => $master->id,
         ]);
 
+        $master = TindakanPemeriksaan::find($master->id);
+
         $this->assertSame(
-            $master->tarif->getTarifKelas($perawatan->kelas),
+            $master->getTarifByKelas($perawatan->kelas),
             $resource->tarif
         );
     }

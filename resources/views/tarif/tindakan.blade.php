@@ -1,4 +1,4 @@
-<data-table v-bind.sync="tindakan" ref="table" no-action no-add-button-text >
+<data-table v-bind.sync="tindakan" ref="table_tindakan" no-action no-add-button-text >
     <template slot="uraian" slot-scope="{item, value}">
         @{{ value }}
         <p>
@@ -22,7 +22,7 @@
     <template slot="action" slot-scope="{item}">
         <button
             class="btn btn-primary"
-            v-on:click="setTarif(item.uraian, item.tarif)">
+            v-on:click="setTarif(item.uraian, item.tarif, 'table_tindakan')">
             Ubah Tarif
         </button>
     </template>
