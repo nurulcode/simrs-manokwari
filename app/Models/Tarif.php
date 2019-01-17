@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\KelasTarif;
 
 class Tarif extends Model
 {
@@ -17,6 +18,14 @@ class Tarif extends Model
 
     public function setTarifAttribute($value)
     {
-        $this->attributes['tarif'] = json_encode($value);
+        $current = json_decode(array_get($this->attributes, 'tarif', '{}'), true);
+
+        foreach (array_unique(KelasTarif::getValues()) as $kelas) {
+            if (array_key_exists($kelas, $value)) {
+                array_set($current, $kelas, array_get($value, $kelas));
+            }
+        }
+
+        $this->attributes['tarif'] = json_encode($current);
     }
 }
