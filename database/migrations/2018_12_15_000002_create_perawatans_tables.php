@@ -30,7 +30,7 @@ class CreatePerawatansTables extends Migration
                 ->references('id')
                 ->on('kunjungans')
                 ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
         });
 
         Schema::create('rawat_jalans', function (Blueprint $table) {
@@ -48,7 +48,7 @@ class CreatePerawatansTables extends Migration
                 ->references('id')
                 ->on('kunjungans')
                 ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
             $table->foreign('jenis_registrasi_id')
                 ->references('id')
                 ->on('jenis_registrasis')
@@ -81,7 +81,7 @@ class CreatePerawatansTables extends Migration
                 ->references('id')
                 ->on('kunjungans')
                 ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
             $table->foreign('jenis_registrasi_id')
                 ->references('id')
                 ->on('jenis_registrasis')

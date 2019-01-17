@@ -24,10 +24,10 @@ $factory->define(App\Models\Kunjungan::class, function (Faker $faker) {
         'pasien_baru'     => $faker->randomElement([0, 1]),
         'rujukan_asal'    => $faker->company,
         'rujukan_nomor'   => $faker->word,
-        'rujukan_tanggal' => $faker->date,
+        'rujukan_tanggal' => $faker->dateTimeThisMonth,
         'pj_nama'         => $faker->name,
         'pj_telepon'      => $faker->phoneNumber,
         'sjp_nomor'       => $faker->word,
-        'sjp_tanggal'     => $faker->date
+        'sjp_tanggal'     => $faker->dateTimeThisMonth
     ];
 });
