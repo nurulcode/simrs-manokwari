@@ -22,7 +22,7 @@ class Kunjungan extends Model
      *
      * @var array
      */
-    protected $dates = ['waktu_kunjungan'];
+    protected $dates = ['waktu_kunjungan', 'rujukan_tanggal', 'sjp_tanggal'];
 
     /**
      * The accessors to append to the model's array form.
