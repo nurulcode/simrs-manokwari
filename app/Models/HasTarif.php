@@ -2,59 +2,30 @@
 
 namespace App\Models;
 
-use App\Enums\JenisTarif;
-use App\Enums\KelasTarif;
-use Illuminate\Database\Eloquent\Builder;
-
 trait HasTarif
 {
-    public static function bootHasTarif()
+    abstract public function getTarifReference();
+
+    abstract public function getTarifKelas();
+
+    protected static function bootHasTarif()
     {
-        static::addGlobalScope('tarif', function (Builder $builder) {
-            $builder->addSubSelect('tarif', Tarif::select('tarif')
-                ->where('tarifable_type', '=', get_called_class())
-                ->whereColumn('tarifable_id', $builder->getQuery()->from . '.id'));
+        static::creating(function ($model) {
+            $master = $model->getTarifReference();
+
+            $kelas  = $model->getTarifKelas();
+
+            $model->tarif = $master->getTarifByKelas($kelas);
         });
     }
 
-    public function tarif()
+    public function setTarifAttribute($value)
     {
-        return $this->morphOne(Tarif::class, 'tarifable');
+        $this->attributes['tarif'] = json_encode($value);
     }
 
     public function getTarifAttribute($value)
     {
-        $data = [];
-
-        foreach ($this->kelas_tarif as $kelas) {
-            array_set($data, $kelas, $this->getTarifByKelas($kelas));
-        }
-
-        return $data;
-    }
-
-    public function getTarifByKelas($kelas)
-    {
-        $value = json_decode(array_get($this->attributes, 'tarif', ''), true);
-
-        $tarif = array_get($value, $kelas, []);
-
-        $data  = [];
-
-        foreach ($this->jenis_tarif as $jenis) {
-            array_set($data, $jenis, array_get($tarif, $jenis, 0));
-        }
-
-        return $data;
-    }
-
-    public function getKelasTarifAttribute($value)
-    {
-        return array_unique(KelasTarif::getValues());
-    }
-
-    public function getJenisTarifAttribute()
-    {
-        return array_unique(JenisTarif::getValues());
+        return json_decode($value, true);
     }
 }

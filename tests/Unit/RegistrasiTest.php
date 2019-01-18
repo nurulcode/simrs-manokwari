@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use App\Enums;
 use Tests\TestCase;
-use App\Models\Perawatan\Registrasi;
+use App\Models\Registrasi;
 use App\Models\Master\JenisRegistrasi;
 
 class RegistrasiTest extends TestCase

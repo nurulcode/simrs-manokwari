@@ -4,10 +4,10 @@ namespace Tests\Unit\Perawatan;
 
 use Tests\TestCase;
 use App\Models\Kunjungan;
+use App\Models\Registrasi;
 use App\Models\Layanan\Diagnosa;
 use App\Models\Fasilitas\Poliklinik;
 use App\Models\Perawatan\RawatJalan;
-use App\Models\Perawatan\Registrasi;
 
 class RawatJalanTest extends TestCase
 {

@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Models\Perawatan;
-
-use App\Models\Layanan\Diagnosa;
+namespace App\Models\Layanan;
 
 trait HasDiagnosa
 {

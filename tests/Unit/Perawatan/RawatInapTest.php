@@ -5,6 +5,7 @@ namespace Tests\Unit\Perawatan;
 use Tests\TestCase;
 use App\Models\Fasilitas;
 use App\Models\Kunjungan;
+use App\Models\Registrasi;
 use App\Models\Perawatan\RawatInap;
 
 class RawatInapTest extends TestCase
@@ -28,6 +29,14 @@ class RawatInapTest extends TestCase
             'perawatan_type'      => get_class($resource),
             'jenis_registrasi_id' => $resource->jenis_registrasi_id
         ]);
+    }
+
+    /** @test */
+    public function resource_belongs_to_registrasi()
+    {
+        $resource = factory(RawatInap::class)->create();
+
+        $this->assertInstanceof(Registrasi::class, $resource->registrasi);
     }
 
     /** @test */

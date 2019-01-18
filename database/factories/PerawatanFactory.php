@@ -65,14 +65,3 @@ $factory->define(Perawatan\RawatInap::class, function (Faker $faker) {
         'aktifitas'       => Enums\Aktifitas::getRandomValue()
     ];
 });
-
-$factory->define(Perawatan\Registrasi::class, function (Faker $faker) {
-    return [
-        'kunjungan_id' => function () {
-            return factory(Kunjungan::class)->create()->id;
-        },
-        'jenis_registrasi_id' => function () {
-            return factory(Master\JenisRegistrasi::class)->create()->id;
-        },
-    ];
-});

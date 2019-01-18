@@ -31,3 +31,14 @@ $factory->define(App\Models\Kunjungan::class, function (Faker $faker) {
         'sjp_tanggal'     => $faker->dateTimeThisMonth
     ];
 });
+
+$factory->define(App\Models\Registrasi::class, function (Faker $faker) {
+    return [
+        'kunjungan_id' => function () {
+            return factory(App\Models\Kunjungan::class)->create()->id;
+        },
+        'jenis_registrasi_id' => function () {
+            return factory(Master\JenisRegistrasi::class)->create()->id;
+        },
+    ];
+});

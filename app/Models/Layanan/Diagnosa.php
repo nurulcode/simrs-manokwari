@@ -5,7 +5,7 @@ namespace App\Models\Layanan;
 use App\Models\Master\TipeDiagnosa;
 use App\Models\Master\Penyakit\Penyakit;
 
-class Diagnosa extends Model
+class Diagnosa extends Layanan
 {
     /**
      * The table associated with the model.

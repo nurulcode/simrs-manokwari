@@ -2,9 +2,9 @@
 
 namespace App\Models\Master;
 
-use App\Models\HasTarif;
+use App\Models\Tarifable;
 
 class JenisRegistrasi extends Master
 {
-    use HasTarif;
+    use Tarifable;
 }

@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Models\Perawatan;
-
-use App\Models\Kunjungan;
+namespace App\Models;
 
 trait HasKunjungan
 {

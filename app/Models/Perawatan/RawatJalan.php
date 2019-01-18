@@ -4,8 +4,10 @@ namespace App\Models\Perawatan;
 
 use Carbon\Carbon;
 use App\Models\Model;
-use App\Models\Fasilitas\Poliklinik;
 use App\Enums\KelasTarif;
+use App\Models\HasKunjungan;
+use App\Models\Layanan\HasDiagnosa;
+use App\Models\Fasilitas\Poliklinik;
 
 class RawatJalan extends Model
 {

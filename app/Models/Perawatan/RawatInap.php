@@ -4,6 +4,7 @@ namespace App\Models\Perawatan;
 
 use Carbon\Carbon;
 use App\Models\Model;
+use App\Models\HasKunjungan;
 use App\Models\Fasilitas\BelongsToRanjang;
 
 class RawatInap extends Model

@@ -2,10 +2,10 @@
 
 namespace App\Models\Layanan;
 
-use App\Models\Model as BaseModel;
+use App\Models\Model;
 use App\Models\Kepegawaian\BelongsToPegawai;
 
-class Model extends BaseModel
+class Layanan extends Model
 {
     use BelongsToPegawai;
 

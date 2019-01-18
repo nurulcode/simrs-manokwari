@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Perawatan;
+namespace App\Models;
 
 use App\Enums\KelasTarif;
 use App\Models\Master\JenisRegistrasi;
@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Registrasi extends Model
 {
+    use HasTarif;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,15 +22,14 @@ class Registrasi extends Model
         'perawatan_type',
     ];
 
-    protected static function boot()
+    public function getTarifReference()
     {
-        parent::boot();
+        return $this->jenis;
+    }
 
-        static::creating(function ($model) {
-            $master = $model->jenis;
-
-            $model->tarif = $master->getTarifByKelas(KelasTarif::UMUM);
-        });
+    public function getTarifKelas()
+    {
+        return KelasTarif::UMUM;
     }
 
     public function perawatan()
@@ -39,15 +40,5 @@ class Registrasi extends Model
     public function jenis()
     {
         return $this->belongsTo(JenisRegistrasi::class, 'jenis_registrasi_id');
-    }
-
-    public function setTarifAttribute($value)
-    {
-        $this->attributes['tarif'] = json_encode($value);
-    }
-
-    public function getTarifAttribute($value)
-    {
-        return json_decode($value, true);
     }
 }
