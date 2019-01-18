@@ -16,6 +16,17 @@
                     >
                 </input>
             </b-form-group>
+            <b-form-group v-bind="resource.form.feedback('kategori')">
+                <b slot="label">Kategori Registrasi:</b>
+                <b-form-select
+                    :options="{{ json_encode(App\Enums\KategoriRegistrasi::toSelectOptions()) }}"
+                    v-on:change="resource.errors.clear('kategori')"
+                    v-model="resource.form.kategori">
+                    <template slot="first">
+                        <option :value="null" disabled>Pilih Kategori Registrasi</option>
+                    </template>
+                </b-form-select>
+            </b-form-group>
         </div>
     </data-table>
 @endsection
@@ -32,7 +43,10 @@ window.pagemix.push({
                     key      : 'uraian',
                     sortable : true,
                 }],
-                form: new Form({uraian: null}),
+                form: new Form({
+                    uraian  : null,
+                    kategori: null
+                }),
             }
         }
     },
