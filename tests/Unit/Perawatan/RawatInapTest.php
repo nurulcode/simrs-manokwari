@@ -18,6 +18,19 @@ class RawatInapTest extends TestCase
     }
 
     /** @test */
+    public function creating_resource_also_create_pivot_registrasis()
+    {
+        $resource  = factory(RawatInap::class)->create();
+
+        $this->assertDatabaseHas('registrasis', [
+            'kunjungan_id'        => $resource->kunjungan_id,
+            'perawatan_id'        => $resource->id,
+            'perawatan_type'      => get_class($resource),
+            'jenis_registrasi_id' => $resource->jenis_registrasi_id
+        ]);
+    }
+
+    /** @test */
     public function a_rawatinap_have_virtual_kamar_id()
     {
         $rawatinap = factory(RawatInap::class)->create();

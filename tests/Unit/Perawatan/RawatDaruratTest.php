@@ -28,7 +28,7 @@ class RawatDaruratTest extends TestCase
     }
 
     /** @test */
-    public function creating_resource_also_create_pivot_perawatans()
+    public function creating_resource_also_create_pivot_registrasis()
     {
         $resource  = factory(RawatDarurat::class)->create();
 

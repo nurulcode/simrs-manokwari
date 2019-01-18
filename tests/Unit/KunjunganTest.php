@@ -5,11 +5,9 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\Pasien;
 use App\Models\Kunjungan;
+use App\Models\Perawatan;
 use Illuminate\Support\Collection;
-use App\Models\Perawatan\RawatJalan;
-use App\Models\Perawatan\RawatDarurat;
 use App\Models\Master\Penyakit\Penyakit;
-use App\Models\Perawatan\RawatInap;
 
 class KunjunganTest extends TestCase
 {
@@ -34,12 +32,12 @@ class KunjunganTest extends TestCase
     {
         $kunjungan     = factory(Kunjungan::class)->create();
 
-        $rawat_jalans = factory(RawatJalan::class, 5)->create([
+        $rawat_jalans = factory(Perawatan\RawatJalan::class, 5)->create([
             'kunjungan_id' => $kunjungan->id
         ]);
 
         $this->assertInstanceOf(Collection::class, $kunjungan->rawat_jalans);
-        $this->assertInstanceOf(RawatJalan::class, $kunjungan->rawat_jalans->random());
+        $this->assertInstanceOf(Perawatan\RawatJalan::class, $kunjungan->rawat_jalans->random());
     }
 
     /** @test */
@@ -47,12 +45,12 @@ class KunjunganTest extends TestCase
     {
         $kunjungan      = factory(Kunjungan::class)->create();
 
-        $rawat_darurats = factory(RawatDarurat::class, 5)->create([
+        $rawat_darurats = factory(Perawatan\RawatDarurat::class, 5)->create([
             'kunjungan_id' => $kunjungan->id
         ]);
 
         $this->assertInstanceOf(Collection::class, $kunjungan->rawat_darurats);
-        $this->assertInstanceOf(RawatDarurat::class, $kunjungan->rawat_darurats->random());
+        $this->assertInstanceOf(Perawatan\RawatDarurat::class, $kunjungan->rawat_darurats->random());
     }
 
     /** @test */
@@ -60,12 +58,12 @@ class KunjunganTest extends TestCase
     {
         $kunjungan   = factory(Kunjungan::class)->create();
 
-        $rawat_inaps = factory(RawatInap::class, 5)->create([
+        $rawat_inaps = factory(Perawatan\RawatInap::class, 5)->create([
             'kunjungan_id' => $kunjungan->id
         ]);
 
         $this->assertInstanceOf(Collection::class, $kunjungan->rawat_inaps);
-        $this->assertInstanceOf(RawatInap::class, $kunjungan->rawat_inaps->random());
+        $this->assertInstanceOf(Perawatan\RawatInap::class, $kunjungan->rawat_inaps->random());
     }
 
     /** @test */

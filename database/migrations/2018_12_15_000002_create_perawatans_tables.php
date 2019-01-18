@@ -19,6 +19,7 @@ class CreatePerawatansTables extends Migration
             $table->unsignedInteger('kunjungan_id');
             $table->unsignedInteger('perawatan_id')->nullable();
             $table->string('perawatan_type')->nullable();
+            $table->json('tarif')->nullable();
             $table->timestamps();
 
             $table->foreign('jenis_registrasi_id')
@@ -148,6 +149,6 @@ class CreatePerawatansTables extends Migration
 
         Schema::dropIfExists('rawat_jalans');
 
-        Schema::dropIfExists('perawatans');
+        Schema::dropIfExists('registrasis');
     }
 }
