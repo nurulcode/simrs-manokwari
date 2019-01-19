@@ -3,6 +3,8 @@
 namespace Tests\Feature\Perawatan;
 
 use Tests\TestCase;
+use App\Models\Kunjungan;
+use App\Models\Registrasi;
 use App\Models\Perawatan\RawatJalan;
 
 class RawatJalanWebControllerTest extends TestCase
@@ -25,7 +27,15 @@ class RawatJalanWebControllerTest extends TestCase
         $admin = $this->createAdmin();
         $user  = $this->createUser();
 
-        $resource = factory(RawatJalan::class)->create();
+        $resource   = factory(RawatJalan::class)->create();
+
+        $kunjungan  = factory(Kunjungan::class)->create();
+
+        $registrasi = factory(Registrasi::class)->create([
+            'kunjungan_id'   => $kunjungan->id,
+            'perawatan_type' => get_class($resource),
+            'perawatan_id'   => $resource->id
+        ]);
 
         $this
             // ->disableExceptionHandling()

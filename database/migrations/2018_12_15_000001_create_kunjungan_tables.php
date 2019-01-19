@@ -15,11 +15,10 @@ class CreateKunjunganTables extends Migration
     {
         Schema::create('kunjungans', function (Blueprint $table) {
             $table->increments('id');
-            $table->datetime('waktu_kunjungan');
+            $table->datetime('waktu_masuk');
             $table->datetime('waktu_keluar')->nullable();
             $table->string('nomor_kunjungan')->nullable();
             $table->unsignedBigInteger('pasien_id');
-            $table->boolean('pasien_baru')->default(false);
             $table->unsignedInteger('kasus_id')->nullable();
             $table->unsignedInteger('penyakit_id')->nullable();
             $table->unsignedInteger('jenis_rujukan_id')->nullable();
@@ -59,6 +58,27 @@ class CreateKunjunganTables extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('set null');
         });
+
+        Schema::create('registrasis', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('kunjungan_id');
+            $table->unsignedInteger('jenis_registrasi_id');
+            $table->unsignedInteger('perawatan_id')->nullable();
+            $table->string('perawatan_type')->nullable();
+            $table->text('tarif')->nullable();
+            $table->timestamps();
+
+            $table->foreign('jenis_registrasi_id')
+                ->references('id')
+                ->on('jenis_registrasis')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+            $table->foreign('kunjungan_id')
+                ->references('id')
+                ->on('kunjungans')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+        });
     }
 
     /**
@@ -68,6 +88,8 @@ class CreateKunjunganTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('registrasis');
+
         Schema::dropIfExists('kunjungans');
     }
 }

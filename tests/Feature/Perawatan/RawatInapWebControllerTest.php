@@ -3,6 +3,9 @@
 namespace Tests\Feature\Perawatan;
 
 use Tests\TestCase;
+use App\Models\Kunjungan;
+use App\Models\Registrasi;
+use App\Models\Fasilitas\Ranjang;
 use App\Models\Perawatan\RawatInap;
 
 class RawatInapWebControllerTest extends TestCase
@@ -10,7 +13,22 @@ class RawatInapWebControllerTest extends TestCase
     /** @test */
     public function create_page_not_accessible_for_guest()
     {
-        $resource = factory(RawatInap::class)->create();
+        $resource   = factory(RawatInap::class)->create();
+
+        $kunjungan  = factory(Kunjungan::class)->create();
+
+        $registrasi = factory(Registrasi::class)->create([
+            'kunjungan_id'   => $kunjungan->id,
+            'perawatan_type' => get_class($resource),
+            'perawatan_id'   => $resource->id
+        ]);
+
+        $ranjang   = Ranjang::find(factory(Ranjang::class)->create()->id);
+
+        $resource->kamars()->create([
+            'waktu_masuk' => $resource->waktu_masuk,
+            'ranjang_id'  => $ranjang->id
+        ]);
 
         $this
             // ->disableExceptionHandling()
@@ -34,7 +52,22 @@ class RawatInapWebControllerTest extends TestCase
         $admin = $this->createAdmin();
         $user  = $this->createUser();
 
-        $resource = factory(RawatInap::class)->create();
+        $resource   = factory(RawatInap::class)->create();
+
+        $kunjungan  = factory(Kunjungan::class)->create();
+
+        $registrasi = factory(Registrasi::class)->create([
+            'kunjungan_id'   => $kunjungan->id,
+            'perawatan_type' => get_class($resource),
+            'perawatan_id'   => $resource->id
+        ]);
+
+        $ranjang   = Ranjang::find(factory(Ranjang::class)->create()->id);
+
+        $resource->kamars()->create([
+            'waktu_masuk' => $resource->waktu_masuk,
+            'ranjang_id'  => $ranjang->id
+        ]);
 
         $this
             // ->disableExceptionHandling()

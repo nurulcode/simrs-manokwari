@@ -3,26 +3,16 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use App\Models\Perawatan\RawatInap;
-use App\Models\Perawatan\RawatJalan;
-use App\Models\Perawatan\RawatDarurat;
 use App\Models\Master\Penyakit\Penyakit;
 
 class Kunjungan extends Model
 {
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = ['pasien_baru' => 'boolean'];
-
-    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $dates = ['waktu_kunjungan', 'rujukan_tanggal', 'sjp_tanggal'];
+    protected $dates = ['waktu_masuk', 'rujukan_tanggal', 'sjp_tanggal'];
 
     /**
      * The accessors to append to the model's array form.
@@ -44,17 +34,11 @@ class Kunjungan extends Model
      * @var array
      */
     protected $fillable = [
-        'cara_pembayaran_id', 'kasus_id',
-
-        'pasien_baru', 'pasien_id', 'penyakit_id',
-
-        'pj_nama', 'pj_telepon',
+        'kasus_id', 'pasien_id', 'penyakit_id', 'waktu_masuk', 'waktu_keluar',
 
         'rujukan', 'jenis_rujukan_id', 'rujukan_asal', 'rujukan_nomor', 'rujukan_tanggal',
 
-        'sjp_nomor', 'sjp_tanggal',
-
-        'waktu_kunjungan', 'waktu_keluar'
+        'pj_nama', 'pj_telepon', 'sjp_nomor', 'sjp_tanggal', 'cara_pembayaran_id'
     ];
 
     /**
@@ -69,8 +53,8 @@ class Kunjungan extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            if (empty($model->waktu_kunjungan)) {
-                $model->waktu_kunjungan = now();
+            if (empty($model->waktu_masuk)) {
+                $model->waktu_masuk = now();
             }
         });
 
@@ -101,19 +85,30 @@ class Kunjungan extends Model
         $this->attributes['rujukan_tanggal']  = $value['tanggal'];
     }
 
+    public function registrasis()
+    {
+        return $this->hasMany(Registrasi::class);
+    }
+
     public function rawat_jalans()
     {
-        return $this->hasMany(RawatJalan::class);
+        return $this
+            ->registrasis()
+            ->where('perawatan_type', Perawatan\RawatJalan::class);
     }
 
     public function rawat_darurats()
     {
-        return $this->hasMany(RawatDarurat::class);
+        return $this
+            ->registrasis()
+            ->where('perawatan_type', Perawatan\RawatDarurat::class);
     }
 
     public function rawat_inaps()
     {
-        return $this->hasMany(RawatInap::class);
+        return $this
+            ->registrasis()
+            ->where('perawatan_type', Perawatan\RawatInap::class);
     }
 
     public function pasien()
@@ -128,17 +123,6 @@ class Kunjungan extends Model
 
     public function scopeHariIni($query)
     {
-        return $query->hari(Carbon::now());
-    }
-
-    public function scopeHari($query, $date)
-    {
-        if (!$date instanceof Carbon) {
-            $date = new Carbon($date);
-        }
-
-        return $query->whereBetween('waktu_kunjungan', [
-            $date->startOfDay(), $date->copy()->endOfDay()
-        ]);
+        return $query->where('waktu_masuk', Carbon::now());
     }
 }

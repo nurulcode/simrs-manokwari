@@ -7,7 +7,7 @@ use App\Models\Layanan\Diagnosa;
 use App\Models\Kepegawaian\Pegawai;
 use App\Models\Master\TipeDiagnosa;
 use App\Models\Master\Penyakit\Penyakit;
-use App\Models\Perawatan\RawatJalan;
+use App\Models\Perawatan\Perawatan;
 
 class DiagnosaTest extends TestCase
 {
@@ -38,10 +38,8 @@ class DiagnosaTest extends TestCase
     /** @test */
     public function resource_belongs_to_perawatan()
     {
-        $resource = factory(Diagnosa::class)->create([
-            'perawatan_type' => RawatJalan::class
-        ]);
+        $resource = factory(Diagnosa::class)->create();
 
-        $this->assertInstanceOf(RawatJalan::class, $resource->perawatan);
+        $this->assertInstanceOf(Perawatan::class, $resource->perawatan);
     }
 }

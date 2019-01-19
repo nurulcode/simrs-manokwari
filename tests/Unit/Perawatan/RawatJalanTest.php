@@ -5,12 +5,34 @@ namespace Tests\Unit\Perawatan;
 use Tests\TestCase;
 use App\Models\Kunjungan;
 use App\Models\Registrasi;
+use App\Models\Master\Kegiatan;
 use App\Models\Layanan\Diagnosa;
 use App\Models\Fasilitas\Poliklinik;
 use App\Models\Perawatan\RawatJalan;
 
 class RawatJalanTest extends TestCase
 {
+    /** @test */
+    public function resource_belongs_to_registrasi()
+    {
+        $resource   = factory(RawatJalan::class)->create();
+
+        $registrasi = factory(Registrasi::class)->create([
+            'perawatan_type' => get_class($resource),
+            'perawatan_id'   => $resource->id
+        ]);
+
+        $this->assertInstanceof(Registrasi::class, $resource->registrasi);
+    }
+
+    /** @test */
+    public function resource_belongs_to_kegiatan()
+    {
+        $resource = factory(RawatJalan::class)->create();
+
+        $this->assertInstanceof(Kegiatan::class, $resource->kegiatan);
+    }
+
     /** @test */
     public function resource_belongs_to_poliklinik()
     {
@@ -24,28 +46,19 @@ class RawatJalanTest extends TestCase
     {
         $resource  = factory(RawatJalan::class)->create();
 
-        $this->assertInstanceof(Kunjungan::class, $resource->kunjungan);
-    }
+        $kunjungan  = factory(Kunjungan::class)->create();
 
-    /** @test */
-    public function creating_resource_also_create_pivot_registrasis()
-    {
-        $resource  = factory(RawatJalan::class)->create();
-
-        $this->assertDatabaseHas('registrasis', [
-            'kunjungan_id'        => $resource->kunjungan_id,
-            'perawatan_id'        => $resource->id,
-            'perawatan_type'      => get_class($resource),
-            'jenis_registrasi_id' => $resource->jenis_registrasi_id
+        $registrasi = factory(Registrasi::class)->create([
+            'kunjungan_id'   => $kunjungan->id,
+            'perawatan_type' => get_class($resource),
+            'perawatan_id'   => $resource->id
         ]);
-    }
 
-    /** @test */
-    public function resource_belongs_to_registrasi()
-    {
-        $resource = factory(RawatJalan::class)->create();
+        $resource = RawatJalan::find($resource->id);
 
-        $this->assertInstanceof(Registrasi::class, $resource->registrasi);
+        $this->assertEquals($resource->kunjungan->id, $kunjungan->id);
+
+        $this->assertInstanceof(Kunjungan::class, $resource->kunjungan);
     }
 
     /** @test */

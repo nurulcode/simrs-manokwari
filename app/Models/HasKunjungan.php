@@ -2,21 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+
 trait HasKunjungan
 {
     protected static function bootHasKunjungan()
     {
         static::creating(function ($model) {
-            if (empty($model->waktu_kunjungan)) {
-                $model->waktu_kunjungan = now();
-            }
+            $model->waktu_masuk = $model->waktu_masuk ?? now();
         });
 
-        static::created(function ($model) {
-            $model->registrasi()->create([
-                'kunjungan_id'        => $model->kunjungan_id,
-                'jenis_registrasi_id' => $model->jenis_registrasi_id
-            ]);
+        static::addGlobalScope('kunjungan', function (Builder $builder) {
+            $table = $builder->getQuery()->from;
+
+            $builder->addSubSelect('kunjungan_id', Registrasi::select('kunjungan_id')
+                ->where('perawatan_type', get_called_class())
+                ->whereColumn('perawatan_id', $table . '.id'));
         });
     }
 

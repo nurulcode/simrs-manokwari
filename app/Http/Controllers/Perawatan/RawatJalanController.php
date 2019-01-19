@@ -32,11 +32,14 @@ class RawatJalanController extends Controller
      */
     public function store(CreateRawatJalanRequest $request)
     {
+        $rawat_jalan = RawatJalan::create($request->validated());
+
         $kunjungan   = Kunjungan::create($request->validated());
 
-        $rawat_jalan = new RawatJalan($request->validated());
-
-        $kunjungan->rawat_jalans()->save($rawat_jalan);
+        $rawat_jalan->registrasi()->create([
+            'kunjungan_id'        => $kunjungan->id,
+            'jenis_registrasi_id' => $request->input('jenis_registrasi_id')
+        ]);
 
         return response()->crud(new RawatJalanResource($rawat_jalan));
     }

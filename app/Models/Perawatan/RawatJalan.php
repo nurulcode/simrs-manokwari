@@ -3,22 +3,13 @@
 namespace App\Models\Perawatan;
 
 use Carbon\Carbon;
-use App\Models\Model;
 use App\Enums\KelasTarif;
-use App\Models\HasKunjungan;
-use App\Models\Layanan\HasDiagnosa;
 use App\Models\Fasilitas\Poliklinik;
+use App\Models\Layanan\HasLayananDiagnosa;
 
-class RawatJalan extends Model
+class RawatJalan extends Perawatan
 {
-    use HasKunjungan, HasDiagnosa;
-
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = ['waktu_kunjungan'];
+    use HasLayananDiagnosa;
 
     /**
      * The attributes that are mass assignable.
@@ -26,15 +17,8 @@ class RawatJalan extends Model
      * @var array
      */
     protected $fillable = [
-        'kegiatan_id', 'poliklinik_id', 'jenis_registrasi_id', 'waktu_kunjungan'
+        'kegiatan_id', 'poliklinik_id', 'waktu_masuk'
     ];
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded;
 
     public function poliklinik()
     {
@@ -52,7 +36,7 @@ class RawatJalan extends Model
             $date = new Carbon($date);
         }
 
-        return $query->whereBetween('waktu_kunjungan', [
+        return $query->whereBetween('waktu_masuk', [
             $date->startOfDay(), $date->copy()->endOfDay()
         ]);
     }

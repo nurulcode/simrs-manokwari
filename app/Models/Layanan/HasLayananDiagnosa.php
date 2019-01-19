@@ -2,7 +2,7 @@
 
 namespace App\Models\Layanan;
 
-trait HasDiagnosa
+trait HasLayananDiagnosa
 {
     public function diagnosa()
     {

@@ -20,7 +20,7 @@ class RawatDaruratController extends Controller
     public function index(HttpQuery $query)
     {
         return RawatDaruratResource::collection(
-            RawatDarurat::with(['kunjungan','poliklinik'])->filter($query)
+            RawatDarurat::with(['kunjungan', 'poliklinik'])->filter($query)
         );
     }
 
@@ -32,15 +32,14 @@ class RawatDaruratController extends Controller
      */
     public function store(CreateRawatDaruratRequest $request)
     {
-        $kunjungan   = Kunjungan::create(array_except($request->validated(), [
-            'kegiatan_id', 'poliklinik_id', 'jenis_registrasi_id'
-        ]));
+        $rawat_darurat = RawatDarurat::create($request->validated());
 
-        $rawat_darurat = new RawatDarurat(array_only($request->validated(), [
-            'kegiatan_id', 'poliklinik_id', 'jenis_registrasi_id', 'waktu_kunjungan'
-        ]));
+        $kunjungan     = Kunjungan::create($request->validated());
 
-        $kunjungan->rawat_darurats()->save($rawat_darurat);
+        $rawat_darurat->registrasi()->create([
+            'kunjungan_id'        => $kunjungan->id,
+            'jenis_registrasi_id' => $request->input('jenis_registrasi_id')
+        ]);
 
         return response()->crud(new RawatDaruratResource($rawat_darurat));
     }

@@ -21,7 +21,6 @@ $factory->define(App\Models\Kunjungan::class, function (Faker $faker) {
         'cara_pembayaran_id' => function () {
             return factory(Master\CaraPembayaran::class)->create()->id;
         },
-        'pasien_baru'     => $faker->randomElement([0, 1]),
         'rujukan_asal'    => $faker->company,
         'rujukan_nomor'   => $faker->word,
         'rujukan_tanggal' => $faker->dateTimeThisMonth,

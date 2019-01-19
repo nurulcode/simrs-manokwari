@@ -3,11 +3,12 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use App\Models\Master;
 use App\Models\Pasien;
 use App\Models\Kunjungan;
 use App\Models\Perawatan;
+use App\Models\Registrasi;
 use Illuminate\Support\Collection;
-use App\Models\Master\Penyakit\Penyakit;
 
 class KunjunganTest extends TestCase
 {
@@ -24,46 +25,88 @@ class KunjunganTest extends TestCase
     {
         $kunjungan = factory(Kunjungan::class)->create();
 
-        $this->assertInstanceof(Penyakit::class, $kunjungan->penyakit);
+        $this->assertInstanceof(Master\Penyakit\Penyakit::class, $kunjungan->penyakit);
+    }
+
+    /** @test */
+    public function resource_may_has_many_registrasi()
+    {
+        $resource     = factory(Kunjungan::class)->create();
+
+        factory(Registrasi::class, 10)->create(['kunjungan_id' => $resource->id]);
+
+        $this->assertInstanceOf(Collection::class, $resource->registrasis);
+
+        $this->assertInstanceOf(Registrasi::class, $resource->registrasis->random());
     }
 
     /** @test */
     public function resource_may_has_many_rawat_jalan()
     {
-        $kunjungan     = factory(Kunjungan::class)->create();
+        $resource     = factory(Kunjungan::class)->create();
 
-        $rawat_jalans = factory(Perawatan\RawatJalan::class, 5)->create([
-            'kunjungan_id' => $kunjungan->id
-        ]);
+        $rawat_jalans = factory(Perawatan\RawatJalan::class, 5)->create();
 
-        $this->assertInstanceOf(Collection::class, $kunjungan->rawat_jalans);
-        $this->assertInstanceOf(Perawatan\RawatJalan::class, $kunjungan->rawat_jalans->random());
+        $master       = factory(Master\JenisRegistrasi::class)->create();
+
+        $rawat_jalans->each(function ($rawat_jalan) use ($resource, $master) {
+            $rawat_jalan->registrasi()->create([
+                'jenis_registrasi_id' => $master->id,
+                'kunjungan_id'        => $resource->id
+            ]);
+        });
+
+        $this->assertInstanceOf(Collection::class, $resource->rawat_jalans);
+
+        $rawat_jalan = $resource->rawat_jalans->random()->perawatan;
+
+        $this->assertInstanceOf(Perawatan\RawatJalan::class, $rawat_jalan);
     }
 
     /** @test */
     public function resource_may_has_many_rawat_darurat()
     {
-        $kunjungan      = factory(Kunjungan::class)->create();
+        $resource       = factory(Kunjungan::class)->create();
 
-        $rawat_darurats = factory(Perawatan\RawatDarurat::class, 5)->create([
-            'kunjungan_id' => $kunjungan->id
-        ]);
+        $rawat_darurats = factory(Perawatan\RawatDarurat::class, 5)->create();
 
-        $this->assertInstanceOf(Collection::class, $kunjungan->rawat_darurats);
-        $this->assertInstanceOf(Perawatan\RawatDarurat::class, $kunjungan->rawat_darurats->random());
+        $master       = factory(Master\JenisRegistrasi::class)->create();
+
+        $rawat_darurats->each(function ($rawat_darurat) use ($resource, $master) {
+            $rawat_darurat->registrasi()->create([
+                'jenis_registrasi_id' => $master->id,
+                'kunjungan_id'        => $resource->id
+            ]);
+        });
+
+        $this->assertInstanceOf(Collection::class, $resource->rawat_darurats);
+
+        $rawat_darurat = $resource->rawat_darurats->random()->perawatan;
+
+        $this->assertInstanceOf(Perawatan\RawatDarurat::class, $rawat_darurat);
     }
 
     /** @test */
     public function resource_may_has_many_rawat_inap()
     {
-        $kunjungan   = factory(Kunjungan::class)->create();
+        $resource     = factory(Kunjungan::class)->create();
 
-        $rawat_inaps = factory(Perawatan\RawatInap::class, 5)->create([
-            'kunjungan_id' => $kunjungan->id
-        ]);
+        $rawat_inaps  = factory(Perawatan\RawatInap::class, 5)->create();
 
-        $this->assertInstanceOf(Collection::class, $kunjungan->rawat_inaps);
-        $this->assertInstanceOf(Perawatan\RawatInap::class, $kunjungan->rawat_inaps->random());
+        $master       = factory(Master\JenisRegistrasi::class)->create();
+
+        $rawat_inaps->each(function ($rawat_inap) use ($resource, $master) {
+            $rawat_inap->registrasi()->create([
+                'jenis_registrasi_id' => $master->id,
+                'kunjungan_id'        => $resource->id
+            ]);
+        });
+
+        $this->assertInstanceOf(Collection::class, $resource->rawat_inaps);
+
+        $rawat_inap = $resource->rawat_inaps->random()->perawatan;
+
+        $this->assertInstanceOf(Perawatan\RawatInap::class, $rawat_inap);
     }
 
     /** @test */

@@ -4,6 +4,8 @@ namespace Tests\Feature\Perawatan;
 
 use Tests\TestCase;
 use App\Models\Kunjungan;
+use App\Models\Registrasi;
+use App\Models\Fasilitas\Ranjang;
 use Sty\Tests\ResourceControllerTestCase;
 
 class RawatInapControllerTest extends TestCase
@@ -15,15 +17,6 @@ class RawatInapControllerTest extends TestCase
         return \App\Models\Perawatan\RawatInap::class;
     }
 
-    public function beforePost($resource)
-    {
-        return array_merge($resource->toArray(), [
-            'kamar_id'      => $resource->ranjang->kamar_id,
-            'ruangan_id'    => $resource->ranjang->kamar->ruangan_id,
-            'poliklinik_id' => $resource->ranjang->kamar->ruangan->poliklinik_id,
-        ]);
-    }
-
     public function matchDatabase($resource)
     {
         return array_except($resource->getAttributes(), 'kunjungan_id');
@@ -32,13 +25,23 @@ class RawatInapControllerTest extends TestCase
     /** @test **/
     public function user_can_create_a_resource()
     {
+        $resource  = factory($this->resource())->make();
+
         $kunjungan = factory(Kunjungan::class)->make();
 
-        $resource  = factory($this->resource())->make(['kunjungan_id' => $kunjungan->id]);
+        $registrasi = factory(Registrasi::class)->make([
+            'kunjungan_id'   => null,
+            'perawatan_type' => get_class($resource)
+        ]);
+
+        $ranjang   = Ranjang::find(factory(Ranjang::class)->create()->id);
 
         $this->signIn()
             ->postJson($resource->path('store'), array_merge(
-                $kunjungan->toArray(), $this->beforePost($resource)
+                $ranjang->append('ranjang_id')->toArray(),
+                $kunjungan->toArray(),
+                $registrasi->toArray(),
+                $resource->toArray()
             ))
             ->assertJson(['status' => 'success'])
             ->assertHeader('Location')
@@ -50,9 +53,19 @@ class RawatInapControllerTest extends TestCase
         );
 
         $this->assertDatabaseHas(
+            $registrasi->getTable(),
+            array_except($registrasi->getAttributes(), 'kunjungan_id')
+        );
+
+        $this->assertDatabaseHas(
             $kunjungan->getTable(),
             $kunjungan->getAttributes()
         );
+
+        $this->assertDatabaseHas('layanan_kamars', [
+            'perawatan_type' => get_class($resource),
+            'ranjang_id'     => $ranjang->id
+        ]);
     }
 
     /** @test **/

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLayananTindakansTable extends Migration
+class CreateLayananKamarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,19 @@ class CreateLayananTindakansTable extends Migration
      */
     public function up()
     {
-        Schema::create('layanan_tindakans', function (Blueprint $table) {
+        Schema::create('layanan_kamars', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('perawatan_id');
             $table->string('perawatan_type');
-            $table->unsignedInteger('tindakan_pemeriksaan_id');
-            $table->unsignedInteger('jumlah');
-            $table->dateTime('waktu');
-            $table->unsignedInteger('petugas_id');
+            $table->unsignedInteger('ranjang_id');
+            $table->datetime('waktu_masuk');
+            $table->datetime('waktu_keluar')->nullable();
             $table->text('tarif')->default('{}');
             $table->timestamps();
 
-            $table->foreign('petugas_id')
+            $table->foreign('ranjang_id')
                 ->references('id')
-                ->on('pegawais')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
-            $table->foreign('tindakan_pemeriksaan_id')
-                ->references('id')
-                ->on('tindakan_pemeriksaans')
+                ->on('ranjangs')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
         });
@@ -44,6 +38,6 @@ class CreateLayananTindakansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('layanan_tindakans');
+        Schema::dropIfExists('layanan_kamars');
     }
 }

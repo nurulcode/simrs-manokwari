@@ -3,20 +3,11 @@
 namespace App\Models\Perawatan;
 
 use Carbon\Carbon;
-use App\Models\Model;
-use App\Models\HasKunjungan;
-use App\Models\Fasilitas\BelongsToRanjang;
+use App\Models\Layanan\HasLayananKamar;
 
-class RawatInap extends Model
+class RawatInap extends Perawatan
 {
-    use HasKunjungan, BelongsToRanjang;
-
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = ['waktu_kunjungan'];
+    use HasLayananKamar;
 
     /**
      * The attributes that are mass assignable.
@@ -24,8 +15,12 @@ class RawatInap extends Model
      * @var array
      */
     protected $fillable = [
-        'kegiatan_id', 'ranjang_id', 'jenis_registrasi_id', 'waktu_kunjungan',
-        'waktu_keluar', 'kondisi_akhir', 'cara_penerimaan', 'aktifitas'
+        'cara_penerimaan',
+        'kegiatan_id',
+        'waktu_masuk',
+        'waktu_keluar',
+        'kondisi_akhir',
+        'aktifitas',
     ];
 
     public function scopeHariIni($query)
@@ -39,7 +34,7 @@ class RawatInap extends Model
             $date = new Carbon($date);
         }
 
-        return $query->whereBetween('waktu_kunjungan', [
+        return $query->whereBetween('waktu_masuk', [
             $date->startOfDay(), $date->copy()->endOfDay()
         ]);
     }

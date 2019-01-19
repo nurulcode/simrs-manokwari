@@ -8,6 +8,7 @@ use App\Models\Layanan\Tindakan;
 use App\Models\Kepegawaian\Pegawai;
 use App\Models\Perawatan\RawatInap;
 use App\Models\Master\TindakanPemeriksaan;
+use App\Models\Perawatan\Perawatan;
 
 class TindakanTest extends TestCase
 {
@@ -30,11 +31,9 @@ class TindakanTest extends TestCase
     /** @test */
     public function resource_belongs_to_perawatan()
     {
-        $resource = factory(Tindakan::class)->create([
-            'perawatan_type' => RawatInap::class
-        ]);
+        $resource = factory(Tindakan::class)->create();
 
-        $this->assertInstanceOf(RawatInap::class, $resource->perawatan);
+        $this->assertInstanceOf(Perawatan::class, $resource->perawatan);
     }
 
     /** @test */

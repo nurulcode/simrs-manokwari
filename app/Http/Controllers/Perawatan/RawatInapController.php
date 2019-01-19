@@ -22,10 +22,7 @@ class RawatInapController extends Controller
         return RawatInapResource::collection(
             RawatInap::with([
                 'kunjungan',
-                'poliklinik',
-                'ruangan',
                 'kamar',
-                'ranjang'
             ])->filter($query)
         );
     }
@@ -38,11 +35,19 @@ class RawatInapController extends Controller
      */
     public function store(CreateRawatInapRequest $request)
     {
+        $rawat_inap = RawatInap::create($request->validated());
+
         $kunjungan  = Kunjungan::create($request->validated());
 
-        $rawat_inap = RawatInap::make($request->validated());
+        $rawat_inap->registrasi()->create([
+            'kunjungan_id'        => $kunjungan->id,
+            'jenis_registrasi_id' => $request->input('jenis_registrasi_id')
+        ]);
 
-        $kunjungan->rawat_inaps()->save($rawat_inap);
+        $rawat_inap->kamars()->create([
+            'waktu_masuk' => $rawat_inap->waktu_masuk,
+            'ranjang_id'  => $request->input('ranjang_id')
+        ]);
 
         return response()->crud(new RawatInapResource($rawat_inap));
     }

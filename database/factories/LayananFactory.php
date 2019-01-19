@@ -7,6 +7,7 @@ use App\Enums\KasusDiagnosa;
 use Faker\Generator as Faker;
 use App\Models\Kepegawaian\Pegawai;
 use App\Models\Master\PemeriksaanUmum;
+use App\Models\Fasilitas\Ranjang;
 
 $perawatans = [
     Perawatan\RawatJalan::class,
@@ -66,5 +67,19 @@ $factory->define(Layanan\Pemeriksaan::class, function (Faker $faker) use ($peraw
         },
         'hasil'           => $faker->randomNumber,
         'waktu'           => $faker->dateTimeThisMonth,
+    ];
+});
+
+$factory->define(App\Models\Layanan\Kamar::class, function (Faker $faker) {
+    return [
+        'perawatan_type' => Perawatan\RawatInap::class,
+        'perawatan_id'   => function () {
+            return factory(Perawatan\RawatInap::class)->create()->id;
+        },
+        'ranjang_id'     => function () {
+            return factory(Ranjang::class)->create()->id;
+        },
+        'waktu_masuk'    => $faker->dateTimeThisMonth,
+        'tarif'          => '{}'
     ];
 });

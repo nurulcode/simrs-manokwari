@@ -4,6 +4,7 @@ namespace Tests\Feature\Perawatan;
 
 use Tests\TestCase;
 use App\Models\Kunjungan;
+use App\Models\Registrasi;
 use Sty\Tests\ResourceControllerTestCase;
 
 class RawatDaruratControllerTest extends TestCase
@@ -15,22 +16,21 @@ class RawatDaruratControllerTest extends TestCase
         return \App\Models\Perawatan\RawatDarurat::class;
     }
 
-    public function matchDatabase($resource)
-    {
-        return array_except($resource->getAttributes(), 'kunjungan_id');
-    }
-
     /** @test **/
     public function user_can_create_a_resource()
     {
-        $kunjungan = factory(Kunjungan::class)->make();
+        $resource   = factory($this->resource())->make();
 
-        $resource  = factory($this->resource())->make([
-            'kunjungan_id' => $kunjungan->id
+        $kunjungan  = factory(Kunjungan::class)->make();
+
+        $registrasi = factory(Registrasi::class)->make([
+            'kunjungan_id'   => null,
+            'perawatan_type' => get_class($resource)
         ]);
 
         $this->signIn()
             ->postJson($resource->path('store'), array_merge(
+                $registrasi->toArray(),
                 $kunjungan->toArray(),
                 $resource->toArray()
             ))
@@ -41,6 +41,11 @@ class RawatDaruratControllerTest extends TestCase
         $this->assertDatabaseHas(
             $this->resourceTable($resource),
             $this->matchDatabase($resource)
+        );
+
+        $this->assertDatabaseHas(
+            $registrasi->getTable(),
+            array_except($registrasi->getAttributes(), 'kunjungan_id')
         );
 
         $this->assertDatabaseHas(

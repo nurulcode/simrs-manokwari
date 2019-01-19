@@ -56,6 +56,11 @@ class Ranjang extends Model
         });
     }
 
+    public function getRanjangIdAttribute()
+    {
+        return array_get($this->attributes, 'id');
+    }
+
     public function rawat_inaps()
     {
         return $this->hasMany(RawatInap::class);
