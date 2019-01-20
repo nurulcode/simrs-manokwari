@@ -4,6 +4,7 @@
 
 @section('content')
 <b-tabs lazy no-fade>
+    <b-tab title="Registrasi"> @include('tarif.registrasi') </b-tab>
     <b-tab title="Tindakan/Pemeriksaan"> @include('tarif.tindakan') </b-tab>
 </b-tabs>
 

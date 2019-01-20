@@ -19,6 +19,11 @@ class JenisRegistrasiResource extends JsonResource
             'kategori' => $this->kategori,
             'uraian'   => $this->uraian,
             'path'     => $this->path,
+            'tarif'    => [
+                'tarifable_type' => get_class($this->resource),
+                'tarifable_id'   => $this->id,
+                'tarif'          => $this->tarif
+            ],
         ];
     }
 }

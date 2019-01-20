@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(KepegawaianTableSeeder::class);
         $this->call(FasilitasSeeder::class);
         $this->call(PivotTableSeeder::class);
+        $this->call(TarifSeeder::class);
         $this->call(PasienTableSeeder::class);
     }
 }

@@ -1,11 +1,12 @@
 <?php
 
+use App\Seeder;
 use App\Models\Tarif;
-use Illuminate\Database\Seeder;
-use App\Models\Master\TindakanPemeriksaan;
 use App\Enums\JenisTarif;
+use App\Models\Master\TindakanPemeriksaan;
+use App\Models\Master\JenisRegistrasi;
 
-class TarifTindakanPemeriksaanSeeder extends Seeder
+class TarifSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,26 +15,23 @@ class TarifTindakanPemeriksaanSeeder extends Seeder
      */
     public function run()
     {
-        $file = new SplFileObject(
-            database_path('seeds/data/tarif/tarif_0_tindakan_pemeriksaan.csv')
-        );
-
-        $this->seed($file, 278);
-
-        $file = new SplFileObject(
-            database_path('seeds/data/tarif/tarif_1_tindakan_pemeriksaan.csv')
-        );
-
-        $this->seed($file, 578);
+        $this->seeds([
+            TindakanPemeriksaan::class => ['tarif_tindakan_pemeriksaan.csv', 856],
+            JenisRegistrasi::class     => ['tarif_registrasi.csv', 7]
+        ]);
     }
 
-    public function seed($file, $count)
+    public function seed($class, $path, $output, $parameters = [])
     {
+        $this->title($class);
+
+        $file = new SplFileObject(database_path('seeds/data/tarif/' . $path));
+
         $file->setFlags(SplFileObject::READ_CSV | SplFileObject::SKIP_EMPTY);
 
         $cmdOutput   = $this->command->getOutput();
 
-        $progressBar = $cmdOutput->createProgressBar($count);
+        $progressBar = $cmdOutput->createProgressBar($output);
 
         $progressBar->start();
 
@@ -41,7 +39,7 @@ class TarifTindakanPemeriksaanSeeder extends Seeder
             [$id, $kelas, $sarana, $pelayanan, $bhp] = $row;
 
             Tarif::updateOrCreate([
-                'tarifable_type' => TindakanPemeriksaan::class,
+                'tarifable_type' => $class,
                 'tarifable_id'   => $id,
             ], [
                 'tarif'          => [
