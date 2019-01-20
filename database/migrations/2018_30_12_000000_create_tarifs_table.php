@@ -17,7 +17,7 @@ class CreateTarifsTable extends Migration
             $table->increments('id');
             $table->string('tarifable_type');
             $table->unsignedInteger('tarifable_id');
-            $table->text('tarif');
+            $table->text('tarif')->nullable();
             $table->timestamps();
 
             $table->unique(['tarifable_type', 'tarifable_id']);

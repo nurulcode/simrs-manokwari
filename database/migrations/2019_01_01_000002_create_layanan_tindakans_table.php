@@ -21,7 +21,7 @@ class CreateLayananTindakansTable extends Migration
             $table->unsignedInteger('jumlah');
             $table->dateTime('waktu');
             $table->unsignedInteger('petugas_id');
-            $table->text('tarif')->default('{}');
+            $table->text('tarif')->nullable();
             $table->timestamps();
 
             $table->foreign('petugas_id')

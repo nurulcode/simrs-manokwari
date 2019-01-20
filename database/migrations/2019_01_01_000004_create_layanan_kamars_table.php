@@ -20,7 +20,7 @@ class CreateLayananKamarsTable extends Migration
             $table->unsignedInteger('ranjang_id');
             $table->datetime('waktu_masuk');
             $table->datetime('waktu_keluar')->nullable();
-            $table->text('tarif')->default('{}');
+            $table->text('tarif')->nullable();
             $table->timestamps();
 
             $table->foreign('ranjang_id')
