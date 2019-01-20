@@ -64,10 +64,9 @@ class RawatInapWebController extends Controller
      */
     public function show(RawatInap $rawat_inap)
     {
-        $last_kamar = $rawat_inap->kamar;
-        $kamar      = $last_kamar->kamar->nama;
-        $ruangan    = $last_kamar->ruangan->nama;
-        $ranjang    = $last_kamar->ranjang->kode;
+        $kamar   = $rawat_inap->kamar->nama;
+        $ruangan = $rawat_inap->ruangan->nama;
+        $ranjang = $rawat_inap->ranjang->kode;
 
         return view('perawatan.rawat-inap.show', [
             'perawatan' => $rawat_inap,

@@ -3,7 +3,7 @@
 namespace App\Models\Fasilitas;
 
 use App\Models\Model;
-use App\Models\Perawatan\RawatInap;
+use App\Models\Layanan\Kamar;
 
 class Ranjang extends Model
 {
@@ -61,14 +61,14 @@ class Ranjang extends Model
         return array_get($this->attributes, 'id');
     }
 
-    public function rawat_inaps()
+    public function layanan_kamars()
     {
-        return $this->hasMany(RawatInap::class);
+        return $this->hasMany(Kamar::class);
     }
 
     public function scopeTerisi($query)
     {
-        return $query->whereHas('rawat_inaps', function ($query) {
+        return $query->whereHas('layanan_kamars', function ($query) {
             $query->whereNull('waktu_keluar');
         });
     }

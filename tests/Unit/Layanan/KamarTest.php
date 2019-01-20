@@ -10,19 +10,19 @@ use App\Models\Perawatan\Perawatan;
 class KamarTest extends TestCase
 {
     /** @test */
-    public function resource_belongs_to_ranjang()
-    {
-        $resource = factory(Kamar::class)->create();
-
-        $this->assertInstanceof(Fasilitas\Ranjang::class, $resource->ranjang);
-    }
-
-    /** @test */
     public function resource_belongs_to_perawatan()
     {
         $resource = factory(Kamar::class)->create();
 
         $this->assertInstanceof(Perawatan::class, $resource->perawatan);
+    }
+
+    /** @test */
+    public function resource_belongs_to_ranjang()
+    {
+        $resource = factory(Kamar::class)->create();
+
+        $this->assertInstanceof(Fasilitas\Ranjang::class, $resource->ranjang);
     }
 
     /** @test */

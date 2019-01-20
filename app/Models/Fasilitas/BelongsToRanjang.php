@@ -11,11 +11,11 @@ trait BelongsToRanjang
 {
     use BelongsToKamar;
 
-    public static function bootBelongsToKamar()
-    {
-        // Do nothing
-    }
-
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
     public static function bootBelongsToRanjang()
     {
         $table = with(new static)->getTable();
@@ -34,5 +34,15 @@ trait BelongsToRanjang
     public function ranjang()
     {
         return $this->belongsTo(Ranjang::class);
+    }
+
+    /**
+     * Disable "booting" method of the BelongsToKamar trait.
+     *
+     * @return void
+     */
+    public static function bootBelongsToKamar()
+    {
+        // Do nothing
     }
 }

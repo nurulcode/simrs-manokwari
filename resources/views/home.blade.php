@@ -86,7 +86,7 @@
                 <div class="h1 text-muted text-right mb-4">
                     <i class="fa fa-stethoscope"></i>
                 </div>
-            <div class="text-value">{{ with(clone $ranjangs)->terisi()->count() }} dari {{ with(clone $ranjangs)->count() }}</div>
+                <div class="text-value">{{ with(clone $ranjangs)->terisi()->count() }} dari {{ with(clone $ranjangs)->count() }}</div>
                 <small class="text-muted text-uppercase font-weight-bold">
                     Ranjang Terisi
                 </small>

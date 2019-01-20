@@ -2,7 +2,6 @@
 
 namespace App\Models\Layanan;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Fasilitas\BelongsToRanjang;
 
 class Kamar extends Layanan
@@ -15,4 +14,9 @@ class Kamar extends Layanan
      * @var string
      */
     protected $table = 'layanan_kamars';
+
+    public function path($action = 'show')
+    {
+        return;
+    }
 }

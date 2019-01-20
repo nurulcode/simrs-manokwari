@@ -19,7 +19,7 @@
             @{{ item.kunjungan.pasien.nama }}
             <p class="text-muted">@{{ item.kunjungan.pasien.no_rekam_medis }}</p>
         </template>
-        <template slot="waktu_kunjungan" slot-scope="{value}" v-if="value">
+        <template slot="waktu_masuk" slot-scope="{value}" v-if="value">
             @{{ value | date_time }}
         </template>
         <template slot="waktu_keluar" slot-scope="{value}" v-if="value">
@@ -39,7 +39,7 @@ window.pagemix.push({
     data() {
         return {
             perawatan: {
-                sortBy  : `waktu_kunjungan`,
+                sortBy  : `waktu_masuk`,
                 sortDesc: true,
                 url     : `{{ $api }}`,
                 fields: [{
@@ -53,7 +53,7 @@ window.pagemix.push({
                         'min-width': '160px'
                     }
                 },{
-                    key      : 'waktu_kunjungan',
+                    key      : 'waktu_masuk',
                     sortable : true,
                     thStyle  : {
                         'width': '180px'

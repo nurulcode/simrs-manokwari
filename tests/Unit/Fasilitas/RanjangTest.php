@@ -4,6 +4,8 @@ namespace Tests\Unit\Fasilitas;
 
 use Tests\TestCase;
 use App\Models\Fasilitas;
+use App\Models\Layanan\Kamar;
+use Illuminate\Support\Collection;
 
 class RanjangTest extends TestCase
 {
@@ -56,5 +58,17 @@ class RanjangTest extends TestCase
         $ranjang = Fasilitas\Ranjang::find($ranjang->id);
 
         $this->assertInstanceof(Fasilitas\Poliklinik::class, $ranjang->poliklinik);
+    }
+
+    /** @test */
+    public function resource_has_many_layanan_kamar()
+    {
+        $ranjang = factory(Fasilitas\Ranjang::class)->create();
+
+        factory(Kamar::class, 5)->create(['ranjang_id' => $ranjang->id]);
+
+        $this->assertInstanceof(Collection::class, $ranjang->layanan_kamars);
+
+        $this->assertInstanceof(Kamar::class, $ranjang->layanan_kamars->random());
     }
 }

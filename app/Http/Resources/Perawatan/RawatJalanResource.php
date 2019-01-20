@@ -17,13 +17,13 @@ class RawatJalanResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'              => $this->id,
-            'poliklinik_id'   => $this->poliklinik_id,
-            'waktu_kunjungan' => $this->waktu_kunjungan,
-            'waktu_keluar'    => $this->waktu_keluar,
-            'poliklinik'      => PoliklinikResource::make($this->whenLoaded('poliklinik')),
-            'kunjungan'       => KunjunganResource::make($this->whenLoaded('kunjungan')),
-            'path'            => $this->path
+            'id'            => $this->id,
+            'poliklinik_id' => $this->poliklinik_id,
+            'waktu_masuk'   => $this->waktu_masuk,
+            'waktu_keluar'  => $this->waktu_keluar,
+            'poliklinik'    => PoliklinikResource::make($this->whenLoaded('poliklinik')),
+            'kunjungan'     => KunjunganResource::make($this->whenLoaded('kunjungan')),
+            'path'          => $this->path
         ];
     }
 }

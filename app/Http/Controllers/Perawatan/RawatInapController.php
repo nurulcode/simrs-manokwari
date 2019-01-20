@@ -22,7 +22,10 @@ class RawatInapController extends Controller
         return RawatInapResource::collection(
             RawatInap::with([
                 'kunjungan',
+                'poliklinik',
+                'ruangan',
                 'kamar',
+                'ranjang'
             ])->filter($query)
         );
     }

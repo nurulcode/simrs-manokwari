@@ -14,6 +14,28 @@ use App\Models\Perawatan\RawatInap;
 
 class RawatInapTest extends TestCase
 {
+    public function createResourceWithKamar()
+    {
+        $resource = factory(RawatInap::class)->create();
+
+        $ranjang  = factory(Fasilitas\Ranjang::class)->create();
+
+        $resource->kamars()->create([
+            'waktu_masuk'  => Carbon::now(),
+            'waktu_keluar' => Carbon::now(),
+            'ranjang_id'   => $ranjang->id,
+        ]);
+
+        $ranjang  = factory(Fasilitas\Ranjang::class)->create();
+
+        $kamar    = factory(Kamar::class)->create([
+            'ranjang_id'   => $ranjang->id,
+            'perawatan_id' => $resource->id
+        ]);
+
+        return RawatInap::find($resource->id);
+    }
+
     /** @test */
     public function resource_belongs_to_registrasi()
     {
@@ -53,31 +75,6 @@ class RawatInapTest extends TestCase
     }
 
     /** @test */
-    public function a_resource_belong_to_latest_layanan_kamar()
-    {
-        $resource = factory(RawatInap::class)->create();
-
-        $ranjang  = factory(Fasilitas\Ranjang::class)->create();
-
-        $resource->kamars()->create([
-            'waktu_masuk'  => Carbon::now(),
-            'waktu_keluar' => Carbon::now(),
-            'ranjang_id'   => $ranjang->id,
-        ]);
-
-        $ranjang  = factory(Fasilitas\Ranjang::class)->create();
-
-        $kamar    = factory(Kamar::class)->create([
-            'ranjang_id'   => $ranjang->id,
-            'perawatan_id' => $resource->id
-        ]);
-
-        $this->assertInstanceOf(Kamar::class, $resource->kamar);
-
-        $this->assertEquals($resource->kamar->id, $kamar->id);
-    }
-
-    /** @test */
     public function resource_belongs_to_kunjungan()
     {
         $resource   = factory(RawatInap::class)->create();
@@ -94,5 +91,102 @@ class RawatInapTest extends TestCase
         $this->assertEquals($resource->kunjungan->id, $kunjungan->id);
 
         $this->assertInstanceof(Kunjungan::class, $resource->kunjungan);
+    }
+
+    /** @test */
+    public function a_resource_have_virtual_ranjang_id()
+    {
+        $resource = $this->createResourceWithKamar();
+
+        $kamar    = $resource->kamars()
+            ->whereNull('waktu_keluar')
+            ->latest()
+            ->first();
+
+        $this->assertSame($kamar->ranjang_id, $resource->ranjang_id);
+    }
+
+    /** @test */
+    public function resource_belongs_to_ranjang()
+    {
+        $resource = $this->createResourceWithKamar();
+
+        $this->assertInstanceof(Fasilitas\Ranjang::class, $resource->ranjang);
+    }
+
+    /** @test */
+    public function a_resource_have_virtual_kamar_id()
+    {
+        $resource = $this->createResourceWithKamar();
+
+        $kamar    = $resource->kamars()
+            ->whereNull('waktu_keluar')
+            ->latest()
+            ->first();
+
+        $this->assertSame($kamar->kamar_id, $resource->kamar_id);
+    }
+
+    /** @test */
+    public function resource_belongs_to_kamar()
+    {
+        $resource = $this->createResourceWithKamar();
+
+        $this->assertInstanceof(Fasilitas\Kamar::class, $resource->kamar);
+    }
+
+    /** @test */
+    public function a_resource_have_virtual_ruangan_id()
+    {
+        $resource = $this->createResourceWithKamar();
+
+        $kamar    = $resource->kamars()
+            ->whereNull('waktu_keluar')
+            ->latest()
+            ->first();
+
+        $this->assertEquals($kamar->ruangan_id, $resource->ruangan_id);
+    }
+
+    /** @test */
+    public function resource_belongs_to_ruangan()
+    {
+        $resource = $this->createResourceWithKamar();
+
+        $this->assertInstanceof(Fasilitas\Ruangan::class, $resource->ruangan);
+    }
+
+    /** @test */
+    public function a_resource_have_virtual_kelas()
+    {
+        $resource = $this->createResourceWithKamar();
+
+        $kamar    = $resource->kamars()
+            ->whereNull('waktu_keluar')
+            ->latest()
+            ->first();
+
+        $this->assertEquals($kamar->ruangan->kelas, $resource->kelas);
+    }
+
+    /** @test */
+    public function a_resource_have_virtual_poliklinik_id()
+    {
+        $resource = $this->createResourceWithKamar();
+
+        $kamar    = $resource->kamars()
+            ->whereNull('waktu_keluar')
+            ->latest()
+            ->first();
+
+        $this->assertEquals($kamar->poliklinik_id, $resource->poliklinik_id);
+    }
+
+    /** @test */
+    public function resource_belongs_to_poliklinik()
+    {
+        $resource = $this->createResourceWithKamar();
+
+        $this->assertInstanceof(Fasilitas\Poliklinik::class, $resource->poliklinik);
     }
 }
