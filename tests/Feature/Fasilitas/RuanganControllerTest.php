@@ -5,10 +5,11 @@ namespace Tests\Feature\Fasilitas;
 use Tests\TestCase;
 use App\Models\Fasilitas\Poliklinik;
 use Sty\Tests\ResourceControllerTestCase;
+use Tests\Feature\TarifableTestCase;
 
 class RuanganControllerTest extends TestCase
 {
-    use ResourceControllerTestCase;
+    use ResourceControllerTestCase, TarifableTestCase;
 
     public function resource()
     {

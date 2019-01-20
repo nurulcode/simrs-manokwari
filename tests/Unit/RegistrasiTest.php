@@ -24,7 +24,7 @@ class RegistrasiTest extends TestCase
 
         $master->tarif()->create([
             'tarif' => [
-                Enums\KelasTarif::UMUM => [
+                Enums\KelasTarif::TARIF_UMUM => [
                     Enums\JenisTarif::SARANA    => 15000,
                     Enums\JenisTarif::PELAYANAN => 10000,
                     Enums\JenisTarif::BHP       => 0
@@ -39,7 +39,7 @@ class RegistrasiTest extends TestCase
         $master = JenisRegistrasi::find($master->id);
 
         $this->assertSame(
-            $master->getTarifByKelas(Enums\KelasTarif::UMUM),
+            $master->getTarifByKelas(Enums\KelasTarif::TARIF_UMUM),
             $resource->tarif
         );
     }

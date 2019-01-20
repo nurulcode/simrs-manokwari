@@ -16,7 +16,9 @@ class PoliklinikController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        return PoliklinikResource::collection(Poliklinik::filter($query));
+        return PoliklinikResource::collection(
+            Poliklinik::with('jenis')->filter($query)
+        );
     }
 
     /**

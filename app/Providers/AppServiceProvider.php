@@ -6,7 +6,6 @@ use Sty\CrudResponse;
 use BenSampo\Enum\Enum;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Response;
@@ -37,6 +36,13 @@ class AppServiceProvider extends ServiceProvider
             if (!is_null($value)) {
                 return ['value' => $value, 'label' => self::getDescription($value)];
             }
+        });
+
+        Enum::macro('keyDescriptions', function () {
+            $keys = self::getKeys();
+            $desc = array_values(self::toSelectArray());
+
+            return array_combine($keys, $desc);
         });
 
         Validator::extend('morph_exists', function ($attribute, $value, $parameters, $validator) {

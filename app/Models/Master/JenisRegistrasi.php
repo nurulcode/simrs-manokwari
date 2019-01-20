@@ -11,6 +11,6 @@ class JenisRegistrasi extends Master
 
     public function getKelasTarifAttribute($value)
     {
-        return [KelasTarif::UMUM];
+        return KelasTarif::getKey(KelasTarif::TARIF_UMUM);
     }
 }

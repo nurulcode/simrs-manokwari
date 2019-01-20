@@ -20,7 +20,7 @@ class Tarif extends Model
     {
         $current = json_decode(array_get($this->attributes, 'tarif', '{}'), true);
 
-        foreach (array_unique(KelasTarif::getValues()) as $kelas) {
+        foreach (array_unique(KelasTarif::getKeys()) as $kelas) {
             if (array_key_exists($kelas, $value)) {
                 array_set($current, $kelas, array_get($value, $kelas));
             }

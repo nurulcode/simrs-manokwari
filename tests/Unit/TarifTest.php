@@ -2,9 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Enums;
 use Tests\TestCase;
 use App\Models\Tarif;
+use App\Enums\JenisTarif;
+use App\Enums\KelasTarif;
 use App\Models\Master\TindakanPemeriksaan;
 
 class TarifTest extends TestCase
@@ -15,10 +16,10 @@ class TarifTest extends TestCase
         $tarifable = factory(TindakanPemeriksaan::class)->create();
 
         $tarif = [
-            Enums\KelasTarif::KELAS_VVIP => [
-                Enums\JenisTarif::SARANA    => 10000,
-                Enums\JenisTarif::PELAYANAN => 10000,
-                Enums\JenisTarif::BHP       => 10000,
+            KelasTarif::getKey(KelasTarif::KELAS_VVIP) => [
+                JenisTarif::SARANA    => 10000,
+                JenisTarif::PELAYANAN => 10000,
+                JenisTarif::BHP       => 10000,
             ]
         ];
 
@@ -31,10 +32,12 @@ class TarifTest extends TestCase
             'tarifable_id'   => $tarifable->id,
         ]);
 
-        $this->assertArrayHasKey(Enums\KelasTarif::KELAS_VVIP, $tarifable->tarif);
+        $this->assertArrayHasKey(
+            KelasTarif::getKey(KelasTarif::KELAS_VVIP), $tarifable->tarif
+        );
 
         $this->assertCount(
-            count(array_unique(Enums\KelasTarif::getValues())), $tarifable->tarif
+            count(array_unique(KelasTarif::getValues())), $tarifable->tarif
         );
 
         $this->assertArraySubset($tarif, $tarifable->tarif);
@@ -46,20 +49,20 @@ class TarifTest extends TestCase
         $tarifable = factory(TindakanPemeriksaan::class)->create();
 
         $tarif = [
-            Enums\KelasTarif::KELAS_VVIP => [
-                Enums\JenisTarif::SARANA    => 10000,
-                Enums\JenisTarif::PELAYANAN => 10000,
-                Enums\JenisTarif::BHP       => 10000,
+            KelasTarif::getKey(KelasTarif::KELAS_VVIP) => [
+                JenisTarif::SARANA    => 10000,
+                JenisTarif::PELAYANAN => 10000,
+                JenisTarif::BHP       => 10000,
             ]
         ];
 
         $tarifable->tarif()->create(compact('tarif'));
 
         $tarif_baru = [
-            Enums\KelasTarif::KELAS_I => [
-                Enums\JenisTarif::SARANA    => 15000,
-                Enums\JenisTarif::PELAYANAN => 15000,
-                Enums\JenisTarif::BHP       => 15000,
+            KelasTarif::getKey(KelasTarif::KELAS_I) => [
+                JenisTarif::SARANA    => 15000,
+                JenisTarif::PELAYANAN => 15000,
+                JenisTarif::BHP       => 15000,
             ]
         ];
 
@@ -77,11 +80,16 @@ class TarifTest extends TestCase
             'tarifable_id'   => $tarifable->id,
         ]);
 
-        $this->assertArrayHasKey(Enums\KelasTarif::KELAS_VVIP, $tarifable->tarif);
-        $this->assertArrayHasKey(Enums\KelasTarif::KELAS_I, $tarifable->tarif);
+        $this->assertArrayHasKey(
+            KelasTarif::getKey(KelasTarif::KELAS_VVIP), $tarifable->tarif
+        );
+
+        $this->assertArrayHasKey(
+            KelasTarif::getKey(KelasTarif::KELAS_I), $tarifable->tarif
+        );
 
         $this->assertCount(
-            count(array_unique(Enums\KelasTarif::getValues())), $tarifable->tarif
+            count(array_unique(KelasTarif::getValues())), $tarifable->tarif
         );
 
         $this->assertArraySubset($tarif, $tarifable->tarif);

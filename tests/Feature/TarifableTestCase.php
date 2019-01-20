@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Enums\JenisTarif;
-use App\Enums\KelasTarif;
 
 trait TarifableTestCase
 {
@@ -12,7 +11,7 @@ trait TarifableTestCase
     {
         $tarifable = factory($this->resource())->create();
 
-        $kelas     = KelasTarif::getRandomValue();
+        $kelas     = array_random(array_wrap($tarifable->kelas_tarif));
 
         $tarif = [
             $kelas => [
@@ -41,7 +40,7 @@ trait TarifableTestCase
         $this->assertArrayHasKey($kelas, $tarifable->tarif);
 
         $this->assertCount(
-            count(array_unique(KelasTarif::getValues())), $tarifable->tarif
+            count(array_wrap($tarifable->kelas_tarif)), $tarifable->tarif
         );
 
         $this->assertArraySubset($tarif, $tarifable->tarif);
@@ -50,9 +49,13 @@ trait TarifableTestCase
     /** @test */
     public function user_can_update_subset_of_tarif()
     {
-        $kelas_tarif   = array_unique(KelasTarif::getValues());
-
         $tarifable     = factory($this->resource())->create();
+
+        $kelas_tarif   = array_wrap($tarifable->kelas_tarif);
+
+        if (count($kelas_tarif) ==  1) {
+            return $this->assertTrue(true);
+        }
 
         [$kelas_pertama, $kelas_kedua] = array_random($kelas_tarif, 2);
 
@@ -94,7 +97,7 @@ trait TarifableTestCase
         $this->assertArrayHasKey($kelas_kedua, $tarifable->tarif);
 
         $this->assertCount(
-            count(array_unique(KelasTarif::getValues())), $tarifable->tarif
+            count(array_wrap($tarifable->kelas_tarif)), $tarifable->tarif
         );
 
         $this->assertArraySubset($tarif, $tarifable->tarif);

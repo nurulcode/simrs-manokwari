@@ -3,10 +3,11 @@
 namespace App\Enums;
 
 use BenSampo\Enum\Enum;
+use BenSampo\Enum\Contracts\LocalizedEnum;
 
-final class JenisTarif extends Enum
+final class JenisTarif extends Enum implements LocalizedEnum
 {
-    const SARANA    = 'tarif_sarana';
-    const PELAYANAN = 'tarif_pelayanan';
-    const BHP       = 'tarif_bhp';
+    const SARANA    = 'SARANA';
+    const PELAYANAN = 'PELAYANAN';
+    const BHP       = 'BHP';
 }

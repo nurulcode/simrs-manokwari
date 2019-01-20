@@ -29,7 +29,7 @@ class Registrasi extends Model
 
     public function getTarifKelas()
     {
-        return KelasTarif::UMUM;
+        return KelasTarif::getKey(KelasTarif::TARIF_UMUM);
     }
 
     public function perawatan()

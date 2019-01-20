@@ -5,6 +5,8 @@ use App\Models\Tarif;
 use App\Enums\JenisTarif;
 use App\Models\Master\TindakanPemeriksaan;
 use App\Models\Master\JenisRegistrasi;
+use App\Enums\KelasTarif;
+use App\Models\Fasilitas\Ruangan;
 
 class TarifSeeder extends Seeder
 {
@@ -16,6 +18,7 @@ class TarifSeeder extends Seeder
     public function run()
     {
         $this->seeds([
+            Ruangan::class             => ['tarif_ruangan.csv', 15],
             TindakanPemeriksaan::class => ['tarif_tindakan_pemeriksaan.csv', 856],
             JenisRegistrasi::class     => ['tarif_registrasi.csv', 7]
         ]);
@@ -43,7 +46,7 @@ class TarifSeeder extends Seeder
                 'tarifable_id'   => $id,
             ], [
                 'tarif'          => [
-                    $kelas => [
+                    KelasTarif::getKey((string) $kelas) => [
                         JenisTarif::SARANA    => $sarana,
                         JenisTarif::PELAYANAN => $pelayanan,
                         JenisTarif::BHP       => $bhp

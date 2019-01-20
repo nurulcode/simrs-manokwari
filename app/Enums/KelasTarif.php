@@ -7,9 +7,7 @@ use BenSampo\Enum\Contracts\LocalizedEnum;
 
 final class KelasTarif extends Enum implements LocalizedEnum
 {
-    const RAWAT_JALAN   = 0;
-    const RAWAT_DARURAT = 0;
-    const UMUM          = 0;
+    const TARIF_UMUM    = '0';
     const KELAS_I       = KelasRuangan::I;
     const KELAS_II      = KelasRuangan::II;
     const KELAS_III     = KelasRuangan::III;

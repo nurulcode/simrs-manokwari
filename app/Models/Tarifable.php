@@ -26,7 +26,7 @@ trait Tarifable
     {
         $data = [];
 
-        foreach ($this->kelas_tarif as $kelas) {
+        foreach (array_wrap($this->kelas_tarif) as $kelas) {
             array_set($data, $kelas, $this->getTarifByKelas($kelas));
         }
 
@@ -50,7 +50,7 @@ trait Tarifable
 
     public function getKelasTarifAttribute($value)
     {
-        return array_unique(KelasTarif::getValues());
+        return array_unique(KelasTarif::getKeys());
     }
 
     public function getJenisTarifAttribute()

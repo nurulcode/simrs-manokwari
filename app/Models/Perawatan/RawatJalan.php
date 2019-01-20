@@ -43,6 +43,6 @@ class RawatJalan extends Perawatan
 
     public function getKelasAttribute()
     {
-        return KelasTarif::UMUM;
+        return KelasTarif::getKey(KelasTarif::TARIF_UMUM);
     }
 }

@@ -5,6 +5,7 @@
 @section('content')
 <b-tabs lazy no-fade>
     <b-tab title="Registrasi"> @include('tarif.registrasi') </b-tab>
+    <b-tab title="Ruangan"> @include('tarif.ruangan') </b-tab>
     <b-tab title="Tindakan/Pemeriksaan"> @include('tarif.tindakan') </b-tab>
 </b-tabs>
 
@@ -23,36 +24,18 @@
         <hr>
         <h6>@{{ kelas_tarif[kelas] }}</h6>
         <div class="row">
-            <div class="col">
-                <b-form-group label="Tarif Sarana:">
-                    <input
-                        class="form-control"
-                        type="number"
-                        v-model="form.tarif[kelas].tarif_sarana"
-                        >
-                    </input>
-                </b-form-group>
-            </div>
-            <div class="col">
-                <b-form-group label="Tarif Pelayanan:">
-                    <input
-                        class="form-control"
-                        type="number"
-                        v-model="form.tarif[kelas].tarif_pelayanan"
-                        >
-                    </input>
-                </b-form-group>
-            </div>
-            <div class="col">
-                <b-form-group label="Tarif BHP:">
-                    <input
-                        class="form-control"
-                        type="number"
-                        v-model="form.tarif[kelas].tarif_bhp"
-                        >
-                    </input>
-                </b-form-group>
-            </div>
+            @foreach (App\Enums\JenisTarif::getValues() as $kelas)
+                <div class="col">
+                    <b-form-group label="{{ App\Enums\JenisTarif::getDescription($kelas) }}:">
+                        <input
+                            class="form-control"
+                            type="number"
+                            v-model="form.tarif[kelas].{{ $kelas }}"
+                            >
+                        </input>
+                    </b-form-group>
+                </div>
+            @endforeach
         </div>
     </template>
 </form-modal>
@@ -70,7 +53,7 @@ window.pagemix.push({
                 tarif: {}
             }),
             edite: '',
-            kelas_tarif: @json(App\Enums\KelasTarif::toSelectArray())
+            kelas_tarif: @json(App\Enums\KelasTarif::keyDescriptions())
         }
     },
     methods: {

@@ -3,6 +3,7 @@
 namespace Tests\Unit\Layanan;
 
 use Tests\TestCase;
+use App\Enums\JenisTarif;
 use App\Models\Fasilitas;
 use App\Models\Layanan\Kamar;
 use App\Models\Perawatan\Perawatan;
@@ -102,5 +103,37 @@ class KamarTest extends TestCase
         $resource = Kamar::find($resource->id);
 
         $this->assertInstanceof(Fasilitas\Poliklinik::class, $resource->poliklinik);
+    }
+
+    /** @test */
+    public function it_copy_the_tarif_attribute_from_master_jenis_registrasi()
+    {
+        $master  = factory(Fasilitas\Ruangan::class)->create();
+
+        $kamar   = factory(Fasilitas\Kamar::class)->create([
+            'ruangan_id' => $master->id
+        ]);
+
+        $ranjang = factory(Fasilitas\Ranjang::class)->create([
+            'kamar_id' => $kamar->id
+        ]);
+
+        $master->tarif()->create([
+            'tarif' => [
+                $master->kelas => [
+                    JenisTarif::SARANA    => 15000,
+                    JenisTarif::PELAYANAN => 10000,
+                    JenisTarif::BHP       => 0
+                ],
+            ]
+        ]);
+
+        $master = Fasilitas\Ruangan::find($master->id);
+
+        $resource = factory(Kamar::class)->create(['ranjang_id' => $ranjang->id]);
+
+        $resource = Kamar::find($master->id);
+
+        $this->assertSame($master->getTarifByKelas($master->kelas), $resource->tarif);
     }
 }
