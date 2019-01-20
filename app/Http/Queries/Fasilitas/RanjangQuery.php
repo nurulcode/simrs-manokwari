@@ -10,4 +10,11 @@ class RanjangQuery extends HttpQuery
     {
         return $builder->where('ranjangs.kamar_id', $value);
     }
+
+    public function kosong($builder, $value = false)
+    {
+        return $builder->whereDoesntHave('layanan_kamars', function ($query) {
+            $query->whereNull('waktu_keluar');
+        });
+    }
 }

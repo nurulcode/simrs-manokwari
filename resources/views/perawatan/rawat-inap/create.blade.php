@@ -97,7 +97,7 @@
             <b slot="label">Ranjang:</b>
             <ajax-select
                 :disabled="!form_kunjungan.kamar_id"
-                :params="{kamar:form_kunjungan.kamar_id}"
+                :params="{kamar:form_kunjungan.kamar_id,kosong:true}"
                 deselect-label=""
                 label="kode"
                 placeholder="Pilih Ranjang"
