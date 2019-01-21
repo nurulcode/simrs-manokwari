@@ -11,12 +11,23 @@ use App\Models\Layanan\Kamar;
 use App\Models\Master\Kegiatan;
 use Illuminate\Support\Collection;
 use App\Models\Perawatan\RawatInap;
+use App\Enums\KeadaanKeluar;
+use App\Enums\CaraKeluar;
+use App\Models\Perawatan\RawatInapPulang;
 
 class RawatInapTest extends TestCase
 {
     public function createResourceWithKamar()
     {
-        $resource = factory(RawatInap::class)->create();
+        $resource   = factory(RawatInap::class)->create();
+
+        $kunjungan  = factory(Kunjungan::class)->create();
+
+        $registrasi = factory(Registrasi::class)->create([
+            'kunjungan_id'   => $kunjungan->id,
+            'perawatan_type' => get_class($resource),
+            'perawatan_id'   => $resource->id
+        ]);
 
         $ranjang  = factory(Fasilitas\Ranjang::class)->create();
 
@@ -28,9 +39,9 @@ class RawatInapTest extends TestCase
 
         $ranjang  = factory(Fasilitas\Ranjang::class)->create();
 
-        $kamar    = factory(Kamar::class)->create([
+        $resource->kamars()->create([
+            'waktu_masuk'  => Carbon::now(),
             'ranjang_id'   => $ranjang->id,
-            'perawatan_id' => $resource->id
         ]);
 
         return RawatInap::find($resource->id);
@@ -188,5 +199,26 @@ class RawatInapTest extends TestCase
         $resource = $this->createResourceWithKamar();
 
         $this->assertInstanceof(Fasilitas\Poliklinik::class, $resource->poliklinik);
+    }
+
+    /** @test */
+    public function pasien_rawat_inap_dapat_pulang()
+    {
+        $resource = $this->createResourceWithKamar();
+
+        $resource->pulang()->create([
+            'waktu_keluar'   => now(),
+            'keadaan_keluar' => KeadaanKeluar::getRandomValue(),
+            'cara_keluar'    => CaraKeluar::getRandomValue(),
+        ]);
+
+        $this->assertInstanceOf(RawatInapPulang::class, $resource->pulang);
+
+        $this->assertNull($resource->layanan_kamar);
+
+        $this->assertEquals(
+            $resource->pulang->waktu_keluar,
+            $resource->kunjungan->waktu_keluar
+        );
     }
 }

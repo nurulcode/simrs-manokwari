@@ -3,9 +3,12 @@
 namespace Tests\Feature\Perawatan;
 
 use Tests\TestCase;
+use App\Models\Fasilitas;
+use App\Enums\CaraKeluar;
 use App\Models\Kunjungan;
 use App\Models\Registrasi;
-use App\Models\Fasilitas\Ranjang;
+use App\Enums\KeadaanKeluar;
+use App\Models\Perawatan\RawatInapPulang;
 use Sty\Tests\ResourceControllerTestCase;
 
 class RawatInapControllerTest extends TestCase
@@ -102,6 +105,46 @@ class RawatInapControllerTest extends TestCase
                 'ranjang_id',
             ])
             ->assertStatus(422);
+    }
+
+    /** @test */
+    public function pasien_rawat_inap_dapat_pulang()
+    {
+        $resource   = factory($this->resource())->create();
+
+        $kunjungan  = factory(Kunjungan::class)->create();
+
+        $registrasi = factory(Registrasi::class)->create([
+            'kunjungan_id'   => $kunjungan->id,
+            'perawatan_type' => get_class($resource),
+            'perawatan_id'   => $resource->id
+        ]);
+
+        $ranjang  = factory(Fasilitas\Ranjang::class)->create();
+
+        $resource->kamars()->create([
+            'waktu_masuk'  => now(),
+            'ranjang_id'   => $ranjang->id,
+        ]);
+
+        $this->signIn()
+            ->postJson(action('Perawatan\RawatInapPulangController', $resource->id), [
+                'waktu_keluar'   => now(),
+                'keadaan_keluar' => KeadaanKeluar::getRandomValue(),
+                'cara_keluar'    => CaraKeluar::getRandomValue(),
+            ])
+            ->assertStatus(200);
+
+        $resource = \App\Models\Perawatan\RawatInap::find($resource->id);
+
+        $this->assertInstanceOf(RawatInapPulang::class, $resource->pulang);
+
+        $this->assertNull($resource->layanan_kamar);
+
+        $this->assertEquals(
+            $resource->pulang->waktu_keluar,
+            $resource->kunjungan->waktu_keluar
+        );
     }
 
     /** @test **/

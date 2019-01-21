@@ -16,6 +16,13 @@ class Kamar extends Layanan
      */
     protected $table = 'layanan_kamars';
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['waktu_masuk', 'waktu_keluar'];
+
     public function path($action = 'show')
     {
         return;

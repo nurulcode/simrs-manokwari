@@ -38,4 +38,9 @@ class RawatInap extends Perawatan
             $date->startOfDay(), $date->copy()->endOfDay()
         ]);
     }
+
+    public function pulang()
+    {
+        return $this->hasOne(RawatInapPulang::class);
+    }
 }

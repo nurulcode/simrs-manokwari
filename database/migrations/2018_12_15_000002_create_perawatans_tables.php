@@ -60,8 +60,6 @@ class CreatePerawatansTables extends Migration
         Schema::create('rawat_inaps', function (Blueprint $table) {
             $table->increments('id');
             $table->datetime('waktu_masuk');
-            $table->datetime('waktu_keluar')->nullable();
-            $table->unsignedTinyInteger('kondisi_akhir')->nullable();
             $table->unsignedInteger('kegiatan_id');
             $table->unsignedTinyInteger('cara_penerimaan');
             $table->unsignedTinyInteger('aktifitas');
@@ -73,6 +71,25 @@ class CreatePerawatansTables extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
         });
+
+        Schema::create('rawat_inap_pulangs', function (Blueprint $table) {
+            $table->unsignedInteger('rawat_inap_id');
+            $table->datetime('waktu_keluar');
+            $table->unsignedTinyInteger('keadaan_keluar');
+            $table->unsignedTinyInteger('cara_keluar');
+            $table->string('rujukan')->nullable();
+            $table->string('rs_tujuan')->nullable();
+            $table->string('catatan')->nullable();
+            $table->timestamps();
+
+            $table->primary('rawat_inap_id');
+
+            $table->foreign('rawat_inap_id')
+                ->references('id')
+                ->on('rawat_inaps')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+        });
     }
 
     /**
@@ -82,6 +99,8 @@ class CreatePerawatansTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('rawat_inap_pulangs');
+
         Schema::dropIfExists('rawat_inaps');
 
         Schema::dropIfExists('rawat_darurats');

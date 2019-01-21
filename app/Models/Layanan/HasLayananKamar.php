@@ -49,6 +49,11 @@ trait HasLayananKamar
         return $this->morphMany(Kamar::class, 'perawatan');
     }
 
+    public function layanan_kamar()
+    {
+        return $this->morphOne(Kamar::class, 'perawatan')->whereNull('waktu_keluar');
+    }
+
     /**
      * Disable "booting" method of the BelongsToRanjang trait.
      *

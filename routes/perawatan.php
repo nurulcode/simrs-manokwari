@@ -12,5 +12,7 @@ Route::namespace('Perawatan')->group(function () {
 
     Route::middleware('can:manage_rawat_inap')->group(function () {
         Route::apiResource('rawat-inap', 'RawatInapController');
+
+        Route::post('rawat_inap/{rawat_inap}/pulang', 'RawatInapPulangController');
     });
 });
