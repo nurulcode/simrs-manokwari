@@ -31,6 +31,24 @@ $factory->define(App\Models\Kunjungan::class, function (Faker $faker) {
     ];
 });
 
+$factory->state(App\Models\Kunjungan::class, 'real', [
+    'pasien_id' => function () {
+        return Pasien::inRandomOrder()->first()->id;
+    },
+    'kasus_id' => function () {
+        return Master\Kasus::inRandomOrder()->first()->id;
+    },
+    'penyakit_id' => function () {
+        return Master\Penyakit\Penyakit::inRandomOrder()->first()->id;
+    },
+    'jenis_rujukan_id' => function () {
+        return Master\JenisRujukan::inRandomOrder()->first()->id;
+    },
+    'cara_pembayaran_id' => function () {
+        return Master\CaraPembayaran::inRandomOrder()->first()->id;
+    }
+]);
+
 $factory->define(App\Models\Registrasi::class, function (Faker $faker) {
     return [
         'kunjungan_id' => function () {
