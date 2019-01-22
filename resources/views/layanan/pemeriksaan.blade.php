@@ -1,4 +1,9 @@
-<data-table v-bind.sync="pemeriksaan" ref="table_pemeriksaan" title="Pemeriksaan" no-edit>
+<data-table v-bind.sync="pemeriksaan" ref="table_pemeriksaan" title="Pemeriksaan" no-edit
+    @if ($perawatan->waktu_keluar)
+        no-action
+        no-add-button-text
+    @endif
+    >
     <div slot="form">
         <b-form-group v-bind="pemeriksaan.form.feedback('pemeriksaan_umum_id')">
             <b slot="label">Jenis Pemeriksaan:</b>

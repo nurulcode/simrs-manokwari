@@ -79,7 +79,7 @@ class CreatePerawatansTables extends Migration
             $table->unsignedTinyInteger('cara_keluar');
             $table->string('rujukan')->nullable();
             $table->string('rs_tujuan')->nullable();
-            $table->string('catatan')->nullable();
+            $table->text('catatan')->nullable();
             $table->timestamps();
 
             $table->primary('rawat_inap_id');

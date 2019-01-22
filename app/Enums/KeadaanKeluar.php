@@ -3,8 +3,9 @@
 namespace App\Enums;
 
 use BenSampo\Enum\Enum;
+use BenSampo\Enum\Contracts\LocalizedEnum;
 
-final class KeadaanKeluar extends Enum
+final class KeadaanKeluar extends Enum implements LocalizedEnum
 {
     const SEMBUH              = 1;
     const MEMBAIK             = 2;

@@ -66,4 +66,11 @@
             </b-form-group>
         </div>
     </div>
+
+    @if(isset($footer) && !empty($footer->toHtml()))
+        @slot('footer')
+            {{ $footer }}
+        @endslot
+    @endif
+
 @endcomponent

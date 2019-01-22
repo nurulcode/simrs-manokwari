@@ -4,10 +4,18 @@ namespace App\Models\Perawatan;
 
 use Carbon\Carbon;
 use App\Models\Layanan\HasLayananKamar;
+use Illuminate\Database\Eloquent\Builder;
 
 class RawatInap extends Perawatan
 {
     use HasLayananKamar;
+
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['pulang'];
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +30,21 @@ class RawatInap extends Perawatan
         'kondisi_akhir',
         'aktifitas',
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('waktu_keluar', function (Builder $builder) {
+            $builder->addSubSelect('waktu_keluar', RawatInapPulang::select('waktu_keluar')
+                ->whereColumn('rawat_inap_id', 'rawat_inaps.id'));
+        });
+    }
 
     public function scopeHariIni($query)
     {

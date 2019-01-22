@@ -1,4 +1,9 @@
-<data-table v-bind.sync="tindakan" ref="table_tindakan" title="Tindakan" no-edit>
+<data-table v-bind.sync="tindakan" ref="table_tindakan" title="Tindakan" no-edit
+    @if ($perawatan->waktu_keluar)
+        no-action
+        no-add-button-text
+    @endif
+    >
     <div slot="form">
         <div class="row">
             <div class="col-md-8">

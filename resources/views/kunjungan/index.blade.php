@@ -16,6 +16,12 @@
         <template slot="penyakit" slot-scope="{value: penyakit}" v-if="penyakit">
             @{{ `${penyakit.icd} - ${penyakit.uraian}` }}
         </template>
+        <template slot="waktu_masuk" slot-scope="{value}" v-if="value">
+            @{{ value | date_time }}
+        </template>
+        <template slot="waktu_keluar" slot-scope="{value}" v-if="value">
+            @{{ value | date_time }}
+        </template>
     </data-table>
 @endsection
 
@@ -25,7 +31,7 @@ window.pagemix.push({
     data() {
         return {
             kunjungan: {
-                sortBy  : `waktu_kunjungan`,
+                sortBy  : `waktu_masuk`,
                 sortDesc: true,
                 url     : `{{ action('KunjunganController@index') }}`,
                 fields: [{
@@ -40,8 +46,13 @@ window.pagemix.push({
                         'min-width': '200px'
                     }
                 },{
-                    key      : 'waktu_kunjungan',
-                    formatter: waktu => format(parse(waktu), 'DD/MM/YYYY H:mm:ss'),
+                    key      : 'waktu_masuk',
+                    sortable : true,
+                    thStyle  : {
+                        'width': '160px'
+                    }
+                },{
+                    key      : 'waktu_keluar',
                     sortable : true,
                     thStyle  : {
                         'width': '160px'

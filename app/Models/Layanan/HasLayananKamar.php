@@ -27,8 +27,8 @@ trait HasLayananKamar
             ];
 
             $kamar = Kamar::select($columns)
-                ->whereNull('waktu_keluar')
-                ->where('perawatan_type', self::class);
+                ->where('perawatan_type', self::class)
+                ->latest('waktu_masuk');
 
             $builder
                 ->addSelect([

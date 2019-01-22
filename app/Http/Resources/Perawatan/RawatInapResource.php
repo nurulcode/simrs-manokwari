@@ -22,8 +22,8 @@ class RawatInapResource extends JsonResource
         return [
             'id'            => $this->id,
             'poliklinik_id' => $this->poliklinik_id,
-            'waktu_masuk'   => $this->waktu_masuk,
-            'waktu_keluar'  => $this->waktu_keluar,
+            'waktu_masuk'   => (string) $this->waktu_masuk,
+            'waktu_keluar'  => (string) $this->waktu_keluar,
             'poliklinik'    => PoliklinikResource::make($this->whenLoaded('poliklinik')),
             'ruangan'       => RuanganResource::make($this->whenLoaded('ruangan')),
             'kamar'         => KamarResource::make($this->whenLoaded('kamar')),

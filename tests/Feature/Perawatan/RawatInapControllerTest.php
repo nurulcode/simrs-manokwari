@@ -3,8 +3,8 @@
 namespace Tests\Feature\Perawatan;
 
 use Tests\TestCase;
-use App\Models\Fasilitas;
 use App\Enums\CaraKeluar;
+use App\Models\Fasilitas;
 use App\Models\Kunjungan;
 use App\Models\Registrasi;
 use App\Enums\KeadaanKeluar;
@@ -37,7 +37,7 @@ class RawatInapControllerTest extends TestCase
             'perawatan_type' => get_class($resource)
         ]);
 
-        $ranjang   = Ranjang::find(factory(Ranjang::class)->create()->id);
+        $ranjang   = Fasilitas\Ranjang::find(factory(Fasilitas\Ranjang::class)->create()->id);
 
         $this->signIn()
             ->postJson($resource->path('store'), array_merge(

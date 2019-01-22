@@ -1,4 +1,9 @@
-<data-table v-bind.sync="diagnosa" ref="table_diagnosa" title="Diagnosa">
+<data-table v-bind.sync="diagnosa" ref="table_diagnosa" title="Diagnosa"
+    @if ($perawatan->waktu_keluar)
+        no-action
+        no-add-button-text
+    @endif
+>
     <div slot="form">
         <b-form-group v-bind="diagnosa.form.feedback('penyakit_id')">
             <b slot="label">Penyakit:</b>

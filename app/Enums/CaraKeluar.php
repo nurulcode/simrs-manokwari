@@ -3,8 +3,9 @@
 namespace App\Enums;
 
 use BenSampo\Enum\Enum;
+use BenSampo\Enum\Contracts\LocalizedEnum;
 
-final class CaraKeluar extends Enum
+final class CaraKeluar extends Enum implements LocalizedEnum
 {
     const DIIJINKAN                 = 1;
     const PULANG_PAKSA              = 2;

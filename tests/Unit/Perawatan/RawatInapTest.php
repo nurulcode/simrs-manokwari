@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Perawatan;
 
+use App\Enums;
 use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\Fasilitas;
@@ -11,8 +12,6 @@ use App\Models\Layanan\Kamar;
 use App\Models\Master\Kegiatan;
 use Illuminate\Support\Collection;
 use App\Models\Perawatan\RawatInap;
-use App\Enums\KeadaanKeluar;
-use App\Enums\CaraKeluar;
 use App\Models\Perawatan\RawatInapPulang;
 
 class RawatInapTest extends TestCase
@@ -40,7 +39,7 @@ class RawatInapTest extends TestCase
         $ranjang  = factory(Fasilitas\Ranjang::class)->create();
 
         $resource->kamars()->create([
-            'waktu_masuk'  => Carbon::now(),
+            'waktu_masuk'  => Carbon::now()->addHour(),
             'ranjang_id'   => $ranjang->id,
         ]);
 
@@ -208,17 +207,26 @@ class RawatInapTest extends TestCase
 
         $resource->pulang()->create([
             'waktu_keluar'   => now(),
-            'keadaan_keluar' => KeadaanKeluar::getRandomValue(),
-            'cara_keluar'    => CaraKeluar::getRandomValue(),
+            'keadaan_keluar' => Enums\KeadaanKeluar::getRandomValue(),
+            'cara_keluar'    => Enums\CaraKeluar::getRandomValue(),
         ]);
+
+        $resource = $resource->fresh();
 
         $this->assertInstanceOf(RawatInapPulang::class, $resource->pulang);
 
         $this->assertNull($resource->layanan_kamar);
 
+        $resource = RawatInap::find($resource->id);
+
         $this->assertEquals(
             $resource->pulang->waktu_keluar,
             $resource->kunjungan->waktu_keluar
+        );
+
+        $this->assertEquals(
+            $resource->waktu_keluar,
+            $resource->pulang->waktu_keluar
         );
     }
 }

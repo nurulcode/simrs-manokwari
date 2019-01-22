@@ -48,6 +48,11 @@ class Kunjungan extends Model
      */
     protected $guarded;
 
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
     protected static function boot()
     {
         parent::boot();

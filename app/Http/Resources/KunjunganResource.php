@@ -34,7 +34,8 @@ class KunjunganResource extends JsonResource
             'sjp_tanggal'         => $this->sjp_tanggal,
             'path'                => $this->path,
             'rujukan'             => $this->rujukan,
-            'waktu_kunjungan'     => (string) $this->waktu_kunjungan,
+            'waktu_masuk'         => (string) $this->waktu_masuk,
+            'waktu_keluar'        => (string) $this->waktu_keluar,
         ];
     }
 }
