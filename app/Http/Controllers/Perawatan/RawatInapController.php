@@ -43,10 +43,7 @@ class RawatInapController extends Controller
         $kunjungan  = Kunjungan::create($request->validated());
 
         if ($request->input('pasien_baru', false)) {
-            $rawat_inap->registrasi()->create([
-                'kunjungan_id'        => $kunjungan->id,
-                'jenis_registrasi_id' => 1
-            ]);
+            $kunjungan->registrasis()->create(['jenis_registrasi_id' => 1]);
         }
 
         $rawat_inap->registrasi()->create([

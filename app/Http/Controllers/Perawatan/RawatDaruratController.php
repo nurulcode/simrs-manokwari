@@ -36,6 +36,10 @@ class RawatDaruratController extends Controller
 
         $kunjungan     = Kunjungan::create($request->validated());
 
+        if ($request->input('pasien_baru', false)) {
+            $kunjungan->registrasis()->create(['jenis_registrasi_id' => 1]);
+        }
+
         $rawat_darurat->registrasi()->create([
             'kunjungan_id'        => $kunjungan->id,
             'jenis_registrasi_id' => $request->input('jenis_registrasi_id')

@@ -8,6 +8,7 @@ use App\Models\Kunjungan;
 use App\Models\Registrasi;
 use App\Enums\KondisiAkhir;
 use Sty\Tests\ResourceControllerTestCase;
+use App\Models\Master\JenisRegistrasi;
 
 class RawatDaruratControllerTest extends TestCase
 {
@@ -48,6 +49,56 @@ class RawatDaruratControllerTest extends TestCase
         $this->assertDatabaseHas(
             $registrasi->getTable(),
             array_except($registrasi->getAttributes(), 'kunjungan_id')
+        );
+
+        $this->assertDatabaseHas(
+            $kunjungan->getTable(),
+            $kunjungan->getAttributes()
+        );
+    }
+
+    /** @test **/
+    public function pasien_baru_create_two_register()
+    {
+        $resource   = factory($this->resource())->make();
+
+        $kunjungan  = factory(Kunjungan::class)->make();
+
+        $jregister  = factory(JenisRegistrasi::class)->create();
+
+        $registrasi = factory(Registrasi::class)->make([
+            'kunjungan_id'   => null,
+            'perawatan_type' => get_class($resource)
+        ]);
+
+        $this->signIn()
+            ->postJson($resource->path('store'), array_merge(
+                $registrasi->toArray(),
+                $kunjungan->toArray(),
+                $resource->toArray(),
+                ['pasien_baru' => true]
+            ))
+            ->assertJson(['status' => 'success'])
+            ->assertHeader('Location')
+            ->assertStatus(201);
+
+        $this->assertDatabaseHas(
+            $this->resourceTable($resource),
+            $this->matchDatabase($resource)
+        );
+
+        $this->assertDatabaseHas(
+            $registrasi->getTable(),
+            array_except($registrasi->getAttributes(), 'kunjungan_id')
+        );
+
+        $this->assertDatabaseHas(
+            $registrasi->getTable(),
+            [
+                'jenis_registrasi_id' => $jregister->id,
+                'perawatan_id'        => null,
+                'perawatan_type'      => null,
+            ]
         );
 
         $this->assertDatabaseHas(
