@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Perawatan;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use App\Enums\CaraKeluar;
 use App\Models\Fasilitas;
@@ -127,9 +128,11 @@ class RawatInapControllerTest extends TestCase
             'ranjang_id'   => $ranjang->id,
         ]);
 
+        $waktu_keluar = Carbon::now()->toDateTimeString();
+
         $this->signIn()
             ->postJson(action('Perawatan\RawatInapPulangController', $resource->id), [
-                'waktu_keluar'   => now(),
+                'waktu_keluar'   => $waktu_keluar,
                 'keadaan_keluar' => KeadaanKeluar::getRandomValue(),
                 'cara_keluar'    => CaraKeluar::getRandomValue(),
             ])
@@ -141,10 +144,8 @@ class RawatInapControllerTest extends TestCase
 
         $this->assertNull($resource->layanan_kamar);
 
-        $this->assertEquals(
-            $resource->pulang->waktu_keluar,
-            $resource->kunjungan->waktu_keluar
-        );
+        $this->assertEquals($waktu_keluar, $resource->kunjungan->waktu_keluar);
+        $this->assertEquals($waktu_keluar, $resource->pulang->waktu_keluar);
     }
 
     /** @test **/

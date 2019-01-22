@@ -6,6 +6,7 @@ use App\Enums\KelasTarif;
 use App\Enums\JenisTarif;
 use App\Enums\KeadaanKeluar;
 use App\Enums\CaraKeluar;
+use App\Enums\KondisiAkhir;
 
 return [
     JenisKelamin::class => [
@@ -47,5 +48,16 @@ return [
         CaraKeluar::DIKEMBALIKAN_KE_RS          => 'Dikembalikan ke RS Asal',
         CaraKeluar::LARI                        => 'Lari',
         CaraKeluar::PINDAH_RS                   => 'Pindah Ke RS Lain'
+    ],
+    KondisiAkhir::class => [
+        KondisiAkhir::DIRAWAT     => 'Dirawat',
+        KondisiAkhir::MENINGGAL   => 'Meninggal',
+        KondisiAkhir::PULANG      => 'Pulang',
+        KondisiAkhir::RAWAT_INAP  => 'Rawat Inap',
+        KondisiAkhir::POLI_LAIN   => 'Konsul Ke Poli Lain',
+        KondisiAkhir::RS_LAIN     => 'Dirujuk ke RS Lain',
+        KondisiAkhir::PUSKESMAS   => 'Kembali ke Puskesmas',
+        KondisiAkhir::DOA         => 'Doa',
+        KondisiAkhir::LAIN_LAIN   => 'Lain-lain',
     ]
 ];
