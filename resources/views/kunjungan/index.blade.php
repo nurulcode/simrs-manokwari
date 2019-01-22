@@ -16,8 +16,11 @@
         <template slot="penyakit" slot-scope="{value: penyakit}" v-if="penyakit">
             @{{ `${penyakit.icd} - ${penyakit.uraian}` }}
         </template>
-        <template slot="waktu_masuk" slot-scope="{value}" v-if="value">
-            @{{ value | date_time }}
+        <template slot="nomor_kunjungan" slot-scope="{value, item}">
+            @{{ value }}
+            <p class="text-muted">
+                @{{ item.waktu_masuk | date_time }}
+            </p>
         </template>
         <template slot="waktu_keluar" slot-scope="{value}" v-if="value">
             @{{ value | date_time }}
@@ -44,12 +47,6 @@ window.pagemix.push({
                     key      : 'pasien',
                     thStyle  : {
                         'min-width': '200px'
-                    }
-                },{
-                    key      : 'waktu_masuk',
-                    sortable : true,
-                    thStyle  : {
-                        'width': '160px'
                     }
                 },{
                     key      : 'waktu_keluar',
