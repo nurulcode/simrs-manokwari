@@ -53,6 +53,20 @@ $factory->state(Perawatan\RawatJalan::class, 'real', [
     },
 ]);
 
+$factory->state(Perawatan\RawatDarurat::class, 'real', [
+    'kegiatan_id' => function () {
+        return Master\Kegiatan::inRandomOrder()
+            ->first()
+            ->id;
+    },
+    'poliklinik_id' => function () {
+        return Fasilitas\Poliklinik::where('jenis_id', 2)
+            ->inRandomOrder()
+            ->first()
+            ->id;
+    },
+]);
+
 $factory->state(Perawatan\RawatInap::class, 'real', [
     'kegiatan_id' => function () {
         return Master\Kegiatan::inRandomOrder()
