@@ -53,12 +53,8 @@ window.pagemix.push({
     data() {
         return {
             form_pulang: new Form({
-                waktu_keluar  : null,
+                waktu_keluar : null,
                 kondisi_akhir: null,
-                cara_keluar   : null,
-                rujukan       : null,
-                rs_tujuan     : null,
-                catatan       : null
             })
         };
     },

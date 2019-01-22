@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\Perawatan;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\Kunjungan;
 use App\Models\Registrasi;
+use App\Enums\KondisiAkhir;
 use Sty\Tests\ResourceControllerTestCase;
 
 class RawatDaruratControllerTest extends TestCase
@@ -87,6 +89,35 @@ class RawatDaruratControllerTest extends TestCase
                 'poliklinik_id',
             ])
             ->assertStatus(422);
+    }
+
+    /** @test */
+    public function pasien_rawat_darurat_dapat_pulang()
+    {
+        $resource   = factory($this->resource())->create();
+
+        $kunjungan  = factory(Kunjungan::class)->create();
+
+        $registrasi = factory(Registrasi::class)->create([
+            'kunjungan_id'   => $kunjungan->id,
+            'perawatan_type' => get_class($resource),
+            'perawatan_id'   => $resource->id
+        ]);
+
+        $waktu_keluar = Carbon::now()->toDateTimeString();
+
+        $this->disableExceptionHandling()
+            ->signIn()
+            ->postJson(action('Perawatan\RawatDaruratPulangController', $resource->id), [
+                'waktu_keluar'   => $waktu_keluar,
+                'kondisi_akhir'  => KondisiAkhir::getRandomValue(),
+            ])
+            ->assertStatus(200);
+
+        $resource = \App\Models\Perawatan\RawatDarurat::find($resource->id);
+
+        $this->assertEquals($waktu_keluar, $resource->kunjungan->waktu_keluar);
+        $this->assertEquals($waktu_keluar, $resource->waktu_keluar);
     }
 
     /** @test **/
