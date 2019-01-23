@@ -55,7 +55,7 @@
                 </div>
                 <div class="text-value">{{ $rawat_jalan->hariIni()->count() }}</div>
                 <small class="text-muted text-uppercase font-weight-bold">
-                    Kunjungan Rawat Jalan Hari Ini
+                    Rawat Jalan Hari Ini
                 </small>
             @endcomponent
         </div>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="text-value">{{ $rawat_darurat->hariIni()->count() }}</div>
                 <small class="text-muted text-uppercase font-weight-bold">
-                    Kunjungan Rawat Darurat Hari Ini
+                    Rawat Darurat Hari Ini
                 </small>
             @endcomponent
         </div>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="text-value">{{ $rawat_inap->hariIni()->count() }}</div>
                 <small class="text-muted text-uppercase font-weight-bold">
-                    Kunjungan Rawat Inap Hari Ini
+                    Rawat Inap Hari Ini
                 </small>
             @endcomponent
         </div>
