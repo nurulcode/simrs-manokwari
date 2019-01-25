@@ -39,9 +39,11 @@ trait BelongsToKamar
 
     public function orderByKamar($builder, $direction = 'asc')
     {
-        $kamar = Kamar::withoutGlobalScope('poliklinik')
+        $table = $builder->getQuery()->from;
+
+        $kamar = Kamar::withoutGlobalScopes()
             ->select('nama')
-            ->whereColumn('id', 'kamar_id');
+            ->whereColumn('id', $table . '.kamar_id');
 
         $builder->orderBySub($kamar, $direction);
 

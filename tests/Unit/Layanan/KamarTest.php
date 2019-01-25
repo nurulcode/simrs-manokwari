@@ -7,6 +7,7 @@ use App\Enums\JenisTarif;
 use App\Models\Fasilitas;
 use App\Models\Layanan\Kamar;
 use App\Models\Perawatan\Perawatan;
+use App\Enums\KelasTarif;
 
 class KamarTest extends TestCase
 {
@@ -120,7 +121,7 @@ class KamarTest extends TestCase
 
         $master->tarif()->create([
             'tarif' => [
-                $master->kelas => [
+                KelasTarif::getKey($master->kelas) => [
                     JenisTarif::SARANA    => 15000,
                     JenisTarif::PELAYANAN => 10000,
                     JenisTarif::BHP       => 0

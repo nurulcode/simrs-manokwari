@@ -66,11 +66,6 @@ class RawatInapControllerTest extends TestCase
             $kunjungan->getTable(),
             $kunjungan->getAttributes()
         );
-
-        $this->assertDatabaseHas('layanan_kamars', [
-            'perawatan_type' => get_class($resource),
-            'ranjang_id'     => $ranjang->id
-        ]);
     }
 
     /** @test **/
@@ -123,11 +118,6 @@ class RawatInapControllerTest extends TestCase
             $kunjungan->getTable(),
             $kunjungan->getAttributes()
         );
-
-        $this->assertDatabaseHas('layanan_kamars', [
-            'perawatan_type' => get_class($resource),
-            'ranjang_id'     => $ranjang->id
-        ]);
     }
 
     /** @test **/
@@ -179,13 +169,6 @@ class RawatInapControllerTest extends TestCase
             'perawatan_id'   => $resource->id
         ]);
 
-        $ranjang  = factory(Fasilitas\Ranjang::class)->create();
-
-        $resource->kamars()->create([
-            'waktu_masuk'  => now(),
-            'ranjang_id'   => $ranjang->id,
-        ]);
-
         $waktu_keluar = Carbon::now()->toDateTimeString();
 
         $this->signIn()
@@ -199,8 +182,6 @@ class RawatInapControllerTest extends TestCase
         $resource = \App\Models\Perawatan\RawatInap::find($resource->id);
 
         $this->assertInstanceOf(RawatInapPulang::class, $resource->pulang);
-
-        $this->assertNull($resource->layanan_kamar);
 
         $this->assertEquals($waktu_keluar, $resource->kunjungan->waktu_keluar);
         $this->assertEquals($waktu_keluar, $resource->pulang->waktu_keluar);

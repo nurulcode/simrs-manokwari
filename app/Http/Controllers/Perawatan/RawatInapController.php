@@ -51,11 +51,6 @@ class RawatInapController extends Controller
             'jenis_registrasi_id' => $request->input('jenis_registrasi_id')
         ]);
 
-        $rawat_inap->kamars()->create([
-            'waktu_masuk' => $rawat_inap->waktu_masuk,
-            'ranjang_id'  => $request->input('ranjang_id')
-        ]);
-
         return response()->crud(new RawatInapResource($rawat_inap));
     }
 

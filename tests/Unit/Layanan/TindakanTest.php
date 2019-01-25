@@ -9,6 +9,7 @@ use App\Models\Kepegawaian\Pegawai;
 use App\Models\Perawatan\RawatInap;
 use App\Models\Master\TindakanPemeriksaan;
 use App\Models\Perawatan\Perawatan;
+use App\Enums\KelasTarif;
 
 class TindakanTest extends TestCase
 {
@@ -47,7 +48,7 @@ class TindakanTest extends TestCase
 
         $master->tarif()->create([
             'tarif' => [
-                $perawatan->kelas => [
+                KelasTarif::getKey((string) $perawatan->kelas) => [
                     Enums\JenisTarif::SARANA    => 15000,
                     Enums\JenisTarif::PELAYANAN => 10000,
                     Enums\JenisTarif::BHP       => 0
@@ -64,7 +65,7 @@ class TindakanTest extends TestCase
         $master = TindakanPemeriksaan::find($master->id);
 
         $this->assertSame(
-            $master->getTarifByKelas($perawatan->kelas),
+            $master->getTarifByKelas(KelasTarif::getKey((string) $perawatan->kelas)),
             $resource->tarif
         );
     }

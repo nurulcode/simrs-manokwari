@@ -68,7 +68,7 @@ window.pagemix.push({
                     nomor          : null,
                     tanggal        : null
                 },
-                waktu_kunjungan    : null,
+                waktu_masuk        : null,
                 cara_pembayaran_id : null,
                 sjp_nomor          : null,
                 sjp_tanggal        : null,

@@ -37,15 +37,9 @@ class RawatInapPulang extends Model
         parent::boot();
 
         static::created(function ($model) {
-            $model->load('rawat_inap.layanan_kamar', 'rawat_inap.kunjungan');
-
-            $kamar     = $model->rawat_inap->layanan_kamar;
+            $model->load('rawat_inap.kunjungan');
 
             $kunjungan = $model->rawat_inap->kunjungan;
-
-            $kamar->waktu_keluar = $model->waktu_keluar;
-
-            $kamar->save();
 
             $kunjungan->waktu_keluar = $model->waktu_keluar;
 

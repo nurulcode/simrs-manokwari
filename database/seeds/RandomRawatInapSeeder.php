@@ -19,12 +19,12 @@ class RandomRawatInapSeeder extends Seeder
 
         $rawatinap  = factory(RawatInap::class)->states('real')->create();
 
-        $jenis_registrasi = JenisRegistrasi::inRandomOrder()
+        $registrasi = JenisRegistrasi::inRandomOrder()
             ->where('kategori', KategoriRegistrasi::RAWAT_INAP)
             ->first();
 
         $rawatinap->registrasi()->create([
-            'jenis_registrasi_id' => $jenis_registrasi->id,
+            'jenis_registrasi_id' => $registrasi->id,
             'kunjungan_id'        => $kunjungan->id
         ]);
     }

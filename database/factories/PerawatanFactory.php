@@ -5,7 +5,6 @@ use App\Models\Master;
 use App\Models\Fasilitas;
 use App\Models\Perawatan;
 use Faker\Generator as Faker;
-use App\Models\Fasilitas\Ranjang;
 
 $factory->define(Perawatan\RawatJalan::class, function (Faker $faker) {
     return [
@@ -33,6 +32,9 @@ $factory->define(Perawatan\RawatInap::class, function (Faker $faker) {
     return [
         'kegiatan_id' => function () {
             return factory(Master\Kegiatan::class)->create()->id;
+        },
+        'ranjang_id'  => function () {
+            return factory(Fasilitas\Ranjang::class)->create()->id;
         },
         'cara_penerimaan' => Enums\CaraPenerimaan::getRandomValue(),
         'aktifitas'       => Enums\Aktifitas::getRandomValue()
@@ -73,15 +75,9 @@ $factory->state(Perawatan\RawatInap::class, 'real', [
             ->first()
             ->id;
     },
+    'ranjang_id'      => function () {
+        return Fasilitas\Ranjang::inRandomOrder()->first()->id;
+    },
     'cara_penerimaan' => Enums\CaraPenerimaan::getRandomValue(),
     'aktifitas'       => Enums\Aktifitas::getRandomValue()
 ]);
-
-$factory->afterCreatingState(Perawatan\RawatInap::class, 'real', function ($rawat, $faker) {
-    $ranjang = Ranjang::inRandomOrder()->first();
-
-    $rawat->kamars()->create([
-        'waktu_masuk'  => now(),
-        'ranjang_id'   => $ranjang->id,
-    ]);
-});

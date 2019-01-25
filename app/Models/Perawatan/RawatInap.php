@@ -3,12 +3,13 @@
 namespace App\Models\Perawatan;
 
 use Carbon\Carbon;
-use App\Models\Layanan\HasLayananKamar;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\Fasilitas\BelongsToRanjang;
+use App\Models\Layanan\HasLayananKamar;
 
 class RawatInap extends Perawatan
 {
-    use HasLayananKamar;
+    use BelongsToRanjang, HasLayananKamar;
 
     /**
      * The relations to eager load on every query.
@@ -23,6 +24,7 @@ class RawatInap extends Perawatan
      * @var array
      */
     protected $fillable = [
+        'ranjang_id',
         'cara_penerimaan',
         'kegiatan_id',
         'waktu_masuk',

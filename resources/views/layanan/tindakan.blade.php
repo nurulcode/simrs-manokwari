@@ -72,13 +72,13 @@
         </p>
     </template>
     <template slot="tarif_sarana" slot-scope="{item}">
-        @{{ item.tarif && item.tarif.tarif_sarana }}
+        @{{ item.tarif && item.tarif.SARANA }}
     </template>
     <template slot="tarif_pelayanan" slot-scope="{item}">
-        @{{ item.tarif && item.tarif.tarif_pelayanan }}
+        @{{ item.tarif && item.tarif.PELAYANAN }}
     </template>
     <template slot="tarif_bhp" slot-scope="{item}">
-        @{{ item.tarif && item.tarif.tarif_bhp }}
+        @{{ item.tarif && item.tarif.BHP }}
     </template>
 </data-table>
 
@@ -117,7 +117,7 @@ window.pagemix.push({
                     tindakan_pemeriksaan_id: null,
                     jumlah                 : 1,
                     petugas_id             : null,
-                    waktu                  : new Date()
+                    waktu                  : format(new Date(), 'YYYY-MM-DD HH:mm:ss')
                 }, {
                     petugas                : null,
                     tindakan_pemeriksaan   : null

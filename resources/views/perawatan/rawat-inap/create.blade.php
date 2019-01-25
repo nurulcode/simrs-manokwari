@@ -171,7 +171,7 @@ window.pagemix.push({
                     nomor          : null,
                     tanggal        : null
                 },
-                waktu_kunjungan    : null,
+                waktu_masuk        : null,
                 aktifitas          : null,
                 cara_pembayaran_id : null,
                 cara_penerimaan    : null,

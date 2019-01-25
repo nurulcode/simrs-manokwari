@@ -17,14 +17,14 @@ trait BelongsToRuangan
 
         static::addGlobalScope('poliklinik', function (Builder $builder) use ($table) {
             $builder->addSubSelect('poliklinik_id',
-                Ruangan::withoutGlobalScope('tarif')
+                Ruangan::withoutGlobalScopes()
                     ->select('poliklinik_id')
                     ->whereColumn('id', 'kamars.ruangan_id'));
         });
 
         static::addGlobalScope('kelas', function (Builder $builder) use ($table) {
             $builder->addSubSelect('kelas',
-                Ruangan::withoutGlobalScope('tarif')
+                Ruangan::withoutGlobalScopes()
                     ->select('kelas')
                     ->whereColumn('id', 'kamars.ruangan_id'));
         });
@@ -45,7 +45,9 @@ trait BelongsToRuangan
 
     public function orderByRuangan($builder, $direction = 'asc')
     {
-        $ruangan = Ruangan::select('nama')->whereColumn('id', 'ruangan_id');
+        $ruangan = Ruangan::withoutGlobalScope('tarif')
+            ->select('nama')
+            ->whereColumn('id', 'ruangan_id');
 
         $builder->orderBySub($ruangan, $direction);
 

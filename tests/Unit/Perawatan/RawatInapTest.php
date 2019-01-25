@@ -3,16 +3,14 @@
 namespace Tests\Unit\Perawatan;
 
 use App\Enums;
-use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\Fasilitas;
 use App\Models\Kunjungan;
 use App\Models\Registrasi;
-use App\Models\Layanan\Kamar;
 use App\Models\Master\Kegiatan;
-use Illuminate\Support\Collection;
 use App\Models\Perawatan\RawatInap;
 use App\Models\Perawatan\RawatInapPulang;
+use App\Models\Layanan\Kamar;
 
 class RawatInapTest extends TestCase
 {
@@ -28,22 +26,19 @@ class RawatInapTest extends TestCase
             'perawatan_id'   => $resource->id
         ]);
 
-        $ranjang  = factory(Fasilitas\Ranjang::class)->create();
-
-        $resource->kamars()->create([
-            'waktu_masuk'  => Carbon::now(),
-            'waktu_keluar' => Carbon::now(),
-            'ranjang_id'   => $ranjang->id,
-        ]);
-
-        $ranjang  = factory(Fasilitas\Ranjang::class)->create();
-
-        $resource->kamars()->create([
-            'waktu_masuk'  => Carbon::now()->addHour(),
-            'ranjang_id'   => $ranjang->id,
-        ]);
-
         return RawatInap::find($resource->id);
+    }
+
+    /** @test */
+    public function auto_create_layanan_kamar_oncreate()
+    {
+        $resource   = factory(RawatInap::class)->create();
+
+        $this->assertInstanceOf(Kamar::class, $resource->layanan_kamar);
+
+        $this->assertEquals($resource->waktu_masuk, $resource->layanan_kamar->waktu_masuk);
+
+        $this->assertEquals($resource->ranjang_id, $resource->layanan_kamar->ranjang_id);
     }
 
     /** @test */
@@ -68,23 +63,6 @@ class RawatInapTest extends TestCase
     }
 
     /** @test */
-    public function a_resource_has_many_layanan_kamar()
-    {
-        $resource = factory(RawatInap::class)->create();
-
-        $ranjang  = factory(Fasilitas\Ranjang::class)->create();
-
-        $resource->kamars()->create([
-            'waktu_masuk' => Carbon::now(),
-            'ranjang_id'  => $ranjang->id,
-        ]);
-
-        $this->assertInstanceOf(Collection::class, $resource->kamars);
-
-        $this->assertInstanceOf(Kamar::class, $resource->kamars->random());
-    }
-
-    /** @test */
     public function resource_belongs_to_kunjungan()
     {
         $resource   = factory(RawatInap::class)->create();
@@ -104,19 +82,6 @@ class RawatInapTest extends TestCase
     }
 
     /** @test */
-    public function a_resource_have_virtual_ranjang_id()
-    {
-        $resource = $this->createResourceWithKamar();
-
-        $kamar    = $resource->kamars()
-            ->whereNull('waktu_keluar')
-            ->latest()
-            ->first();
-
-        $this->assertSame($kamar->ranjang_id, $resource->ranjang_id);
-    }
-
-    /** @test */
     public function resource_belongs_to_ranjang()
     {
         $resource = $this->createResourceWithKamar();
@@ -129,12 +94,9 @@ class RawatInapTest extends TestCase
     {
         $resource = $this->createResourceWithKamar();
 
-        $kamar    = $resource->kamars()
-            ->whereNull('waktu_keluar')
-            ->latest()
-            ->first();
+        $kamar    = $resource->ranjang->kamar;
 
-        $this->assertSame($kamar->kamar_id, $resource->kamar_id);
+        $this->assertEquals($kamar->id, $resource->kamar_id);
     }
 
     /** @test */
@@ -150,10 +112,7 @@ class RawatInapTest extends TestCase
     {
         $resource = $this->createResourceWithKamar();
 
-        $kamar    = $resource->kamars()
-            ->whereNull('waktu_keluar')
-            ->latest()
-            ->first();
+        $kamar    = $resource->ranjang->kamar;
 
         $this->assertEquals($kamar->ruangan_id, $resource->ruangan_id);
     }
@@ -171,10 +130,7 @@ class RawatInapTest extends TestCase
     {
         $resource = $this->createResourceWithKamar();
 
-        $kamar    = $resource->kamars()
-            ->whereNull('waktu_keluar')
-            ->latest()
-            ->first();
+        $kamar    = $resource->ranjang->kamar;
 
         $this->assertEquals($kamar->ruangan->kelas, $resource->kelas);
     }
@@ -184,12 +140,9 @@ class RawatInapTest extends TestCase
     {
         $resource = $this->createResourceWithKamar();
 
-        $kamar    = $resource->kamars()
-            ->whereNull('waktu_keluar')
-            ->latest()
-            ->first();
+        $ruangan  = $resource->ranjang->kamar->ruangan;
 
-        $this->assertEquals($kamar->poliklinik_id, $resource->poliklinik_id);
+        $this->assertEquals($ruangan->poliklinik_id, $resource->poliklinik_id);
     }
 
     /** @test */
@@ -214,8 +167,6 @@ class RawatInapTest extends TestCase
         $resource = $resource->fresh();
 
         $this->assertInstanceOf(RawatInapPulang::class, $resource->pulang);
-
-        $this->assertNull($resource->layanan_kamar);
 
         $resource = RawatInap::find($resource->id);
 

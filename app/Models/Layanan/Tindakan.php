@@ -4,6 +4,7 @@ namespace App\Models\Layanan;
 
 use App\Models\HasTarif;
 use App\Models\Master\TindakanPemeriksaan;
+use App\Enums\KelasTarif;
 
 class Tindakan extends Layanan
 {
@@ -23,7 +24,7 @@ class Tindakan extends Layanan
 
     public function getTarifKelas()
     {
-        return $this->perawatan->kelas;
+        return KelasTarif::getKey((string) $this->perawatan->kelas);
     }
 
     public function tindakan_pemeriksaan()

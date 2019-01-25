@@ -59,12 +59,18 @@ class CreatePerawatansTables extends Migration
 
         Schema::create('rawat_inaps', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('ranjang_id');
             $table->datetime('waktu_masuk');
             $table->unsignedInteger('kegiatan_id');
             $table->unsignedTinyInteger('cara_penerimaan');
             $table->unsignedTinyInteger('aktifitas');
             $table->timestamps();
 
+            $table->foreign('ranjang_id')
+                ->references('id')
+                ->on('ranjangs')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
             $table->foreign('kegiatan_id')
                 ->references('id')
                 ->on('kegiatans')

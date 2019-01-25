@@ -20,13 +20,13 @@ use App\Models\Master\CaraPembayaran;
         </b-form-group>
     </div>
     <div class="col">
-        <b-form-group label="Waktu Kunjungan:" v-bind="form_kunjungan.feedback('waktu_kunjungan')">
+        <b-form-group label="Waktu Kunjungan:" v-bind="form_kunjungan.feedback('waktu_masuk')">
             @if(isset($kunjungan))
                 <input
                     class="form-control"
                     disabled
                     type="text"
-                    v-model="form_kunjungan.waktu_kunjungan"
+                    v-model="form_kunjungan.waktu_masuk"
                     >
                 </input>
             @else
@@ -35,8 +35,8 @@ use App\Models\Master\CaraPembayaran;
                     :default-hour="now().getHours()"
                     alt-format="d/m/Y H:i"
                     enable-time
-                    v-model="form_kunjungan.waktu_kunjungan"
-                    v-on:input="form_kunjungan.errors.clear('waktu_kunjungan')"
+                    v-model="form_kunjungan.waktu_masuk"
+                    v-on:input="form_kunjungan.errors.clear('waktu_masuk')"
                     >
                 </date-picker>
             @endif

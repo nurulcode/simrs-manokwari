@@ -4,8 +4,7 @@ namespace Tests\Unit\Fasilitas;
 
 use Tests\TestCase;
 use App\Models\Fasilitas;
-use App\Models\Layanan\Kamar;
-use Illuminate\Support\Collection;
+use App\Models\Perawatan\RawatInap;
 
 class RanjangTest extends TestCase
 {
@@ -61,14 +60,24 @@ class RanjangTest extends TestCase
     }
 
     /** @test */
-    public function resource_has_many_layanan_kamar()
+    public function resource_has_one_active_rawat_inap()
     {
         $ranjang = factory(Fasilitas\Ranjang::class)->create();
 
-        factory(Kamar::class, 5)->create(['ranjang_id' => $ranjang->id]);
+        factory(RawatInap::class)->create(['ranjang_id' => $ranjang->id]);
 
-        $this->assertInstanceof(Collection::class, $ranjang->layanan_kamars);
+        $this->assertInstanceof(RawatInap::class, $ranjang->rawat_inap);
+    }
 
-        $this->assertInstanceof(Kamar::class, $ranjang->layanan_kamars->random());
+    /** @test */
+    public function resource_may_terisi()
+    {
+        factory(Fasilitas\Ranjang::class, 5)->create();
+
+        $ranjang = factory(Fasilitas\Ranjang::class)->create();
+
+        factory(RawatInap::class)->create(['ranjang_id' => $ranjang->id]);
+
+        $this->assertEquals(1, Fasilitas\Ranjang::terisi()->count());
     }
 }
