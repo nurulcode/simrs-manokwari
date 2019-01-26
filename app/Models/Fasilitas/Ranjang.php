@@ -4,7 +4,6 @@ namespace App\Models\Fasilitas;
 
 use App\Models\Model;
 use App\Models\Layanan\Kamar;
-use App\Models\Perawatan\RawatInap;
 
 class Ranjang extends Model
 {
@@ -62,20 +61,20 @@ class Ranjang extends Model
         return array_get($this->attributes, 'id');
     }
 
-    public function rawat_inap()
+    public function layanan_kamar()
     {
-        return $this->hasOne(RawatInap::class)->whereDoesntHave('pulang');
+        return $this->hasOne(Kamar::class)->whereNull('waktu_keluar');
     }
 
     public function scopeTerisi($query)
     {
-        return $query->whereHas('rawat_inap', function ($query) {
-            $query->whereDoesntHave('pulang');
+        return $query->whereHas('layanan_kamar', function ($query) {
+            $query->whereNull('waktu_keluar');
         });
     }
 
     public function getIsTerisiAttribute()
     {
-        return $this->rawat_inap && is_null($this->rawat_inap->pulang);
+        return $this->layanan_kamar && is_null($this->layanan_kamar->waktu_keluar);
     }
 }

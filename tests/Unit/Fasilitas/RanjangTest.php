@@ -5,6 +5,7 @@ namespace Tests\Unit\Fasilitas;
 use Tests\TestCase;
 use App\Models\Fasilitas;
 use App\Models\Perawatan\RawatInap;
+use App\Models\Layanan\Kamar;
 
 class RanjangTest extends TestCase
 {
@@ -60,13 +61,13 @@ class RanjangTest extends TestCase
     }
 
     /** @test */
-    public function resource_has_one_active_rawat_inap()
+    public function resource_has_one_active_layanan_kamar()
     {
         $ranjang = factory(Fasilitas\Ranjang::class)->create();
 
         factory(RawatInap::class)->create(['ranjang_id' => $ranjang->id]);
 
-        $this->assertInstanceof(RawatInap::class, $ranjang->rawat_inap);
+        $this->assertInstanceof(Kamar::class, $ranjang->layanan_kamar);
     }
 
     /** @test */

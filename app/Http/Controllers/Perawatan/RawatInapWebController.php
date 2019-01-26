@@ -68,10 +68,13 @@ class RawatInapWebController extends Controller
         $ruangan = $rawat_inap->ruangan->nama;
         $ranjang = $rawat_inap->ranjang->kode;
 
+        $polikliniks = Poliklinik::where('jenis_id', 3)->get();
+
         return view('perawatan.rawat-inap.show', [
-            'perawatan' => $rawat_inap,
-            'kunjungan' => $rawat_inap->kunjungan,
-            'title'     => $ruangan . ' - ' . $kamar . ' - Ranjang: ' . $ranjang
+            'perawatan'   => $rawat_inap,
+            'kunjungan'   => $rawat_inap->kunjungan,
+            'title'       => $ruangan . ' - ' . $kamar . ' - Ranjang: ' . $ranjang,
+            'polikliniks' => $polikliniks
         ]);
     }
 

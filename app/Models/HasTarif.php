@@ -12,10 +12,11 @@ trait HasTarif
     {
         static::creating(function ($model) {
             $master = $model->getTarifReference();
-
             $kelas  = $model->getTarifKelas();
 
-            $model->tarif = $master->getTarifByKelas($kelas);
+            if ($master && $kelas) {
+                $model->tarif = $master->getTarifByKelas($kelas);
+            }
         });
     }
 

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Fasilitas\BelongsToRanjang;
 use App\Models\Layanan\HasLayananKamar;
+use App\Models\Layanan\Kamar;
 
 class RawatInap extends Perawatan
 {
@@ -43,8 +44,10 @@ class RawatInap extends Perawatan
         parent::boot();
 
         static::addGlobalScope('waktu_keluar', function (Builder $builder) {
-            $builder->addSubSelect('waktu_keluar', RawatInapPulang::select('waktu_keluar')
-                ->whereColumn('rawat_inap_id', 'rawat_inaps.id'));
+            $builder->addSubSelect('waktu_keluar', Kamar::withoutGlobalScopes()
+                ->select('waktu_keluar')
+                ->where('perawatan_type', self::class)
+                ->whereColumn('perawatan_id', 'rawat_inaps.id'));
         });
     }
 

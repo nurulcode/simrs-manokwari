@@ -35,6 +35,6 @@ class Kamar extends Layanan
 
     public function getTarifKelas()
     {
-        return $this->ranjang->kelas;
+        return $this->ranjang->ruangan->kelas_tarif;
     }
 }

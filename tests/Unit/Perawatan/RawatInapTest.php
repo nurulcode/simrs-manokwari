@@ -179,5 +179,10 @@ class RawatInapTest extends TestCase
             $resource->waktu_keluar,
             $resource->pulang->waktu_keluar
         );
+
+        $this->assertEquals(
+            $resource->waktu_keluar,
+            $resource->layanan_kamar->waktu_keluar
+        );
     }
 }

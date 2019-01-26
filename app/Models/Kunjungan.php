@@ -98,8 +98,12 @@ class Kunjungan extends Model
     public function rawat_jalans()
     {
         return $this
-            ->registrasis()
-            ->where('perawatan_type', Perawatan\RawatJalan::class);
+            ->belongsToMany(
+                Perawatan\RawatJalan::class,
+                'registrasis',
+                'kunjungan_id',
+                'perawatan_id'
+            )->wherePivot('perawatan_type', Perawatan\RawatJalan::class);
     }
 
     public function rawat_darurats()
@@ -112,8 +116,12 @@ class Kunjungan extends Model
     public function rawat_inaps()
     {
         return $this
-            ->registrasis()
-            ->where('perawatan_type', Perawatan\RawatInap::class);
+            ->belongsToMany(
+                Perawatan\RawatInap::class,
+                'registrasis',
+                'kunjungan_id',
+                'perawatan_id'
+            )->wherePivot('perawatan_type', Perawatan\RawatInap::class);
     }
 
     public function pasien()

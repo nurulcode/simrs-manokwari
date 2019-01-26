@@ -7,7 +7,7 @@ use App\Enums\JenisTarif;
 use App\Models\Fasilitas;
 use App\Models\Layanan\Kamar;
 use App\Models\Perawatan\Perawatan;
-use App\Enums\KelasTarif;
+use App\Models\Perawatan\RawatInap;
 
 class KamarTest extends TestCase
 {
@@ -111,17 +111,13 @@ class KamarTest extends TestCase
     {
         $master  = factory(Fasilitas\Ruangan::class)->create();
 
-        $kamar   = factory(Fasilitas\Kamar::class)->create([
-            'ruangan_id' => $master->id
-        ]);
+        $kamar   = factory(Fasilitas\Kamar::class)->create(['ruangan_id' => $master->id]);
 
-        $ranjang = factory(Fasilitas\Ranjang::class)->create([
-            'kamar_id' => $kamar->id
-        ]);
+        $ranjang = factory(Fasilitas\Ranjang::class)->create(['kamar_id' => $kamar->id]);
 
         $master->tarif()->create([
             'tarif' => [
-                KelasTarif::getKey($master->kelas) => [
+                $master->kelas_tarif => [
                     JenisTarif::SARANA    => 15000,
                     JenisTarif::PELAYANAN => 10000,
                     JenisTarif::BHP       => 0
@@ -131,10 +127,10 @@ class KamarTest extends TestCase
 
         $master = Fasilitas\Ruangan::find($master->id);
 
-        $resource = factory(Kamar::class)->create(['ranjang_id' => $ranjang->id]);
+        $resource = factory(RawatInap::class)->create(['ranjang_id' => $ranjang->id]);
 
-        $resource = Kamar::find($master->id);
+        $resource = $resource->layanan_kamar;
 
-        $this->assertSame($master->getTarifByKelas($master->kelas), $resource->tarif);
+        $this->assertSame($master->getTarifByKelas($master->kelas_tarif), $resource->tarif);
     }
 }

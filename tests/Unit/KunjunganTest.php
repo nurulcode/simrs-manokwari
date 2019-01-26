@@ -58,7 +58,7 @@ class KunjunganTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $resource->rawat_jalans);
 
-        $rawat_jalan = $resource->rawat_jalans->random()->perawatan;
+        $rawat_jalan = $resource->rawat_jalans->random();
 
         $this->assertInstanceOf(Perawatan\RawatJalan::class, $rawat_jalan);
     }
@@ -104,7 +104,7 @@ class KunjunganTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $resource->rawat_inaps);
 
-        $rawat_inap = $resource->rawat_inaps->random()->perawatan;
+        $rawat_inap = $resource->rawat_inaps->random();
 
         $this->assertInstanceOf(Perawatan\RawatInap::class, $rawat_inap);
     }
