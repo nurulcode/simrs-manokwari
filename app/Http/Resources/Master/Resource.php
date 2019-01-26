@@ -18,6 +18,13 @@ class Resource extends JsonResource
             'id'     => $this->id,
             'uraian' => $this->uraian,
             'path'   => $this->path,
+            'tarif'  => $this->when($this->tarif, function () {
+                return [
+                    'tarifable_type' => get_class($this->resource),
+                    'tarifable_id'   => $this->id,
+                    'tarif'          => $this->tarif
+                ];
+            }),
         ];
     }
 }

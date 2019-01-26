@@ -118,6 +118,9 @@
       title: Jenis Rujukan
       link : master/jenis-rujukan
     -
+      title: Jenis Visite
+      link : master/jenis-visite
+    -
       title: Jenis Rumah Sakit
 -
   title : Data Rumah Sakit

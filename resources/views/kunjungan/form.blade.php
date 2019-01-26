@@ -161,7 +161,7 @@ use App\Models\Master\CaraPembayaran;
         <b-form-group label="Jenis Kasus:" v-bind="form_kunjungan.feedback('kasus_id')">
             <b-form-select v-model="form_kunjungan.kasus_id">
                 <option :value="null" disabled>Pilih Jenis Kasus</option>
-                @foreach(Kasus::all() as $kasus)
+                @foreach(Kasus::orderBy('uraian', 'asc')->get() as $kasus)
                     <option :value="{{ $kasus->id }}">{{ $kasus->uraian }}</option>
                 @endforeach
             </b-form-select>

@@ -19,6 +19,8 @@ $factory->define(Master\JenisIdentitas::class, $generic_factory);
 
 $factory->define(Master\JenisRujukan::class, $generic_factory);
 
+$factory->define(App\Models\Master\JenisVisite::class, $generic_factory);
+
 $factory->define(Master\Pekerjaan::class, $generic_factory);
 
 $factory->define(Master\Pendidikan::class, $generic_factory);

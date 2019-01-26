@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
             Route::view('jenis-poliklinik', 'master.jenis-poliklinik');
             Route::view('jenis-registrasi', 'master.jenis-registrasi');
             Route::view('jenis-rujukan',    'master.jenis-rujukan');
+            Route::view('jenis-visite',     'master.jenis-visite');
             Route::view('kasus',            'master.kasus');
             Route::view('kegiatan',         'master.kegiatan');
             Route::view('pekerjaan',        'master.pekerjaan');

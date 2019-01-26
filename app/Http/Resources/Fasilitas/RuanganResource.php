@@ -23,11 +23,13 @@ class RuanganResource extends JsonResource
             'kelas'         => $this->kelas,
             'jenis'         => $this->jenis,
             'path'          => $this->path,
-            'tarif'         => [
-                'tarifable_type' => get_class($this->resource),
-                'tarifable_id'   => $this->id,
-                'tarif'          => $this->tarif
-            ],
+            'tarif'  => $this->when($this->tarif, function () {
+                return [
+                    'tarifable_type' => get_class($this->resource),
+                    'tarifable_id'   => $this->id,
+                    'tarif'          => $this->tarif
+                ];
+            }),
         ];
     }
 }

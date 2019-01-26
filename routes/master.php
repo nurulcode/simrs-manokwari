@@ -9,6 +9,7 @@ Route::namespace('Master')->group(function () {
         'jenis-identitas'      => 'JenisIdentitasController',
         'jenis-rujukan'        => 'JenisRujukanController',
         'jenis-registrasi'     => 'JenisRegistrasiController',
+        'jenis-visite'         => 'JenisVisiteController',
         'kasus'                => 'KasusController',
         'kategori-kegiatan'    => 'KategoriKegiatanController',
         'kegiatan'             => 'KegiatanController',

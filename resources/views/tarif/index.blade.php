@@ -7,6 +7,7 @@
     <b-tab title="Registrasi"> @include('tarif.registrasi') </b-tab>
     <b-tab title="Ruangan"> @include('tarif.ruangan') </b-tab>
     <b-tab title="Tindakan/Pemeriksaan"> @include('tarif.tindakan') </b-tab>
+    <b-tab title="Visite"> @include('tarif.visite') </b-tab>
 </b-tabs>
 
 <form-modal ok-title="Simpan" ref="form" :form="form" size="lg">

@@ -7,6 +7,7 @@ use App\Models\Master\TindakanPemeriksaan;
 use App\Models\Master\JenisRegistrasi;
 use App\Enums\KelasTarif;
 use App\Models\Fasilitas\Ruangan;
+use App\Models\Master\JenisVisite;
 
 class TarifSeeder extends Seeder
 {
@@ -20,7 +21,8 @@ class TarifSeeder extends Seeder
         $this->seeds([
             Ruangan::class             => ['tarif_ruangan.csv', 15],
             TindakanPemeriksaan::class => ['tarif_tindakan_pemeriksaan.csv', 856],
-            JenisRegistrasi::class     => ['tarif_registrasi.csv', 7]
+            JenisRegistrasi::class     => ['tarif_registrasi.csv', 7],
+            JenisVisite::class         => ['tarif_visite.csv', 6]
         ]);
     }
 
