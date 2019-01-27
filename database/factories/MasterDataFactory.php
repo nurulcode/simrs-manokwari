@@ -70,3 +70,10 @@ $factory->define(Master\PemeriksaanUmum::class, function (Faker $faker) {
         'periode' => $faker->randomElement(PeriodePemeriksaan::getValues())
     ];
 });
+
+$factory->define(App\Models\Master\PerawatanKhusus::class, function (Faker $faker) {
+    return [
+        'kode'    => $faker->unique()->swiftBicNumber,
+        'uraian'  => $faker->sentence,
+    ];
+});

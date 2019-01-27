@@ -89,6 +89,9 @@
       title: Daftar Pendidikan
       link : master/pendidikan
     -
+      title: Daftar Perawatan Khusus
+      link : master/perawatan-khusus
+    -
       title: Daftar Penyakit
       link : master/penyakit
     -
