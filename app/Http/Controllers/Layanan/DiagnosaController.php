@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Layanan;
 
 use App\Models\Layanan\Diagnosa;
+use App\Http\Queries\LayananQuery;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Layanan\DiagnosaRequest;
 use App\Http\Resources\Layanan\DiagnosaResource;
-use App\Http\Queries\LayananQuery;
 
 class DiagnosaController extends Controller
 {

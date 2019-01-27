@@ -13,8 +13,8 @@ class RanjangQuery extends HttpQuery
 
     public function kosong($builder, $value = false)
     {
-        return $builder->whereDoesntHave('rawat_inap', function ($query) {
-            $query->whereDoesntHave('pulang');
+        return $builder->whereDoesntHave('layanan_kamar', function ($query) {
+            $query->whereNull('waktu_keluar');
         });
     }
 }

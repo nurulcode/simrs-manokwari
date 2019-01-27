@@ -19,6 +19,7 @@
         <b-tab title="Diagnosa" active> @include('layanan.diagnosa') </b-tab>
         <b-tab title="Tindakan/Pemeriksaan"> @include('layanan.tindakan') </b-tab>
         <b-tab title="Pemeriksaan Umum"> @include('layanan.pemeriksaan') </b-tab>
+        <b-tab title="Visite"> @include('layanan.visite') </b-tab>
         <b-tab title="Mutasi Kamar"> @include('layanan.mutasi-kamar') </b-tab>
     </b-tabs>
 </b-card>

@@ -126,7 +126,7 @@ window.pagemix.push({
                     kasus           : null,
                     tipe_diagnosa_id: null,
                     petugas_id      : null,
-                    waktu           : new Date()
+                    waktu           : format(new Date(), 'YYYY-MM-DD HH:mm:ss')
                 }, {
                     penyakit        : null,
                     petugas         : null

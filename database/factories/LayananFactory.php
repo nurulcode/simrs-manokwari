@@ -8,6 +8,7 @@ use Faker\Generator as Faker;
 use App\Models\Kepegawaian\Pegawai;
 use App\Models\Master\PemeriksaanUmum;
 use App\Models\Fasilitas\Ranjang;
+use App\Models\Master\JenisVisite;
 
 $perawatans = [
     Perawatan\RawatJalan::class,
@@ -81,5 +82,21 @@ $factory->define(App\Models\Layanan\Kamar::class, function (Faker $faker) {
         },
         'waktu_masuk'    => $faker->dateTimeThisMonth,
         'tarif'          => '{}'
+    ];
+});
+
+$factory->define(App\Models\Layanan\Visite::class, function (Faker $faker) use ($perawatans) {
+    return [
+        'perawatan_type' => $faker->randomElement($perawatans),
+        'perawatan_id'   => function ($tindakan) {
+            return factory($tindakan['perawatan_type'])->create()->id;
+        },
+        'jenis_visite_id' => function ($pemeriksaan) {
+            return factory(JenisVisite::class)->create()->id;
+        },
+        'petugas_id' => function () {
+            return factory(Pegawai::class)->create()->id;
+        },
+        'waktu'           => $faker->dateTimeThisMonth,
     ];
 });

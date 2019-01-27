@@ -5,5 +5,6 @@ Route::namespace('Layanan')->group(function () {
         'diagnosa'    => 'DiagnosaController',
         'pemeriksaan' => 'PemeriksaanController',
         'tindakan'    => 'TindakanController',
+        'visite'      => 'VisiteController'
     ]);
 });
