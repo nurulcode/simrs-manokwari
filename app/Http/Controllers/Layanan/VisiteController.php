@@ -4,17 +4,11 @@ namespace App\Http\Controllers\Layanan;
 
 use App\Models\Layanan\Visite;
 use App\Http\Queries\LayananQuery;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Layanan\VisiteRequest;
 use App\Http\Resources\Layanan\VisiteResource;
 
 class VisiteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('can:manage_visite');
-    }
-
     /**
      * Display a listing of the resource.
      *

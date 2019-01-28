@@ -8,8 +8,6 @@ use Faker\Generator as Faker;
 use App\Models\Kepegawaian\Pegawai;
 use App\Models\Master\PemeriksaanUmum;
 use App\Models\Fasilitas\Ranjang;
-use App\Models\Master\JenisVisite;
-use App\Models\Master\PerawatanKhusus;
 
 $perawatans = [
     Perawatan\RawatJalan::class,
@@ -93,7 +91,7 @@ $factory->define(App\Models\Layanan\Visite::class, function (Faker $faker) use (
             return factory($tindakan['perawatan_type'])->create()->id;
         },
         'jenis_visite_id' => function ($pemeriksaan) {
-            return factory(JenisVisite::class)->create()->id;
+            return factory(Master\JenisVisite::class)->create()->id;
         },
         'petugas_id' => function () {
             return factory(Pegawai::class)->create()->id;
@@ -109,9 +107,26 @@ $factory->define(App\Models\Layanan\Keperawatan::class, function (Faker $faker) 
             return factory($tindakan['perawatan_type'])->create()->id;
         },
         'perawatan_khusus_id' => function ($pemeriksaan) {
-            return factory(PerawatanKhusus::class)->create()->id;
+            return factory(Master\PerawatanKhusus::class)->create()->id;
         },
         'petugas_id' => function () {
+            return factory(Pegawai::class)->create()->id;
+        },
+        'waktu'  => $faker->dateTimeThisMonth,
+        'jumlah' => $faker->randomNumber,
+    ];
+});
+
+$factory->define(App\Models\Layanan\Oksigen::class, function (Faker $faker) use ($perawatans) {
+    return [
+        'perawatan_type' => $faker->randomElement($perawatans),
+        'perawatan_id'   => function ($tindakan) {
+            return factory($tindakan['perawatan_type'])->create()->id;
+        },
+        'oksigen_id'     => function ($pemeriksaan) {
+            return factory(Master\Oksigen::class)->create()->id;
+        },
+        'petugas_id'     => function () {
             return factory(Pegawai::class)->create()->id;
         },
         'waktu'  => $faker->dateTimeThisMonth,

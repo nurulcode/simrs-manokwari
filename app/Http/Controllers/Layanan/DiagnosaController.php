@@ -4,17 +4,11 @@ namespace App\Http\Controllers\Layanan;
 
 use App\Models\Layanan\Diagnosa;
 use App\Http\Queries\LayananQuery;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Layanan\DiagnosaRequest;
 use App\Http\Resources\Layanan\DiagnosaResource;
 
 class DiagnosaController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('can:manage_diagnosa');
-    }
-
     /**
      * Display a listing of the resource.
      *

@@ -4,17 +4,11 @@ namespace App\Http\Controllers\Layanan;
 
 use App\Http\Queries\LayananQuery;
 use App\Models\Layanan\Keperawatan;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Layanan\KeperawatanRequest;
 use App\Http\Resources\Layanan\KeperawatanResource;
 
 class KeperawatanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('can:manage_keperawatan');
-    }
-
     /**
      * Display a listing of the resource.
      *

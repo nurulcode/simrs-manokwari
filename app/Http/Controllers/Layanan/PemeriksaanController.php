@@ -4,17 +4,11 @@ namespace App\Http\Controllers\Layanan;
 
 use App\Http\Queries\LayananQuery;
 use App\Models\Layanan\Pemeriksaan;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Layanan\PemeriksaanRequest;
 use App\Http\Resources\Layanan\PemeriksaanResource;
 
 class PemeriksaanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('can:manage_pemeriksaan');
-    }
-
     /**
      * Display a listing of the resource.
      *

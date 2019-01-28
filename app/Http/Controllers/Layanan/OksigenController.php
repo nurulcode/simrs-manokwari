@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Layanan;
 
-use App\Models\Layanan\Tindakan;
+use App\Models\Layanan\Oksigen;
 use App\Http\Queries\LayananQuery;
-use App\Http\Resources\Layanan\TindakanResource;
-use App\Http\Requests\Layanan\TindakanRequest;
+use App\Http\Requests\Layanan\OksigenRequest;
+use App\Http\Resources\Layanan\OksigenResource;
 
-class TindakanController extends Controller
+class OksigenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class TindakanController extends Controller
      */
     public function index(LayananQuery $query)
     {
-        return TindakanResource::collection(
-            Tindakan::with('petugas', 'tindakan_pemeriksaan')->filter($query)
+        return OksigenResource::collection(
+            Oksigen::with('petugas', 'oksigen')->filter($query)
         );
     }
 
@@ -27,46 +27,46 @@ class TindakanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TindakanRequest $request)
+    public function store(OksigenRequest $request)
     {
         return response()->crud(
-            new TindakanResource(Tindakan::create($request->validated()))
+            new OksigenResource(Oksigen::create($request->validated()))
         );
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Layanan\Tindakan  $tindakan
+     * @param  \App\Models\Layanan\Oksigen  $oksigen
      * @return \Illuminate\Http\Response
      */
-    public function show(Tindakan $tindakan)
+    public function show(Oksigen $oksigen)
     {
-        return new TindakanResource($tindakan);
+        return new OksigenResource($oksigen);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Layanan\Tindakan  $tindakan
+     * @param  \App\Models\Layanan\Oksigen  $oksigen
      * @return \Illuminate\Http\Response
      */
-    public function update(TindakanRequest $request, Tindakan $tindakan)
+    public function update(OksigenRequest $request, Oksigen $oksigen)
     {
         return response()->crud(
-            new TindakanResource(tap($tindakan)->update($request->validated()))
+            new OksigenResource(tap($oksigen)->update($request->validated()))
         );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Layanan\Tindakan  $tindakan
+     * @param  \App\Models\Layanan\Oksigen  $oksigen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tindakan $tindakan)
+    public function destroy(Oksigen $oksigen)
     {
-        return response()->crud(tap($tindakan)->delete());
+        return response()->crud(tap($oksigen)->delete());
     }
 }
