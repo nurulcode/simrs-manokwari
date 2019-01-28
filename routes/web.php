@@ -62,10 +62,9 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('can:manage_master_data')
         ->prefix('master')
         ->group(function () {
-            Route::view('penyakit',         'master.penyakit.index');
-            Route::view('wilayah',          'master.wilayah.index');
             Route::view('agama',            'master.agama');
             Route::view('cara-pembayaran',  'master.cara-pembayaran');
+            Route::view('gizi',             'master.gizi');
             Route::view('jenis-identitas',  'master.jenis-identitas');
             Route::view('jenis-poliklinik', 'master.jenis-poliklinik');
             Route::view('jenis-registrasi', 'master.jenis-registrasi');
@@ -77,10 +76,12 @@ Route::middleware(['auth'])->group(function () {
             Route::view('pekerjaan',        'master.pekerjaan');
             Route::view('pemeriksaan-umum', 'master.pemeriksaan-umum');
             Route::view('pendidikan',       'master.pendidikan');
+            Route::view('penyakit',         'master.penyakit.index');
             Route::view('perawatan-khusus', 'master.perawatan-khusus');
             Route::view('prosedur',         'master.prosedur');
             Route::view('suku',             'master.suku');
             Route::view('tindakan',         'master.tindakan-pemeriksaan');
             Route::view('tipe-diagnosa',    'master.tipe-diagnosa');
+            Route::view('wilayah',          'master.wilayah.index');
         });
 });

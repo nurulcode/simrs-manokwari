@@ -5,6 +5,7 @@ Route::namespace('Master')->group(function () {
     Route::apiResources([
         'agama'                => 'AgamaController',
         'cara-pembayaran'      => 'CaraPembayaranController',
+        'gizi'                 => 'GiziController',
         'jenis-poliklinik'     => 'JenisPoliklinikController',
         'jenis-identitas'      => 'JenisIdentitasController',
         'jenis-rujukan'        => 'JenisRujukanController',

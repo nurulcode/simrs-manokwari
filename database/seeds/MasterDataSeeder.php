@@ -15,6 +15,7 @@ class MasterDataSeeder extends Seeder
         $this->seeds([
             Master\Agama::class                => ['master/agama.csv', 7],
             Master\CaraPembayaran::class       => ['master/cara_bayars.csv', 9],
+            Master\Gizi::class                 => ['master/gizi.csv', 3],
             Master\JenisIdentitas::class       => ['master/jenis_identitas.csv', 10],
             Master\JenisPoliklinik::class      => ['master/jenis_poliklinik.csv', 12],
             Master\JenisRegistrasi::class      => ['master/jenis_registrasi.csv', 7],
