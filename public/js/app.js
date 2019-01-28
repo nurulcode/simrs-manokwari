@@ -1974,9 +1974,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.search = "".concat(query);
       }
     }, 300),
-    refresh: __WEBPACK_IMPORTED_MODULE_0_lodash_debounce___default()(function () {
+    refresh: function refresh() {
       this.loadData();
-    }, 300),
+    },
     loadData: function loadData() {
       var _this = this;
 
