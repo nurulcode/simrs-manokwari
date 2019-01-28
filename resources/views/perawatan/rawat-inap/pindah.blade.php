@@ -13,7 +13,9 @@
     <b-form-group v-bind="form_pindah.feedback('poliklinik_id')">
         <b slot="label">Poliklinik Tujuan:</b>
         <b-form-select v-model="form_pindah.poliklinik_id"
-            v-on:change="form_pindah.errors.clear('poliklinik_id')">
+            v-on:change="form_pindah.ruangan = null"
+            v-on:change="form_pindah.errors.clear('poliklinik_id')"
+            >
             <option :value="null" disabled>Pilih Poliklinik Tujuan</option>
             @foreach($polikliniks as $poliklinik)
                 <option :value="{{ $poliklinik->id }}">
@@ -32,6 +34,7 @@
             url="{{ action('Fasilitas\RuanganController@index') }}"
             v-model="form_pindah.ruangan"
             v-bind:key-value.sync="form_pindah.ruangan_id"
+            v-on:change="form_pindah.kamar = null"
             v-on:select="form_pindah.errors.clear('ruangan_id')"
             >
         </ajax-select>
@@ -48,6 +51,7 @@
             url="{{ action('Fasilitas\KamarController@index') }}"
             v-model="form_pindah.kamar"
             v-bind:key-value.sync="form_pindah.kamar_id"
+            v-on:change="form_pindah.ranjang = null"
             v-on:select="form_pindah.errors.clear('kamar_id')"
             >
             <template slot="option" slot-scope="{option}">
