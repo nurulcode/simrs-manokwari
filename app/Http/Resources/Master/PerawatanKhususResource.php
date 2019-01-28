@@ -21,6 +21,13 @@ class PerawatanKhususResource extends JsonResource
             'parent_id' => $this->parent_id,
             'uraian'    => $this->uraian,
             'path'      => $this->path,
+            'tarif'  => $this->when($this->tarif, function () {
+                return [
+                    'tarifable_type' => get_class($this->resource),
+                    'tarifable_id'   => $this->id,
+                    'tarif'          => $this->tarif
+                ];
+            }),
         ];
     }
 }

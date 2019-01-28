@@ -5,7 +5,7 @@ namespace App\Models\Layanan;
 use App\Models\Model;
 use App\Models\Kepegawaian\BelongsToPegawai;
 
-class Layanan extends Model
+abstract class Layanan extends Model
 {
     use BelongsToPegawai;
 

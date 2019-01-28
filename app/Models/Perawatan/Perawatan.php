@@ -6,7 +6,7 @@ use App\Models\Model;
 use App\Models\HasKunjungan;
 use App\Models\Master\Kegiatan;
 
-class Perawatan extends Model
+abstract class Perawatan extends Model
 {
     use HasKunjungan;
 

@@ -9,6 +9,7 @@ use App\Models\Kepegawaian\Pegawai;
 use App\Models\Master\PemeriksaanUmum;
 use App\Models\Fasilitas\Ranjang;
 use App\Models\Master\JenisVisite;
+use App\Models\Master\PerawatanKhusus;
 
 $perawatans = [
     Perawatan\RawatJalan::class,
@@ -49,8 +50,8 @@ $factory->define(Layanan\Tindakan::class, function (Faker $faker) use ($perawata
         'petugas_id' => function () {
             return factory(Pegawai::class)->create()->id;
         },
-        'jumlah'          => $faker->randomNumber,
-        'waktu'           => $faker->dateTimeThisMonth,
+        'jumlah' => $faker->randomNumber,
+        'waktu'  => $faker->dateTimeThisMonth,
     ];
 });
 
@@ -66,8 +67,8 @@ $factory->define(Layanan\Pemeriksaan::class, function (Faker $faker) use ($peraw
         'petugas_id' => function () {
             return factory(Pegawai::class)->create()->id;
         },
-        'hasil'           => $faker->randomNumber,
-        'waktu'           => $faker->dateTimeThisMonth,
+        'hasil' => $faker->randomNumber,
+        'waktu' => $faker->dateTimeThisMonth,
     ];
 });
 
@@ -98,5 +99,22 @@ $factory->define(App\Models\Layanan\Visite::class, function (Faker $faker) use (
             return factory(Pegawai::class)->create()->id;
         },
         'waktu'           => $faker->dateTimeThisMonth,
+    ];
+});
+
+$factory->define(App\Models\Layanan\Keperawatan::class, function (Faker $faker) use ($perawatans) {
+    return [
+        'perawatan_type' => $faker->randomElement($perawatans),
+        'perawatan_id'   => function ($tindakan) {
+            return factory($tindakan['perawatan_type'])->create()->id;
+        },
+        'perawatan_khusus_id' => function ($pemeriksaan) {
+            return factory(PerawatanKhusus::class)->create()->id;
+        },
+        'petugas_id' => function () {
+            return factory(Pegawai::class)->create()->id;
+        },
+        'waktu'  => $faker->dateTimeThisMonth,
+        'jumlah' => $faker->randomNumber,
     ];
 });
