@@ -80,6 +80,9 @@
       title: Daftar Kegiatan
       link : master/kegiatan
     -
+      title: Daftar Oksigen
+      link : master/oksigen
+    -
       title: Daftar Pekerjaan
       link : master/pekerjaan
     -

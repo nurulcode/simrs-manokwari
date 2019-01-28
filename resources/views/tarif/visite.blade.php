@@ -17,9 +17,6 @@
                 visite: {
                     sortBy: `uraian`,
                     url   : `{{ action('Master\JenisVisiteController@index') }}`,
-                    params: {
-                        poliklinik: null
-                    },
                     fields: [{
                         key      : 'uraian',
                         sortable : true,

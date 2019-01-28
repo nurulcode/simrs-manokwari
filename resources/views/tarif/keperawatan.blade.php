@@ -23,9 +23,6 @@ window.pagemix.push({
             keperawatan: {
                 sortBy: `kode`,
                 url   : `{{ action('Master\PerawatanKhususController@index') }}`,
-                params: {
-                    poliklinik: null
-                },
                 fields: [{
                     key      : 'kode',
                     sortable : true,

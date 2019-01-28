@@ -19,7 +19,9 @@ $factory->define(Master\JenisIdentitas::class, $generic_factory);
 
 $factory->define(Master\JenisRujukan::class, $generic_factory);
 
-$factory->define(App\Models\Master\JenisVisite::class, $generic_factory);
+$factory->define(Master\JenisVisite::class, $generic_factory);
+
+$factory->define(Master\Oksigen::class, $generic_factory);
 
 $factory->define(Master\Pekerjaan::class, $generic_factory);
 
@@ -71,7 +73,7 @@ $factory->define(Master\PemeriksaanUmum::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(App\Models\Master\PerawatanKhusus::class, function (Faker $faker) {
+$factory->define(Master\PerawatanKhusus::class, function (Faker $faker) {
     return [
         'kode'    => $faker->unique()->swiftBicNumber,
         'uraian'  => $faker->sentence,

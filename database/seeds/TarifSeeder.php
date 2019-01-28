@@ -9,6 +9,7 @@ use App\Enums\KelasTarif;
 use App\Models\Fasilitas\Ruangan;
 use App\Models\Master\JenisVisite;
 use App\Models\Master\PerawatanKhusus;
+use App\Models\Master\Oksigen;
 
 class TarifSeeder extends Seeder
 {
@@ -24,7 +25,8 @@ class TarifSeeder extends Seeder
             TindakanPemeriksaan::class => ['tarif_tindakan_pemeriksaan.csv', 856],
             JenisRegistrasi::class     => ['tarif_registrasi.csv', 7],
             JenisVisite::class         => ['tarif_visite.csv', 6],
-            PerawatanKhusus::class     => ['tarif_keperawatan.csv', 4]
+            PerawatanKhusus::class     => ['tarif_keperawatan.csv', 4],
+            Oksigen::class             => ['tarif_oksigen.csv', 2]
         ]);
     }
 

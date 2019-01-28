@@ -23,6 +23,7 @@ class MasterDataSeeder extends Seeder
             Master\Kasus::class                => ['master/kasus.csv', 9],
             Master\KategoriKegiatan::class     => ['master/kegiatan/kategori.csv', 13],
             Master\Kegiatan::class             => ['master/kegiatan/kegiatan.csv', 373],
+            Master\Oksigen::class              => ['master/oksigen.csv', 2],
             Master\Pekerjaan::class            => ['master/pekerjaan.csv', 13],
             Master\PemeriksaanUmum::class      => ['master/pemeriksaan_umum.csv', 5],
             Master\Pendidikan::class           => ['master/pendidikan.csv', 10],
