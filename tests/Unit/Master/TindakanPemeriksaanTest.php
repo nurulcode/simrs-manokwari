@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Support\Collection;
 use App\Models\Fasilitas\Poliklinik;
 use App\Models\Master\TindakanPemeriksaan;
+use App\Models\Master\Prosedur;
 
 class TindakanPemeriksaanTest extends TestCase
 {
@@ -19,6 +20,14 @@ class TindakanPemeriksaanTest extends TestCase
         ]);
 
         $this->assertInstanceof(TindakanPemeriksaan::class, $tindakan->parent);
+    }
+
+    /** @test */
+    public function a_tindakan_belongs_to_prosedur()
+    {
+        $tindakan = factory(TindakanPemeriksaan::class)->create();
+
+        $this->assertInstanceof(Prosedur::class, $tindakan->prosedur);
     }
 
     /** @test */

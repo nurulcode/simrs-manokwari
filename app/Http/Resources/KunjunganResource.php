@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\Master\KasusResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Master\Penyakit\PenyakitResource;
+use App\Http\Resources\Master\Resource;
 
 class KunjunganResource extends JsonResource
 {
@@ -20,7 +20,7 @@ class KunjunganResource extends JsonResource
             'id'                  => $this->id,
             'cara_pembayaran_id'  => $this->cara_pembayaran_id,
             'jenis_registrasi_id' => $this->jenis_registrasi_id,
-            'kasus'               => KasusResource::make($this->whenLoaded('kasus')),
+            'kasus'               => Resource::make($this->whenLoaded('kasus')),
             'kasus_id'            => $this->kasus_id,
             'nomor_kunjungan'     => $this->nomor_kunjungan,
             'pasien'              => PasienResource::make($this->whenLoaded('pasien')),

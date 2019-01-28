@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Master\CaraPembayaran;
 use App\Http\Queries\Master\CaraPembayaranQuery;
 use App\Http\Requests\Master\CaraPembayaranRequest;
-use App\Http\Resources\Master\CaraPembayaranResource;
+use App\Http\Resources\Master\Resource;
 
 class CaraPembayaranController extends Controller
 {
@@ -17,7 +17,7 @@ class CaraPembayaranController extends Controller
      */
     public function index(CaraPembayaranQuery $query, Request $request)
     {
-        return CaraPembayaranResource::collection(CaraPembayaran::filter($query));
+        return Resource::collection(CaraPembayaran::filter($query));
     }
 
     /**
@@ -29,7 +29,7 @@ class CaraPembayaranController extends Controller
     public function store(CaraPembayaranRequest $request)
     {
         return response()->crud(
-            new CaraPembayaranResource(CaraPembayaran::create($request->validated()))
+            new Resource(CaraPembayaran::create($request->validated()))
         );
     }
 
@@ -41,7 +41,7 @@ class CaraPembayaranController extends Controller
      */
     public function show(CaraPembayaran $cara_pembayaran)
     {
-        return new CaraPembayaranResource($cara_pembayaran);
+        return new Resource($cara_pembayaran);
     }
 
     /**
@@ -54,9 +54,7 @@ class CaraPembayaranController extends Controller
     public function update(CaraPembayaranRequest $request, CaraPembayaran $cara_pembayaran)
     {
         return response()->crud(
-            new CaraPembayaranResource(
-                tap($cara_pembayaran)->update($request->validated())
-            )
+            new Resource(tap($cara_pembayaran)->update($request->validated()))
         );
     }
 

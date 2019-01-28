@@ -16,7 +16,8 @@
                     >
                 </ajax-select>
             </b-form-group>
-            <b-form-group label="Kode:" v-bind="tindakan.form.feedback('kode')">
+            <b-form-group v-bind="tindakan.form.feedback('kode')">
+                <b slot="label">"Kode:"</b>
                 <input
                     class="form-control"
                     name="kode"
@@ -26,7 +27,8 @@
                     >
                 </input>
             </b-form-group>
-            <b-form-group label="Uraian:" v-bind="tindakan.form.feedback('uraian')">
+            <b-form-group v-bind="tindakan.form.feedback('uraian')">
+                <b slot="label">Uraian:</b>
                 <input
                     class="form-control"
                     name="uraian"
@@ -44,6 +46,23 @@
                 >
                     <option slot="first" :value="null" disabled>Pilih Jenis Tindakan</option>
                 </b-form-select>
+            </b-form-group>
+            <b-form-group label="Prosedur (ICD9):" v-bind="tindakan.form.feedback('prosedur_id')">
+                <ajax-select
+                    label="uraian"
+                    placeholder="Pilih Prosedur Terkait"
+                    url="{{ action('Master\ProsedurController@index') }}"
+                    v-model="tindakan.form.prosedur"
+                    v-bind:key-value.sync="tindakan.form.prosedur_id"
+                    v-on:change="tindakan.form.errors.clear('prosedur_id')"
+                    >
+                    <template slot="option" slot-scope="{option}">
+                        <span>@{{ option.kode }} - @{{ option.uraian }}</span>
+                    </template>
+                    <template slot="singleLabel" slot-scope="{option}">
+                        <span>@{{ option.kode }} - @{{ option.uraian }}</span>
+                    </template>
+                </ajax-select>
             </b-form-group>
             <b-form-group label="Poliklinik:" v-bind="tindakan.form.feedback('poliklinik')">
                 <ajax-select
@@ -63,6 +82,9 @@
                     @{{ poliklinik.nama }}
                 </span>
             </p>
+        </template>
+        <template slot="prosedur" slot-scope="{item, value}" v-if="value">
+            @{{ value.kode }} - @{{ value.uraian }}
         </template>
         <div slot="before-top-button" class="mr-3" style="width: 240px">
             <ajax-select
@@ -96,15 +118,20 @@ window.pagemix.push({
                 },{
                     key      : 'uraian',
                     sortable : true,
+                }, {
+                    key      : 'prosedur',
+                    label    : 'Prosedur (ICD9)'
                 }],
                 form: new Form({
                     parent_id  : null,
                     kode       : null,
                     uraian     : null,
                     jenis      : null,
-                    polikliniks: []
+                    prosedur_id: null,
+                    polikliniks: [],
                 },{
-                    parent     : null
+                    parent     : null,
+                    prosedur   : null
                 }),
             }
         }

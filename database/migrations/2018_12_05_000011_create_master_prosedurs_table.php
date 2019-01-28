@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMasterTindakanPemeriksaansTable extends Migration
+class CreateMasterProsedursTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,14 @@ class CreateMasterTindakanPemeriksaansTable extends Migration
      */
     public function up()
     {
-        Schema::create('tindakan_pemeriksaans', function (Blueprint $table) {
+        Schema::create('prosedurs', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('parent_id')->nullable();
-            $table->string('kode')->unique();
+            $table->string('kode');
             $table->string('uraian');
-            $table->unsignedTinyInteger('jenis');
-            $table->unsignedInteger('prosedur_id')->nullable();
             $table->timestamps();
 
             $table->foreign('parent_id')
-                  ->references('id')
-                  ->on('tindakan_pemeriksaans')
-                  ->onUpdate('cascade')
-                  ->onDelete('set null');
-            $table->foreign('prosedur_id')
                   ->references('id')
                   ->on('prosedurs')
                   ->onUpdate('cascade')
@@ -42,6 +35,6 @@ class CreateMasterTindakanPemeriksaansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tindakan_pemeriksaans');
+        Schema::dropIfExists('prosedurs');
     }
 }

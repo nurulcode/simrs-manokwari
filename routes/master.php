@@ -18,6 +18,7 @@ Route::namespace('Master')->group(function () {
         'pemeriksaan-umum'     => 'PemeriksaanUmumController',
         'pendidikan'           => 'PendidikanController',
         'perawatan-khusus'     => 'PerawatanKhususController',
+        'prosedur'             => 'ProsedurController',
         'suku'                 => 'SukuController',
         'tindakan-pemeriksaan' => 'TindakanPemeriksaanController',
         'tipe-diagnosa'        => 'TipeDiagnosaController'

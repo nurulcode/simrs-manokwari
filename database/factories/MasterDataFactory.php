@@ -58,9 +58,12 @@ $factory->define(Master\JenisRegistrasi::class, function (Faker $faker) {
 
 $factory->define(Master\TindakanPemeriksaan::class, function (Faker $faker) {
     return [
-        'kode'   => $faker->unique()->swiftBicNumber,
-        'uraian' => $faker->sentence,
-        'jenis'  => $faker->randomElement(JenisTindakanPemeriksaan::getValues())
+        'prosedur_id' => function () {
+            return factory(Master\Prosedur::class);
+        },
+        'kode'        => $faker->unique()->swiftBicNumber,
+        'uraian'      => $faker->sentence,
+        'jenis'       => $faker->randomElement(JenisTindakanPemeriksaan::getValues()),
     ];
 });
 
@@ -74,6 +77,13 @@ $factory->define(Master\PemeriksaanUmum::class, function (Faker $faker) {
 });
 
 $factory->define(Master\PerawatanKhusus::class, function (Faker $faker) {
+    return [
+        'kode'    => $faker->unique()->swiftBicNumber,
+        'uraian'  => $faker->sentence,
+    ];
+});
+
+$factory->define(Master\Prosedur::class, function (Faker $faker) {
     return [
         'kode'    => $faker->unique()->swiftBicNumber,
         'uraian'  => $faker->sentence,

@@ -14,4 +14,9 @@ class TindakanPemeriksaan extends Master
     {
         return $this->belongsToMany(Poliklinik::class);
     }
+
+    public function prosedur()
+    {
+        return $this->belongsTo(Prosedur::class);
+    }
 }

@@ -98,6 +98,9 @@
       title: Daftar Penyakit
       link : master/penyakit
     -
+      title: Daftar Prosedur
+      link : master/prosedur
+    -
       title: Daftar Suku
       link : master/suku
     -

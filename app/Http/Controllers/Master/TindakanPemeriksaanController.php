@@ -18,7 +18,7 @@ class TindakanPemeriksaanController extends Controller
     public function index(TindakanQuery $query)
     {
         return TindakanPemeriksaanResource::collection(
-            TindakanPemeriksaan::with('polikliniks')->filter($query)
+            TindakanPemeriksaan::with('polikliniks', 'prosedur')->filter($query)
         );
     }
 

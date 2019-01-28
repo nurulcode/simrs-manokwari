@@ -19,6 +19,8 @@ class TindakanPemeriksaanResource extends JsonResource
             'id'          => $this->id,
             'parent_id'   => $this->parent_id,
             'parent'      => self::make($this->whenLoaded('parent')),
+            'prosedur_id' => $this->prosedur_id,
+            'prosedur'    => Resource::make($this->whenLoaded('prosedur')),
             'kode'        => $this->kode,
             'uraian'      => $this->uraian,
             'jenis'       => $this->jenis,

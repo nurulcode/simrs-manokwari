@@ -15,10 +15,17 @@ class Resource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'     => $this->id,
-            'uraian' => $this->uraian,
-            'path'   => $this->path,
-            'tarif'  => $this->when($this->tarif, function () {
+            'id'        => $this->id,
+            'kode'      => $this->when($this->kode, function () {
+                return $this->kode;
+            }),
+            'parent_id' => $this->when($this->parent_id, function () {
+                return $this->parent_id;
+            }),
+            'parent'    => self::make($this->whenLoaded('parent')),
+            'uraian'    => $this->uraian,
+            'path'      => $this->path,
+            'tarif'     => $this->when($this->tarif, function () {
                 return [
                     'tarifable_type' => get_class($this->resource),
                     'tarifable_id'   => $this->id,

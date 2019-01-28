@@ -28,6 +28,7 @@ class MasterDataSeeder extends Seeder
             Master\PemeriksaanUmum::class      => ['master/pemeriksaan_umum.csv', 5],
             Master\Pendidikan::class           => ['master/pendidikan.csv', 10],
             Master\PerawatanKhusus::class      => ['master/perawatan_khusus.csv', 18],
+            Master\Prosedur::class             => ['master/prosedurs.csv', 3911],
             Master\Suku::class                 => ['master/suku.csv', 15],
             Master\TindakanPemeriksaan::class  => ['master/tindakan_pemeriksaan.csv', 428],
             Master\TipeDiagnosa::class         => ['master/tipe_diagnosa.csv', 7],
