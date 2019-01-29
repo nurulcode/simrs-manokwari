@@ -11,6 +11,7 @@
     <b-tab title="Perawatan Khusus"> @include('tarif.keperawatan') </b-tab>
     <b-tab title="Oksigen"> @include('tarif.oksigen') </b-tab>
     <b-tab title="Gizi"> @include('tarif.gizi') </b-tab>
+    <b-tab title="Laundry"> @include('tarif.laundry') </b-tab>
 </b-tabs>
 
 <form-modal ok-title="Simpan" ref="form" :form="form" size="lg">
@@ -34,6 +35,9 @@
                         <input
                             class="form-control"
                             type="number"
+                            min="0"
+                            step="100"
+                            v-on:mousewheel="mouseWheel"
                             v-model="form.tarif[kelas].{{ $kelas }}"
                             >
                         </input>
@@ -75,6 +79,10 @@ window.pagemix.push({
                 .catch(error => {
                     console.log(error);
                 });
+        },
+        mouseWheel(e) {
+            console.log(e);
+
         }
     }
 });
