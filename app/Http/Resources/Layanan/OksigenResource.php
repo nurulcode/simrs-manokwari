@@ -2,8 +2,9 @@
 
 namespace App\Http\Resources\Layanan;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Master\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Kepegawaian\PegawaiResource;
 
 class OksigenResource extends JsonResource
 {
