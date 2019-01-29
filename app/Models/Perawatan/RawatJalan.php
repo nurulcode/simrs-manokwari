@@ -4,12 +4,12 @@ namespace App\Models\Perawatan;
 
 use Carbon\Carbon;
 use App\Enums\KelasTarif;
-use App\Models\Fasilitas\Poliklinik;
 use App\Models\Layanan\HasLayananDiagnosa;
+use App\Models\Fasilitas\BelongsToPoliklinik;
 
 class RawatJalan extends Perawatan
 {
-    use HasLayananDiagnosa;
+    use HasLayananDiagnosa, BelongsToPoliklinik;
 
     /**
      * The attributes that are mass assignable.
@@ -19,11 +19,6 @@ class RawatJalan extends Perawatan
     protected $fillable = [
         'kegiatan_id', 'poliklinik_id', 'waktu_masuk'
     ];
-
-    public function poliklinik()
-    {
-        return $this->belongsTo(Poliklinik::class);
-    }
 
     public function scopeHariIni($query)
     {
