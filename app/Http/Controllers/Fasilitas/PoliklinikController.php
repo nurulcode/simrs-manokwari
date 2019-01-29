@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Fasilitas;
 
-use Sty\HttpQuery;
 use App\Models\Fasilitas\Poliklinik;
 use App\Http\Requests\Fasilitas\PoliklinikRequest;
 use App\Http\Resources\Fasilitas\PoliklinikResource;
+use App\Http\Queries\Fasilitas\PoliklinikQuery;
 
 class PoliklinikController extends Controller
 {
@@ -14,7 +14,7 @@ class PoliklinikController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(PoliklinikQuery $query)
     {
         return PoliklinikResource::collection(
             Poliklinik::with('jenis')->filter($query)

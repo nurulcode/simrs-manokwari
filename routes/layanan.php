@@ -8,6 +8,7 @@ Route::namespace('Layanan')->group(function () {
         'laundry'     => 'LaundryController',
         'oksigen'     => 'OksigenController',
         'pemeriksaan' => 'PemeriksaanController',
+        'penunjang'   => 'PenunjangController',
         'tindakan'    => 'TindakanController',
         'visite'      => 'VisiteController'
     ]);

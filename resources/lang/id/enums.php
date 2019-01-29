@@ -7,6 +7,7 @@ use App\Enums\JenisTarif;
 use App\Enums\KeadaanKeluar;
 use App\Enums\CaraKeluar;
 use App\Enums\KondisiAkhir;
+use App\Enums\TypePenunjang;
 
 return [
     JenisKelamin::class => [
@@ -59,5 +60,14 @@ return [
         KondisiAkhir::PUSKESMAS   => 'Kembali ke Puskesmas',
         KondisiAkhir::DOA         => 'Doa',
         KondisiAkhir::LAIN_LAIN   => 'Lain-lain',
+    ],
+    TypePenunjang::class => [
+        TypePenunjang::LABORATORIUM   => 'Laboratorium',
+        TypePenunjang::RADIOLOGI      => 'Radiologi',
+        TypePenunjang::REHABMEDIK     => 'Rehabilitasi Medik',
+        TypePenunjang::OPERASI        => 'Operasi',
+        TypePenunjang::UTDRS          => 'UTDRS',
+        TypePenunjang::INSENERATOR    => 'Insenerator',
+        TypePenunjang::KAMAR_JENAZAH  => 'Layanan Kamar Jenazah',
     ]
 ];

@@ -9,6 +9,7 @@ use App\Models\Kepegawaian\Pegawai;
 use App\Models\Master\PemeriksaanUmum;
 use App\Models\Fasilitas\Ranjang;
 use App\Models\Master\JenisLaundry;
+use App\Models\Fasilitas\Poliklinik;
 
 $perawatans = [
     Perawatan\RawatJalan::class,
@@ -129,6 +130,19 @@ $factory->define(Layanan\Pemeriksaan::class, function (Faker $faker) use ($peraw
             return factory(Pegawai::class)->create()->id;
         },
         'hasil' => $faker->randomNumber,
+        'waktu' => $faker->dateTimeThisMonth,
+    ];
+});
+
+$factory->define(Layanan\Penunjang::class, function (Faker $faker) use ($perawatans) {
+    return [
+        'perawatan_type' => $faker->randomElement($perawatans),
+        'perawatan_id'   => function ($tindakan) {
+            return factory($tindakan['perawatan_type'])->create()->id;
+        },
+        'poliklinik_id' => function () {
+            return factory(Poliklinik::class)->create()->id;
+        },
         'waktu' => $faker->dateTimeThisMonth,
     ];
 });
