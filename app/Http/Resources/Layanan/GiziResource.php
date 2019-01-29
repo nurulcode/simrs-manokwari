@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources\Layanan;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Master\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Kepegawaian\PegawaiResource;
 
-class OksigenResource extends JsonResource
+class GiziResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +16,9 @@ class OksigenResource extends JsonResource
      */
     public function toArray($request)
     {
-        $oksigen = Resource::make($this->whenLoaded('oksigen'));
+        $gizi    = Resource::make($this->whenLoaded('gizi'));
 
-        $petugas  = PegawaiResource::make($this->whenLoaded('petugas'));
+        $petugas = PegawaiResource::make($this->whenLoaded('petugas'));
 
         return [
             'id'         => $this->id,
@@ -26,8 +27,8 @@ class OksigenResource extends JsonResource
             'petugas'    => $petugas,
             'waktu'      => $this->waktu,
             'tarif'      => $this->tarif,
-            'oksigen_id' => $this->oksigen_id,
-            'oksigen'    => $oksigen,
+            'gizi_id'    => $this->gizi_id,
+            'gizi'       => $gizi,
             'path'       => $this->path,
         ];
     }

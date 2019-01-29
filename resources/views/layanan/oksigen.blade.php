@@ -49,7 +49,7 @@
             </ajax-select>
         </b-form-group>
         <b-form-group v-bind="oksigen.form.feedback('waktu')">
-            <b slot="label">Waktu Oksigen:</b>
+            <b slot="label">Waktu Pemberian Oksigen:</b>
             <date-picker
                 alt-format="d/m/Y H:i"
                 enable-time

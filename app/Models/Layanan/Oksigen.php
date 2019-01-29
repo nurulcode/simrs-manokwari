@@ -4,7 +4,6 @@ namespace App\Models\Layanan;
 
 use App\Models\Master;
 use App\Models\HasTarif;
-use App\Enums\KelasTarif;
 use Illuminate\Database\Eloquent\Model;
 
 class Oksigen extends Layanan
@@ -26,10 +25,5 @@ class Oksigen extends Layanan
     public function getTarifReference()
     {
         return $this->oksigen;
-    }
-
-    public function getTarifKelas()
-    {
-        return KelasTarif::getKey((string) $this->perawatan->kelas);
     }
 }
