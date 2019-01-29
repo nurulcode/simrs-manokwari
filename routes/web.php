@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
             Route::view('cara-pembayaran',  'master.cara-pembayaran');
             Route::view('gizi',             'master.gizi');
             Route::view('jenis-identitas',  'master.jenis-identitas');
+            Route::view('jenis-laundry',    'master.jenis-laundry');
             Route::view('jenis-poliklinik', 'master.jenis-poliklinik');
             Route::view('jenis-registrasi', 'master.jenis-registrasi');
             Route::view('jenis-rujukan',    'master.jenis-rujukan');

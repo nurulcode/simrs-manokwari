@@ -23,6 +23,7 @@
         <b-tab title="Perawatan Khusus"> @include('layanan.keperawatan') </b-tab>
         <b-tab title="Oksigen"> @include('layanan.oksigen') </b-tab>
         <b-tab title="Gizi"> @include('layanan.gizi') </b-tab>
+        <b-tab title="Laundry"> @include('layanan.laundry') </b-tab>
         <b-tab title="Mutasi Kamar"> @include('layanan.mutasi-kamar') </b-tab>
     </b-tabs>
 </b-card>

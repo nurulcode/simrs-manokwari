@@ -32,6 +32,13 @@ $factory->define(Master\CaraPembayaran::class, function (Faker $faker) {
     ];
 });
 
+$factory->define(Master\JenisLaundry::class, function (Faker $faker) {
+    return [
+        'uraian'  => $faker->sentence,
+        'satuan'  => substr($faker->word, 0, 6)
+    ];
+});
+
 $factory->define(Master\JenisRegistrasi::class, function (Faker $faker) {
     return [
         'uraian'          => $faker->sentence,
