@@ -3,13 +3,14 @@
 use App\Seeder;
 use App\Models\Tarif;
 use App\Enums\JenisTarif;
-use App\Models\Master\TindakanPemeriksaan;
-use App\Models\Master\JenisRegistrasi;
 use App\Enums\KelasTarif;
+use App\Models\Master\Oksigen;
 use App\Models\Fasilitas\Ruangan;
 use App\Models\Master\JenisVisite;
+use App\Models\Master\JenisRegistrasi;
 use App\Models\Master\PerawatanKhusus;
-use App\Models\Master\Oksigen;
+use App\Models\Master\TindakanPemeriksaan;
+use App\Models\Master\Gizi;
 
 class TarifSeeder extends Seeder
 {
@@ -21,12 +22,13 @@ class TarifSeeder extends Seeder
     public function run()
     {
         $this->seeds([
-            Ruangan::class             => ['tarif_ruangan.csv', 15],
-            TindakanPemeriksaan::class => ['tarif_tindakan_pemeriksaan.csv', 856],
+            Gizi::class                => ['tarif_gizi.csv', 13],
             JenisRegistrasi::class     => ['tarif_registrasi.csv', 7],
             JenisVisite::class         => ['tarif_visite.csv', 6],
+            Oksigen::class             => ['tarif_oksigen.csv', 2],
             PerawatanKhusus::class     => ['tarif_keperawatan.csv', 4],
-            Oksigen::class             => ['tarif_oksigen.csv', 2]
+            Ruangan::class             => ['tarif_ruangan.csv', 15],
+            TindakanPemeriksaan::class => ['tarif_tindakan_pemeriksaan.csv', 856],
         ]);
     }
 

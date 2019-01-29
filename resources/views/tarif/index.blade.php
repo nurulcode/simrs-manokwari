@@ -10,6 +10,7 @@
     <b-tab title="Visite"> @include('tarif.visite') </b-tab>
     <b-tab title="Perawatan Khusus"> @include('tarif.keperawatan') </b-tab>
     <b-tab title="Oksigen"> @include('tarif.oksigen') </b-tab>
+    <b-tab title="Gizi"> @include('tarif.gizi') </b-tab>
 </b-tabs>
 
 <form-modal ok-title="Simpan" ref="form" :form="form" size="lg">

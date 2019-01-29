@@ -74,6 +74,9 @@
       title: Daftar Cara Pembayaran
       link : master/cara-pembayaran
     -
+      title: Daftar Gizi
+      link : master/gizi
+    -
       title: Daftar Kasus
       link : master/kasus
     -
@@ -115,6 +118,9 @@
     -
       title: Jenis Identitas
       link : master/jenis-identitas
+    -
+      title: Jenis Laundry
+      link : master/jenis-laundry
     -
       title: Jenis Logistik
     -

@@ -6,43 +6,43 @@ use Tests\TestCase;
 use App\Models\Master;
 use App\Enums\JenisTarif;
 use App\Enums\KelasTarif;
-use App\Models\Layanan\Oksigen;
+use App\Models\Layanan\Gizi;
 use App\Models\Kepegawaian\Pegawai;
 use App\Models\Perawatan\Perawatan;
 use App\Models\Perawatan\RawatInap;
 
-class OksigenTest extends TestCase
+class GiziTest extends TestCase
 {
     /** @test */
     public function resource_belongs_to_petugas()
     {
-        $resource = factory(Oksigen::class)->create();
+        $resource = factory(Gizi::class)->create();
 
         $this->assertInstanceOf(Pegawai::class, $resource->petugas);
     }
 
     /** @test */
-    public function resource_belongs_to_oksigen()
+    public function resource_belongs_to_gizi()
     {
-        $resource = factory(Oksigen::class)->create();
+        $resource = factory(Gizi::class)->create();
 
-        $this->assertInstanceOf(Master\Oksigen::class, $resource->oksigen);
+        $this->assertInstanceOf(Master\Gizi::class, $resource->gizi);
     }
 
     /** @test */
     public function resource_belongs_to_perawatan()
     {
-        $resource = factory(Oksigen::class)->create();
+        $resource = factory(Gizi::class)->create();
 
         $this->assertInstanceOf(Perawatan::class, $resource->perawatan);
     }
 
     /** @test */
-    public function it_copy_the_tarif_attribute_from_master_oksigen()
+    public function it_copy_the_tarif_attribute_from_master_gizi()
     {
         $perawatan = factory(RawatInap::class)->create();
 
-        $master    = factory(Master\Oksigen::class)->create();
+        $master    = factory(Master\Gizi::class)->create();
 
         $perawatan = RawatInap::find($perawatan->id);
 
@@ -56,13 +56,13 @@ class OksigenTest extends TestCase
             ]
         ]);
 
-        $resource = factory(Oksigen::class)->create([
+        $resource = factory(Gizi::class)->create([
             'perawatan_type' => RawatInap::class,
             'perawatan_id'   => $perawatan->id,
-            'oksigen_id'     => $master->id,
+            'gizi_id'        => $master->id,
         ]);
 
-        $master = Master\Oksigen::find($master->id);
+        $master = Master\Gizi::find($master->id);
 
         $this->assertSame(
             $master->getTarifByKelas(KelasTarif::getKey((string) $perawatan->kelas)),

@@ -70,7 +70,7 @@ $factory->define(Layanan\Pemeriksaan::class, function (Faker $faker) use ($peraw
     ];
 });
 
-$factory->define(App\Models\Layanan\Kamar::class, function (Faker $faker) {
+$factory->define(Layanan\Kamar::class, function (Faker $faker) {
     return [
         'perawatan_type' => Perawatan\RawatInap::class,
         'perawatan_id'   => function () {
@@ -84,7 +84,7 @@ $factory->define(App\Models\Layanan\Kamar::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(App\Models\Layanan\Visite::class, function (Faker $faker) use ($perawatans) {
+$factory->define(Layanan\Visite::class, function (Faker $faker) use ($perawatans) {
     return [
         'perawatan_type' => $faker->randomElement($perawatans),
         'perawatan_id'   => function ($tindakan) {
@@ -100,7 +100,7 @@ $factory->define(App\Models\Layanan\Visite::class, function (Faker $faker) use (
     ];
 });
 
-$factory->define(App\Models\Layanan\Keperawatan::class, function (Faker $faker) use ($perawatans) {
+$factory->define(Layanan\Keperawatan::class, function (Faker $faker) use ($perawatans) {
     return [
         'perawatan_type' => $faker->randomElement($perawatans),
         'perawatan_id'   => function ($tindakan) {
@@ -117,7 +117,7 @@ $factory->define(App\Models\Layanan\Keperawatan::class, function (Faker $faker) 
     ];
 });
 
-$factory->define(App\Models\Layanan\Oksigen::class, function (Faker $faker) use ($perawatans) {
+$factory->define(Layanan\Oksigen::class, function (Faker $faker) use ($perawatans) {
     return [
         'perawatan_type' => $faker->randomElement($perawatans),
         'perawatan_id'   => function ($tindakan) {
@@ -125,6 +125,23 @@ $factory->define(App\Models\Layanan\Oksigen::class, function (Faker $faker) use 
         },
         'oksigen_id'     => function ($pemeriksaan) {
             return factory(Master\Oksigen::class)->create()->id;
+        },
+        'petugas_id'     => function () {
+            return factory(Pegawai::class)->create()->id;
+        },
+        'waktu'  => $faker->dateTimeThisMonth,
+        'jumlah' => $faker->randomNumber,
+    ];
+});
+
+$factory->define(Layanan\Gizi::class, function (Faker $faker) use ($perawatans) {
+    return [
+        'perawatan_type' => $faker->randomElement($perawatans),
+        'perawatan_id'   => function ($tindakan) {
+            return factory($tindakan['perawatan_type'])->create()->id;
+        },
+        'gizi_id'     => function ($pemeriksaan) {
+            return factory(Master\Gizi::class)->create()->id;
         },
         'petugas_id'     => function () {
             return factory(Pegawai::class)->create()->id;
