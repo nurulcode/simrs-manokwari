@@ -62,12 +62,12 @@ return [
         KondisiAkhir::LAIN_LAIN   => 'Lain-lain',
     ],
     TypePenunjang::class => [
-        TypePenunjang::LABORATORIUM   => 'Laboratorium',
-        TypePenunjang::RADIOLOGI      => 'Radiologi',
-        TypePenunjang::REHABMEDIK     => 'Rehabilitasi Medik',
-        TypePenunjang::OPERASI        => 'Operasi',
-        TypePenunjang::UTDRS          => 'UTDRS',
-        TypePenunjang::INSENERATOR    => 'Insenerator',
-        TypePenunjang::KAMAR_JENAZAH  => 'Layanan Kamar Jenazah',
+        TypePenunjang::LABORATORIUM         => 'Laboratorium',
+        TypePenunjang::RADIOLOGI            => 'Radiologi',
+        TypePenunjang::REHABILITASI_MEDIK   => 'Rehabilitasi Medik',
+        TypePenunjang::OPERASI              => 'Operasi',
+        TypePenunjang::UTDRS                => 'UTDRS',
+        TypePenunjang::INSENERATOR          => 'Insenerator',
+        TypePenunjang::KAMAR_JENAZAH        => 'Layanan Kamar Jenazah',
     ]
 ];

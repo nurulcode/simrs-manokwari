@@ -58,8 +58,19 @@ Route::middleware(['auth'])->group(function () {
             ->only(['index', 'create', 'show']);
     });
 
-    Route::namespace('Master')
-        ->middleware('can:manage_master_data')
+    Route::middleware('can:manage_penunjang')
+        ->prefix('penunjang')
+        ->group(function () {
+            Route::view('laboratorium',       'penunjang.laboratorium');
+            Route::view('radiologi',          'penunjang.radiologi');
+            Route::view('rehabilitasi-medik', 'penunjang.rehabilitasi-medik');
+        });
+
+    Route::get('penunjang/{any}/{penunjang}', 'PenunjangViewController')
+        ->where('any', '(.*)+')
+        ->middleware('can:manage_penunjang');
+
+    Route::middleware('can:manage_master_data')
         ->prefix('master')
         ->group(function () {
             Route::view('agama',            'master.agama');

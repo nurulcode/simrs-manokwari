@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Layanan;
 
 use App\Models\Layanan\Penunjang;
-use App\Http\Queries\LayananQuery;
 use App\Http\Requests\Layanan\PenunjangRequest;
 use App\Http\Resources\Layanan\PenunjangResource;
+use App\Http\Queries\PenunjangQuery;
 
 class PenunjangController extends Controller
 {
@@ -14,10 +14,14 @@ class PenunjangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(LayananQuery $query)
+    public function index(PenunjangQuery $query)
     {
         return PenunjangResource::collection(
-            Penunjang::with('poliklinik')->filter($query)
+            Penunjang::with([
+                'poliklinik',
+                'perawatan.kunjungan',
+                'perawatan.poliklinik'
+            ])->filter($query)
         );
     }
 

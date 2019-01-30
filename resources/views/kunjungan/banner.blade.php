@@ -67,6 +67,12 @@
         </div>
     </div>
 
+    @if(isset($footer))
+
+        {{ $slot }}
+
+    @endif
+
     @if(isset($footer) && !empty($footer->toHtml()))
         @slot('footer')
             {{ $footer }}

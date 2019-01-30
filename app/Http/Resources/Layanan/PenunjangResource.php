@@ -17,11 +17,12 @@ class PenunjangResource extends JsonResource
     {
         return [
             'id'            => $this->id,
+            'perawatan'     => $this->whenLoaded('perawatan'),
             'poliklinik_id' => $this->poliklinik_id,
             'poliklinik'    => PoliklinikResource::make($this->whenLoaded('poliklinik')),
             'waktu'         => $this->waktu,
             'catatan'       => $this->catatan,
-            'path'          => $this->path,
+            'path'          => $this->slug,
         ];
     }
 }

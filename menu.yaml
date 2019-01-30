@@ -38,6 +38,20 @@
       title: Reg. Rawat Darurat (IGD)
       link : perawatan/rawat-darurat/create
 -
+  title : Instalasi Penunjang
+  icon  : icon-briefcase
+  childs:
+    -
+      title: Laboratorium
+      link : penunjang/laboratorium
+    -
+      title: Radiologi
+      link : penunjang/radiologi
+    -
+      title: Rehabilitasi Medik
+      link : penunjang/rehabilitasi-medik
+
+-
   title : Farmasi dan Logistik
   icon  : icon-social-dropbox
 
@@ -123,9 +137,9 @@
       link : master/jenis-laundry
     -
       title: Jenis Logistik
-    -
-      title: Jenis Poliklinik
-      link : master/jenis-poliklinik
+    # - Hide so user can't delete
+    #   title: Jenis Poliklinik
+    #   link : master/jenis-poliklinik
     -
       title: Jenis Registrasi
       link : master/jenis-registrasi

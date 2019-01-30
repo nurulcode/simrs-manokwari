@@ -50,6 +50,9 @@
             </textarea>
         </b-form-group>
     </div>
+    <template slot="view" slot-scope="{item}">
+        <a :href="item.path" class="btn btn-primary"> <i class="icon-eye"></i> </a>
+    </template>
 </data-table>
 
 
@@ -69,12 +72,14 @@ window.pagemix.push({
                     formatter: waktu => waktu ? window.date_time(waktu) : ''
                 },{
                     key      : 'poliklinik',
+                    label    : 'Fasilitas Tujuan',
                     formatter: poliklinik => poliklinik ? poliklinik.nama : ''
                 },{
                     key      : 'catatan',
                 },{
                     key      : 'view',
-                    label    : 'Lihat'
+                    label    : 'Lihat',
+                    class    : 'text-center'
                 }],
                 form: new Form({
                     perawatan_id  : @json($perawatan->id),
