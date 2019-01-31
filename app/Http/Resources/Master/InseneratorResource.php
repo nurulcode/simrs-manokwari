@@ -4,7 +4,7 @@ namespace App\Http\Resources\Master;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Resource extends JsonResource
+class InseneratorResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,16 +16,13 @@ class Resource extends JsonResource
     {
         return [
             'id'        => $this->id,
-            'kode'      => $this->when($this->kode, function () {
-                return $this->kode;
-            }),
-            'parent_id' => $this->when($this->parent_id, function () {
-                return $this->parent_id;
-            }),
+            'kode'      => $this->kode,
             'parent'    => self::make($this->whenLoaded('parent')),
-            'childs'    => self::collection($this->whenLoaded('childs')),
+            'parent_id' => $this->parent_id,
             'uraian'    => $this->uraian,
+            'satuan'    => $this->satuan,
             'path'      => $this->path,
+            'childs'    => self::collection($this->whenLoaded('childs')),
             'tarif'     => $this->when($this->tarif, function () {
                 return [
                     'tarifable_type' => get_class($this->resource),

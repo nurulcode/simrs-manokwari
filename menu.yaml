@@ -103,6 +103,9 @@
       title: Daftar Gizi
       link : master/gizi
     -
+      title: Daftar Insenerator
+      link : master/insenerator
+    -
       title: Daftar Kasus
       link : master/kasus
     -

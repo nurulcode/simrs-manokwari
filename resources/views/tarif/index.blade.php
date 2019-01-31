@@ -13,6 +13,7 @@
     <b-tab title="Oksigen"> @include('tarif.oksigen') </b-tab>
     <b-tab title="Gizi"> @include('tarif.gizi') </b-tab>
     <b-tab title="Laundry"> @include('tarif.laundry') </b-tab>
+    <b-tab title="Insenerator"> @include('tarif.insenerator') </b-tab>
 </b-tabs>
 
 <form-modal ok-title="Simpan" ref="form" :form="form" size="lg" title="Ubah Tarif">

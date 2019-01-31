@@ -6,6 +6,7 @@ Route::namespace('Master')->group(function () {
         'agama'                => 'AgamaController',
         'cara-pembayaran'      => 'CaraPembayaranController',
         'gizi'                 => 'GiziController',
+        'insenerator'          => 'InseneratorController',
         'jenis-identitas'      => 'JenisIdentitasController',
         'jenis-laundry'        => 'JenisLaundryController',
         'jenis-poliklinik'     => 'JenisPoliklinikController',

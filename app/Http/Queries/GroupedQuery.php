@@ -2,7 +2,9 @@
 
 namespace App\Http\Queries;
 
-trait GroupedQuery
+use Sty\HttpQuery;
+
+class GroupedQuery extends HttpQuery
 {
     public function grouped($builder, $value = false)
     {
@@ -17,5 +19,10 @@ trait GroupedQuery
                 $query->where('uraian', 'LIKE', '%' . $search . '%');
             }
         }])->where('parent_id', null);
+    }
+
+    public function parent($builder, $value)
+    {
+        return $builder->where('parent_id', null);
     }
 }

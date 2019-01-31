@@ -81,6 +81,7 @@ Route::middleware(['auth'])->group(function () {
             Route::view('agama',            'master.agama');
             Route::view('cara-pembayaran',  'master.cara-pembayaran');
             Route::view('gizi',             'master.gizi');
+            Route::view('insenerator',      'master.insenerator');
             Route::view('jenis-identitas',  'master.jenis-identitas');
             Route::view('jenis-laundry',    'master.jenis-laundry');
             Route::view('jenis-poliklinik', 'master.jenis-poliklinik');

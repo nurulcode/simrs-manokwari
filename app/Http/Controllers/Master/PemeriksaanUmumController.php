@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Master;
 use App\Models\Master\PemeriksaanUmum;
 use App\Http\Requests\Master\PemeriksaanUmumRequest;
 use App\Http\Resources\Master\PemeriksaanUmumResource;
-use App\Http\Queries\Master\PemeriksaanUmumQuery;
+use App\Http\Queries\GroupedQuery;
 
 class PemeriksaanUmumController extends Controller
 {
@@ -14,7 +14,7 @@ class PemeriksaanUmumController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PemeriksaanUmumQuery $query)
+    public function index(GroupedQuery $query)
     {
         return PemeriksaanUmumResource::collection(
             PemeriksaanUmum::with('parent')->filter($query)

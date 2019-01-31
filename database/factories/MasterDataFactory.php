@@ -32,6 +32,14 @@ $factory->define(Master\CaraPembayaran::class, function (Faker $faker) {
     ];
 });
 
+$factory->define(Master\Insenerator::class, function (Faker $faker) {
+    return [
+        'kode'   => $faker->unique()->swiftBicNumber,
+        'uraian' => $faker->sentence,
+        'satuan' => substr($faker->word, 0, 6)
+    ];
+});
+
 $factory->define(Master\JenisLaundry::class, function (Faker $faker) {
     return [
         'uraian'  => $faker->sentence,
