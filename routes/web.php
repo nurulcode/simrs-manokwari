@@ -68,9 +68,13 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('rehabilitasi-medik', 'RehabilitasiMedikController')
             ->only(['index', 'show'])
             ->middleware('can:manage_rehabilitasi_medik');
+        Route::resource('operasi', 'OperasiController')
+            ->only(['index', 'show'])
+            ->middleware('can:manage_operasi');
+        Route::resource('insenerator', 'InseneratorController')
+            ->only(['index', 'show'])
+            ->middleware('can:manage_insenerator');
 
-        Route::view('operasi',            'penunjang.operasi');
-        Route::view('insenerator',        'penunjang.insenerator');
         Route::view('utdrs',              'penunjang.utdrs');
         Route::view('kamar-jenazah',      'penunjang.kamar-jenazah');
     });
