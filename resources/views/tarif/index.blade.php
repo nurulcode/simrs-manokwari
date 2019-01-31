@@ -7,6 +7,7 @@
     <b-tab title="Registrasi"> @include('tarif.registrasi') </b-tab>
     <b-tab title="Ruangan"> @include('tarif.ruangan') </b-tab>
     <b-tab title="Tindakan/Pemeriksaan"> @include('tarif.tindakan') </b-tab>
+    <b-tab title="Kegiatan"> @include('tarif.kegiatan') </b-tab>
     <b-tab title="Visite"> @include('tarif.visite') </b-tab>
     <b-tab title="Perawatan Khusus"> @include('tarif.keperawatan') </b-tab>
     <b-tab title="Oksigen"> @include('tarif.oksigen') </b-tab>
@@ -14,7 +15,7 @@
     <b-tab title="Laundry"> @include('tarif.laundry') </b-tab>
 </b-tabs>
 
-<form-modal ok-title="Simpan" ref="form" :form="form" size="lg">
+<form-modal ok-title="Simpan" ref="form" :form="form" size="lg" title="Ubah Tarif">
     <b-form-group label="Ubah Tarif:">
         <input
             class="form-control"

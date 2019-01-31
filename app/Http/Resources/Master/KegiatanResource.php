@@ -21,6 +21,13 @@ class KegiatanResource extends JsonResource
             'kategori'  => KategoriKegiatanResource::collection($this->whenLoaded('kategori')),
             'uraian'    => $this->uraian,
             'path'      => $this->path,
+            'tarif'     => $this->when($this->tarif, function () {
+                return [
+                    'tarifable_type' => get_class($this->resource),
+                    'tarifable_id'   => $this->id,
+                    'tarif'          => $this->tarif
+                ];
+            }),
         ];
     }
 }
