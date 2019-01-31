@@ -5,22 +5,36 @@
     @endif
     >
     <div slot="form">
-        <b-form-group v-bind="tindakan.form.feedback('tindakan_id')">
-            <b slot="label">Tindakan/Pemeriksaan:</b>
-            <ajax-select
-                :params="{kategori: {{ $kategori }}}"
-                deselect-label=""
-                label="uraian"
-                placeholder="Pilih Tindakan/Pemeriksaan"
-                select-label=""
-                url="{{ action('Master\KegiatanController@index') }}"
-                v-model="tindakan.form.tindakan"
-                v-bind:key-value.sync="tindakan.form.tindakan_id"
-                v-on:select="tindakan.form.errors.clear('tindakan_id')"
-                >
+        <div class="row">
+            <div class="col-md-8">
+                <b-form-group v-bind="tindakan.form.feedback('tindakan_id')">
+                    <b slot="label">Tindakan/Pemeriksaan:</b>
+                    <ajax-select
+                        :params="{kategori: {{ $kategori }}}"
+                        deselect-label=""
+                        label="uraian"
+                        placeholder="Pilih Tindakan/Pemeriksaan"
+                        select-label=""
+                        url="{{ action('Master\KegiatanController@index') }}"
+                        v-model="tindakan.form.tindakan"
+                        v-bind:key-value.sync="tindakan.form.tindakan_id"
+                        v-on:select="tindakan.form.errors.clear('tindakan_id')"
+                        >
 
-            </ajax-select>
-        </b-form-group>
+                    </ajax-select>
+                </b-form-group>
+            </div>
+            <div class="col-md-4">
+                <b-form-group v-bind="tindakan.form.feedback('jumlah')">
+                    <b slot="label">Jumlah:</b>
+                    <input
+                        class="form-control"
+                        v-model="tindakan.form.jumlah"
+                        type="number"
+                    >
+                </b-form-group>
+            </div>
+        </div>
         <b-form-group label="Catatan:" v-bind="tindakan.form.feedback('catatan')">
             <textarea class="form-control" name="catatan" v-model="tindakan.form.catatan">
 
@@ -51,8 +65,9 @@
             </date-picker>
         </b-form-group>
     </div>
-    <template slot="tindakan" slot-scope="{value}" v-if="value">
+    <template slot="tindakan" slot-scope="{value, item}" v-if="value">
         @{{ value.uraian }}
+        <p class="text-muted"> Jumlah: @{{ item.jumlah }} x </p>
     </template>
     <template slot="tarif_sarana" slot-scope="{item}">
         @{{ item.tarif && item.tarif.SARANA }}
@@ -74,8 +89,7 @@ window.pagemix.push({
             tindakan: {
                 url   : `{{ action('Layanan\PenunjangTindakanController@index') }}`,
                 params: {
-                    perawatan_id  : @json($perawatan->id),
-                    perawatan_type: @json(get_class($perawatan))
+                    penunjang  : @json($penunjang->id),
                 },
                 fields: [{
                     key      : 'waktu',
@@ -91,6 +105,8 @@ window.pagemix.push({
                     key      : 'tarif_bhp',
                     label    : 'Tarif BHP'
                 },{
+                    key      : 'catatan',
+                },{
                     key      : 'petugas',
                     formatter: petugas => petugas && petugas.nama
                 }],
@@ -99,6 +115,7 @@ window.pagemix.push({
                     tindakan_id   : null,
                     tindakan_type : 'App\\Models\\Master\\Kegiatan',
                     catatan       : null,
+                    jumlah        : 1,
                     petugas_id    : null,
                     waktu         : format(new Date(), 'YYYY-MM-DD HH:mm:ss')
                 }, {

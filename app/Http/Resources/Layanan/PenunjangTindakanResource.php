@@ -23,6 +23,7 @@ class PenunjangTindakanResource extends JsonResource
             'tindakan_id' => $this->tindakan_id,
             'tindakan'    => $this->whenLoaded('tindakan'),
             'waktu'       => $this->waktu,
+            'jumlah'      => $this->jumlah,
             'catatan'     => $this->catatan,
             'petugas_id'  => $this->petugas_id,
             'petugas'     => $petugas,
