@@ -65,8 +65,10 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('radiologi', 'RadiologiController')
             ->only(['index', 'show'])
             ->middleware('can:manage_radiologi');
+        Route::resource('rehabilitasi-medik', 'RehabilitasiMedikController')
+            ->only(['index', 'show'])
+            ->middleware('can:manage_rehabilitasi_medik');
 
-        Route::view('rehabilitasi-medik', 'penunjang.rehabilitasi-medik');
         Route::view('operasi',            'penunjang.operasi');
         Route::view('insenerator',        'penunjang.insenerator');
         Route::view('utdrs',              'penunjang.utdrs');
