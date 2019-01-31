@@ -8,7 +8,10 @@
         <b-form-group v-bind="pemeriksaan.form.feedback('pemeriksaan_umum_id')">
             <b slot="label">Jenis Pemeriksaan:</b>
             <ajax-select
+                :params="{grouped:true}"
                 deselect-label=""
+                group-values="childs"
+                group-label="uraian"
                 label="uraian"
                 placeholder="Pilih Jenis Pemeriksaan"
                 select-label=""

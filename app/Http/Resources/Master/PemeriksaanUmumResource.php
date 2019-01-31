@@ -23,6 +23,7 @@ class PemeriksaanUmumResource extends JsonResource
             'satuan'    => $this->satuan,
             'periode'   => $this->periode,
             'path'      => $this->path,
+            'childs'    => self::collection($this->whenLoaded('childs'))
         ];
     }
 }
