@@ -74,8 +74,11 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('insenerator', 'InseneratorController')
             ->only(['index', 'show'])
             ->middleware('can:manage_insenerator');
+        Route::resource('utdrs', 'UtdrsController')
+            ->parameters(['utdrs' => 'utdrs'])
+            ->only(['index', 'show'])
+            ->middleware('can:manage_utdrs');
 
-        Route::view('utdrs',              'penunjang.utdrs');
         Route::view('kamar-jenazah',      'penunjang.kamar-jenazah');
     });
 
@@ -104,6 +107,7 @@ Route::middleware(['auth'])->group(function () {
             Route::view('suku',             'master.suku');
             Route::view('tindakan',         'master.tindakan-pemeriksaan');
             Route::view('tipe-diagnosa',    'master.tipe-diagnosa');
+            Route::view('utdrs',            'master.utdrs');
             Route::view('wilayah',          'master.wilayah.index');
         });
 });

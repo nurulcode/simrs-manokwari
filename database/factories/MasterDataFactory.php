@@ -94,3 +94,10 @@ $factory->define(Master\TindakanPemeriksaan::class, function (Faker $faker) {
         'jenis'       => $faker->randomElement(JenisTindakanPemeriksaan::getValues()),
     ];
 });
+
+$factory->define(Master\Utdrs::class, function (Faker $faker) {
+    return [
+        'kode'    => $faker->unique()->swiftBicNumber,
+        'uraian'  => $faker->sentence,
+    ];
+});

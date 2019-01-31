@@ -142,6 +142,9 @@
       title: Daftar Tipe Diagnosa
       link : master/tipe-diagnosa
     -
+      title: Daftar UTDRS
+      link : master/utdrs
+    -
       title: Daftar Wilayah
       link : master/wilayah
     -

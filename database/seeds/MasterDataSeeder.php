@@ -35,6 +35,7 @@ class MasterDataSeeder extends Seeder
             Master\Suku::class                 => ['master/suku.csv', 15],
             Master\TindakanPemeriksaan::class  => ['master/tindakan_pemeriksaan.csv', 428],
             Master\TipeDiagnosa::class         => ['master/tipe_diagnosa.csv', 7],
+            Master\Utdrs::class                => ['master/utdrs.csv', 7],
         ]);
     }
 }

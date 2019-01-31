@@ -24,8 +24,10 @@ Route::namespace('Master')->group(function () {
         'prosedur'             => 'ProsedurController',
         'suku'                 => 'SukuController',
         'tindakan-pemeriksaan' => 'TindakanPemeriksaanController',
-        'tipe-diagnosa'        => 'TipeDiagnosaController'
+        'tipe-diagnosa'        => 'TipeDiagnosaController',
     ]);
+
+    Route::apiResource('utdrs', 'UtdrsController')->parameters(['utdrs' => 'utdrs']);
 
     Route::namespace('Wilayah')->prefix('wilayah')->name('wilayah.')->group(function () {
         Route::apiResources([
