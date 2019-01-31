@@ -7,10 +7,11 @@ use App\Models\Master\Kegiatan;
 use App\Models\Master\KategoriKegiatan;
 use Sty\Tests\ResourceControllerTestCase;
 use Sty\Tests\ResourceViewTestCase;
+use Tests\Feature\TarifableTestCase;
 
 class KegiatanTest extends TestCase
 {
-    use ResourceControllerTestCase, ResourceViewTestCase;
+    use ResourceControllerTestCase, ResourceViewTestCase, TarifableTestCase;
 
     public function resource()
     {

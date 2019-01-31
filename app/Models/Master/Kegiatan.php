@@ -3,10 +3,11 @@
 namespace App\Models\Master;
 
 use App\Models\BelongsToItself;
+use App\Models\Tarifable;
 
 class Kegiatan extends Master
 {
-    use BelongsToItself;
+    use BelongsToItself, Tarifable;
 
     /**
      * The relations to eager load on every query.

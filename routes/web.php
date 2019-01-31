@@ -46,29 +46,30 @@ Route::middleware(['auth'])->group(function () {
 
     Route::namespace('Perawatan')->prefix('perawatan')->group(function () {
         Route::resource('rawat-jalan', 'RawatJalanWebController')
-            ->middleware('can:manage_rawat_jalan')
-            ->only(['index', 'create', 'show']);
+            ->only(['index', 'create', 'show'])
+            ->middleware('can:manage_rawat_jalan');
 
         Route::resource('rawat-darurat', 'RawatDaruratWebController')
-            ->middleware('can:manage_rawat_darurat')
-            ->only(['index', 'create', 'show']);
+            ->only(['index', 'create', 'show'])
+            ->middleware('can:manage_rawat_darurat');
 
         Route::resource('rawat-inap', 'RawatInapWebController')
-            ->middleware('can:manage_rawat_inap')
-            ->only(['index', 'create', 'show']);
+            ->only(['index', 'create', 'show'])
+            ->middleware('can:manage_rawat_inap');
     });
 
-    Route::middleware('can:manage_penunjang')
-        ->prefix('penunjang')
-        ->group(function () {
-            Route::view('laboratorium',       'penunjang.laboratorium');
-            Route::view('radiologi',          'penunjang.radiologi');
-            Route::view('rehabilitasi-medik', 'penunjang.rehabilitasi-medik');
-        });
+    Route::namespace('Penunjang')->prefix('penunjang')->group(function () {
+        Route::resource('laboratorium', 'LaboratoriumController')
+            ->only(['index', 'show'])
+            ->middleware('can:manage_laboratorium');
 
-    Route::get('penunjang/{any}/{penunjang}', 'PenunjangViewController')
-        ->where('any', '(.*)+')
-        ->middleware('can:manage_penunjang');
+        Route::view('radiologi',          'penunjang.radiologi');
+        Route::view('rehabilitasi-medik', 'penunjang.rehabilitasi-medik');
+        Route::view('operasi',            'penunjang.operasi');
+        Route::view('insenerator',        'penunjang.insenerator');
+        Route::view('utdrs',              'penunjang.utdrs');
+        Route::view('kamar-jenazah',      'penunjang.kamar-jenazah');
+    });
 
     Route::middleware('can:manage_master_data')
         ->prefix('master')

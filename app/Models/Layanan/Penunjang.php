@@ -43,6 +43,6 @@ class Penunjang extends Layanan
 
     public function getSlugAttribute()
     {
-        return action('PenunjangViewController', [$this->jenis, $this->id]);
+        return url('/penunjang/' . $this->jenis . '/' . $this->id);
     }
 }

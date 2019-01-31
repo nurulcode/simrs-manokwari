@@ -28,6 +28,31 @@ class CreateLayananPenunjangsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
         });
+
+        Schema::create('layanan_penunjang_tindakans', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('penunjang_id');
+            $table->unsignedInteger('tindakan_id');
+            $table->string('tindakan_type');
+            $table->dateTime('waktu');
+            $table->unsignedInteger('jumlah')->default(1);
+            $table->string('catatan')->nullable();
+            $table->unsignedInteger('petugas_id');
+
+            $table->text('tarif')->nullable();
+            $table->timestamps();
+
+            $table->foreign('petugas_id')
+                ->references('id')
+                ->on('pegawais')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+            $table->foreign('penunjang_id')
+                ->references('id')
+                ->on('layanan_penunjangs')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+        });
     }
 
     /**
@@ -37,6 +62,8 @@ class CreateLayananPenunjangsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('layanan_penunjang_tindakans');
+
         Schema::dropIfExists('layanan_penunjangs');
     }
 }

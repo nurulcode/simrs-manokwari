@@ -1,5 +1,7 @@
 @extends('layouts.single-card')
 
+@section('title', $title)
+
 @section('card')
     <data-table v-bind.sync="penunjang" ref="table" no-action no-add-button-text>
         <template slot="view" slot-scope="{item}">
@@ -36,7 +38,7 @@ window.pagemix.push({
                 sortDesc: true,
                 url     : `{{ action('Layanan\\PenunjangController@index') }}`,
                 params  : {
-                    jenis: `@yield('jenis')`
+                    jenis: `{{ $jenis }}`
                 },
                 fields: [{
                     key      : 'nomor_kunjungan',

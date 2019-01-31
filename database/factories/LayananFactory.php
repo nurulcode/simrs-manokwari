@@ -1,14 +1,13 @@
 <?php
 
 use App\Models\Master;
-use App\Models\Perawatan;
 use App\Models\Layanan;
+use App\Models\Perawatan;
 use App\Enums\KasusDiagnosa;
 use Faker\Generator as Faker;
-use App\Models\Kepegawaian\Pegawai;
-use App\Models\Master\PemeriksaanUmum;
+use App\Models\Master\Kegiatan;
 use App\Models\Fasilitas\Ranjang;
-use App\Models\Master\JenisLaundry;
+use App\Models\Kepegawaian\Pegawai;
 use App\Models\Fasilitas\Poliklinik;
 
 $perawatans = [
@@ -93,7 +92,7 @@ $factory->define(Layanan\Laundry::class, function (Faker $faker) {
             return factory(Perawatan\RawatInap::class)->create()->id;
         },
         'jenis_laundry_id' => function () {
-            return factory(JenisLaundry::class)->create()->id;
+            return factory(Master\JenisLaundry::class)->create()->id;
         },
         'waktu'  => $faker->dateTimeThisMonth,
         'jumlah' => $faker->randomNumber,
@@ -124,7 +123,7 @@ $factory->define(Layanan\Pemeriksaan::class, function (Faker $faker) use ($peraw
             return factory($tindakan['perawatan_type'])->create()->id;
         },
         'pemeriksaan_umum_id' => function ($pemeriksaan) {
-            return factory(PemeriksaanUmum::class)->create()->id;
+            return factory(Master\PemeriksaanUmum::class)->create()->id;
         },
         'petugas_id' => function () {
             return factory(Pegawai::class)->create()->id;
@@ -144,6 +143,26 @@ $factory->define(Layanan\Penunjang::class, function (Faker $faker) use ($perawat
             return factory(Poliklinik::class)->create()->id;
         },
         'waktu' => $faker->dateTimeThisMonth,
+    ];
+});
+
+$factory->define(Layanan\PenunjangTindakan::class, function (Faker $faker) {
+    $tindakans = [
+        Kegiatan::class
+    ];
+
+    return [
+        'penunjang_id' => function () {
+            return factory(Layanan\Penunjang::class)->create()->id;
+        },
+        'tindakan_type' => $faker->randomElement($tindakans),
+        'tindakan_id'   => function ($tindakan) {
+            return factory($tindakan['tindakan_type'])->create()->id;
+        },
+        'petugas_id' => function () {
+            return factory(Pegawai::class)->create()->id;
+        },
+        'waktu'  => $faker->dateTimeThisMonth,
     ];
 });
 

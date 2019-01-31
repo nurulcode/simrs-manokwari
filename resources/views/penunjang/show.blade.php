@@ -17,7 +17,9 @@
 
 <b-card no-body>
     <b-tabs lazy card>
-        <b-tab title="Tindakan/Pemeriksaan"></b-tab>
+        <b-tab title="Tindakan/Pemeriksaan">
+            @include('penunjang.' . $tindakan)
+        </b-tab>
     </b-tabs>
 </b-card>
 
