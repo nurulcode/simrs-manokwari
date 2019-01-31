@@ -4,7 +4,6 @@
 
 @section('content')
 <b-tabs lazy no-fade>
-    <b-tab title="Registrasi"> @include('tarif.registrasi') </b-tab>
     <b-tab title="Ruangan"> @include('tarif.ruangan') </b-tab>
     <b-tab title="Tindakan/Pemeriksaan"> @include('tarif.tindakan') </b-tab>
     <b-tab title="Kegiatan"> @include('tarif.kegiatan') </b-tab>
@@ -14,6 +13,9 @@
     <b-tab title="Gizi"> @include('tarif.gizi') </b-tab>
     <b-tab title="Laundry"> @include('tarif.laundry') </b-tab>
     <b-tab title="Insenerator"> @include('tarif.insenerator') </b-tab>
+    <b-tab title="UTDRS"> @include('tarif.utdrs') </b-tab>
+    <b-tab title="Pemeriksaan Jenazah"> @include('tarif.pemeriksaan-jenazah') </b-tab>
+    <b-tab title="Registrasi" active> @include('tarif.registrasi') </b-tab>
 </b-tabs>
 
 <form-modal ok-title="Simpan" ref="form" :form="form" size="lg" title="Ubah Tarif">

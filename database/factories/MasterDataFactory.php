@@ -21,6 +21,7 @@ $factory->define(Master\KategoriKegiatan::class, $generic_factory);
 $factory->define(Master\Kegiatan::class, $generic_factory);
 $factory->define(Master\Oksigen::class, $generic_factory);
 $factory->define(Master\Pekerjaan::class, $generic_factory);
+$factory->define(Master\PemeriksaanJenazah::class, $generic_factory);
 $factory->define(Master\Pendidikan::class, $generic_factory);
 $factory->define(Master\Suku::class, $generic_factory);
 $factory->define(Master\TipeDiagnosa::class, $generic_factory);

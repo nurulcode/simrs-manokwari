@@ -118,6 +118,9 @@
       title: Daftar Pekerjaan
       link : master/pekerjaan
     -
+      title: Daftar Pemeriksaan Jenazah
+      link : master/pemeriksaan-jenazah
+    -
       title: Daftar Pemeriksaan Umum
       link : master/pemeriksaan-umum
     -

@@ -78,36 +78,38 @@ Route::middleware(['auth'])->group(function () {
             ->parameters(['utdrs' => 'utdrs'])
             ->only(['index', 'show'])
             ->middleware('can:manage_utdrs');
-
-        Route::view('kamar-jenazah',      'penunjang.kamar-jenazah');
+        Route::resource('kamar-jenazah', 'KamarJenazahController')
+            ->only(['index', 'show'])
+            ->middleware('can:manage_kamar_jenazah');
     });
 
     Route::middleware('can:manage_master_data')
         ->prefix('master')
         ->group(function () {
-            Route::view('agama',            'master.agama');
-            Route::view('cara-pembayaran',  'master.cara-pembayaran');
-            Route::view('gizi',             'master.gizi');
-            Route::view('insenerator',      'master.insenerator');
-            Route::view('jenis-identitas',  'master.jenis-identitas');
-            Route::view('jenis-laundry',    'master.jenis-laundry');
-            Route::view('jenis-poliklinik', 'master.jenis-poliklinik');
-            Route::view('jenis-registrasi', 'master.jenis-registrasi');
-            Route::view('jenis-rujukan',    'master.jenis-rujukan');
-            Route::view('jenis-visite',     'master.jenis-visite');
-            Route::view('kasus',            'master.kasus');
-            Route::view('kegiatan',         'master.kegiatan');
-            Route::view('oksigen',          'master.oksigen');
-            Route::view('pekerjaan',        'master.pekerjaan');
-            Route::view('pemeriksaan-umum', 'master.pemeriksaan-umum');
-            Route::view('pendidikan',       'master.pendidikan');
-            Route::view('penyakit',         'master.penyakit.index');
-            Route::view('perawatan-khusus', 'master.perawatan-khusus');
-            Route::view('prosedur',         'master.prosedur');
-            Route::view('suku',             'master.suku');
-            Route::view('tindakan',         'master.tindakan-pemeriksaan');
-            Route::view('tipe-diagnosa',    'master.tipe-diagnosa');
-            Route::view('utdrs',            'master.utdrs');
-            Route::view('wilayah',          'master.wilayah.index');
+            Route::view('agama',               'master.agama');
+            Route::view('cara-pembayaran',     'master.cara-pembayaran');
+            Route::view('gizi',                'master.gizi');
+            Route::view('insenerator',         'master.insenerator');
+            Route::view('jenis-identitas',     'master.jenis-identitas');
+            Route::view('jenis-laundry',       'master.jenis-laundry');
+            Route::view('jenis-poliklinik',    'master.jenis-poliklinik');
+            Route::view('jenis-registrasi',    'master.jenis-registrasi');
+            Route::view('jenis-rujukan',       'master.jenis-rujukan');
+            Route::view('jenis-visite',        'master.jenis-visite');
+            Route::view('kasus',               'master.kasus');
+            Route::view('kegiatan',            'master.kegiatan');
+            Route::view('oksigen',             'master.oksigen');
+            Route::view('pekerjaan',           'master.pekerjaan');
+            Route::view('pemeriksaan-jenazah', 'master.pemeriksaan-jenazah');
+            Route::view('pemeriksaan-umum',    'master.pemeriksaan-umum');
+            Route::view('pendidikan',          'master.pendidikan');
+            Route::view('penyakit',            'master.penyakit.index');
+            Route::view('perawatan-khusus',    'master.perawatan-khusus');
+            Route::view('prosedur',            'master.prosedur');
+            Route::view('suku',                'master.suku');
+            Route::view('tindakan',            'master.tindakan-pemeriksaan');
+            Route::view('tipe-diagnosa',       'master.tipe-diagnosa');
+            Route::view('utdrs',               'master.utdrs');
+            Route::view('wilayah',             'master.wilayah.index');
         });
 });
