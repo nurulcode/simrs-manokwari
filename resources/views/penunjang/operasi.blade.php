@@ -9,16 +9,16 @@
             <div class="row">
                 <div class="col-md-8">
                     <b-form-group v-bind="tindakan.form.feedback('tindakan_id')">
-                        <b slot="label">Tindakan/Pemeriksaan:</b>
+                        <b slot="label">Tindakan Operasi:</b>
                         <ajax-select
                             :params="{grouped:true}"
                             group-values="childs"
                             group-label="uraian"
                             deselect-label=""
                             label="uraian"
-                            placeholder="Pilih Insenerator"
+                            placeholder="Pilih Tindakan Operasi"
                             select-label=""
-                            url="{{ action('Master\InseneratorController@index') }}"
+                            url="{{ action('Master\TindakanOperasiController@index') }}"
                             v-model="tindakan.form.tindakan"
                             v-bind:key-value.sync="tindakan.form.tindakan_id"
                             v-on:select="tindakan.form.errors.clear('tindakan_id')"
@@ -116,7 +116,7 @@ window.pagemix.push({
                 form: new Form({
                     penunjang_id  : @json($penunjang->id),
                     tindakan_id   : null,
-                    tindakan_type : 'App\\Models\\Master\\Insenerator',
+                    tindakan_type : 'App\\Models\\Master\\Kegiatan',
                     catatan       : null,
                     jumlah        : 1,
                     petugas_id    : null,

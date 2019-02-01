@@ -31,8 +31,7 @@ class OperasiController extends Controller
     {
         return view('penunjang.show', [
             'title'     => 'Data Pasien Operasi Management',
-            'tindakan'  => 'kegiatan',
-            'kategori'  => 8,
+            'tindakan'  => 'operasi',
             'penunjang' => $operasi,
             'kunjungan' => $operasi->perawatan->kunjungan,
             'perawatan' => $operasi->perawatan,
