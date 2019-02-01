@@ -182,6 +182,23 @@ $factory->define(Layanan\PenunjangTindakan::class, function (Faker $faker) {
     ];
 });
 
+$factory->define(Layanan\Perinatologi::class, function (Faker $faker) use ($perawatans) {
+    return [
+        'perawatan_type' => $faker->randomElement($perawatans),
+        'perawatan_id'   => function ($tindakan) {
+            return factory($tindakan['perawatan_type'])->create()->id;
+        },
+        'kegiatan_id'    => function () {
+            return factory(Master\Kegiatan::class)->create()->id;
+        },
+        'petugas_id' => function () {
+            return factory(Pegawai::class)->create()->id;
+        },
+        'waktu'  => $faker->dateTimeThisMonth,
+        'jumlah' => $faker->randomNumber,
+    ];
+});
+
 $factory->define(Layanan\Tindakan::class, function (Faker $faker) use ($perawatans) {
     return [
         'perawatan_type' => $faker->randomElement($perawatans),

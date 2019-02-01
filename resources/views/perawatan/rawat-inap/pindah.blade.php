@@ -27,6 +27,7 @@
     <b-form-group v-bind="form_pindah.feedback('ruangan_id')">
         <b slot="label">Ruang Rawat Inap:</b>
         <ajax-select
+            :params="{poliklinik:form_pindah.poliklinik_id}"
             deselect-label=""
             label="nama"
             placeholder="Pilih ruang rawat inap"
