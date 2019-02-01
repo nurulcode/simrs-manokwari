@@ -23,6 +23,9 @@
         @if ($perawatan->poliklinik_id == 18)
             <b-tab title="Kebidanan"> @include('layanan.kebidanan') </b-tab>
         @endif
+        @if ($perawatan->poliklinik_id == 19)
+            <b-tab title="Perinatologi"> @include('layanan.perinatologi') </b-tab>
+        @endif
         <b-tab title="Visite"> @include('layanan.visite') </b-tab>
         <b-tab title="Perawatan Khusus"> @include('layanan.keperawatan') </b-tab>
         <b-tab title="Oksigen"> @include('layanan.oksigen') </b-tab>
