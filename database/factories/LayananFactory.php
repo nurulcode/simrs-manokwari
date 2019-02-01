@@ -5,7 +5,6 @@ use App\Models\Layanan;
 use App\Models\Perawatan;
 use App\Enums\KasusDiagnosa;
 use Faker\Generator as Faker;
-use App\Models\Master\Kegiatan;
 use App\Models\Fasilitas\Ranjang;
 use App\Models\Kepegawaian\Pegawai;
 use App\Models\Fasilitas\Poliklinik;
@@ -65,6 +64,23 @@ $factory->define(Layanan\Kamar::class, function (Faker $faker) {
         },
         'waktu_masuk'    => $faker->dateTimeThisMonth,
         'tarif'          => '{}'
+    ];
+});
+
+$factory->define(Layanan\Kebidanan::class, function (Faker $faker) use ($perawatans) {
+    return [
+        'perawatan_type' => $faker->randomElement($perawatans),
+        'perawatan_id'   => function ($tindakan) {
+            return factory($tindakan['perawatan_type'])->create()->id;
+        },
+        'kegiatan_id'    => function () {
+            return factory(Master\Kegiatan::class)->create()->id;
+        },
+        'petugas_id' => function () {
+            return factory(Pegawai::class)->create()->id;
+        },
+        'waktu'  => $faker->dateTimeThisMonth,
+        'jumlah' => $faker->randomNumber,
     ];
 });
 
@@ -148,7 +164,7 @@ $factory->define(Layanan\Penunjang::class, function (Faker $faker) use ($perawat
 
 $factory->define(Layanan\PenunjangTindakan::class, function (Faker $faker) {
     $tindakans = [
-        Kegiatan::class
+        Master\Kegiatan::class
     ];
 
     return [
