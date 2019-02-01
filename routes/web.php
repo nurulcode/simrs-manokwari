@@ -108,6 +108,7 @@ Route::middleware(['auth'])->group(function () {
             Route::view('prosedur',            'master.prosedur');
             Route::view('suku',                'master.suku');
             Route::view('tindakan',            'master.tindakan-pemeriksaan');
+            Route::view('tindakan-operasi',    'master.tindakan-operasi');
             Route::view('tipe-diagnosa',       'master.tipe-diagnosa');
             Route::view('utdrs',               'master.utdrs');
             Route::view('wilayah',             'master.wilayah.index');

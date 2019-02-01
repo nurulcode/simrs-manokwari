@@ -142,6 +142,9 @@
       title: Daftar Tindakan
       link : master/tindakan
     -
+      title: Daftar Tindakan Operasi
+      link : master/tindakan-operasi
+    -
       title: Daftar Tipe Diagnosa
       link : master/tipe-diagnosa
     -

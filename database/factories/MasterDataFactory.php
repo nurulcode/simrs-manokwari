@@ -4,6 +4,7 @@ use Faker\Generator as Faker;
 use App\Enums\KategoriRegistrasi;
 use App\Enums\JenisTindakanPemeriksaan;
 use App\Enums\PeriodePemeriksaan;
+use App\Enums\JenisOperasi;
 
 $generic_factory = function (Faker $faker) {
     return [
@@ -82,6 +83,14 @@ $factory->define(Master\Prosedur::class, function (Faker $faker) {
     return [
         'kode'    => $faker->unique()->swiftBicNumber,
         'uraian'  => $faker->sentence,
+    ];
+});
+
+$factory->define(Master\TindakanOperasi::class, function (Faker $faker) {
+    return [
+        'kode'   => $faker->unique()->swiftBicNumber,
+        'uraian' => $faker->sentence,
+        'jenis'  => JenisOperasi::getRandomValue()
     ];
 });
 
