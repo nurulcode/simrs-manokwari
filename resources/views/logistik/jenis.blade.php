@@ -1,4 +1,4 @@
-<data-table v-bind.sync="jenis_logistik" ref="table">
+<data-table v-bind.sync="jenis_logistik" ref="table" v-model="selected_jenis">
     <div slot="form">
         <b-form-group v-bind="jenis_logistik.form.feedback('uraian')">
             <b slot="label">Uraian:</b>

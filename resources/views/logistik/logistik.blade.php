@@ -63,6 +63,9 @@ window.pagemix.push({
             logistik: {
                 url   : `{{ action('Logistik\LogistikController@index') }}`,
                 sortBy: 'jenis',
+                params: {
+                    jenis: null
+                },
                 fields: [{
                     key      : 'jenis',
                     sortable : true,

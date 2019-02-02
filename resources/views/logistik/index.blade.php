@@ -25,11 +25,11 @@ window.pagemix.push({
     },
     watch: {
         selected_jenis(value) {
-            // this.ruangan.params.poliklinik = value && value.id;
+            this.logistik.params.jenis = value && value.id;
 
-            // this.ruangan.form.setDefault('poliklinik', value);
+            this.logistik.form.setDefault('jenis', value);
 
-            // this.ruangan.form.setDefault('poliklinik_id', value && value.id);
+            this.logistik.form.setDefault('jenis_id', value && value.id);
 
             this.selected_tab = value ? 1 : this.selected_tab;
         },

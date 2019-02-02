@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Logistik;
 
-use Sty\HttpQuery;
 use App\Models\Logistik\Logistik;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Logistik\LogistikRequest;
 use App\Http\Resources\Logistik\LogistikResource;
+use App\Http\Queries\LogistikQuery;
 
 class LogistikController extends Controller
 {
@@ -20,7 +20,7 @@ class LogistikController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(LogistikQuery $query)
     {
         return LogistikResource::collection(
             Logistik::with('jenis')->filter($query)
