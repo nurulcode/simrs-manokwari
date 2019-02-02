@@ -33,6 +33,8 @@ class Resource extends JsonResource
                     'tarif'          => $this->tarif
                 ];
             }),
+            '__editable'  => $this->editable(),
+            '__deletable' => $this->deletable(),
         ];
     }
 }

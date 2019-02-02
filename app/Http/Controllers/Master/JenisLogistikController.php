@@ -16,7 +16,9 @@ class JenisLogistikController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        return Resource::collection(JenisLogistik::filter($query));
+        return Resource::collection(
+            JenisLogistik::withCount('logistiks')->filter($query)
+        );
     }
 
     /**
