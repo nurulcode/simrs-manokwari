@@ -46,6 +46,13 @@ Route::middleware(['auth:api'])->group(function () {
         ]);
     });
 
+    Route::namespace('Logistik')->prefix('logistik')->group(function () {
+        /*  */
+        Route::apiResources([
+            'logistik' => 'LogistikController',
+        ]);
+    });
+
     Route::prefix('master')->group(base_path('routes/master.php'));
 
     Route::prefix('layanan')->group(base_path('routes/layanan.php'));

@@ -15,6 +15,7 @@ $generic_factory = function (Faker $faker) {
 $factory->define(Master\Agama::class, $generic_factory);
 $factory->define(Master\Gizi::class, $generic_factory);
 $factory->define(Master\JenisIdentitas::class, $generic_factory);
+$factory->define(Master\JenisLogistik::class, $generic_factory);
 $factory->define(Master\JenisPoliklinik::class, $generic_factory);
 $factory->define(Master\JenisRujukan::class, $generic_factory);
 $factory->define(Master\JenisVisite::class, $generic_factory);

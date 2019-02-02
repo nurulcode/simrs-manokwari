@@ -66,6 +66,10 @@
 -
   title : Farmasi dan Logistik
   icon  : icon-social-dropbox
+  childs:
+    -
+      title: Daftar Logistik
+      link : logistik
 
 # ------------------------------------ #
 # ----------- A D M I N -------------- #
@@ -161,9 +165,10 @@
       link : master/jenis-laundry
     -
       title: Jenis Logistik
-    # - Hide so user can't delete
-    #   title: Jenis Poliklinik
-    #   link : master/jenis-poliklinik
+      link : master/jenis-logistik
+    -
+      title: Jenis Poliklinik
+      link : master/jenis-poliklinik
     -
       title: Jenis Registrasi
       link : master/jenis-registrasi

@@ -9,6 +9,7 @@ Route::namespace('Master')->group(function () {
         'insenerator'          => 'InseneratorController',
         'jenis-identitas'      => 'JenisIdentitasController',
         'jenis-laundry'        => 'JenisLaundryController',
+        'jenis-logistik'       => 'JenisLogistikController',
         'jenis-poliklinik'     => 'JenisPoliklinikController',
         'jenis-registrasi'     => 'JenisRegistrasiController',
         'jenis-rujukan'        => 'JenisRujukanController',

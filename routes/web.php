@@ -42,6 +42,10 @@ Route::middleware(['auth'])->group(function () {
         Route::view('kepegawaian', 'kepegawaian.index');
     });
 
+    Route::middleware('can:manage_logistik')->group(function () {
+        Route::view('logistik', 'logistik.index');
+    });
+
     Route::resource('kunjungan', 'KunjunganWebController')->only(['index', 'show']);
 
     Route::namespace('Perawatan')->prefix('perawatan')->group(function () {
@@ -92,6 +96,7 @@ Route::middleware(['auth'])->group(function () {
             Route::view('insenerator',         'master.insenerator');
             Route::view('jenis-identitas',     'master.jenis-identitas');
             Route::view('jenis-laundry',       'master.jenis-laundry');
+            Route::view('jenis-logistik',      'master.jenis-logistik');
             Route::view('jenis-poliklinik',    'master.jenis-poliklinik');
             Route::view('jenis-registrasi',    'master.jenis-registrasi');
             Route::view('jenis-rujukan',       'master.jenis-rujukan');

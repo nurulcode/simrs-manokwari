@@ -8,6 +8,7 @@ use App\Enums\KeadaanKeluar;
 use App\Enums\CaraKeluar;
 use App\Enums\KondisiAkhir;
 use App\Enums\TypePenunjang;
+use App\Enums\GolonganObat;
 
 return [
     JenisKelamin::class => [
@@ -69,5 +70,10 @@ return [
         TypePenunjang::UTDRS                => 'UTDRS',
         TypePenunjang::INSENERATOR          => 'Insenerator',
         TypePenunjang::KAMAR_JENAZAH        => 'Layanan Kamar Jenazah',
+    ],
+    GolonganObat::class => [
+        GolonganObat::GENERIK     => 'Generik',
+        GolonganObat::NONGENERIK  => 'Non Generik',
+        GolonganObat::FORMULARIUM => 'Formularium'
     ]
 ];
