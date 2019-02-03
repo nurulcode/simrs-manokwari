@@ -17,7 +17,7 @@ class LogistikController extends Controller
     public function index(LogistikQuery $query)
     {
         return LogistikResource::collection(
-            Logistik::with('jenis')->filter($query)
+            Logistik::stock()->with('jenis')->filter($query)
         );
     }
 

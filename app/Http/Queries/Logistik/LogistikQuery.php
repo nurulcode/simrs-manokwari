@@ -10,4 +10,9 @@ class LogistikQuery extends HttpQuery
     {
         return $builder->where('jenis_id', $value);
     }
+
+    public function stock($builder, $value = null)
+    {
+        return $builder->stock($value);
+    }
 }

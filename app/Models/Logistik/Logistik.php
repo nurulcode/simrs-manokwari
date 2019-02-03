@@ -22,4 +22,31 @@ class Logistik extends Model
 
         return $builder;
     }
+
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
+
+    public function scopeStock($query, $value = null)
+    {
+        if (is_null($query->getQuery()->columns)) {
+            $query->select($query->getQuery()->from . '.*');
+        }
+
+        $transaksi = Transaksi::withoutGlobalScopes()
+            ->selectRaw('SUM(jumlah)')
+            ->whereColumn('logistiks.id', 'logistik_transaksis.logistik_id');
+
+        if ($value) {
+            $transaksi->where('apotek_id', $value);
+        }
+
+        return $query->selectSub($transaksi, 'stock');
+    }
+
+    public function getStockAttribute()
+    {
+        return (int) array_get($this->attributes, 'stock', 0);
+    }
 }

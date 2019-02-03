@@ -49,6 +49,19 @@
         @{{ value }}
         <p class="text-muted" v-if="item.golongan"> @{{ golongan[item.golongan] }} </p>
     </template>
+    <div slot="before-top-button" class="mr-3" style="width: 240px">
+        <ajax-select
+            :params="{jenis: 11}"
+            deselect-label=""
+            label="nama"
+            url="{{ action('Fasilitas\PoliklinikController@index') }}"
+            select-label=""
+            placeholder="Total Stock"
+            v-bind:key-value.sync="logistik.params.stock"
+            v-model="logistik.poli"
+            >
+        </ajax-select>
+    </div>
 </data-table>
 
 
@@ -62,8 +75,10 @@ window.pagemix.push({
                 url   : `{{ action('Logistik\LogistikController@index') }}`,
                 sortBy: 'jenis',
                 params: {
-                    jenis: null
+                    jenis: null,
+                    stock: '',
                 },
+                poli  : null,
                 fields: [{
                     key      : 'jenis',
                     sortable : true,
@@ -72,6 +87,8 @@ window.pagemix.push({
                     sortable : true,
                 }, {
                     key      : 'satuan',
+                }, {
+                    key      : 'stock'
                 }],
                 form: new Form({
                     uraian  : null,

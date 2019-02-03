@@ -35,4 +35,39 @@ class LogistikTransaksiTest extends TestCase
 
         $this->assertInstanceOf(Logistik::class, $resource->logistik);
     }
+
+    /** @test */
+    public function transaksi_penerimaan_menambah_stok()
+    {
+        $logistik = factory(Logistik::class)->create();
+
+        $apotek_a = factory(Poliklinik::class)->create();
+        $apotek_b = factory(Poliklinik::class)->create();
+
+        $resource = factory(Transaksi::class)->create([
+            'jenis_transaksi_type' => Penerimaan::class,
+            'apotek_id'   => $apotek_a->id,
+            'logistik_id' => $logistik->id,
+            'jumlah'      => 10
+        ]);
+
+        $resource = factory(Transaksi::class)->create([
+            'jenis_transaksi_type' => Penerimaan::class,
+            'apotek_id'   => $apotek_b->id,
+            'logistik_id' => $logistik->id,
+            'jumlah'      => 5
+        ]);
+
+        $logistik = Logistik::stock()->find($logistik->id);
+
+        $this->assertEquals(15, $logistik->stock);
+
+        $logistik = Logistik::stock($apotek_a->id)->find($logistik->id);
+
+        $this->assertEquals(10, $logistik->stock);
+
+        $logistik = Logistik::stock($apotek_b->id)->find($logistik->id);
+
+        $this->assertEquals(5, $logistik->stock);
+    }
 }

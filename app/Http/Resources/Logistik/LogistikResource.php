@@ -24,6 +24,7 @@ class LogistikResource extends JsonResource
             'jenis_id'   => $this->jenis_id,
             'jenis'      => Resource::make($this->whenLoaded('jenis')),
             'path'       => $this->path,
+            'stock'      => $this->stock,
         ];
     }
 }
