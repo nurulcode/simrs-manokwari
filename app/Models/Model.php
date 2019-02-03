@@ -28,4 +28,14 @@ abstract class Model extends BaseModel implements ResourceModel
     {
         return new static($var);
     }
+
+    public function editable()
+    {
+        return true;
+    }
+
+    public function deletable()
+    {
+        return true;
+    }
 }

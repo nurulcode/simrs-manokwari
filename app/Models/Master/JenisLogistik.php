@@ -12,11 +12,6 @@ class JenisLogistik extends Model
         return $this->hasMany(Logistik::class, 'jenis_id');
     }
 
-    public function editable()
-    {
-        return true;
-    }
-
     public function deletable()
     {
         return !$this->logistiks_count;
