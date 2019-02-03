@@ -28,6 +28,31 @@ class CreateLogistiksTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
         });
+
+        Schema::create('supliers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nama');
+            $table->text('alamat');
+            $table->string('no_telepon');
+            $table->timestamps();
+        });
+
+        Schema::create('penerimaans', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('suplier_id');
+            $table->unsignedTinyInteger('sistem_pembayaran');
+            $table->string('no_faktur')->unique();
+            $table->date('tanggal_faktur');
+            $table->date('jatuh_tempo');
+            $table->date('tanggal_terima');
+            $table->timestamps();
+
+            $table->foreign('suplier_id')
+                ->references('id')
+                ->on('supliers')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+        });
     }
 
     /**
@@ -37,6 +62,10 @@ class CreateLogistiksTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('penerimaans');
+
+        Schema::dropIfExists('supliers');
+
         Schema::dropIfExists('logistiks');
     }
 }

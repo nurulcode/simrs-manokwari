@@ -70,6 +70,12 @@
     -
       title: Daftar Logistik
       link : logistik
+    -
+      title: Daftar Suplier
+      link : suplier
+    -
+      title: Daftar Penerimaan
+      link : logistik/penerimaan
 
 # ------------------------------------ #
 # ----------- A D M I N -------------- #

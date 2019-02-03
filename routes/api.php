@@ -49,7 +49,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::namespace('Logistik')->prefix('logistik')->group(function () {
         /*  */
         Route::apiResources([
-            'logistik' => 'LogistikController',
+            'logistik'   => 'LogistikController',
+            'suplier'    => 'SuplierController',
+            'penerimaan' => 'PenerimaanController',
         ]);
     });
 

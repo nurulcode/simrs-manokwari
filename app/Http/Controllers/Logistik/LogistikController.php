@@ -3,18 +3,12 @@
 namespace App\Http\Controllers\Logistik;
 
 use App\Models\Logistik\Logistik;
-use App\Http\Controllers\Controller;
+use App\Http\Queries\LogistikQuery;
 use App\Http\Requests\Logistik\LogistikRequest;
 use App\Http\Resources\Logistik\LogistikResource;
-use App\Http\Queries\LogistikQuery;
 
 class LogistikController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('can:manage_logistik')->except('index');
-    }
-
     /**
      * Display a listing of the resource.
      *
