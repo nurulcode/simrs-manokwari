@@ -70,7 +70,9 @@
         </div>
     </data-table>
 </b-tab>
-
+<b-tab title="Transaksi Penerimaan">
+    @include('logistik.penerimaan_transaksi')
+</b-tab>
 
 @endsection
 

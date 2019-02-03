@@ -53,6 +53,28 @@ class CreateLogistiksTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
         });
+
+        Schema::create('logistik_transaksis', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('jenis_transaksi_type');
+            $table->unsignedInteger('jenis_transaksi_id');
+            $table->unsignedInteger('apotek_id');
+            $table->unsignedInteger('logistik_id');
+            $table->integer('jumlah');
+            $table->integer('harga')->default(0);
+            $table->timestamps();
+
+            $table->foreign('apotek_id')
+                ->references('id')
+                ->on('polikliniks')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+            $table->foreign('logistik_id')
+                ->references('id')
+                ->on('logistiks')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+        });
     }
 
     /**
@@ -62,6 +84,8 @@ class CreateLogistiksTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('logistik_transaksis');
+
         Schema::dropIfExists('penerimaans');
 
         Schema::dropIfExists('supliers');

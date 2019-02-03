@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Logistik;
 
 use App\Models\Logistik\Logistik;
-use App\Http\Queries\LogistikQuery;
+use App\Http\Queries\Logistik\LogistikQuery;
 use App\Http\Requests\Logistik\LogistikRequest;
 use App\Http\Resources\Logistik\LogistikResource;
 

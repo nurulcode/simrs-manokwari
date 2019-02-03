@@ -52,6 +52,7 @@ Route::middleware(['auth:api'])->group(function () {
             'logistik'   => 'LogistikController',
             'suplier'    => 'SuplierController',
             'penerimaan' => 'PenerimaanController',
+            'transaksi'  => 'TransaksiController'
         ]);
     });
 

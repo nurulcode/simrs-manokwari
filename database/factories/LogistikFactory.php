@@ -5,6 +5,7 @@ use App\Enums\GolonganObat;
 use Faker\Generator as Faker;
 use App\Models\Master\JenisLogistik;
 use App\Enums\SistemPembayaran;
+use App\Models\Fasilitas\Poliklinik;
 
 $factory->define(Logistik\Logistik::class, function (Faker $faker) {
     return [
@@ -35,5 +36,26 @@ $factory->define(Logistik\Penerimaan::class, function (Faker $faker) {
         'tanggal_faktur'    => $faker->dateTimeThisMonth,
         'jatuh_tempo'       => $faker->dateTimeThisMonth,
         'tanggal_terima'    => $faker->dateTimeThisMonth,
+    ];
+});
+
+$factory->define(Logistik\Transaksi::class, function (Faker $faker) {
+    $type = [
+        Logistik\Penerimaan::class
+    ];
+
+    return [
+        'jenis_transaksi_type' => $faker->randomElement($type),
+        'jenis_transaksi_id'   => function ($transaksi) {
+            return factory($transaksi['jenis_transaksi_type'])->create()->id;
+        },
+        'apotek_id' => function () {
+            return factory(Poliklinik::class)->create()->id;
+        },
+        'logistik_id' => function () {
+            return factory(Logistik\Logistik::class)->create()->id;
+        },
+        'jumlah' => $faker->randomNumber,
+        'harga'  => $faker->randomNumber
     ];
 });

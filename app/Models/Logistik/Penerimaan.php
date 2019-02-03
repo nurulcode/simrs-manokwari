@@ -13,6 +13,13 @@ class Penerimaan extends Model
      */
     protected $dates = ['tanggal_faktur', 'jatuh_tempo', 'tanggal_terima'];
 
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['suplier'];
+
     public function suplier()
     {
         return $this->belongsTo(Suplier::class);

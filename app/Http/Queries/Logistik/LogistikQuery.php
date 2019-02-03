@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Queries;
+namespace App\Http\Queries\Logistik;
 
 use Sty\HttpQuery;
 

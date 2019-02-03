@@ -47,9 +47,7 @@
     </template>
     <template slot="uraian" slot-scope="{item, value}">
         @{{ value }}
-        <p class="text-muted" v-if="item.golongan">
-            @{{ golongan[item.golongan] }}
-        </p>
+        <p class="text-muted" v-if="item.golongan"> @{{ golongan[item.golongan] }} </p>
     </template>
 </data-table>
 
