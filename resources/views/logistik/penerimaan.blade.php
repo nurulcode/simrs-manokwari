@@ -71,6 +71,11 @@
     </data-table>
 </b-tab>
 <b-tab title="Transaksi Penerimaan">
+    <closable-card v-if="!!selected_penerimaan" header="Penerimaan Terpilih:"
+        v-on:close="selected_penerimaan = null">
+        <h5>@{{ selected_penerimaan.no_faktur }} - @{{ selected_penerimaan.suplier.nama }}</h5>
+        <p class="text-muted">@{{ selected_penerimaan.tanggal_terima }}</p>
+    </closable-card>
     @include('logistik.penerimaan_transaksi')
 </b-tab>
 
@@ -112,13 +117,13 @@ window.pagemix.push({
     },
     watch: {
         selected_penerimaan(value) {
-            // this.logistik.params.jenis = value && value.id;
+            this.transaksi.params.jenis_transaksi_id = value && value.id;
 
-            // this.logistik.form.setDefault('jenis', value);
+            this.transaksi.form.setDefault('jenis_transaksi', value);
 
-            // this.logistik.form.setDefault('jenis_id', value && value.id);
+            this.transaksi.form.setDefault('jenis_transaksi_id', value && value.id);
 
-            // this.selected_tab = value ? 1 : this.selected_tab;
+            this.selected_tab = value ? 1 : this.selected_tab;
         },
     }
 });

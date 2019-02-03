@@ -100,7 +100,10 @@ window.pagemix.push({
         return {
             transaksi: {
                 url   : `{{ action('Logistik\TransaksiController@index') }}`,
-                // sortBy: 'uraian',
+                params: {
+                    jenis_transaksi_type: @json(App\Models\Logistik\Penerimaan::class),
+                    jenis_transaksi_id  : null,
+                },
                 fields: [{
                     key      : 'jenis_transaksi',
                     label    : 'Faktur'
