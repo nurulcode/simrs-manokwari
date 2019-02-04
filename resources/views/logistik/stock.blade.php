@@ -5,7 +5,7 @@
 @section('tabs')
 
 <b-tab title="Stock">
-    <data-table v-bind.sync="stock" ref="table_stock" no-action>
+    <data-table v-bind.sync="stock" ref="table_stock" no-action no-add-button-text>
 
         <template slot="jenis" slot-scope="{item, value}" v-if="value">
             @{{ value.uraian }}
@@ -28,10 +28,10 @@
             </ajax-select>
         </div>
         <template slot-scope="{item}" slot="action">
-            <button class="btn btn-primary" v-on:click="editStock(item)">
+            <button class="btn btn-primary" v-on:click="editStock(item)" title="Koreksi Stock">
                 <i class="fa fa-pencil"></i>
             </button>
-            <button class="btn btn-success" v-on:click="transferStock(item)">
+            <button class="btn btn-success" v-on:click="transferStock(item)" title="Transfer Stock">
                 <i class="fa fa-exchange"></i>
             </button>
         </template>
