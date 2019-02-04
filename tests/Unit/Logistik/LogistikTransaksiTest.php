@@ -23,7 +23,7 @@ class LogistikTransaksiTest extends TestCase
     /** @test */
     public function resource_belongs_to_poliklinik()
     {
-        $resource = factory(Transaksi::class);
+        $resource = factory(Transaksi::class)->create();
 
         $this->assertInstanceOf(Poliklinik::class, $resource->apotek);
     }

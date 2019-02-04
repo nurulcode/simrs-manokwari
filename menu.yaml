@@ -71,6 +71,9 @@
       title: Daftar Logistik
       link : logistik
     -
+      title: Daftar Stock
+      link : logistik/stock
+    -
       title: Daftar Suplier
       link : suplier
     -

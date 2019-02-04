@@ -12,7 +12,6 @@
     @include('logistik.logistik')
 </b-tab>
 
-
 @endsection
 
 @push('javascripts')

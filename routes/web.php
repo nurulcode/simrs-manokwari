@@ -43,9 +43,10 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware('can:manage_logistik')->group(function () {
-        Route::view('logistik', 'logistik.index');
+        Route::view('logistik',             'logistik.index');
+        Route::view('logistik/stock',       'logistik.stock');
         Route::view('logistik/penerimaan',  'logistik.penerimaan');
-        Route::view('suplier',  'logistik.suplier');
+        Route::view('suplier',              'logistik.suplier');
     });
 
     Route::resource('kunjungan', 'KunjunganWebController')->only(['index', 'show']);

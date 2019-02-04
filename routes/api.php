@@ -52,8 +52,12 @@ Route::middleware(['auth:api'])->group(function () {
             'logistik'   => 'LogistikController',
             'suplier'    => 'SuplierController',
             'penerimaan' => 'PenerimaanController',
-            'transaksi'  => 'TransaksiController'
+            'transaksi'  => 'TransaksiController',
         ]);
+
+        Route::get('stock',  'StockLogistikController@index');
+
+        Route::post('stock', 'StockLogistikController@update');
     });
 
     Route::prefix('master')->group(base_path('routes/master.php'));

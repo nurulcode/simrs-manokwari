@@ -24,4 +24,9 @@ class Penerimaan extends Model
     {
         return $this->belongsTo(Suplier::class);
     }
+
+    public function transaksis()
+    {
+        return $this->morphMany(Transaksi::class, 'jenis_transaksi');
+    }
 }

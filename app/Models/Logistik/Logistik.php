@@ -14,7 +14,7 @@ class Logistik extends Model
 
     public function orderByJenis($builder, $direction = 'asc')
     {
-        $jenis = JenisLogistik::select('uraian')->whereColumn('id', 'jenis_id');
+        $jenis = JenisLogistik::select('uraian')->whereColumn('id', 'logistiks.jenis_id');
 
         $builder->orderBySub($jenis, $direction);
 
@@ -48,5 +48,14 @@ class Logistik extends Model
     public function getStockAttribute()
     {
         return (int) array_get($this->attributes, 'stock', 0);
+    }
+
+    public function getStock($apotek = null)
+    {
+        if ($apotek) {
+            return $this->transaksis()->where('apotek_id', $apotek)->sum('jumlah');
+        }
+
+        return $this->transaksis()->sum('jumlah');
     }
 }
