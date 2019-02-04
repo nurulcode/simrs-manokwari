@@ -55,6 +55,8 @@ Route::middleware(['auth:api'])->group(function () {
             'transaksi'  => 'TransaksiController',
         ]);
 
+        Route::post('transfer', 'TransferLogistikController');
+
         Route::get('stock',  'StockLogistikController@index');
 
         Route::post('stock', 'StockLogistikController@update');

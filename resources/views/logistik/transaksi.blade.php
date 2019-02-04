@@ -6,7 +6,9 @@ window.pagemix.push({
     data() {
         return {
             transaksi: {
-                url   : `{{ action('Logistik\TransaksiController@index') }}`,
+                url     : `{{ action('Logistik\TransaksiController@index') }}`,
+                sortBy  : `created_at`,
+                sortDesc: true,
                 fields: [{
                     key      : 'jenis',
                     formatter: jenis => jenis ? jenis : 'Koreksi'
