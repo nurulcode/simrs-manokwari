@@ -27,6 +27,6 @@ class Penerimaan extends Model
 
     public function transaksis()
     {
-        return $this->morphMany(Transaksi::class, 'jenis_transaksi');
+        return $this->morphMany(Transaksi::class, 'faktur');
     }
 }

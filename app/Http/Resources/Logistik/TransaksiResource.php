@@ -4,6 +4,7 @@ namespace App\Http\Resources\Logistik;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Fasilitas\PoliklinikResource;
+use App\Enums\JenisTransaksi;
 
 class TransaksiResource extends JsonResource
 {
@@ -16,17 +17,18 @@ class TransaksiResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'                   => $this->id,
-            'jenis_transaksi_type' => $this->jenis_transaksi_type,
-            'jenis_transaksi_id'   => $this->jenis_transaksi_id,
-            'jenis_transaksi'      => $this->whenLoaded('jenis_transaksi'),
-            'apotek_id'            => $this->apotek_id,
-            'apotek'               => PoliklinikResource::make($this->whenLoaded('apotek')),
-            'logistik_id'          => $this->logistik_id,
-            'logistik'             => LogistikResource::make($this->whenLoaded('logistik')),
-            'harga'                => $this->harga,
-            'jumlah'               => $this->jumlah,
-            'path'                 => $this->path,
+            'id'          => $this->id,
+            'jenis'       => JenisTransaksi::getDescription((int) $this->jenis),
+            'faktur_type' => $this->faktur_type,
+            'faktur_id'   => $this->faktur_id,
+            'faktur'      => $this->whenLoaded('faktur'),
+            'apotek_id'   => $this->apotek_id,
+            'apotek'      => PoliklinikResource::make($this->whenLoaded('apotek')),
+            'logistik_id' => $this->logistik_id,
+            'logistik'    => LogistikResource::make($this->whenLoaded('logistik')),
+            'harga'       => $this->harga,
+            'jumlah'      => $this->jumlah,
+            'path'        => $this->path,
         ];
     }
 }

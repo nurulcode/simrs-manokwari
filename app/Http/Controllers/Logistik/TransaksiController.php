@@ -17,7 +17,7 @@ class TransaksiController extends Controller
     public function index(TransaksiQuery $query)
     {
         return TransaksiResource::collection(
-            Transaksi::with('jenis_transaksi', 'apotek', 'logistik')->filter($query)
+            Transaksi::with('faktur', 'apotek', 'logistik')->filter($query)
         );
     }
 

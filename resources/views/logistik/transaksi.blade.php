@@ -1,7 +1,4 @@
-<data-table v-bind.sync="transaksi" ref="table" no-action>
-
-</data-table>
-
+<data-table v-bind.sync="transaksi" ref="table" no-action no-add-button-text> </data-table>
 
 @push('javascripts')
 <script>
@@ -11,7 +8,7 @@ window.pagemix.push({
             transaksi: {
                 url   : `{{ action('Logistik\TransaksiController@index') }}`,
                 fields: [{
-                    key      : 'jenis_transaksi',
+                    key      : 'jenis',
                     formatter: jenis => jenis ? jenis : 'Koreksi'
                 },{
                     key      : 'logistik',

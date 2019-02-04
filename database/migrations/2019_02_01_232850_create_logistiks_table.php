@@ -56,8 +56,9 @@ class CreateLogistiksTable extends Migration
 
         Schema::create('logistik_transaksis', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('jenis_transaksi_type')->nullable();
-            $table->unsignedInteger('jenis_transaksi_id')->nullable();
+            $table->unsignedTinyInteger('jenis');
+            $table->string('faktur_type')->nullable();
+            $table->unsignedInteger('faktur_id')->nullable();
             $table->unsignedInteger('apotek_id');
             $table->unsignedInteger('logistik_id');
             $table->integer('jumlah');

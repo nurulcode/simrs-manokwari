@@ -24,8 +24,8 @@ class PenerimaanTest extends TestCase
         $resource = factory(Penerimaan::class)->create();
 
         factory(Transaksi::class, 20)->create([
-            'jenis_transaksi_type' => Penerimaan::class,
-            'jenis_transaksi_id' => $resource->id
+            'faktur_type' => Penerimaan::class,
+            'faktur_id' => $resource->id
         ]);
 
         $this->assertInstanceOf(Collection::class, $resource->transaksis);

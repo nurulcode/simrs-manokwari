@@ -117,11 +117,11 @@ window.pagemix.push({
     },
     watch: {
         selected_penerimaan(value) {
-            this.transaksi.params.jenis_transaksi_id = value && value.id;
+            this.transaksi.params.faktur_id = value && value.id;
 
-            this.transaksi.form.setDefault('jenis_transaksi', value);
+            this.transaksi.form.setDefault('faktur', value);
 
-            this.transaksi.form.setDefault('jenis_transaksi_id', value && value.id);
+            this.transaksi.form.setDefault('faktur_id', value && value.id);
 
             this.selected_tab = value ? 1 : this.selected_tab;
         },

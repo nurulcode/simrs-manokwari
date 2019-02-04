@@ -14,7 +14,7 @@ class Transaksi extends Model
      */
     protected $table = 'logistik_transaksis';
 
-    public function jenis_transaksi()
+    public function faktur()
     {
         return $this->morphTo();
     }

@@ -8,6 +8,7 @@ use App\Models\Logistik\Logistik;
 use App\Models\Logistik\Transaksi;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Logistik\LogistikResource;
+use App\Enums\JenisTransaksi;
 
 class StockLogistikController extends Controller
 {
@@ -55,6 +56,7 @@ class StockLogistikController extends Controller
         $delta     = $request->input('stock') - $stock;
 
         $logistik->transaksis()->create([
+            'jenis'     => JenisTransaksi::KOREKSI,
             'apotek_id' => $request->input('apotek_id'),
             'jumlah'    => $delta
         ]);

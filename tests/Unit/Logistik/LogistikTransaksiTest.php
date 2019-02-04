@@ -11,13 +11,13 @@ use App\Models\Logistik\Logistik;
 class LogistikTransaksiTest extends TestCase
 {
     /** @test */
-    public function resource_belongs_to_jenis_transaksi()
+    public function resource_belongs_to_faktur()
     {
         $resource = factory(Transaksi::class)->create([
-            'jenis_transaksi_type' => Penerimaan::class
+            'faktur_type' => Penerimaan::class
         ]);
 
-        $this->assertInstanceOf(Penerimaan::class, $resource->jenis_transaksi);
+        $this->assertInstanceOf(Penerimaan::class, $resource->faktur);
     }
 
     /** @test */
@@ -45,14 +45,14 @@ class LogistikTransaksiTest extends TestCase
         $apotek_b = factory(Poliklinik::class)->create();
 
         $resource = factory(Transaksi::class)->create([
-            'jenis_transaksi_type' => Penerimaan::class,
+            'faktur_type' => Penerimaan::class,
             'apotek_id'   => $apotek_a->id,
             'logistik_id' => $logistik->id,
             'jumlah'      => 10
         ]);
 
         $resource = factory(Transaksi::class)->create([
-            'jenis_transaksi_type' => Penerimaan::class,
+            'faktur_type' => Penerimaan::class,
             'apotek_id'   => $apotek_b->id,
             'logistik_id' => $logistik->id,
             'jumlah'      => 5

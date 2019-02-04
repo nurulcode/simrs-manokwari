@@ -6,6 +6,7 @@ use Faker\Generator as Faker;
 use App\Models\Master\JenisLogistik;
 use App\Enums\SistemPembayaran;
 use App\Models\Fasilitas\Poliklinik;
+use App\Enums\JenisTransaksi;
 
 $factory->define(Logistik\Logistik::class, function (Faker $faker) {
     return [
@@ -45,9 +46,10 @@ $factory->define(Logistik\Transaksi::class, function (Faker $faker) {
     ];
 
     return [
-        'jenis_transaksi_type' => $faker->randomElement($type),
-        'jenis_transaksi_id'   => function ($transaksi) {
-            return factory($transaksi['jenis_transaksi_type'])->create()->id;
+        'jenis'       => $faker->randomElement(JenisTransaksi::getValues()),
+        'faktur_type' => $faker->randomElement($type),
+        'faktur_id'   => function ($transaksi) {
+            return factory($transaksi['faktur_type'])->create()->id;
         },
         'apotek_id' => function () {
             return factory(Poliklinik::class)->create()->id;

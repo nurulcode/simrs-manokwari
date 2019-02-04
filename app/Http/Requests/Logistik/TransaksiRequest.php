@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Logistik;
 
 use Illuminate\Foundation\Http\FormRequest;
+use BenSampo\Enum\Rules\EnumValue;
+use App\Enums\JenisTransaksi;
 
 class TransaksiRequest extends FormRequest
 {
@@ -24,12 +26,13 @@ class TransaksiRequest extends FormRequest
     public function rules()
     {
         return [
-            'jenis_transaksi_type' => 'required',
-            'jenis_transaksi_id'   => 'required|morph_exists:jenis_transaksi_type',
-            'apotek_id'            => 'required|exists:polikliniks,id',
-            'logistik_id'          => 'required|exists:logistiks,id',
-            'harga'                => 'required',
-            'jumlah'               => 'required',
+            'jenis'       => ['required', new EnumValue(JenisTransaksi::class, false)],
+            'faktur_type' => 'required',
+            'faktur_id'   => 'required|morph_exists:faktur_type',
+            'apotek_id'   => 'required|exists:polikliniks,id',
+            'logistik_id' => 'required|exists:logistiks,id',
+            'harga'       => 'required',
+            'jumlah'      => 'required',
         ];
     }
 }

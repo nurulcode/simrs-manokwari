@@ -1,6 +1,6 @@
 <data-table v-bind.sync="transaksi" ref="table">
     <div slot="form">
-        <b-form-group v-bind="transaksi.form.feedback('jenis_transaksi_id')">
+        <b-form-group v-bind="transaksi.form.feedback('faktur_id')">
             <b slot="label">Faktur Penerimaan:</b>
             <ajax-select
                 deselect-label=""
@@ -8,9 +8,9 @@
                 placeholder="Pilih Nomor Faktur"
                 select-label=""
                 url="{{ action('Logistik\PenerimaanController@index') }}"
-                v-model="transaksi.form.jenis_transaksi"
-                v-bind:key-value.sync="transaksi.form.jenis_transaksi_id"
-                v-on:select="transaksi.form.errors.clear('jenis_transaksi_id')"
+                v-model="transaksi.form.faktur"
+                v-bind:key-value.sync="transaksi.form.faktur_id"
+                v-on:select="transaksi.form.errors.clear('faktur_id')"
                 >
                 <template slot="option" slot-scope="{option}">
                     <span>@{{ option.no_faktur }} - @{{ option.suplier.nama }}</span>
@@ -78,7 +78,7 @@
             </input>
         </b-form-group>
     </div>
-    <template slot="jenis_transaksi" slot-scope="{item, value}">
+    <template slot="faktur" slot-scope="{item, value}">
         @{{ value.no_faktur }}
         <p class="text-muted" v-if="value.suplier">@{{ value.suplier.nama }}</p>
     </template>
@@ -101,11 +101,11 @@ window.pagemix.push({
             transaksi: {
                 url   : `{{ action('Logistik\TransaksiController@index') }}`,
                 params: {
-                    jenis_transaksi_type: @json(App\Models\Logistik\Penerimaan::class),
-                    jenis_transaksi_id  : null,
+                    faktur_type: @json(App\Models\Logistik\Penerimaan::class),
+                    faktur_id  : null,
                 },
                 fields: [{
-                    key      : 'jenis_transaksi',
+                    key      : 'faktur',
                     label    : 'Faktur'
                 }, {
                     key      : 'apotek',
@@ -118,16 +118,17 @@ window.pagemix.push({
                     label    : 'Harga Beli'
                 }],
                 form: new Form({
-                    jenis_transaksi_type: @json(App\Models\Logistik\Penerimaan::class),
-                    jenis_transaksi_id  : null,
-                    logistik_id         : null,
-                    apotek_id           : null,
-                    harga               : 0,
-                    jumlah              : 1
+                    jenis      : @json(App\Enums\JenisTransaksi::PENERIMAAN),
+                    faktur_type: @json(App\Models\Logistik\Penerimaan::class),
+                    faktur_id  : null,
+                    logistik_id: null,
+                    apotek_id  : null,
+                    harga      : 0,
+                    jumlah     : 1
                 }, {
-                    logistik            : null,
-                    apotek              : null,
-                    jenis_transaksi     : null
+                    logistik   : null,
+                    apotek     : null,
+                    faktur     : null
                 }),
             }
         }
