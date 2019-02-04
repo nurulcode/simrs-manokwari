@@ -26376,7 +26376,7 @@ function () {
       var _this3 = this;
 
       this.__fields.forEach(function (field) {
-        if (data.hasOwnProperty(field) && data[field]) {
+        if (data.hasOwnProperty(field) && (data[field] != null || data[field] != undefined)) {
           _this3[field] = JSON.parse(JSON.stringify(data[field]));
         }
       });
