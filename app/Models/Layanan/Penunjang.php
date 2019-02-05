@@ -41,8 +41,29 @@ class Penunjang extends Layanan
         return str_replace('_', '-', (strtolower(TypePenunjang::getKey((string) $value))));
     }
 
+    public function getTitleAttribute()
+    {
+        return ucwords(str_replace('-', ' ', $this->jenis));
+    }
+
     public function getSlugAttribute()
     {
         return url('/penunjang/' . $this->jenis . '/' . $this->id);
+    }
+
+    public function tindakans()
+    {
+        return $this->hasMany(PenunjangTindakan::class);
+    }
+
+    public function getTotalBiaya()
+    {
+        $biaya = collect([]);
+
+        foreach ($this->tindakans as $tindakan) {
+            $biaya->push($tindakan->total_tarif);
+        }
+
+        return $biaya->sum();
     }
 }

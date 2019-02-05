@@ -31,4 +31,19 @@ class Visite extends Layanan
     {
         return $this->belongsTo(JenisVisite::class);
     }
+
+    public function getUraianAttribute()
+    {
+        return $this->jenis_visite->uraian;
+    }
+
+    public function getSubUraianAttribute()
+    {
+        return $this->waktu->format('d/m/Y H:i:s');
+    }
+
+    public function getJumlahAttribute()
+    {
+        return 1;
+    }
 }

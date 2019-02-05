@@ -138,4 +138,29 @@ class Kunjungan extends Model
     {
         return $query->where('waktu_masuk', Carbon::now());
     }
+
+    public function getTotalBiaya()
+    {
+        $registrasis = $this->registrasis()->whereHas('jenis')->get();
+
+        $perawatans  = $this->registrasis()->whereNotNull('perawatan_id')->get();
+
+        $perawatans  = $perawatans->map->perawatan;
+
+        $biaya       = collect([]);
+
+        foreach ($registrasis as $registrasi) {
+            $biaya->push($registrasi->total_tarif);
+        }
+
+        foreach ($perawatans as $perawatan) {
+            $biaya->push($perawatan->getTotalBiaya());
+
+            if ($perawatan->resep) {
+                $biaya->push($perawatan->resep->getTotalBiaya());
+            }
+        }
+
+        return $biaya->sum();
+    }
 }

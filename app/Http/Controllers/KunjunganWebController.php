@@ -51,7 +51,15 @@ class KunjunganWebController extends Controller
      */
     public function show(Kunjungan $kunjungan)
     {
-        return view('kunjungan.show', compact(['kunjungan']));
+        $registrasis = $kunjungan->registrasis()->whereHas('jenis')->get();
+
+        $perawatans  = $kunjungan->registrasis()->whereNotNull('perawatan_id')->get();
+
+        return view('kunjungan.show', [
+            'kunjungan'   => $kunjungan,
+            'registrasis' => $registrasis,
+            'perawatans'  => $perawatans->map->perawatan
+        ]);
     }
 
     /**

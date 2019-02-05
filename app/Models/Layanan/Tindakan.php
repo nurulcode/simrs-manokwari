@@ -31,4 +31,9 @@ class Tindakan extends Layanan
     {
         return  $this->belongsTo(TindakanPemeriksaan::class);
     }
+
+    public function getUraianAttribute()
+    {
+        return $this->tindakan_pemeriksaan->uraian;
+    }
 }

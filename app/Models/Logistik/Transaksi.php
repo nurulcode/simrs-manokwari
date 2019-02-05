@@ -45,4 +45,9 @@ class Transaksi extends Model
     {
         return $this->belongsTo(Logistik::class);
     }
+
+    public function getTotalTarifAttribute()
+    {
+        return abs($this->jumlah) * $this->harga;
+    }
 }

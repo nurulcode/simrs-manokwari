@@ -29,4 +29,9 @@ trait HasTarif
     {
         return json_decode($value, true);
     }
+
+    public function getTotalTarifAttribute()
+    {
+        return collect($this->tarif)->sum() * $this->jumlah;
+    }
 }

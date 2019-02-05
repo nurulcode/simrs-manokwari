@@ -108,7 +108,7 @@ window.pagemix.push({
                     logistik_id: null,
                     apotek_id  : null,
                     harga      : 0,
-                    jumlah     : 1
+                    jumlah     : 0
                 }, {
                     logistik   : null,
                     apotek     : null,

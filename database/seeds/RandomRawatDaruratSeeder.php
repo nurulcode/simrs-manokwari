@@ -20,7 +20,7 @@ class RandomRawatDaruratSeeder extends Seeder
         $rawatdarurat = factory(RawatDarurat::class)->states('real')->create();
 
         $jenis_registrasi = JenisRegistrasi::inRandomOrder()
-            ->where('kategori', KategoriRegistrasi::RAWAT_JALAN)
+            ->where('kategori', KategoriRegistrasi::GAWAT_DARURAT)
             ->first();
 
         $rawatdarurat->registrasi()->create([

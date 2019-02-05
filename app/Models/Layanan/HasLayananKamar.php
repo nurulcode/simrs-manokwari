@@ -19,6 +19,11 @@ trait HasLayananKamar
         });
     }
 
+    public function initializeHasLayananKamar()
+    {
+        array_set($this->tarifable_layanan,  'layanan_kamar', 'Layanan Kamar');
+    }
+
     public function layanan_kamar()
     {
         return $this->morphOne(Kamar::class, 'perawatan');

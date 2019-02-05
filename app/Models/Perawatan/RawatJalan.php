@@ -4,13 +4,9 @@ namespace App\Models\Perawatan;
 
 use Carbon\Carbon;
 use App\Enums\KelasTarif;
-use App\Models\Layanan\HasLayananDiagnosa;
-use App\Models\Fasilitas\BelongsToPoliklinik;
 
 class RawatJalan extends Perawatan
 {
-    use HasLayananDiagnosa, BelongsToPoliklinik;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -38,6 +34,6 @@ class RawatJalan extends Perawatan
 
     public function getKelasAttribute()
     {
-        return KelasTarif::getKey(KelasTarif::TARIF_UMUM);
+        return KelasTarif::TARIF_UMUM;
     }
 }

@@ -6,10 +6,10 @@ use App\Enums;
 use Tests\TestCase;
 use App\Models\Layanan\Tindakan;
 use App\Models\Kepegawaian\Pegawai;
-use App\Models\Perawatan\RawatInap;
 use App\Models\Master\TindakanPemeriksaan;
 use App\Models\Perawatan\Perawatan;
 use App\Enums\KelasTarif;
+use App\Models\Perawatan\RawatDarurat;
 
 class TindakanTest extends TestCase
 {
@@ -40,11 +40,11 @@ class TindakanTest extends TestCase
     /** @test */
     public function it_copy_the_tarif_attribute_from_master_tindakan_pemeriksaan()
     {
-        $perawatan = factory(RawatInap::class)->create();
+        $perawatan = factory(RawatDarurat::class)->create();
 
         $master    = factory(TindakanPemeriksaan::class)->create();
 
-        $perawatan = RawatInap::find($perawatan->id);
+        $perawatan = RawatDarurat::find($perawatan->id);
 
         $master->tarif()->create([
             'tarif' => [
@@ -57,7 +57,7 @@ class TindakanTest extends TestCase
         ]);
 
         $resource = factory(Tindakan::class)->create([
-            'perawatan_type'          => RawatInap::class,
+            'perawatan_type'          => RawatDarurat::class,
             'perawatan_id'            => $perawatan->id,
             'tindakan_pemeriksaan_id' => $master->id,
         ]);

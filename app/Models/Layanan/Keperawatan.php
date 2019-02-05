@@ -31,4 +31,9 @@ class Keperawatan extends Layanan
     {
         return $this->perawatan_khusus;
     }
+
+    public function getUraianAttribute()
+    {
+        return $this->perawatan_khusus->uraian;
+    }
 }

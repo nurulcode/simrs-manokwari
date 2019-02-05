@@ -9,8 +9,6 @@
   title : Daftar Kunjungan
   icon  : icon-calendar
   childs:
-    - title : Daftar Kunjungan
-      link  : kunjungan
     -
       title: Rawat Jalan
       link : perawatan/rawat-jalan
@@ -20,7 +18,13 @@
     -
       title: Rawat Darurat (IGD)
       link : perawatan/rawat-darurat
-
+-
+  title : Keuangan
+  icon  : fa fa-money
+  childs:
+  -
+      title: Kasir Umum
+      link : kunjungan
 # ------------------------------------ #
 # ------- R E G I S T R A S I -------- #
 # ------------------------------------ #
@@ -67,6 +71,9 @@
   title : Farmasi dan Logistik
   icon  : icon-social-dropbox
   childs:
+    -
+      title: Apotek Pasien Perawatan
+      link : penunjang/apotek
     -
       title: Daftar Logistik
       link : logistik

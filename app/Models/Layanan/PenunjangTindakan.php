@@ -44,4 +44,14 @@ class PenunjangTindakan extends Model
     {
         return KelasTarif::getKey((string) $this->penunjang->perawatan->kelas);
     }
+
+    public function getUraianAttribute()
+    {
+        return $this->tindakan->uraian;
+    }
+
+    public function getTotalTarifAttribute()
+    {
+        return collect($this->tarif)->sum() * $this->jumlah;
+    }
 }

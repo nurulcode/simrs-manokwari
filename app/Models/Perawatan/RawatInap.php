@@ -3,14 +3,19 @@
 namespace App\Models\Perawatan;
 
 use Carbon\Carbon;
+use App\Models\Layanan\Kamar;
+use App\Models\Layanan\HasLayananKamar;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Fasilitas\BelongsToRanjang;
-use App\Models\Layanan\HasLayananKamar;
-use App\Models\Layanan\Kamar;
+use App\Models\Layanan\HasLayananVisite;
+use App\Models\Layanan\HasLayananKeperawatan;
 
 class RawatInap extends Perawatan
 {
-    use BelongsToRanjang, HasLayananKamar;
+    use BelongsToRanjang,
+        HasLayananKamar,
+        HasLayananKeperawatan,
+        HasLayananVisite;
 
     /**
      * The relations to eager load on every query.

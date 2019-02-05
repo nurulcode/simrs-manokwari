@@ -37,4 +37,32 @@ class Kamar extends Layanan
     {
         return $this->ranjang->ruangan->kelas_tarif;
     }
+
+    public function getUraianAttribute()
+    {
+        $poliklinik = $this->ranjang->poliklinik->nama;
+        $ruangan    = $this->ranjang->ruangan->nama;
+
+        return "{$poliklinik} - {$ruangan}";
+    }
+
+    public function getSubUraianAttribute()
+    {
+        $masuk  = $this->waktu_masuk->format('d/m/Y H:i:s');
+
+        $keluar = $this->waktu_keluar ? $this->waktu_keluar : now();
+
+        // return dd($this->waktu_masuk->diffInDays($keluar));
+
+        $keluar = $keluar->format('d/m/Y H:i:s');
+
+        return "{$masuk} - {$keluar}";
+    }
+
+    public function getJumlahAttribute()
+    {
+        $keluar = $this->waktu_keluar ? $this->waktu_keluar : now();
+
+        return $this->waktu_masuk->diffInDays($keluar) + 1;
+    }
 }

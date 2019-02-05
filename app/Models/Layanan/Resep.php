@@ -28,4 +28,9 @@ class Resep extends Layanan
     {
         return $this->morphMany(Transaksi::class, 'faktur');
     }
+
+    public function getTotalBiaya()
+    {
+        return $this->obats->sum('total_tarif');
+    }
 }

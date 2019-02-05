@@ -41,4 +41,9 @@ class Registrasi extends Model
     {
         return $this->belongsTo(JenisRegistrasi::class, 'jenis_registrasi_id');
     }
+
+    public function getTotalTarifAttribute()
+    {
+        return collect($this->tarif)->sum();
+    }
 }
