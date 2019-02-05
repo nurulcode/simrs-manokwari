@@ -8,6 +8,7 @@ use Faker\Generator as Faker;
 use App\Models\Fasilitas\Ranjang;
 use App\Models\Kepegawaian\Pegawai;
 use App\Models\Fasilitas\Poliklinik;
+use App\Models\Logistik\Logistik;
 
 $perawatans = [
     Perawatan\RawatJalan::class,
@@ -196,6 +197,24 @@ $factory->define(Layanan\Perinatologi::class, function (Faker $faker) use ($pera
         },
         'waktu'  => $faker->dateTimeThisMonth,
         'jumlah' => $faker->randomNumber,
+    ];
+});
+
+$factory->define(Layanan\Resep::class, function (Faker $faker) use ($perawatans) {
+    return [
+        'perawatan_type' => $faker->randomElement($perawatans),
+        'perawatan_id'   => function ($tindakan) {
+            return factory($tindakan['perawatan_type'])->create()->id;
+        },
+        'obat_id'        => function () {
+            return factory(Logistik::class)->create()->id;
+        },
+        'petugas_id' => function () {
+            return factory(Pegawai::class)->create()->id;
+        },
+        'jumlah' => $faker->randomNumber,
+        'aturan_pakai' => $faker->word,
+        'waktu'  => $faker->dateTimeThisMonth,
     ];
 });
 

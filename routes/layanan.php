@@ -12,6 +12,7 @@ Route::namespace('Layanan')->group(function () {
         'penunjang'          => 'PenunjangController',
         'penunjang_tindakan' => 'PenunjangTindakanController',
         'perinatologi'       => 'PerinatologiController',
+        'resep'              => 'ResepController',
         'tindakan'           => 'TindakanController',
         'visite'             => 'VisiteController'
     ]);
