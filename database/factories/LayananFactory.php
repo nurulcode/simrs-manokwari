@@ -6,9 +6,9 @@ use App\Models\Perawatan;
 use App\Enums\KasusDiagnosa;
 use Faker\Generator as Faker;
 use App\Models\Fasilitas\Ranjang;
+use App\Models\Logistik\Logistik;
 use App\Models\Kepegawaian\Pegawai;
 use App\Models\Fasilitas\Poliklinik;
-use App\Models\Logistik\Logistik;
 
 $perawatans = [
     Perawatan\RawatJalan::class,
@@ -205,6 +205,14 @@ $factory->define(Layanan\Resep::class, function (Faker $faker) use ($perawatans)
         'perawatan_type' => $faker->randomElement($perawatans),
         'perawatan_id'   => function ($tindakan) {
             return factory($tindakan['perawatan_type'])->create()->id;
+        },
+    ];
+});
+
+$factory->define(Layanan\ResepDetail::class, function (Faker $faker) {
+    return [
+        'resep_id' => function () {
+            return factory(Layanan\Resep::class)->create()->id;
         },
         'obat_id'        => function () {
             return factory(Logistik::class)->create()->id;

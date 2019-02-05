@@ -89,7 +89,7 @@ window.pagemix.push({
     data() {
         return {
             resep: {
-                url   : `{{ action('Layanan\ResepController@index') }}`,
+                url   : `{{ action('Layanan\ResepDetailController@index') }}`,
                 params: {
                     perawatan_id  : @json($perawatan->id),
                     perawatan_type: @json(get_class($perawatan))

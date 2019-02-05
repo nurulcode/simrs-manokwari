@@ -15,7 +15,8 @@ $factory->define(Logistik\Logistik::class, function (Faker $faker) {
         'jenis_id' => function () {
             return factory(JenisLogistik::class)->create()->id;
         },
-        'golongan' => GolonganObat::getRandomValue()
+        'golongan'   => GolonganObat::getRandomValue(),
+        'harga_jual' => $faker->randomNumber
     ];
 });
 

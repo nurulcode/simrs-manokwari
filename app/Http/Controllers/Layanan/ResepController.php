@@ -16,9 +16,7 @@ class ResepController extends Controller
      */
     public function index(LayananQuery $query)
     {
-        return ResepResource::collection(
-            Resep::with('petugas', 'obat')->filter($query)
-        );
+        return ResepResource::collection(Resep::with('perawatan')->filter($query));
     }
 
     /**

@@ -17,6 +17,12 @@ class CreateLayananResepsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('perawatan_id');
             $table->string('perawatan_type');
+            $table->timestamps();
+        });
+
+        Schema::create('layanan_resep_details', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('resep_id');
             $table->unsignedInteger('obat_id');
             $table->unsignedInteger('jumlah')->default(1);
             $table->string('aturan_pakai');
@@ -24,6 +30,11 @@ class CreateLayananResepsTable extends Migration
             $table->unsignedInteger('petugas_id');
             $table->timestamps();
 
+            $table->foreign('resep_id')
+                ->references('id')
+                ->on('layanan_reseps')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
             $table->foreign('petugas_id')
                 ->references('id')
                 ->on('pegawais')
@@ -44,6 +55,8 @@ class CreateLayananResepsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reseps');
+        Schema::dropIfExists('layanan_resep_details');
+
+        Schema::dropIfExists('layanan_reseps');
     }
 }

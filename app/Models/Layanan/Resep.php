@@ -17,4 +17,9 @@ class Resep extends Layanan
     {
         return $this->belongsTo(Logistik::class);
     }
+
+    public function details()
+    {
+        return $this->hasMany(ResepDetail::class);
+    }
 }

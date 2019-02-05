@@ -4,7 +4,7 @@ namespace App\Http\Requests\Layanan;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ResepRequest extends FormRequest
+class ResepDetailRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,11 @@ class ResepRequest extends FormRequest
         return [
             'perawatan_id'   => 'required|morph_exists:perawatan_type',
             'perawatan_type' => 'required',
+            'obat_id'        => 'required|exists:logistiks,id',
+            'jumlah'         => 'required',
+            'aturan_pakai'   => 'required',
+            'waktu'          => 'required',
+            'petugas_id'     => 'required|exists:pegawais,id',
         ];
     }
 }
