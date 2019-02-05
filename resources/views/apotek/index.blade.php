@@ -9,10 +9,21 @@
                 class="btn btn-primary"> <i class="icon-eye"></i>
             </a>
         </template>
-        <template slot="waktu_masuk" slot-scope="{value}" v-if="value">
-            @{{ value | date_time }}
+        <template slot="nomor_kunjungan" slot-scope="{item}" v-if="item.perawatan">
+            @{{ item.perawatan.kunjungan.nomor_kunjungan }}
         </template>
-
+        <template slot="waktu_masuk" slot-scope="{item}" v-if="item.perawatan">
+            @{{ item.perawatan.waktu_masuk | date_time }}
+        </template>
+        <template slot="pasien" slot-scope="{item}" v-if="item.perawatan">
+            @{{ item.perawatan.kunjungan.pasien.nama }}
+            <p class="text-muted">
+                @{{ item.perawatan.kunjungan.pasien.no_rekam_medis }}
+            </p>
+        </template>
+        <template slot="poliklinik" slot-scope="{item}" v-if="item.perawatan">
+            @{{ item.perawatan.poliklinik.kode }} - @{{ item.perawatan.poliklinik.nama }}
+        </template>
     </data-table>
 @endsection
 
@@ -22,15 +33,15 @@ window.pagemix.push({
     data() {
         return {
             apotek: {
-                sortBy  : `waktu_masuk`,
                 sortDesc: true,
-                url     : `{{ action('KunjunganController@index') }}`,
-
+                url     : `{{ action('Layanan\\ResepController@index') }}`,
                 fields: [{
                     key      : 'nomor_kunjungan',
                     thStyle  : {
                         'width': '160px'
                     }
+                },{
+                    key      : 'waktu_masuk',
                 },{
                     key      : 'pasien',
                     thStyle  : {
@@ -42,6 +53,11 @@ window.pagemix.push({
                     thStyle  : {
                         'width': '180px'
                     }
+                },{
+                    key      : 'pasien',
+                },{
+                    key      : 'poliklinik',
+                    label    : 'Ruang Pelayanan'
                 },{
                     key      : 'view',
                     class    : 'text-center',

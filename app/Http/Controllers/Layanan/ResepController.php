@@ -16,7 +16,13 @@ class ResepController extends Controller
      */
     public function index(LayananQuery $query)
     {
-        return ResepResource::collection(Resep::with('perawatan')->filter($query));
+        return ResepResource::collection(
+            Resep::with(
+                'perawatan',
+                'perawatan.poliklinik',
+                'perawatan.kunjungan'
+            )->filter($query)
+        );
     }
 
     /**

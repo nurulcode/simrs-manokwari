@@ -47,7 +47,6 @@ Route::middleware(['auth'])->group(function () {
         Route::view('logistik/stock',       'logistik.stock');
         Route::view('logistik/penerimaan',  'logistik.penerimaan');
         Route::view('suplier',              'logistik.suplier');
-        Route::view('apotek',               'apotek.index');
     });
 
     Route::resource('kunjungan', 'KunjunganWebController')->only(['index', 'show']);
@@ -67,6 +66,9 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::namespace('Penunjang')->prefix('penunjang')->group(function () {
+        Route::resource('apotek', 'ApotekController')
+            ->only(['index', 'show'])
+            ->middleware('can:manage_apotek');
         Route::resource('laboratorium', 'LaboratoriumController')
             ->only(['index', 'show'])
             ->middleware('can:manage_laboratorium');
