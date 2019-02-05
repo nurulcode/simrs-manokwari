@@ -31,6 +31,18 @@
                 >
             </input>
         </b-form-group>
+        <b-form-group v-bind="logistik.form.feedback('harga_jual')">
+            <b slot="label">Harga Satuan:</b>
+            <input
+                class="form-control"
+                name="harga_jual"
+                placeholder="Harga Satuan"
+                type="number"
+                min="0"
+                v-model="logistik.form.harga_jual"
+                >
+            </input>
+        </b-form-group>
         <b-form-group label="Golongan:" v-bind="logistik.form.feedback('golongan')">
             <b-form-select
                 :options="{{ json_encode(App\Enums\GolonganObat::toSelectOptions()) }}"
@@ -85,16 +97,20 @@ window.pagemix.push({
                 },{
                     key      : 'uraian',
                     sortable : true,
-                }, {
+                },{
                     key      : 'satuan',
-                }, {
+                },{
+                    key      : 'harga_jual',
+                    label    : 'Harga Satuan'
+                },{
                     key      : 'stock'
                 }],
                 form: new Form({
-                    uraian  : null,
-                    jenis_id: null,
-                    satuan  : null,
-                    golongan: null
+                    uraian    : null,
+                    jenis_id  : null,
+                    satuan    : null,
+                    harga_jual: 0,
+                    golongan  : null
                 }),
             }
         }

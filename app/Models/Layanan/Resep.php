@@ -3,6 +3,7 @@
 namespace App\Models\Layanan;
 
 use App\Models\Logistik\Logistik;
+use App\Models\Logistik\Transaksi;
 
 class Resep extends Layanan
 {
@@ -21,5 +22,10 @@ class Resep extends Layanan
     public function details()
     {
         return $this->hasMany(ResepDetail::class);
+    }
+
+    public function obats()
+    {
+        return $this->morphMany(Transaksi::class, 'faktur');
     }
 }

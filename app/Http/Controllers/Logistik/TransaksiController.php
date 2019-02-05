@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Logistik;
 
+use App\Models\Logistik\Logistik;
 use App\Models\Logistik\Transaksi;
 use App\Http\Queries\Logistik\TransaksiQuery;
+use Illuminate\Validation\ValidationException;
 use App\Http\Requests\Logistik\TransaksiRequest;
 use App\Http\Resources\Logistik\TransaksiResource;
 
@@ -29,6 +31,16 @@ class TransaksiController extends Controller
      */
     public function store(TransaksiRequest $request)
     {
+        $logistik = Logistik::stock()->findOrFail($request->input('logistik_id'));
+
+        $stock    = $logistik->getStock($request->input('apotek_id'));
+
+        if ($stock + $request->input('jumlah') < 0) {
+            throw ValidationException::withMessages([
+                'jumlah' => ['Stock tidak mencukupi'],
+            ]);
+        }
+
         return response()->crud(
             new TransaksiResource(Transaksi::create($request->validated()))
         );

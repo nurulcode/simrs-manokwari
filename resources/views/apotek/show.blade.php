@@ -10,7 +10,8 @@
 
 <b-card no-body>
     <b-tabs lazy card>
-        @include('apotek.resep')
+        <b-tab title="Resep"> @include('apotek.resep') </b-tab>
+        <b-tab title="Penggunaan Obat/Alkes"> @include('apotek.obat') </b-tab>
     </b-tabs>
 </b-card>
 

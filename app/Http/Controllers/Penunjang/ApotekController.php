@@ -27,7 +27,7 @@ class ApotekController extends Controller
     {
         return view('apotek.show', [
             'title'     => 'Apotek Pasien Perawatan',
-            'penunjang' => $apotek,
+            'resep'     => $apotek,
             'kunjungan' => $apotek->perawatan->kunjungan,
             'perawatan' => $apotek->perawatan,
         ]);

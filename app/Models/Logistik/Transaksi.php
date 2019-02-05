@@ -4,6 +4,7 @@ namespace App\Models\Logistik;
 
 use App\Models\Model;
 use App\Models\Fasilitas\Poliklinik;
+use App\Models\Layanan\Resep;
 
 class Transaksi extends Model
 {
@@ -13,6 +14,22 @@ class Transaksi extends Model
      * @var string
      */
     protected $table = 'logistik_transaksis';
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if ($model->faktur_type == Resep::class) {
+                $model->harga = $model->logistik->harga_jual;
+            }
+        });
+    }
 
     public function faktur()
     {

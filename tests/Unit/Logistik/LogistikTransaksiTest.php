@@ -7,6 +7,7 @@ use App\Models\Logistik\Transaksi;
 use App\Models\Logistik\Penerimaan;
 use App\Models\Fasilitas\Poliklinik;
 use App\Models\Logistik\Logistik;
+use App\Models\Layanan\Resep;
 
 class LogistikTransaksiTest extends TestCase
 {
@@ -69,5 +70,24 @@ class LogistikTransaksiTest extends TestCase
         $logistik = Logistik::stock($apotek_b->id)->find($logistik->id);
 
         $this->assertEquals(5, $logistik->stock);
+    }
+
+    /** @test */
+    public function transaksi_copy_harga_if_resep()
+    {
+        $logistik = factory(Logistik::class)->create([
+            'harga_jual' => 10000
+        ]);
+
+        $apotek_a = factory(Poliklinik::class)->create();
+
+        $resource = factory(Transaksi::class)->create([
+            'faktur_type' => Resep::class,
+            'apotek_id'   => $apotek_a->id,
+            'logistik_id' => $logistik->id,
+            'jumlah'      => 10
+        ]);
+
+        $this->assertEquals(10000, $resource->harga);
     }
 }

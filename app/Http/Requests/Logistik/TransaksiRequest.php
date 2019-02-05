@@ -31,7 +31,7 @@ class TransaksiRequest extends FormRequest
             'faktur_id'   => 'required|morph_exists:faktur_type',
             'apotek_id'   => 'required|exists:polikliniks,id',
             'logistik_id' => 'required|exists:logistiks,id',
-            'harga'       => 'required',
+            'harga'       => 'nullable',
             'jumlah'      => 'required',
         ];
     }
