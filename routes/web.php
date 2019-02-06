@@ -51,6 +51,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('kunjungan', 'KunjunganWebController')->only(['index', 'show']);
 
+    Route::get('kunjungan/{kunjungan}/cetak', 'KunjunganCetakController');
+
     Route::namespace('Perawatan')->prefix('perawatan')->group(function () {
         Route::resource('rawat-jalan', 'RawatJalanWebController')
             ->only(['index', 'create', 'show'])

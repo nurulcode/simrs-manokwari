@@ -1,6 +1,18 @@
 <?php use App\Enums\JenisTarif; ?>
 
-@component('components.card', ['header' => 'Rincian Transaksi'])
+@component('components.card')
+    @slot('header')
+        <div class="row">
+            <div class="col">
+                <h6 class="mr-auto mb-0" style="line-height: 33px"> Rincian Transaksi </h6>
+            </div>
+            <div class="col text-right">
+                <a class="btn btn-brand btn-spotify" href="{{ url()->current() }}/cetak">
+                    <i class="fa fa-print"></i> <span>Cetak</span>
+                </a>
+            </div>
+        </div>
+    @endslot
     <table class="table table-bordered">
         <thead>
             <tr>
