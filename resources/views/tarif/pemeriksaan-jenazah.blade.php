@@ -1,8 +1,8 @@
-<data-table v-bind.sync="visite" ref="table_visite" no-action no-add-button-text >
+<data-table v-bind.sync="pemeriksaan_jenazah" ref="table_pemeriksaan_jenazah" no-action no-add-button-text >
     <template slot="action" slot-scope="{item}">
         <button
             class="btn btn-primary"
-            v-on:click="setTarif(item.uraian, item.tarif, 'table_visite')">
+            v-on:click="setTarif(item.uraian, item.tarif, 'table_pemeriksaan_jenazah')">
             Ubah Tarif
         </button>
     </template>
@@ -14,7 +14,7 @@
 window.pagemix.push({
     data() {
         return {
-            visite: {
+            pemeriksaan_jenazah: {
                 sortBy: `uraian`,
                 url   : `{{ action('Master\PemeriksaanJenazahController@index') }}`,
                 fields: [{
