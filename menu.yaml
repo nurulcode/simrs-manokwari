@@ -6,44 +6,74 @@
   link  : /
   icon  : icon-speedometer
 -
-  title : Daftar Kunjungan
-  icon  : icon-calendar
+  title      : Daftar Kunjungan
+  icon       : icon-calendar
+  permissions:
+    - manage_rawat_jalan
+    - manage_rawat_darurat
+    - manage_rawat_inap
   childs:
     -
-      title: Rawat Jalan
-      link : perawatan/rawat-jalan
+      title      : Rawat Jalan
+      link       : perawatan/rawat-jalan
+      permissions:
+        - manage_rawat_jalan
     -
-      title: Rawat Inap
-      link : perawatan/rawat-inap
+      title      : Rawat Inap
+      link       : perawatan/rawat-inap
+      permissions:
+        - manage_rawat_inap
     -
-      title: Rawat Darurat (IGD)
-      link : perawatan/rawat-darurat
+      title      : Rawat Darurat (IGD)
+      link       : perawatan/rawat-darurat
+      permissions:
+        - manage_rawat_darurat
 -
-  title : Keuangan
-  icon  : fa fa-money
+  title      : Keuangan
+  icon       : fa fa-money
+  permissions:
+    - manage_kunjungan
   childs:
   -
-      title: Kasir Umum
-      link : kunjungan
+      title      : Kasir Umum
+      link       : kunjungan
+      permissions:
+        - manage_kunjungan
 # ------------------------------------ #
 # ------- R E G I S T R A S I -------- #
 # ------------------------------------ #
 -
-  title : Registrasi
-  icon  : icon-briefcase
+  title      : Registrasi
+  icon       : icon-briefcase
+  permissions:
+    - registrasi_pasien
+    - manage_rawat_jalan
+    - manage_rawat_darurat
+    - manage_rawat_inap
   childs:
     -
-      title: Reg. Rawat Jalan
-      link : perawatan/rawat-jalan/create
+      title      : Reg. Rawat Jalan
+      link       : perawatan/rawat-jalan/create
+      permissions:
+        - registrasi_pasien
+        - manage_rawat_jalan
     -
-      title: Reg. Rawat Inap
-      link : perawatan/rawat-inap/create
+      title      : Reg. Rawat Inap
+      link       : perawatan/rawat-inap/create
+      permissions:
+        - registrasi_pasien
+        - manage_rawat_inap
     -
-      title: Reg. Rawat Darurat (IGD)
-      link : perawatan/rawat-darurat/create
+      title      : Reg. Rawat Darurat (IGD)
+      link       : perawatan/rawat-darurat/create
+      permissions:
+        - registrasi_pasien
+        - manage_rawat_darurat
 -
-  title : Instalasi Penunjang
-  icon  : icon-briefcase
+  title      : Instalasi Penunjang
+  icon       : icon-briefcase
+  permissions:
+    - manage_layanan
   childs:
     -
       title: Laboratorium
@@ -68,8 +98,10 @@
       link : penunjang/kamar-jenazah
 
 -
-  title : Farmasi dan Logistik
-  icon  : icon-social-dropbox
+  title      : Farmasi dan Logistik
+  icon       : icon-social-dropbox
+  permissions:
+    - manage_logistik
   childs:
     -
       title: Apotek Pasien Perawatan
@@ -91,27 +123,43 @@
 # ----------- A D M I N -------------- #
 # ------------------------------------ #
 -
-  title : Admin Area
-  type  : header
+  title      : Admin Area
+  type       : header
+  permissions:
+    - manage_pasien
+    - manage_kepegawaian
+    - manage_tarif
+    - manage_fasilitas
+    - manage_master_data
 -
-  title : Daftar Pasien
-  icon  : icon-people
-  link  : pasien
+  title      : Daftar Pasien
+  icon       : icon-people
+  link       : pasien
+  permissions:
+    - manage_pasien
 -
-  title : Daftar Pegawai
-  icon  : fa fa-stethoscope
-  link  : kepegawaian
+  title      : Daftar Pegawai
+  icon       : fa fa-stethoscope
+  link       : kepegawaian
+  permissions:
+    - manage_kepegawaian
 -
-  title : Daftar Tarif
-  link  : tarif
-  icon  : icon-credit-card
+  title      : Daftar Tarif
+  link       : tarif
+  icon       : icon-credit-card
+  permissions:
+    - manage_tarif
 -
-  title : Poliklinik/Ruangan
-  icon  : fa fa-hospital-o
-  link  : fasilitas
+  title      : Poliklinik/Ruangan
+  icon       : fa fa-hospital-o
+  link       : fasilitas
+  permissions:
+    - manage_fasilitas
 -
   title : Master Data
   icon  : icon-grid
+  permissions:
+    - manage_master_data
   childs:
     -
       title: Daftar Agama
@@ -204,21 +252,34 @@
 # ---------- S Y S T E M ------------- #
 # ------------------------------------ #
 -
-  title : System
-  type  : header
+  title      : System
+  type       : header
+  permissions:
+    - manage_user
+    - manage_role
+    - manage_permission
+    - view_activities_page
 -
-  title : Users
-  link  : user
-  icon  : icon-people
+  title      : Users
+  link       : user
+  icon       : icon-people
+  permissions:
+    - manage_user
 -
-  title : Roles
-  link  : role
-  icon  : icon-shield
+  title      : Roles
+  link       : role
+  icon       : icon-shield
+  permissions:
+    - manage_role
 -
-  title : Permissions
-  link  : permission
-  icon  : icon-lock-open
+  title      : Permissions
+  link       : permission
+  icon       : icon-lock-open
+  permissions:
+    - manage_permission
 -
-  title : Activities
-  link  : activities
-  icon  : fa fa-history
+  title      : Activities
+  link       : activities
+  icon       : fa fa-history
+  permissions:
+    - view_activities_page

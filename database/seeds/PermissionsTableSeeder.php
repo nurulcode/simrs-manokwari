@@ -42,6 +42,11 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
+            'name'        => 'manage_tarif',
+            'description' => 'Mengelola tarif'
+        ]);
+
+        Permission::create([
             'name'        => 'manage_kepegawaian',
             'description' => 'Mengelola kepegawaian'
         ]);
@@ -64,6 +69,26 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
             'name'        => 'manage_rawat_inap',
             'description' => 'Mengelola data rawat darurat'
+        ]);
+
+        Permission::create([
+            'name'        => 'registrasi_pasien',
+            'description' => 'Registrasi Pasien'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_kunjungan',
+            'description' => 'Kelola kunjungan dan pembayaran'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_logistik',
+            'description' => 'Kelola farmasi dan logistik'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_layanan',
+            'description' => 'Kelola layanan penunjang'
         ]);
 
         foreach (config('resources') as $resource) {
