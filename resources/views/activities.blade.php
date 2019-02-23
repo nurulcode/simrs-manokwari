@@ -15,7 +15,7 @@ window.pagemix.push({
         return {
             activities: {
                 sortBy  : `created_at`,
-                sortDesc: true
+                sortDesc: true,
                 url     : `{{ action('ActivityController@index') }}`,
                 fields: [
                     {
