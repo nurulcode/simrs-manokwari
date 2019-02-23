@@ -48,3 +48,9 @@
 </table>
 
 @endsection
+
+@push('javascripts')
+<script>
+window.onload = function() { window.print(); }
+</script>
+@endpush
