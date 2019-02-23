@@ -1,6 +1,6 @@
 @extends('layouts.single-card')
 
-@section('title', 'Master Jenis Poliklinik Management')
+@section('title', 'Master Jenis Logistik Management')
 
 @section('card')
     <data-table v-bind.sync="resource" ref="table">

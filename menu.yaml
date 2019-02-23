@@ -242,11 +242,11 @@
     -
       title: Jenis Visite
       link : master/jenis-visite
-    -
-      title: Jenis Rumah Sakit
--
-  title : Data Rumah Sakit
-  icon  : fa fa-hospital-o
+    # -
+    #   title: Jenis Rumah Sakit
+# -
+  # title : Data Rumah Sakit
+  # icon  : fa fa-hospital-o
 
 # ------------------------------------ #
 # ---------- S Y S T E M ------------- #
