@@ -41,9 +41,11 @@ trait BelongsToKecamatan
 
     public function orderByKecamatan($builder, $direction = 'asc')
     {
+        $table = $builder->getQuery()->from;
+
         $kecamatan_name = Kecamatan::withoutGlobalScope('provinsi')
             ->select('name')
-            ->whereColumn('id', 'kecamatan_id');
+            ->whereColumn('id', $table . '.kecamatan_id');
 
         $builder->orderBySub($kecamatan_name, $direction);
 
