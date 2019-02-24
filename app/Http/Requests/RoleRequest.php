@@ -15,11 +15,7 @@ class RoleRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('role')) {
-            return $this->user()->can('update', $this->route('role'));
-        }
-
-        return $this->user()->can('create', Role::class);
+        return true;
     }
 
     /**

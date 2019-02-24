@@ -19,8 +19,14 @@ Auth::routes([
 Route::middleware(['auth'])->group(function () {
     Route::get('/', 'HomeController@index');
     Route::get('/activities', 'ActivityController@view');
-    Route::get('/role', 'RoleController@view');
-    Route::get('/user', 'UserController@view');
+
+    Route::middleware('can:manage_role')->group(function () {
+        Route::view('role', 'role');
+    });
+
+    Route::middleware('can:manage_user')->group(function () {
+        Route::view('user', 'user');
+    });
 
     Route::middleware('can:manage_fasilitas')->group(function () {
         Route::view('fasilitas', 'fasilitas.index');
@@ -55,8 +61,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::namespace('Perawatan')->prefix('perawatan')->group(function () {
         Route::resource('rawat-jalan', 'RawatJalanWebController')
-            ->only(['index', 'create', 'show'])
-            ->middleware('can:manage_rawat_jalan');
+            ->only(['index', 'create', 'show']);
 
         Route::resource('rawat-darurat', 'RawatDaruratWebController')
             ->only(['index', 'create', 'show'])

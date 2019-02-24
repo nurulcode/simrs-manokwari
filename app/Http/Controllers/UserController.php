@@ -5,12 +5,22 @@ namespace App\Http\Controllers;
 use Sty\HttpQuery;
 use App\Models\User;
 use App\UserRegistration;
-use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('can:manage_user');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +28,6 @@ class UserController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', User::class);
-
         return UserResource::collection(User::filter($query));
     }
 
@@ -44,8 +52,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $this->authorize('view', $user);
-
         return new UserResource($user);
     }
 
@@ -71,21 +77,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $this->authorize('delete', $user);
+        $authenticated = Auth::user();
+
+        if ($authenticated->is($user) || $user->isSuperAdmin()) {
+            return abort(403);
+        }
 
         return response()->crud(tap($user)->delete());
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        $this->authorize('view', User::class);
-
-        return view('user');
     }
 }

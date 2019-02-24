@@ -8,10 +8,18 @@ use App\Http\Resources\UserResource;
 
 class UserActivationToggleController extends Controller
 {
+    /**
+    * Instantiate a new controller instance.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+        $this->middleware('can:manage_user');
+    }
+
     public function __invoke(Request $request, User $user)
     {
-        $this->authorize('activate', $user);
-
         if ($user->isSuperAdmin()) {
             return abort(403);
         }

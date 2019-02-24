@@ -30,11 +30,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($this->route('user')) {
-            return $this->user()->can('update', $this->route('user'));
-        }
-
-        return $this->user()->can('create', User::class);
+        return true;
     }
 
     /**

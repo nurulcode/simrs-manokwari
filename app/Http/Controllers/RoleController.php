@@ -5,12 +5,21 @@ namespace App\Http\Controllers;
 use Sty\HttpQuery;
 use App\Models\Role;
 use App\RoleRegistration;
-use Illuminate\Http\Request;
 use App\Http\Requests\RoleRequest;
 use App\Http\Resources\RoleResource;
 
 class RoleController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('can:manage_role');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +27,6 @@ class RoleController extends Controller
      */
     public function index(HttpQuery $query)
     {
-        $this->authorize('index', Role::class);
-
         return RoleResource::collection(Role::filter($query));
     }
 
@@ -44,8 +51,6 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        $this->authorize('view', $role);
-
         return new RoleResource($role);
     }
 
@@ -58,6 +63,10 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, Role $role)
     {
+        if ($role->name == 'superadmin') {
+            return abort(403);
+        }
+
         return response()->crud(new RoleResource(
             RoleRegistration::update($role, $request->validated())
         ));
@@ -71,21 +80,10 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $this->authorize('delete', $role);
+        if ($role->name == 'superadmin') {
+            return abort(403);
+        }
 
         return response()->crud(tap($role)->delete());
-    }
-
-    /**
-     * Display the resource page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function view(Request $request)
-    {
-        $this->authorize('view', Role::class);
-
-        return view('role');
     }
 }
