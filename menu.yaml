@@ -73,29 +73,48 @@
   title      : Instalasi Penunjang
   icon       : icon-briefcase
   permissions:
-    - manage_layanan
+    - manage_laboratorium
+    - manage_radiologi
+    - manage_operasi
+    - manage_insenerator
+    - manage_utdrs
+    - manage_kamar_jenazah
   childs:
     -
-      title: Laboratorium
-      link : penunjang/laboratorium
+      title      : Laboratorium
+      link       : penunjang/laboratorium
+      permissions:
+        - manage_laboratorium
     -
-      title: Radiologi
-      link : penunjang/radiologi
+      title      : Radiologi
+      link       : penunjang/radiologi
+      permissions:
+        - manage_radiologi
     -
-      title: Rehabilitasi Medik
-      link : penunjang/rehabilitasi-medik
+      title      : Rehabilitasi Medik
+      link       : penunjang/rehabilitasi-medik
+      permissions:
+        - manage_rehabilitasi_medik
     -
-      title: Operasi
-      link : penunjang/operasi
+      title      : Operasi
+      link       : penunjang/operasi
+      permissions:
+        - manage_operasi
     -
-      title: Insenerator
-      link : penunjang/insenerator
+      title      : Insenerator
+      link       : penunjang/insenerator
+      permissions:
+        - manage_insenerator
     -
-      title: UTDRS
-      link : penunjang/utdrs
+      title      : UTDRS
+      link       : penunjang/utdrs
+      permissions:
+        - manage_utdrs
     -
-      title: Kamar Jenazah
-      link : penunjang/kamar-jenazah
+      title      : Kamar Jenazah
+      link       : penunjang/kamar-jenazah
+      permissions:
+        - manage_kamar_jenazah
 
 -
   title      : Farmasi dan Logistik

@@ -23,8 +23,23 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
+            'name'        => 'manage_apotek',
+            'description' => 'Mengelola apotek'
+        ]);
+
+        Permission::create([
             'name'        => 'manage_fasilitas',
             'description' => 'Mengelola fasilitas'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_insenerator',
+            'description' => 'Mengelola layanan insenerator'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_kamar_jenazah',
+            'description' => 'Mengelola layanan kamar jenazah'
         ]);
 
         Permission::create([
@@ -35,6 +50,11 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
             'name'        => 'manage_kunjungan',
             'description' => 'Mengelola kunjungan dan pembayaran'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_laboratorium',
+            'description' => 'Mengelola layanan laboratorium'
         ]);
 
         Permission::create([
@@ -53,6 +73,11 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
+            'name'        => 'manage_operasi',
+            'description' => 'Mengelola layanan operasi'
+        ]);
+
+        Permission::create([
             'name'        => 'manage_pasien',
             'description' => 'Mengelola pasien'
         ]);
@@ -60,6 +85,11 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
             'name'        => 'manage_permission',
             'description' => 'Mengelola permission'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_radiologi',
+            'description' => 'Mengelola layanan radiologi'
         ]);
 
         Permission::create([
@@ -83,6 +113,11 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
+            'name'        => 'manage_rehabilitasi_medik',
+            'description' => 'Mengelola layanan rehabilitasi medik'
+        ]);
+
+        Permission::create([
             'name'        => 'manage_role',
             'description' => 'Mengelola role'
         ]);
@@ -95,6 +130,11 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
             'name'        => 'manage_user',
             'description' => 'Mengelola user'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_utdrs',
+            'description' => 'Mengelola layanan UTDRS'
         ]);
 
         Permission::create([

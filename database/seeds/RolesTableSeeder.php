@@ -31,19 +31,63 @@ class RolesTableSeeder extends Seeder
         ]))->givePermsissionTo('manage_registrasi');
 
         with(Role::create([
+            'name'        => 'operator_kasir',
+            'description' => 'Operator Kasir'
+        ]))->givePermsissionTo('manage_kunjungan');
+
+        with(Role::create([
+            'name'        => 'operator_laboratorium',
+            'description' => 'Operator Laboratorium'
+        ]))->givePermsissionTo('manage_laboratorium');
+
+        with(Role::create([
+            'name'        => 'operator_radiologi',
+            'description' => 'Operator Radiologi'
+        ]))->givePermsissionTo('manage_radiologi');
+
+        with(Role::create([
+            'name'        => 'operator_operasi',
+            'description' => 'Operator Operasi'
+        ]))->givePermsissionTo('manage_operasi');
+
+        with(Role::create([
+            'name'        => 'operator_insenerator',
+            'description' => 'Operator Insenerator'
+        ]))->givePermsissionTo('manage_insenerator');
+
+        with(Role::create([
+            'name'        => 'operator_utdrs',
+            'description' => 'Operator UTDRS'
+        ]))->givePermsissionTo('manage_utdrs');
+
+        with(Role::create([
+            'name'        => 'operator_kamar_jenazah',
+            'description' => 'Operator Kamar Jenazah'
+        ]))->givePermsissionTo('manage_kamar_jenazah');
+
+        with(Role::create([
             'name'        => 'operator_rawat_jalan',
             'description' => 'Operator Rawat Jalan'
-        ]))->givePermsissionTo('manage_rawat_jalan');
+        ]))->givePermsissionTo([
+            'manage_layanan',
+            'manage_rawat_jalan'
+        ]);
 
         with(Role::create([
             'name'        => 'operator_rawat_darurat',
             'description' => 'Operator Rawat Darurat'
-        ]))->givePermsissionTo('manage_rawat_darurat');
+        ]))->givePermsissionTo([
+            'manage_layanan',
+            'manage_rawat_darurat'
+        ]);
 
         with(Role::create([
             'name'        => 'operator_rawat_inap',
             'description' => 'Operator Rawat Inap'
-        ]))->givePermsissionTo('manage_rawat_inap');
+        ]))->givePermsissionTo([
+            'manage_layanan',
+            'manage_rawat_inap'
+        ]);
 
         Schema::enableForeignKeyConstraints();
     }

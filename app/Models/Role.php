@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
 
 class Role extends Model
@@ -33,10 +34,18 @@ class Role extends Model
 
     public function givePermsissionTo($permission)
     {
-        if (!$permission instanceof Permission) {
-            $permission = Permission::where('name', $permission)->firstOrFail();
-        }
+        $permissions = Collection::wrap($permission);
 
-        $this->permissions()->attach($permission->id);
+        $permissions->transform(function ($permission, $key) {
+            if (!$permission instanceof Permission) {
+                $permission = Permission::where('name', $permission)->firstOrFail();
+            }
+
+            return $permission;
+        });
+
+        $this->permissions()->syncWithoutDetaching(
+            $permissions->pluck('id')->toArray()
+        );
     }
 }
