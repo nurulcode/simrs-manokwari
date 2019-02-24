@@ -27,7 +27,7 @@ trait HasRoles
             $role = Role::where('name', $role)->firstOrFail();
         }
 
-        $this->roles()->attach($role->id);
+        $this->roles()->syncWithoutDetaching($role->id);
     }
 
     public function assignRoles($roles)
