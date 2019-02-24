@@ -46,7 +46,7 @@
   title      : Registrasi
   icon       : icon-briefcase
   permissions:
-    - registrasi_pasien
+    - manage_registrasi
     - manage_rawat_jalan
     - manage_rawat_darurat
     - manage_rawat_inap
@@ -55,19 +55,19 @@
       title      : Reg. Rawat Jalan
       link       : perawatan/rawat-jalan/create
       permissions:
-        - registrasi_pasien
+        - manage_registrasi
         - manage_rawat_jalan
     -
       title      : Reg. Rawat Inap
       link       : perawatan/rawat-inap/create
       permissions:
-        - registrasi_pasien
+        - manage_registrasi
         - manage_rawat_inap
     -
       title      : Reg. Rawat Darurat (IGD)
       link       : perawatan/rawat-darurat/create
       permissions:
-        - registrasi_pasien
+        - manage_registrasi
         - manage_rawat_darurat
 -
   title      : Instalasi Penunjang

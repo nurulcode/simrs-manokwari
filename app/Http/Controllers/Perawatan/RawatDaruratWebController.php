@@ -6,11 +6,22 @@ use Illuminate\Http\Request;
 use App\Enums\KategoriRegistrasi;
 use App\Http\Controllers\Controller;
 use App\Models\Fasilitas\Poliklinik;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Master\JenisRegistrasi;
 use App\Models\Perawatan\RawatDarurat;
 
 class RawatDaruratWebController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('can:manage_rawat_darurat')->except('create');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,6 +43,10 @@ class RawatDaruratWebController extends Controller
      */
     public function create()
     {
+        if (!Gate::any(['manage_registrasi', 'manage_rawat_darurat'])) {
+            return abort(403);
+        }
+
         $jenis_registrasis = JenisRegistrasi::where(
             'kategori', KategoriRegistrasi::GAWAT_DARURAT
         )->get();

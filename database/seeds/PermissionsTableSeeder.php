@@ -23,27 +23,8 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
-            'name'        => 'view_activities_page',
-            'description' => 'Akses halaman daftar aktifitas pengguna'
-        ]);
-
-        Permission::create([
-            'name'        => 'manage_permission',
-            'description' => 'Mengelola permission'
-        ]);
-        Permission::create([
-            'name'        => 'manage_master_data',
-            'description' => 'Mengelola master data'
-        ]);
-
-        Permission::create([
             'name'        => 'manage_fasilitas',
             'description' => 'Mengelola fasilitas'
-        ]);
-
-        Permission::create([
-            'name'        => 'manage_tarif',
-            'description' => 'Mengelola tarif'
         ]);
 
         Permission::create([
@@ -52,13 +33,33 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
+            'name'        => 'manage_kunjungan',
+            'description' => 'Mengelola kunjungan dan pembayaran'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_layanan',
+            'description' => 'Mengelola layanan penunjang'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_logistik',
+            'description' => 'Mengelola farmasi dan logistik'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_master_data',
+            'description' => 'Mengelola master data'
+        ]);
+
+        Permission::create([
             'name'        => 'manage_pasien',
             'description' => 'Mengelola pasien'
         ]);
 
         Permission::create([
-            'name'        => 'manage_rawat_jalan',
-            'description' => 'Mengelola data rawat jalan'
+            'name'        => 'manage_permission',
+            'description' => 'Mengelola permission'
         ]);
 
         Permission::create([
@@ -72,59 +73,39 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
+            'name'        => 'manage_rawat_jalan',
+            'description' => 'Mengelola data rawat jalan'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_registrasi',
+            'description' => 'Mengelola registrasi'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_role',
+            'description' => 'Mengelola role'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_tarif',
+            'description' => 'Mengelola tarif'
+        ]);
+
+        Permission::create([
+            'name'        => 'manage_user',
+            'description' => 'Mengelola user'
+        ]);
+
+        Permission::create([
             'name'        => 'registrasi_pasien',
             'description' => 'Registrasi Pasien'
         ]);
 
         Permission::create([
-            'name'        => 'manage_kunjungan',
-            'description' => 'Kelola kunjungan dan pembayaran'
+            'name'        => 'view_activities_page',
+            'description' => 'Akses halaman daftar aktifitas pengguna'
         ]);
-
-        Permission::create([
-            'name'        => 'manage_logistik',
-            'description' => 'Kelola farmasi dan logistik'
-        ]);
-
-        Permission::create([
-            'name'        => 'manage_layanan',
-            'description' => 'Kelola layanan penunjang'
-        ]);
-
-        foreach (config('resources') as $resource) {
-            $slug = with(new $resource)->permissionKeyName();
-            $name = str_replace('_', ' ', $slug);
-
-            Permission::create([
-                'name'        => "view_{$slug}_page",
-                'description' => "Akses halaman kelola {$name}"
-            ]);
-
-            Permission::create([
-                'name'        => "view_{$slug}_index",
-                'description' => "Akses daftar index {$name}"
-            ]);
-
-            Permission::create([
-                'name'        => "create_{$slug}",
-                'description' => "Membuat {$name} baru"
-            ]);
-
-            Permission::create([
-                'name'        => "update_{$slug}",
-                'description' => "Mengubah data {$name}"
-            ]);
-
-            Permission::create([
-                'name'        => "delete_{$slug}",
-                'description' => "Menghapus data {$name}"
-            ]);
-
-            Permission::create([
-                'name'        => "manage_{$slug}",
-                'description' => "Melihat, membuat, mengubah, dan menghapus data {$name}"
-            ]);
-        }
 
         Schema::enableForeignKeyConstraints();
     }

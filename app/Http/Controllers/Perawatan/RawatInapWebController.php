@@ -7,10 +7,21 @@ use App\Enums\KategoriRegistrasi;
 use App\Models\Perawatan\RawatInap;
 use App\Http\Controllers\Controller;
 use App\Models\Fasilitas\Poliklinik;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Master\JenisRegistrasi;
 
 class RawatInapWebController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('can:manage_rawat_inap')->except('create');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,6 +43,10 @@ class RawatInapWebController extends Controller
      */
     public function create()
     {
+        if (!Gate::any(['manage_registrasi', 'manage_rawat_inap'])) {
+            return abort(403);
+        }
+
         $jenis_registrasis = JenisRegistrasi::where(
             'kategori', KategoriRegistrasi::RAWAT_INAP
         )->get();

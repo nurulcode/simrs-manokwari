@@ -64,12 +64,10 @@ Route::middleware(['auth'])->group(function () {
             ->only(['index', 'create', 'show']);
 
         Route::resource('rawat-darurat', 'RawatDaruratWebController')
-            ->only(['index', 'create', 'show'])
-            ->middleware('can:manage_rawat_darurat');
+            ->only(['index', 'create', 'show']);
 
         Route::resource('rawat-inap', 'RawatInapWebController')
-            ->only(['index', 'create', 'show'])
-            ->middleware('can:manage_rawat_inap');
+            ->only(['index', 'create', 'show']);
     });
 
     Route::namespace('Penunjang')->prefix('penunjang')->group(function () {

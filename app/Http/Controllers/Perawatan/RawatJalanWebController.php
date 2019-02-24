@@ -7,10 +7,21 @@ use App\Enums\KategoriRegistrasi;
 use App\Http\Controllers\Controller;
 use App\Models\Fasilitas\Poliklinik;
 use App\Models\Perawatan\RawatJalan;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Master\JenisRegistrasi;
 
 class RawatJalanWebController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('can:manage_rawat_jalan')->except('create');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,6 +43,10 @@ class RawatJalanWebController extends Controller
      */
     public function create()
     {
+        if (!Gate::any(['manage_registrasi', 'manage_rawat_jalan'])) {
+            return abort(403);
+        }
+
         $jenis_registrasis = JenisRegistrasi::where(
             'kategori', KategoriRegistrasi::RAWAT_JALAN
         )->get();
