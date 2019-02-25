@@ -120,11 +120,15 @@
   title      : Farmasi dan Logistik
   icon       : icon-social-dropbox
   permissions:
+    - manage_apotek
     - manage_logistik
   childs:
     -
-      title: Apotek Pasien Perawatan
-      link : penunjang/apotek
+      title      : Apotek Pasien Perawatan
+      link       : penunjang/apotek
+      permissions:
+        - manage_logistik
+        - manage_apotek
     -
       title: Daftar Logistik
       link : logistik
