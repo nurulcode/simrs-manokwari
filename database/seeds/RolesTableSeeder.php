@@ -26,6 +26,11 @@ class RolesTableSeeder extends Seeder
         ]))->givePermsissionTo('do_anything');
 
         with(Role::create([
+                'name'        => 'administrator',
+                'description' => 'Administrator'
+        ]))->givePermsissionTo('do_anything');
+
+        with(Role::create([
             'name'        => 'operator_registrasi',
             'description' => 'Operator Registrasi'
         ]))->givePermsissionTo('manage_registrasi');
