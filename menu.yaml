@@ -127,20 +127,27 @@
       title      : Apotek Pasien Perawatan
       link       : penunjang/apotek
       permissions:
-        - manage_logistik
         - manage_apotek
     -
-      title: Daftar Logistik
-      link : logistik
+      title      : Daftar Logistik
+      link       : logistik
+      permissions:
+        - manage_logistik
     -
-      title: Daftar Stock
-      link : logistik/stock
+      title      : Daftar Stock
+      link       : logistik/stock
+      permissions:
+        - manage_logistik
     -
-      title: Daftar Suplier
-      link : suplier
+      title      : Daftar Suplier
+      link       : suplier
+      permissions:
+        - manage_logistik
     -
-      title: Daftar Penerimaan
-      link : logistik/penerimaan
+      title      : Daftar Penerimaan
+      link       : logistik/penerimaan
+      permissions:
+        - manage_logistik
 
 # ------------------------------------ #
 # ----------- A D M I N -------------- #

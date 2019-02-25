@@ -9,6 +9,11 @@ use App\Http\Resources\Layanan\ResepResource;
 
 class ResepController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:manage_layanan_resep');
+    }
+
     /**
      * Display a listing of the resource.
      *

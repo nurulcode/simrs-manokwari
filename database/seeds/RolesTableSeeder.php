@@ -33,7 +33,10 @@ class RolesTableSeeder extends Seeder
         with(Role::create([
             'name'        => 'operator_apotek',
             'description' => 'Operator Apotek'
-        ]))->givePermsissionTo('manage_apotek');
+        ]))->givePermsissionTo([
+            'manage_apotek',
+            'manage_layanan_resep'
+        ]);
 
         with(Role::create([
             'name'        => 'operator_logistik',
