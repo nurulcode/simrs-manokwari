@@ -112,7 +112,7 @@ window.pagemix.push({
                     jumlah        : null,
                     aturan_pakai  : null,
                     petugas_id    : null,
-                    waktu         : new Date()
+                    waktu         : format(new Date(), 'YYYY-MM-DD HH:mm:ss')
                 }, {
                     obat          : null,
                     petugas       : null

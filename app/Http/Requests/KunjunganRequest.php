@@ -13,7 +13,7 @@ class KunjunganRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('update', $this->route('kunjungan'));
+        return true;
     }
 
     /**

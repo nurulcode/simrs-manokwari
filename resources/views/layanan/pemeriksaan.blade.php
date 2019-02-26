@@ -104,7 +104,7 @@ window.pagemix.push({
                     pemeriksaan_umum_id: null,
                     hasil              : null,
                     petugas_id         : null,
-                    waktu              : new Date()
+                    waktu              : format(new Date(), 'YYYY-MM-DD HH:mm:ss')
                 }, {
                     pemeriksaan_umum   : null,
                     petugas            : null
