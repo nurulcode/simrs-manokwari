@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Sty\HttpQuery;
 use App\Models\Pasien;
 use App\Http\Resources\PasienResource;
 use App\Http\Requests\CreatePasienRequest;
 use App\Http\Requests\UpdatePasienRequest;
+use App\Http\Queries\PasienQuery;
 
 class PasienController extends Controller
 {
@@ -25,7 +25,7 @@ class PasienController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(HttpQuery $query)
+    public function index(PasienQuery $query)
     {
         return PasienResource::collection(
             Pasien::with([
